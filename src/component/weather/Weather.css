@@ -1,0 +1,8 @@
+.weather {
+    background-color: antiquewhite;
+    padding: 20px;
+}
+
+.weather > * {
+    margin-bottom: 10px;
+}
