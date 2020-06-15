@@ -2,7 +2,7 @@ import {
   FETCH_WEATHER_REQUEST,
   FETCH_WEATHER_SUCCESS,
   FETCH_WEATHER_FAIL,
-} from "./WeatherConst";
+} from "./constants";
 
 export function fetchWeatherRequest(city) {
   return {
