@@ -20,7 +20,6 @@ export const fetchWeatherService = (city) => async (dispatch, getState) => {
     const currentWeather = getFormattedTemp(parsedResponse.main.temp);
 
     dispatch(fetchWeatherSuccess(currentWeather, cityName));
-
   } catch (error) {
     dispatch(fetchWeatherFail(error));
   }

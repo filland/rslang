@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
 import { fetchWeatherService } from "./service";
 
 import "./styles.css";
@@ -48,20 +51,19 @@ class Weather extends Component {
       <div className="weather">
         <h2>Weather component</h2>
         <p>{`Current temperature in ${city}: ${temp} °C`}</p>
-        <div>
-          <label htmlFor="city-name">
-            <span>City:</span>
-            <input
+        <Form onSubmit={this.handleClick}>
+          <Form.Group>
+            <Form.Control
               type="text"
               ref={this.cityInput}
               placeholder="enter city name"
               id="city-name"
             />
-          </label>
-        </div>
-        <button type="button" onClick={this.handleClick} style={{ width: "90%" }}>
-          Get current temperature
-        </button>
+          </Form.Group>
+          <Button type="submit">
+            Get current temperature
+          </Button>
+        </Form>
       </div>
     );
   }
