@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from './component/navbar';
 import Login from './component/login';
 import Weather from './component/weather';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
