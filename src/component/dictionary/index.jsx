@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Button from "react-bootstrap/Button";
+import { Tabs, Tab } from "react-bootstrap";
 import "./styles.css";
 
 const propTypes = {
@@ -12,16 +12,17 @@ const propTypes = {
 class Dictionary extends Component {
   render() {
     return (
-      <div className="shopping-list">
-        <h1>
-          Список покупок для
-        </h1>
-        <ul>
-          <li>Instagram</li>
-          <li>WhatsApp</li>
-          <li>Oculus</li>
-        </ul>
-      </div>
+      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
+        <Tab eventKey="learn" title="Изучаемые слова">
+          tab-1
+        </Tab>
+        <Tab eventKey="difficult" title="Сложные слова" disabled>
+          tab-2
+        </Tab>
+        <Tab eventKey="deleted" title="Удалённые слова" disabled>
+          tab-3
+        </Tab>
+      </Tabs>
     );
   }
 }
