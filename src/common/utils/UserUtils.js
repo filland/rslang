@@ -1,4 +1,4 @@
-const USER_ID = "userId";
+const USER_ID = 'userId';
 
 export const setUserId = (userId) => {
   localStorage.setItem(USER_ID, userId);

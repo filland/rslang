@@ -2,14 +2,13 @@ import {
   FETCH_WEATHER_REQUEST,
   FETCH_WEATHER_SUCCESS,
   FETCH_WEATHER_FAIL,
-} from "./constants";
+} from './constants';
 
-export function fetchWeatherRequest(city) {
+export function fetchWeatherRequest() {
   return {
     type: FETCH_WEATHER_REQUEST,
     payload: {
       isLoading: true,
-      city,
     },
   };
 }

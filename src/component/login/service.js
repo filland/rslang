@@ -1,22 +1,32 @@
-import { setJwtToken } from "../../common/utils/TokenUtils";
-import { setUserId } from "../../common/utils/UserUtils";
+import { loginRequest, loginSuccess, loginFail } from './actions';
+import { setJwtToken } from '../../common/utils/TokenUtils';
+import { setUserId } from '../../common/utils/UserUtils';
 
-export const loginUser = async (email, password) => {
-  const userData = {
-    email,
-    password,
-  };
+const loginUser = (email, password) => async (dispatch) => {
+  try {
+    dispatch(loginRequest());
 
-  const LOGIN_USER_URL = "https://afternoon-falls-25894.herokuapp.com/signin";
-  const response = await fetch(LOGIN_USER_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
-  const data = await response.json();
+    const userData = {
+      email,
+      password,
+    };
 
-  setJwtToken(data.token);
-  setUserId(data.userId);
+    const LOGIN_USER_URL = 'https://afternoon-falls-25894.herokuapp.com/signin';
+    const response = await fetch(LOGIN_USER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+    const parsedResponse = await response.json();
+
+    setJwtToken(parsedResponse.token);
+    setUserId(parsedResponse.userId);
+    dispatch(loginSuccess());
+  } catch (error) {
+    dispatch(loginFail(error));
+  }
 };
+
+export default loginUser;
