@@ -6,6 +6,24 @@ import Form from "react-bootstrap/Form";
 
 import "./style.css";
 
+const arrOfInformation = [
+  { id: "informationTranslate", label: "Перевод слова" },
+  { id: "informationDescription", label: "Предложение с объяснением значения слова" },
+  { id: "informationExample", label: "Предложение с примером использования изучаемого слова" },
+  { id: "informationTranscription", label: "Транскрипция слова" },
+  { id: "informationPicture", label: "Картинка-ассоциация" },
+];
+const arrOfButtons = [
+  { id: "btnShow", label: "Кнопка 'Показать ответ'" },
+  { id: "btnDelete", label: "Кнопка 'Удалить слово' (исключить слово из изучения)" },
+  { id: "btnComplicated", label: "Кнопка 'Сложные' (поместить слово в группу 'Сложные')" },
+];
+const arrOfLevelButtons = [
+  { id: "btnAgain", label: "Кнопка 'Снова'" },
+  { id: "btnHard", label: "Кнопка 'Трудно'" },
+  { id: "btnGood", label: "Кнопка 'Хорошо'" },
+  { id: "btnEasy", label: "Кнопка 'Легко'" },
+];
 export default class Settings extends React.Component {
   render() {
     return (
@@ -17,36 +35,15 @@ export default class Settings extends React.Component {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <Form>
-                {["checkbox"].map((type) => (
-                  <div key={`default-${type}`} className="mb-3">
+                {arrOfInformation.map(({ id, label }) => (
+                  <div key={`information-${id}`} className="mb-3">
                     <Form.Check
-                      type={type}
-                      id={`default-${type}`}
-                      label="Перевод слова"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-2`}
-                      label="Предложение с объяснением значения слова"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-3`}
-                      label="Предложение с примером использования изучаемого слова"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-4`}
-                      label="Транскрипция слова"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-5`}
-                      label="Картинка-ассоциация"
+                      type="checkbox"
+                      id={id}
+                      label={label}
                     />
                   </div>
                 ))}
-
               </Form>
             </Card.Body>
           </Accordion.Collapse>
@@ -58,22 +55,12 @@ export default class Settings extends React.Component {
           <Accordion.Collapse eventKey="1">
             <Card.Body>
               <Form>
-                {["checkbox"].map((type) => (
-                  <div key={`default-${type}`} className="mb-3">
+                {arrOfButtons.map(({ id, label }) => (
+                  <div key={`button-${id}`} className="mb-3">
                     <Form.Check
-                      type={type}
-                      id={`default-${type}-6`}
-                      label="Кнопка 'Показать ответ'"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-7`}
-                      label="Кнопка 'Удалить слово' (исключить слово из изучения)"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-8`}
-                      label="Кнопка 'Сложные' (поместить слово в группу 'Сложные') "
+                      type="checkbox"
+                      id={id}
+                      label={label}
                     />
                   </div>
                 ))}
@@ -88,27 +75,12 @@ export default class Settings extends React.Component {
           <Accordion.Collapse eventKey="2">
             <Card.Body>
               <Form>
-                {["checkbox"].map((type) => (
-                  <div key={`default-${type}`} className="mb-3">
+                {arrOfLevelButtons.map(({ id, label }) => (
+                  <div key={`button-${id}`} className="mb-3">
                     <Form.Check
-                      type={type}
-                      id={`default-${type}-9`}
-                      label="Кнопка 'Снова'"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-10`}
-                      label="Кнопка 'Трудно'"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-11`}
-                      label="Кнопка 'Хорошо'"
-                    />
-                    <Form.Check
-                      type={type}
-                      id={`default-${type}-12`}
-                      label="Кнопка 'Легко'"
+                      type="checkbox"
+                      id={id}
+                      label={label}
                     />
                   </div>
                 ))}
