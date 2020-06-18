@@ -12,7 +12,7 @@ export const getListOfWords = async (page, group) => {
 };
 
 export const getArrOfRandomWords = (numOfString, arrOfData) => {
-  const arrStr = arrOfData[numOfString].textExample.split(' ');
+  const arrStr = arrOfData[numOfString].textExample.replace(/<[^>]*>/g, "").split(" ");
   for (let i = arrStr.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     const temp = arrStr[j];

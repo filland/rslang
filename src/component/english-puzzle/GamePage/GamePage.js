@@ -135,6 +135,8 @@ class GamePage extends React.Component {
           className="solvedSentences"
           style={{
             backgroundImage: `url(https://raw.githubusercontent.com/liplyanin/rslang_data_paintings/master/${this.props.pictureData.imageSrc})`,
+            height: (this.props.imgIsShowed ? "60vw" : ""),
+            backgroundSize: (this.props.imgIsShowed ? "contain" : "cover"),
           }}
         >
           {this.props.imgIsShowed ? (

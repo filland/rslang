@@ -202,7 +202,7 @@ export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
 
   if (arrayOfData.length !== 0) {
     const pictureData = arrOfGalleryData[level][pageForUser - 1];
-    const correctArr = arrayOfData[0].textExample.split(" ");
+    const correctArr = arrayOfData[0].textExample.replace(/<[^>]*>/g, "").split(" ");
     const arrOfRandomWords = getArrOfRandomWords(0, arrayOfData);
 
     dispatch({
@@ -219,9 +219,9 @@ export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
     });
   }
 };
-// //////////
+
 export const changeCurrentString = (numberOfStr, arrayOfData) => (dispatch) => {
-  const correctArr = arrayOfData[numberOfStr + 1].textExample.split(" ");
+  const correctArr = arrayOfData[numberOfStr + 1].textExample.replace(/<[^>]*>/g, "").split(" ");
   const arrOfRandomWords = getArrOfRandomWords(numberOfStr + 1, arrayOfData);
 
   dispatch({
