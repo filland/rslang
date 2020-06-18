@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 
 import { fetchWeatherService } from "./service";
 
-import "./styles.css";
+import "./styles.scss";
 import {
   getCitySelector,
   getLosingFlagSelector,
