@@ -30,11 +30,10 @@ class Dictionary extends Component {
   }
 
   render() {
-    console.log(this.props);
-    const { user, words, isLoading } = this.props;
+    const { words, isLoading } = this.props;
     console.log("слова  jsx");
     console.log(words);
-    console.log(user);
+    // console.log(user);
 
     if (isLoading) {
       return (<Loader />);

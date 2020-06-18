@@ -1,8 +1,9 @@
 import { FETCH_WORLD_REQUEST, FETCH_WORLD_SUCCESS, FETCH_WORLD_FAIL } from "./constants";
 
 const initialState = {
-  words: null,
+  words: [],
   isLoading: false,
+  user: null,
 };
 
 export function dictionaryReducer(state = initialState, action) {

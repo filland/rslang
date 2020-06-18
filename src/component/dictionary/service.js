@@ -36,22 +36,25 @@ export const fetchWorldService = (user) => async (dispatch, getState) => {
 
       const responseWorld = await fetch(urlWorld);
       const parsedResponseWorld = await responseWorld.json();
+
       const currentWorld = {
-        audio: "files/01_0001.mp3",
-        audioExample: "files/01_0001_example.mp3",
-        audioMeaning: "files/01_0001_meaning.mp3",
-        group: 0,
-        id: "5e9f5ee35eb9e72bc21af4a1",
-        image: "files/01_0001.jpg",
-        page: 0,
-        textExample: "The students <b>agree</b> they have too much homework.",
-        textExampleTranslate: "Студенты согласны, что у них слишком много домашней работы",
-        textMeaning: "To <i>agree</i> is to have the same opinion or belief as another person.",
-        textMeaningTranslate: "Согласиться - значит иметь то же мнение или убеждение, что и другой человек",
-        transcription: "[əgríː]",
-        word: "agree",
-        wordTranslate: "согласна",
-        wordsPerExampleSentence: 8,
+        audio: parsedResponseWorld.audio,
+        audioExample: parsedResponseWorld.audioExample,
+        audioMeaning: parsedResponseWorld.audioMeaning,
+        difficulty: x.difficulty,
+        group: parsedResponseWorld.group,
+        id: parsedResponseWorld.id,
+        idUserWorld: x.Id,
+        image: parsedResponseWorld.image,
+        page: parsedResponseWorld.page,
+        textExample: parsedResponseWorld.textExample,
+        textExampleTranslate: parsedResponseWorld.textExampleTranslate,
+        textMeaning: parsedResponseWorld.textMeaning,
+        textMeaningTranslate: parsedResponseWorld.textMeaningTranslate,
+        transcription: parsedResponseWorld.transcription,
+        word: parsedResponseWorld.word,
+        wordTranslate: parsedResponseWorld.wordTranslate,
+        wordsPerExampleSentence: parsedResponseWorld.wordsPerExampleSentence,
       };
       words.push(currentWorld);
     }));
