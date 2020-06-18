@@ -1,10 +1,13 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  Tabs, Tab, Card, ListGroup, ListGroupItem,
+  Tabs, Tab,
 } from "react-bootstrap";
+
 import Loader from "../common/loader";
+import CardWorld from "./cardWorldClass";
 
 import { fetchWorldService } from "./service";
 import "./styles.css";
@@ -12,13 +15,15 @@ import {
   getUserIdSelector,
   getLosingFlagSelector,
   getWordsSelector,
-  getUserTokenSelector,
+  getWorldCountSelector,
+  getWorldCountTodaySelector,
 } from "./selectors";
 
 const propTypes = {
   fetchWorld: PropTypes.func.isRequired,
-  user: PropTypes.bool.isRequired,
   words: PropTypes.arrayOf(PropTypes.object).isRequired,
+  worldCount: PropTypes.number.isRequired,
+  worldCountToday: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -30,47 +35,20 @@ class Dictionary extends Component {
   }
 
   render() {
-    const { words, isLoading } = this.props;
-    console.log("слова  jsx");
+    const {
+      words, isLoading, worldCount, worldCountToday,
+    } = this.props;
+    console.log("слова in jsx");
     console.log(words);
-    // console.log(user);
 
     if (isLoading) {
       return (<Loader />);
     }
-
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
-          Число слов: 0 (0 сегодня)
-          <Card className="worldCard">
-            <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
-            <Card.Body>
-              <Card.Title>agree</Card.Title>
-              <Card.Text>согласна</Card.Text>
-              <Card.Text>[əgríː]</Card.Text>
-              <audio>
-                <source src="mySpeech.mp3" type="https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/files/01_0001.mp3" />
-                <track src="captions_en.vtt" kind="captions" srcLang="en" label="english_captions" />
-              </audio>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>To agree is to have the same opinion or belief as another person</ListGroupItem>
-              <ListGroupItem>Согласиться - значит иметь то же мнение или убеждение, что и другой человек</ListGroupItem>
-              {/* todo: add audio */}
-              <ListGroupItem>The students agree they have too much homework</ListGroupItem>
-              <ListGroupItem>Студенты согласны, что у них слишком много домашней работы</ListGroupItem>
-              {/* todo: add audio */}
-            </ListGroup>
-            <Card.Footer>
-              <div>Process</div>
-              <div>
-                <span>Давность: 11 дней назад | </span>
-                <span>Повторений: 3 | </span>
-                <span>Следующее: 20.03.2020 | </span>
-              </div>
-            </Card.Footer>
-          </Card>
+          {`Число слов: ${worldCount} (${worldCountToday} сегодня)`}
+          {words.map((item, i) => <CardWorld key={i} world={item} />)}
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова" disabled>
           tab-2
@@ -85,6 +63,8 @@ class Dictionary extends Component {
 
 const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
+  worldCount: getWorldCountSelector(store),
+  worldCountToday: getWorldCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
   user: getUserIdSelector(store),
 });

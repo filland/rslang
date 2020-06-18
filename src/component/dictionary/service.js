@@ -13,7 +13,7 @@ export const fetchWorldService = (user) => async (dispatch, getState) => {
     // const userId = user || defaultUser;
     // const token = getUserTokenSelector();
     const userId = "5eea9233dffad00017faa8e3";
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjQ2MzE2MiwiZXhwIjoxNTkyNDc3NTYyfQ.RSRZm7WKzXffOqXv-lySO5sSBKGvpjgsPCvQQCbsupg";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjQ4NzY4NywiZXhwIjoxNTkyNTAyMDg3fQ.0YYfxqE2mfiW-7C5kaw3I4P4YRs-WoRuT6gY3fMqPj8";
     dispatch(fetchWorldRequest(userId));
 
     const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
@@ -61,7 +61,6 @@ export const fetchWorldService = (user) => async (dispatch, getState) => {
 
     console.log("returned");
     console.log(words);
-
     dispatch(fetchWorldSuccess(words));
   } catch (error) {
     dispatch(fetchWorldFail(error));

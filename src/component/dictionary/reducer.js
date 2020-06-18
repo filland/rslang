@@ -3,6 +3,8 @@ import { FETCH_WORLD_REQUEST, FETCH_WORLD_SUCCESS, FETCH_WORLD_FAIL } from "./co
 const initialState = {
   words: [],
   isLoading: false,
+  worldCount: 0,
+  worldCountToday: 0,
   user: null,
 };
 
@@ -18,6 +20,7 @@ export function dictionaryReducer(state = initialState, action) {
       return {
         ...state,
         ...action.payload,
+
       };
 
     case FETCH_WORLD_FAIL:
