@@ -4,15 +4,42 @@ import { connect } from "react-redux";
 import {
   Tabs, Tab, Card, ListGroup, ListGroupItem,
 } from "react-bootstrap";
+import Loader from "../common/loader";
+
+import { fetchWorldService } from "./service";
 import "./styles.css";
+import {
+  getUserIdSelector,
+  getLosingFlagSelector,
+  getWordsSelector,
+  getUserTokenSelector,
+} from "./selectors";
 
 const propTypes = {
-
+  fetchWorld: PropTypes.func.isRequired,
+  user: PropTypes.bool.isRequired,
+  words: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Dictionary extends Component {
+  componentDidMount() {
+    const { fetchWorld } = this.props;
+    fetchWorld();
+  }
+
   render() {
+    console.log(this.props);
+    const { user, words, isLoading } = this.props;
+    console.log("слова  jsx");
+    console.log(words);
+    console.log(user);
+
+    if (isLoading) {
+      return (<Loader />);
+    }
+
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
@@ -58,11 +85,13 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (store) => ({
-
+  words: getWordsSelector(store),
+  isLoading: getLosingFlagSelector(store),
+  user: getUserIdSelector(store),
 });
 
 const mapDispatchToProps = {
-
+  fetchWorld: fetchWorldService,
 };
 
 Dictionary.propTypes = propTypes;
