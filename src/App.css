@@ -1,0 +1,21 @@
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    margin: 0 auto;
+    width: 600px;
+}
+
+#root {
+    background-image: url('background.jpg');
+    width: 100%;
+    height: 100vh;
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(200, 233, 160, 0.6);
+}

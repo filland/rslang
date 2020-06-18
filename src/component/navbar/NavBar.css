@@ -1,0 +1,8 @@
+.navbar {
+    padding: 20px;
+}
+
+.navbar__link {
+    margin-right: 10px;
+    font-size: 20px;
+}
