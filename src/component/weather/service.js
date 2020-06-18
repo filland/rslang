@@ -1,18 +1,18 @@
-import { getFormattedTemp } from "./utils";
+import getFormattedTemp from './utils';
 import {
   fetchWeatherSuccess,
   fetchWeatherFail,
   fetchWeatherRequest,
-} from "./actions";
-import { getCitySelector } from "./selectors";
+} from './actions';
+import { getCitySelector } from './selectors';
 
-export const fetchWeatherService = (city) => async (dispatch, getState) => {
+const fetchWeatherService = (city) => async (dispatch, getState) => {
   try {
     const state = getState();
     const defaultCity = getCitySelector(state);
     const cityName = city || defaultCity;
 
-    dispatch(fetchWeatherRequest(cityName));
+    dispatch(fetchWeatherRequest());
 
     const urlTodayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`;
     const response = await fetch(urlTodayWeather);
@@ -24,3 +24,5 @@ export const fetchWeatherService = (city) => async (dispatch, getState) => {
     dispatch(fetchWeatherFail(error));
   }
 };
+
+export default fetchWeatherService;
