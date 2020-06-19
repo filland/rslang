@@ -1,13 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import playImg from '../../assets/images/play-circle-regular.svg';
 import autoPlayImgOn from '../../assets/images/volume-up-solid.svg';
 import autoPlayImgOff from '../../assets/images/volume-mute-solid.svg';
 import translateImg from '../../assets/images/file-alt-regular.svg';
 import ChangeLevel from '../ChangeLevel';
 
-const Hints = (props) => {
-  const audioRef = useRef();
-  return (
+const Hints = (props) => (
     <>
       <div className="hints">
         <ChangeLevel />
@@ -47,11 +45,10 @@ const Hints = (props) => {
           src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${
             props.arrayOfData[props.numberOfStr].audioExample
           }`}
-          ref={audioRef}
+          ref={props.audioRef}
         />
       </div>
     </>
-  );
-};
+);
 
 export default Hints;

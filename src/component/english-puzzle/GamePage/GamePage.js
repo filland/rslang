@@ -22,6 +22,11 @@ import GameButtons from './Buttons/GameButtons';
 import './GamePage.scss';
 
 class GamePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.audioRef = React.createRef();
+  }
+
   async componentDidMount() {
     const { changeDifficultOfGame, page, level } = this.props;
     await changeDifficultOfGame(page, level);
@@ -57,7 +62,7 @@ class GamePage extends React.Component {
       iKnowArr, arrayOfData, numberOfStr,
       pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
       showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
-      changeCurrentString, level, pageForUser,
+      changeCurrentString, level, pageForUser, changeDifficultOfGame,
     } = this.props;
 
     if (e.target.name === 'check') {
@@ -106,12 +111,13 @@ class GamePage extends React.Component {
     const {
       showTranslate, translateIsShowed, changeAutoPlayAudio, autoPlay,
     } = this.props;
+
     switch (target.alt) {
       case 'translate': {
         return showTranslate(translateIsShowed);
       }
       case 'play': {
-        return this.refs.audioRef.play();
+        return this.audioRef.current.play();
       }
       case 'autoPlay': {
         return changeAutoPlayAudio(autoPlay);
@@ -147,7 +153,6 @@ class GamePage extends React.Component {
             src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${
               arrayOfData[numberOfStr].audioExample
             }`}
-            ref="audioRef"
           />
         ) : (
           ''
@@ -183,6 +188,7 @@ class GamePage extends React.Component {
                 translateIsShowed={translateIsShowed}
                 arrayOfData={arrayOfData}
                 numberOfStr={numberOfStr}
+                audioRef={this.audioRef}
               />
               <Dnd {...this.props} handleWordClick={this.handleWordClick} />
             </>
