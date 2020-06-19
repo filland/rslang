@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 export default class Draggable extends React.Component {
   drag = (e) => {
-    e.dataTransfer.setData("transfer", e.target.id);
+    e.dataTransfer.setData('transfer', e.target.id);
   };
 
   noAllowDrop = (e) => {

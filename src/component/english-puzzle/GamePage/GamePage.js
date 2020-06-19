@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   changeDifficultOfGame,
   changeCurrentString,
@@ -13,137 +13,159 @@ import {
   showFullImg,
   showTranslate,
   changeAutoPlayAudio,
-} from "../redux/actions";
+} from '../redux/actions';
 
-import Dnd from "./Dnd/Dnd";
-import Results from "./Results/Results";
-import Hints from "./Hints/Hints";
-import GameButtons from "./Buttons/GameButtons";
-import "./GamePage.scss";
+import Dnd from './Dnd/Dnd';
+import Results from './Results/Results';
+import Hints from './Hints/Hints';
+import GameButtons from './Buttons/GameButtons';
+import './GamePage.scss';
 
 class GamePage extends React.Component {
   async componentDidMount() {
-    await this.props.changeDifficultOfGame(this.props.page, this.props.level);
+    const { changeDifficultOfGame, page, level } = this.props;
+    await changeDifficultOfGame(page, level);
   }
 
-  handleWordClick = (e) => {
+  handleWordClick = ({ target }) => {
+    const {
+      dellWordFromResultArr, pushWordInResultArr, arrOfRandomWords, arrOfResult,
+    } = this.props;
+
     if (
-      e.target.classList.contains("result")
-      || e.target.classList.contains("correct")
-      || e.target.classList.contains("error")
+      target.classList.contains('result')
+      || target.classList.contains('correct')
+      || target.classList.contains('error')
     ) {
-      this.props.dellWordFromResultArr(
-        this.props.arrOfRandomWords,
-        e.target.id,
-        this.props.arrOfResult,
+      dellWordFromResultArr(
+        arrOfRandomWords,
+        target.id,
+        arrOfResult,
       );
     } else {
-      this.props.pushWordInResultArr(
-        this.props.arrOfRandomWords,
-        e.target.id,
-        this.props.arrOfResult,
+      pushWordInResultArr(
+        arrOfRandomWords,
+        target.id,
+        arrOfResult,
       );
     }
   };
 
   handleButtonClick = async (e) => {
-    if (e.target.name === "check") {
-      this.props.checkResultArr(
-        this.props.arrOfResult,
-        this.props.correctArr,
-        this.props.iKnowArr,
-        this.props.arrayOfData,
-        this.props.numberOfStr,
+    const {
+      checkResultArr, arrOfResult, correctArr,
+      iKnowArr, arrayOfData, numberOfStr,
+      pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
+      showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
+      changeCurrentString, level, pageForUser,
+    } = this.props;
+
+    if (e.target.name === 'check') {
+      checkResultArr(
+        arrOfResult,
+        correctArr,
+        iKnowArr,
+        arrayOfData,
+        numberOfStr,
       );
-    } else if (e.target.name === "continue") {
-      if (this.props.numberOfStr === 9 && !this.props.imgIsShowed) {
-        this.props.pushSentenceInSolvedArr(
-          this.props.correctArr,
-          this.props.arrayOfSolvedSentences,
+    } else if (e.target.name === 'continue') {
+      if (numberOfStr === 9 && !imgIsShowed) {
+        pushSentenceInSolvedArr(
+          correctArr,
+          arrayOfSolvedSentences,
         );
-        this.props.showFullImg();
-      } else if (this.props.imgIsShowed) {
-        await this.props.changeDifficultOfGame(
-          this.props.level,
-          +this.props.pageForUser + 1,
+        showFullImg();
+      } else if (imgIsShowed) {
+        changeDifficultOfGame(
+          level,
+          +pageForUser + 1,
         );
       } else {
-        this.props.pushSentenceInSolvedArr(
-          this.props.correctArr,
-          this.props.arrayOfSolvedSentences,
+        pushSentenceInSolvedArr(
+          correctArr,
+          arrayOfSolvedSentences,
         );
-        this.props.changeCurrentString(
-          this.props.numberOfStr,
-          this.props.arrayOfData,
+        changeCurrentString(
+          numberOfStr,
+          arrayOfData,
         );
       }
-    } else if (e.target.name === "results") {
-      this.props.showStatistic();
+    } else if (e.target.name === 'results') {
+      showStatistic();
     } else {
-      this.props.showCorrectResult(
-        this.props.correctArr,
-        this.props.iDontKnowArr,
-        this.props.arrayOfData,
-        this.props.numberOfStr,
+      showCorrectResult(
+        correctArr,
+        iDontKnowArr,
+        arrayOfData,
+        numberOfStr,
       );
     }
   };
 
-  handleGameTools = (e) => {
-    switch (e.target.alt) {
-      case "translate": {
-        return this.props.showTranslate(this.props.translateIsShowed);
+  handleGameTools = ({ target }) => {
+    const {
+      showTranslate, translateIsShowed, changeAutoPlayAudio, autoPlay,
+    } = this.props;
+    switch (target.alt) {
+      case 'translate': {
+        return showTranslate(translateIsShowed);
       }
-      case "play": {
+      case 'play': {
         return this.refs.audioRef.play();
       }
-      case "autoPlay": {
-        return this.props.changeAutoPlayAudio(this.props.autoPlay);
+      case 'autoPlay': {
+        return changeAutoPlayAudio(autoPlay);
       }
       default:
-        return "";
+        return '';
     }
   };
 
   render() {
+    const {
+      statisticIsShowed, iKnowArr, iDontKnowArr,
+      pictureData, autoPlay, arrayOfData, numberOfStr,
+      imgIsShowed, arrayOfSolvedSentences, translateIsShowed,
+      isDone, isChecked, arrOfRandomWords,
+    } = this.props;
     return (
       <div className="gameField">
-        {this.props.statisticIsShowed ? (
+        {statisticIsShowed ? (
           <Results
-            iKnowArr={this.props.iKnowArr}
-            iDontKnowArr={this.props.iDontKnowArr}
+            iKnowArr={iKnowArr}
+            iDontKnowArr={iDontKnowArr}
             handleButtonClick={this.handleButtonClick}
-            pictureData={this.props.pictureData}
+            pictureData={pictureData}
           />
         ) : (
-          ""
+          ''
         )}
 
-        {this.props.autoPlay ? (
+        {autoPlay ? (
           <audio
             autoPlay
             src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${
-              this.props.arrayOfData[this.props.numberOfStr].audioExample
+              arrayOfData[numberOfStr].audioExample
             }`}
             ref="audioRef"
           />
         ) : (
-          ""
+          ''
         )}
 
         <div
           className="solvedSentences"
           style={{
             backgroundImage: `url(https://raw.githubusercontent.com/liplyanin/rslang_data_paintings/master/${this.props.pictureData.imageSrc})`,
-            height: (this.props.imgIsShowed ? "60vw" : ""),
-            backgroundSize: (this.props.imgIsShowed ? "contain" : "cover"),
+            height: (imgIsShowed ? '60vw' : ''),
+            backgroundSize: (imgIsShowed ? 'contain' : 'cover'),
           }}
         >
-          {this.props.imgIsShowed ? (
-            ""
+          {imgIsShowed ? (
+            ''
           ) : (
             <>
-              {this.props.arrayOfSolvedSentences.map((el, i) => (
+              {arrayOfSolvedSentences.map((el, i) => (
                 <div className="item" key={el + i}>
                   {el}
                 </div>
@@ -153,34 +175,34 @@ class GamePage extends React.Component {
           )}
         </div>
         <div className="game">
-          {!this.props.imgIsShowed ? (
+          {!imgIsShowed ? (
             <>
               <Hints
                 handleGameTools={this.handleGameTools}
-                autoPlay={this.props.autoPlay}
-                translateIsShowed={this.props.translateIsShowed}
-                arrayOfData={this.props.arrayOfData}
-                numberOfStr={this.props.numberOfStr}
+                autoPlay={autoPlay}
+                translateIsShowed={translateIsShowed}
+                arrayOfData={arrayOfData}
+                numberOfStr={numberOfStr}
               />
               <Dnd {...this.props} handleWordClick={this.handleWordClick} />
             </>
           ) : (
             <div>
-              {this.props.pictureData.author}
+              {pictureData.author}
               -
-              {this.props.pictureData.name}
-              {" "}
+              {pictureData.name}
+              {' '}
               (
-              {this.props.pictureData.year}
+              {pictureData.year}
               )
             </div>
           )}
 
           <GameButtons
-            isDone={this.props.isDone}
-            imgIsShowed={this.props.imgIsShowed}
-            arrOfRandomWords={this.props.arrOfRandomWords}
-            isChecked={this.props.isChecked}
+            isDone={isDone}
+            imgIsShowed={imgIsShowed}
+            arrOfRandomWords={arrOfRandomWords}
+            isChecked={isChecked}
             handleButtonClick={this.handleButtonClick}
           />
         </div>

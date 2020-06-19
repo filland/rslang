@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   setInputValue,
   changeDifficultOfGame,
-} from "../redux/actions";
+} from '../redux/actions';
 
 class GameItems extends React.Component {
   onChangeInputHandler = (event) => {

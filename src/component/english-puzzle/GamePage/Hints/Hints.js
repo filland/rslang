@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import playImg from "../../assets/images/play-circle-regular.svg";
-import autoPlayImgOn from "../../assets/images/volume-up-solid.svg";
-import autoPlayImgOff from "../../assets/images/volume-mute-solid.svg";
-import translateImg from "../../assets/images/file-alt-regular.svg";
-import ChangeLevel from "../ChangeLevel";
+import React, { useRef } from 'react';
+import playImg from '../../assets/images/play-circle-regular.svg';
+import autoPlayImgOn from '../../assets/images/volume-up-solid.svg';
+import autoPlayImgOff from '../../assets/images/volume-mute-solid.svg';
+import translateImg from '../../assets/images/file-alt-regular.svg';
+import ChangeLevel from '../ChangeLevel';
 
 const Hints = (props) => {
   const audioRef = useRef();
@@ -42,7 +42,7 @@ const Hints = (props) => {
       <div className="translateText">
         {props.translateIsShowed
           ? props.arrayOfData[props.numberOfStr].textExampleTranslate
-          : ""}
+          : ''}
         <audio
           src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${
             props.arrayOfData[props.numberOfStr].audioExample

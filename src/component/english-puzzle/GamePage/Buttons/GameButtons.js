@@ -1,11 +1,15 @@
 import React from 'react';
 
-const GameButtons = (props) => {
+const GameButtons = ({
+  isChecked, isDone, imgIsShowed, handleButtonClick, arrOfRandomWords,
+}) => {
+  const isShowButton = arrOfRandomWords.length === 0 && !isDone && isChecked;
+
   return (
     <div className="gameButtons">
-      {props.isDone || props.imgIsShowed ? (
+      {isDone || imgIsShowed ? (
         <button
-          onClick={props.handleButtonClick}
+          onClick={handleButtonClick}
           name="continue"
           className="btn btn-success"
         >
@@ -13,18 +17,16 @@ const GameButtons = (props) => {
         </button>
       ) : (
         <button
-          onClick={props.handleButtonClick}
+          onClick={handleButtonClick}
           name="check"
           className="btn btn-info"
         >
           Check
         </button>
       )}
-      {props.arrOfRandomWords.length === 0 &&
-      !props.isDone &&
-      props.isChecked ? (
+      { isShowButton ? (
         <button
-          onClick={props.handleButtonClick}
+          onClick={handleButtonClick}
           name="show result"
           className="btn btn-warning"
         >
@@ -33,10 +35,10 @@ const GameButtons = (props) => {
       ) : (
         ''
       )}
-      {props.imgIsShowed ? (
+      {imgIsShowed ? (
         <button
           name="results"
-          onClick={props.handleButtonClick}
+          onClick={handleButtonClick}
           className="btn btn-primary"
         >
           Results

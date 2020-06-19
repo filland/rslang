@@ -1,9 +1,11 @@
-import React from "react";
-import playImg from "../../assets/images/play-circle-regular.svg";
+import React from 'react';
+import playImg from '../../assets/images/play-circle-regular.svg';
 
-import "./Results.scss";
+import './Results.scss';
 
-const Results = (props) => {
+const Results = ({
+  pictureData, iDontKnowArr, iKnowArr, handleButtonClick,
+}) => {
   const playAudio = (e) => {
     e.target.nextElementSibling.play();
   };
@@ -13,28 +15,28 @@ const Results = (props) => {
         <div className="pictureData">
           <div className="picture">
             <img
-              src={`https://raw.githubusercontent.com/liplyanin/rslang_data_paintings/master/${props.pictureData.imageSrc}`}
+              src={`https://raw.githubusercontent.com/liplyanin/rslang_data_paintings/master/${pictureData.imageSrc}`}
               alt="img"
             />
           </div>
           <span>
-            {props.pictureData.author}
-            {" "}
+            {pictureData.author}
+            {' '}
             -
-            {" "}
-            {props.pictureData.name}
-            {" "}
+            {' '}
+            {pictureData.name}
+            {' '}
             (
-            {props.pictureData.year}
+            {pictureData.year}
             )
           </span>
         </div>
         <div className="iKnow">
           <span>
             <b>I know:</b>
-            {" "}
+            {' '}
           </span>
-          {props.iKnowArr.map((el, i) => (
+          {iKnowArr.map((el, i) => (
             <div className="item" key={(el, i)}>
               <img src={playImg} alt="play" onClick={playAudio} />
               <audio
@@ -49,7 +51,7 @@ const Results = (props) => {
           <span>
             <b>I don't know: </b>
           </span>
-          {props.iDontKnowArr.map((el, i) => (
+          {iDontKnowArr.map((el, i) => (
             <div className="item" key={(el, i)}>
               <img src={playImg} alt="play" onClick={playAudio} />
               <audio
@@ -62,7 +64,7 @@ const Results = (props) => {
         </div>
         <button
           name="continue"
-          onClick={props.handleButtonClick}
+          onClick={handleButtonClick}
           className="btn btn-warning"
         >
           Continue

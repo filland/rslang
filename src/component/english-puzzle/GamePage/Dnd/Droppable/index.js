@@ -1,52 +1,53 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   pushWordInResultArr,
   dellWordFromResultArr,
-} from "../../../redux/actions";
+} from '../../../redux/actions';
 
-class Droppable extends React.Component {
-  drop = (e) => {
+const Droppable = ({
+  arrOfRandomWords, dellWordFromResultArr, arrOfResult, pushWordInResultArr, id, children,
+}) => {
+  const drop = (e) => {
     e.preventDefault();
-    const data = e.dataTransfer.getData("transfer");
+    const data = e.dataTransfer.getData('transfer');
     const elId = document.getElementById(data);
+
     if (
-      elId.classList.contains("result")
-      || elId.classList.contains("error")
-      || (elId.classList.contains("correct")
+      elId.classList.contains('result')
+      || elId.classList.contains('error')
+      || (elId.classList.contains('correct')
         && e.target.id !== elId.parentElement.id)
     ) {
-      this.props.dellWordFromResultArr(
-        this.props.arrOfRandomWords,
+      dellWordFromResultArr(
+        arrOfRandomWords,
         data,
-        this.props.arrOfResult,
+        arrOfResult,
       );
     } else if (e.target.id !== elId.parentElement.id) {
-      this.props.pushWordInResultArr(
-        this.props.arrOfRandomWords,
+      pushWordInResultArr(
+        arrOfRandomWords,
         data,
-        this.props.arrOfResult,
+        arrOfResult,
       );
     }
   };
 
-  allowDrop = (e) => {
+  const allowDrop = (e) => {
     e.preventDefault();
   };
 
-  render() {
-    return (
+  return (
       <div
-        id={this.props.id}
-        onDrop={this.drop}
-        onDragOver={this.allowDrop}
+        id={id}
+        onDrop={drop}
+        onDragOver={allowDrop}
         className="droppable"
       >
-        {this.props.children}
+        {children}
       </div>
-    );
-  }
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   arrOfRandomWords: state.puzzleGame.arrOfRandomWords,
