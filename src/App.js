@@ -16,6 +16,7 @@ function App() {
         <Route path="/weather" component={Weather} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
+        <Route path="/sprint" component={Sprint} />
       </div>
     </Router>
   );
