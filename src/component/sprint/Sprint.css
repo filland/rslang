@@ -1,8 +1,20 @@
-#start-wrapper, #statistics-wrapper {
+#outer {
+    position: relative;
+    height: 100vh;
+}
+
+#inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#statistics-wrapper {
     position: relative;
 }
 
-#start, #statistics {
+#statistics {
     position: absolute;
     top: 50%;
     left: 50%;
