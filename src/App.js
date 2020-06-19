@@ -6,12 +6,8 @@ import Registration from './component/registration';
 import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
-import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
-import AudioChallenge from "./component/game/audioChallenge";
-
-import SpeakIt from './component/game/speakit';
-import AuthProvider from './component/common/auth-provider';
-import Statistics from './component/statistics';
+import './App.css';
+import LearningWords from './component/learning-words/LearningWords';
 
 import './App.scss';
 
@@ -20,6 +16,9 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={NavBar} />
+        <Route path="/learning-words" component={LearningWords}/>
+        <Route path="/weather" component={Weather} />
+        <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <AuthProvider>
