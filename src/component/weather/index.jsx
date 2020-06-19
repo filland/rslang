@@ -12,7 +12,7 @@ import {
   getLosingFlagSelector,
   getTempSelector,
 } from './selectors';
-import './styles.css';
+import './styles.scss';
 
 const propTypes = {
   fetchWeather: PropTypes.func.isRequired,
