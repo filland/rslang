@@ -1,12 +1,10 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from './component/navbar';
 import Login from './component/login';
-import Settings from "./component/settings";
+import Settings from './component/settings';
 import Weather from './component/weather';
 import './App.css';
-
 
 function App() {
   return (
