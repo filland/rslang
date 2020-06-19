@@ -16,9 +16,9 @@ import './styles.scss';
 
 const propTypes = {
   fetchWeather: PropTypes.func.isRequired,
-  city: PropTypes.bool.isRequired,
-  temp: PropTypes.bool.isRequired,
+  city: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  temp: PropTypes.string,
 };
 
 class Weather extends Component {
