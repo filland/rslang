@@ -10,6 +10,7 @@ export default function NavBar() {
       <Navbar.Brand as={Link} to="/">Logo</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link as={Link} to="/">Home</Nav.Link>
+        <Nav.Link as={Link} to="/learning-words">Learn new words</Nav.Link>
         <Nav.Link as={Link} to="/weather">Weather</Nav.Link>
         <Nav.Link as={Link} to="/login">Login</Nav.Link>
         <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
