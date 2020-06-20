@@ -1,7 +1,17 @@
 import {
+  FETCH_WORD_REQUEST,
   FETCH_WORD_SUCCESS,
   FETCH_WORD_FAIL,
-} from "./Constants";
+} from './constants';
+
+export function fetchWordRequest() {
+  return {
+    type: FETCH_WORD_REQUEST,
+    payload: {
+      isLoading: true,
+    },
+  };
+}
 
 export function fetchWordSuccess(word) {
   return {

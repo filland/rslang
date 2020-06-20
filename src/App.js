@@ -4,7 +4,7 @@ import NavBar from './component/navbar';
 import Login from './component/login';
 import Settings from './component/settings';
 import Weather from './component/weather';
-import Sprint from './component/sprint/Sprint';
+import Sprint from './component/sprint/sprint';
 import './App.css';
 
 function App() {
