@@ -13,20 +13,20 @@ class CardWorld extends Component {
   render() {
     const { world } = this.props;
     return (
-      <Card className="worldCard">
+      <Card bg="Light" className="worldCard">
         <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
         <Card.Body>
           <Card.Title>{world.word}</Card.Title>
           <Card.Text>{world.wordTranslate}</Card.Text>
           <Card.Text>{world.transcription}</Card.Text>
           <audio>
-            <source src="mySpeech.mp3" type="https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/files/01_0001.mp3" />
+            <source src="mySpeech.mp3" type="" />
             <track src="captions_en.vtt" kind="captions" srcLang="en" label="english_captions" />
           </audio>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>To agree is to have the same opinion or belief as another person</ListGroupItem>
-          <ListGroupItem>Согласиться - значит иметь то же мнение или убеждение, что и другой человек</ListGroupItem>
+          <ListGroupItem>{world.textMeaning}</ListGroupItem>
+          <ListGroupItem>{world.textMeaningTranslate}</ListGroupItem>
           {/* todo: add audio */}
           <ListGroupItem>The students agree they have too much homework</ListGroupItem>
           <ListGroupItem>Студенты согласны, что у них слишком много домашней работы</ListGroupItem>

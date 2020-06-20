@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  Tabs, Tab,
+  Tabs, Tab, CardDeck, Container, Row,
 } from "react-bootstrap";
 
 import Loader from "../common/loader";
@@ -12,11 +12,10 @@ import CardWorld from "./cardWorldClass";
 import { fetchWorldService } from "./service";
 import "./styles.css";
 import {
-  getUserIdSelector,
-  getLosingFlagSelector,
   getWordsSelector,
   getWorldCountSelector,
   getWorldCountTodaySelector,
+  getLosingFlagSelector,
 } from "./selectors";
 
 const propTypes = {
@@ -38,7 +37,6 @@ class Dictionary extends Component {
     const {
       words, isLoading, worldCount, worldCountToday,
     } = this.props;
-    console.log("слова in jsx");
     console.log(words);
 
     if (isLoading) {
@@ -47,8 +45,13 @@ class Dictionary extends Component {
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
-          {`Число слов: ${worldCount} (${worldCountToday} сегодня)`}
-          {words.map((item, i) => <CardWorld key={i} world={item} />)}
+          <div className="my-4">
+            {`Число слов: ${worldCount} (${worldCountToday} сегодня)`}
+          </div>
+
+          <CardDeck className="my-4">
+            {words.map((item, i) => <CardWorld key={i} world={item} />)}
+          </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова" disabled>
           tab-2
@@ -66,7 +69,6 @@ const mapStateToProps = (store) => ({
   worldCount: getWorldCountSelector(store),
   worldCountToday: getWorldCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
-  user: getUserIdSelector(store),
 });
 
 const mapDispatchToProps = {

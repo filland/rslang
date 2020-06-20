@@ -3,17 +3,16 @@ import {
   fetchWorldFail,
   fetchWorldRequest,
 } from "./actions";
-import { getUserIdSelector, getUserTokenSelector } from "./selectors";
 
-export const fetchWorldService = (user) => async (dispatch, getState) => {
+export const fetchWorldService = () => async (dispatch, getState) => {
   try {
-    const state = getState();
     const words = [];
+    // const state = getState();
     // const defaultUser = getUserIdSelector(state);
     // const userId = user || defaultUser;
     // const token = getUserTokenSelector();
     const userId = "5eea9233dffad00017faa8e3";
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjQ4NzY4NywiZXhwIjoxNTkyNTAyMDg3fQ.0YYfxqE2mfiW-7C5kaw3I4P4YRs-WoRuT6gY3fMqPj8";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjYyNjkwOCwiZXhwIjoxNTkyNjQxMzA4fQ.Iw9a2d2wcccInulba7dBBThKITwS-KaTVV2fNUA1Juc";
     dispatch(fetchWorldRequest(userId));
 
     const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
