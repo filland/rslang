@@ -2,27 +2,24 @@ import {
   fetchWorldSuccess,
   fetchWorldFail,
   fetchWorldRequest,
-} from "./actions";
+} from './actions';
 
-export const fetchWorldService = () => async (dispatch, getState) => {
+const fetchWorldService = () => async (dispatch) => {
   try {
     const words = [];
-    // const state = getState();
-    // const defaultUser = getUserIdSelector(state);
-    // const userId = user || defaultUser;
-    // const token = getUserTokenSelector();
-    const userId = "5eea9233dffad00017faa8e3";
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjYyNjkwOCwiZXhwIjoxNTkyNjQxMzA4fQ.Iw9a2d2wcccInulba7dBBThKITwS-KaTVV2fNUA1Juc";
+
+    const userId = '5eea9233dffad00017faa8e3';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjY3MzExMCwiZXhwIjoxNTkyNjg3NTEwfQ.qjT1iaKXpD_xa4jn-b87SRhFpbQB80U1ptgoI0obdLE';
     dispatch(fetchWorldRequest(userId));
 
     const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
     const responseWorldIds = await fetch(urlWorldIds, {
-      method: "GET",
+      method: 'GET',
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     });
     const parsedResponse = await responseWorldIds.json();
@@ -58,10 +55,12 @@ export const fetchWorldService = () => async (dispatch, getState) => {
       words.push(currentWorld);
     }));
 
-    console.log("returned");
+    console.log('returned');
     console.log(words);
     dispatch(fetchWorldSuccess(words));
   } catch (error) {
     dispatch(fetchWorldFail(error));
   }
 };
+
+export default fetchWorldService;

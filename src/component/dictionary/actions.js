@@ -2,7 +2,7 @@ import {
   FETCH_WORLD_REQUEST,
   FETCH_WORLD_SUCCESS,
   FETCH_WORLD_FAIL,
-} from "./constants";
+} from './constants';
 
 export function fetchWorldRequest(user) {
   return {
@@ -15,7 +15,7 @@ export function fetchWorldRequest(user) {
 }
 
 export function fetchWorldSuccess(words) {
-  console.log("Success");
+  console.log('Success');
   return {
     type: FETCH_WORLD_SUCCESS,
     payload: {

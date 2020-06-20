@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Card, ListGroup, ListGroupItem,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 const propTypes = {
   world: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -45,7 +45,7 @@ class CardWorld extends Component {
   }
 }
 
-const mapStateToProps = (store) => ({
+const mapStateToProps = () => ({
 
 });
 
