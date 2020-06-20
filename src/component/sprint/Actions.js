@@ -1,21 +1,21 @@
 import {
-  FETCH_WORD_REQUEST,
-  FETCH_WORD_SUCCESS,
-  FETCH_WORD_FAIL,
+  FETCH_SPRINT_REQUEST,
+  FETCH_SPRINT_SUCCESS,
+  FETCH_SPRINT_FAIL,
 } from './constants';
 
-export function fetchWordRequest() {
+export function fetchSprintRequest() {
   return {
-    type: FETCH_WORD_REQUEST,
+    type: FETCH_SPRINT_REQUEST,
     payload: {
       isLoading: true,
     },
   };
 }
 
-export function fetchWordSuccess(word) {
+export function fetchSprintSuccess(word) {
   return {
-    type: FETCH_WORD_SUCCESS,
+    type: FETCH_SPRINT_SUCCESS,
     payload: {
       isLoading: false,
       word,
@@ -23,9 +23,9 @@ export function fetchWordSuccess(word) {
   };
 }
 
-export function fetchWordFail() {
+export function fetchSprintFail() {
   return {
-    type: FETCH_WORD_FAIL,
+    type: FETCH_SPRINT_FAIL,
     payload: {
       isLoading: false,
     },

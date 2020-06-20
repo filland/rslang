@@ -1,2 +1,2 @@
-const getWordSelector = (store) => store.word;
-export { getWordSelector as default };
+export const getWordSelector = (store) => store.sprint.word;
+export const getLosingFlagSelector = (store) => store.sprint.isLoading;

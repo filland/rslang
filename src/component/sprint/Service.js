@@ -1,22 +1,22 @@
 import {
-  fetchWordRequest,
-  fetchWordSuccess,
-  fetchWordFail,
+  fetchSprintRequest,
+  fetchSprintSuccess,
+  fetchSprintFail,
 } from './actions';
 
-const fetchWordsService = () => async (dispatch) => {
+const fetchSprintService = () => async (dispatch) => {
   try {
-    dispatch(fetchWordRequest());
+    dispatch(fetchSprintRequest());
     const urlWords = 'https://afternoon-falls-25894.herokuapp.com/words?page=2&group=0';
     const response = await fetch(urlWords);
     const data = await response.json();
     const { word } = data[5];
     console.log(data[5].word);
-    dispatch(fetchWordSuccess(word));
+    dispatch(fetchSprintSuccess(word));
   } catch (error) {
     console.log('error');
-    dispatch(fetchWordFail(error));
+    dispatch(fetchSprintFail(error));
   }
 };
 
-export { fetchWordsService as default };
+export { fetchSprintService as default };

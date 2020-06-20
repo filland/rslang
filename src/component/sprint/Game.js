@@ -8,13 +8,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import fetchWordsService from './service';
-import getWordSelector from './selectors';
+
+import fetchSprintService from './service';
+import Loader from '../common/loader';
+import {
+  getWordSelector,
+  getLosingFlagSelector,
+} from './selectors';
 import parrot from './parrot.png';
 
 const propTypes = {
-  fetchWords: PropTypes.func.isRequired,
+  fetchSprint: PropTypes.func.isRequired,
   word: PropTypes.objectOf(PropTypes.any).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 class Game extends Component {
@@ -26,13 +32,16 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    const { fetchWords } = this.props;
+    const { fetchSprint } = this.props;
 
-    fetchWords();
+    fetchSprint();
   }
 
   render() {
-    const { word } = this.props;
+    const { word, isLoading } = this.props;
+    if (isLoading) {
+      return (<Loader />);
+    }
     console.log(word);
     return (
       <Container fluid>
@@ -64,10 +73,11 @@ class Game extends Component {
 
 const mapStateToProps = (store) => ({
   word: getWordSelector(store),
+  isLoading: getLosingFlagSelector(store),
 });
 
 const mapDispatchToProps = {
-  fetchWords: fetchWordsService,
+  fetchSprint: fetchSprintService,
 };
 
 Game.propTypes = propTypes;
