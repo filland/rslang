@@ -1,3 +1,7 @@
 .worldCard{
     width: 30rem;
 }
+
+audio::-webkit-media-controls-play-button{
+    display:none;
+  }

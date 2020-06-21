@@ -15,7 +15,6 @@ export function fetchWorldRequest(user) {
 }
 
 export function fetchWorldSuccess(words) {
-  console.log('Success');
   return {
     type: FETCH_WORLD_SUCCESS,
     payload: {

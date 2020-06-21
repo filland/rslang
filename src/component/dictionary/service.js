@@ -9,7 +9,7 @@ const fetchWorldService = () => async (dispatch) => {
     const words = [];
 
     const userId = '5eea9233dffad00017faa8e3';
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjY3MzExMCwiZXhwIjoxNTkyNjg3NTEwfQ.qjT1iaKXpD_xa4jn-b87SRhFpbQB80U1ptgoI0obdLE';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjcyNDAwNiwiZXhwIjoxNTkyNzM4NDA2fQ.6iFa9ljlYiR9eaaHA0Yw6IRBO-r6IsZfpwetO-PrxQU';
     dispatch(fetchWorldRequest(userId));
 
     const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
@@ -24,8 +24,6 @@ const fetchWorldService = () => async (dispatch) => {
     });
     const parsedResponse = await responseWorldIds.json();
     const worldIdList = parsedResponse;
-    //  worlds - array with worldId and diffictullty
-    console.log(worldIdList);
 
     await Promise.all(worldIdList.map(async (x) => {
       const urlWorld = `https://afternoon-falls-25894.herokuapp.com/words/${x.wordId}`;
@@ -54,9 +52,6 @@ const fetchWorldService = () => async (dispatch) => {
       };
       words.push(currentWorld);
     }));
-
-    console.log('returned');
-    console.log(words);
     dispatch(fetchWorldSuccess(words));
   } catch (error) {
     dispatch(fetchWorldFail(error));

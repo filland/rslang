@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,7 +25,6 @@ const propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Dictionary extends Component {
   componentDidMount() {
     const { fetchWorld } = this.props;
