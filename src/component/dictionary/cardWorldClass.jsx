@@ -5,14 +5,20 @@ import {
 } from 'react-bootstrap';
 import './styles.css';
 
+import playImg from './assets/images/audioPlayWord.png';
+
 const propTypes = {
   world: PropTypes.objectOf(PropTypes.any).isRequired,
+  audioRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 const gitUrlWorld = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
 
 class CardWorld extends Component {
   render() {
-    const { world } = this.props;
+    const { world, audioRef } = this.props;
     return (
       <Card bg="Light" className="worldCard">
         <Card.Img variant="top" src={gitUrlWorld + world.image} />
@@ -26,6 +32,11 @@ class CardWorld extends Component {
           <ListGroupItem>{world.textMeaning}</ListGroupItem>
           <ListGroupItem>{world.textMeaningTranslate}</ListGroupItem>
           <audio controls><source src={gitUrlWorld + world.audioMeaning} /></audio>
+
+          <div className="play-word">
+            <img src={playImg} width="25" height="25" alt="play" onClick={this.handleGameTools(audioRef)} />
+          </div>
+          <audio controls src={gitUrlWorld + world.audioMeaning} ref={audioRef} />
 
           <ListGroupItem>{world.textExample}</ListGroupItem>
           <ListGroupItem>{world.textExampleTranslate}</ListGroupItem>
@@ -45,6 +56,17 @@ class CardWorld extends Component {
       </Card>
     );
   }
+
+  handleGameTools = () => {
+    console.log(this);
+    console.log(this.props.audioRef.current);
+    // console.log(target);
+    // return this.props.audioRef.current.play();
+    // return this.props.audioRef.current.play();
+    // return target.current.play();
+    // console.log(typeof (this.audioRef.current.play()));
+    // return this.audioRef.current.play();
+  };
 }
 
 CardWorld.propTypes = propTypes;

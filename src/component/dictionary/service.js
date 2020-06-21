@@ -9,7 +9,7 @@ const fetchWorldService = () => async (dispatch) => {
     const words = [];
 
     const userId = '5eea9233dffad00017faa8e3';
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjcyNDAwNiwiZXhwIjoxNTkyNzM4NDA2fQ.6iFa9ljlYiR9eaaHA0Yw6IRBO-r6IsZfpwetO-PrxQU';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjczOTA0NywiZXhwIjoxNTkyNzUzNDQ3fQ.6FAqQzxX1IglQMBNdAwF_rrGSoVQefm3ZBp_oVX5TgA';
     dispatch(fetchWorldRequest(userId));
 
     const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;

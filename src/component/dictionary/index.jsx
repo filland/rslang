@@ -26,6 +26,11 @@ const propTypes = {
 };
 
 class Dictionary extends Component {
+  constructor(props) {
+    super(props);
+    this.audioRef = React.createRef();
+  }
+
   componentDidMount() {
     const { fetchWorld } = this.props;
     fetchWorld();
@@ -48,7 +53,7 @@ class Dictionary extends Component {
           </div>
 
           <CardDeck className="my-4">
-            {words.map((item, i) => <CardWorld key={i} world={item} />)}
+            {words.map((item, i) => <CardWorld key={i} world={item} audioRef={this.audioRef} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова" disabled>
@@ -60,6 +65,15 @@ class Dictionary extends Component {
       </Tabs>
     );
   }
+
+  // handleGameTools = (audioRefLink) => {
+  //   // audioRef.current.play();
+  //   console.log(this);
+  //   console.log(audioRefLink);
+
+  //   // console.log(this.audioRef.current);
+  //   // this.audioRef.current.play();
+  // }
 }
 
 const mapStateToProps = (store) => ({
