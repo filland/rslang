@@ -4,6 +4,7 @@ import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import './styles.css';
+import GIT_URL_WORD from './constants';
 
 import playImg from './assets/images/audioPlayWord.png';
 
@@ -14,33 +15,32 @@ const propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
 };
-const gitUrlword = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
 
 class Cardword extends Component {
   render() {
     const { word, audioRef } = this.props;
     return (
       <Card bg="Light" className="wordCard">
-        <Card.Img variant="top" src={gitUrlword + word.image} />
+        <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
         <Card.Body>
           <Card.Title>{word.word}</Card.Title>
           <Card.Text>{word.wordTranslate}</Card.Text>
           <Card.Text>{word.transcription}</Card.Text>
-          <audio controls><source src={gitUrlword + word.audio} /></audio>
+          <audio controls><source src={GIT_URL_WORD + word.audio} /></audio>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>{word.textMeaning}</ListGroupItem>
           <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
-          <audio controls><source src={gitUrlword + word.audioMeaning} /></audio>
+          <audio controls><source src={GIT_URL_WORD + word.audioMeaning} /></audio>
 
           <div className="play-word">
             <img src={playImg} width="25" height="25" alt="play" onClick={this.handleGameTools(audioRef)} />
           </div>
-          <audio controls src={gitUrlword + word.audioMeaning} ref={audioRef} />
+          <audio controls src={GIT_URL_WORD + word.audioMeaning} ref={audioRef} />
 
           <ListGroupItem>{word.textExample}</ListGroupItem>
           <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
-          <audio controls><source src={gitUrlword + word.audioExample} /></audio>
+          <audio controls><source src={GIT_URL_WORD + word.audioExample} /></audio>
 
         </ListGroup>
         <Card.Footer>
