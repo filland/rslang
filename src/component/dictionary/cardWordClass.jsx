@@ -8,45 +8,45 @@ import './styles.css';
 import playImg from './assets/images/audioPlayWord.png';
 
 const propTypes = {
-  world: PropTypes.objectOf(PropTypes.any).isRequired,
+  word: PropTypes.objectOf(PropTypes.any).isRequired,
   audioRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
 };
-const gitUrlWorld = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
+const gitUrlword = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
 
-class CardWorld extends Component {
+class Cardword extends Component {
   render() {
-    const { world, audioRef } = this.props;
+    const { word, audioRef } = this.props;
     return (
-      <Card bg="Light" className="worldCard">
-        <Card.Img variant="top" src={gitUrlWorld + world.image} />
+      <Card bg="Light" className="wordCard">
+        <Card.Img variant="top" src={gitUrlword + word.image} />
         <Card.Body>
-          <Card.Title>{world.word}</Card.Title>
-          <Card.Text>{world.wordTranslate}</Card.Text>
-          <Card.Text>{world.transcription}</Card.Text>
-          <audio controls><source src={gitUrlWorld + world.audio} /></audio>
+          <Card.Title>{word.word}</Card.Title>
+          <Card.Text>{word.wordTranslate}</Card.Text>
+          <Card.Text>{word.transcription}</Card.Text>
+          <audio controls><source src={gitUrlword + word.audio} /></audio>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>{world.textMeaning}</ListGroupItem>
-          <ListGroupItem>{world.textMeaningTranslate}</ListGroupItem>
-          <audio controls><source src={gitUrlWorld + world.audioMeaning} /></audio>
+          <ListGroupItem>{word.textMeaning}</ListGroupItem>
+          <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
+          <audio controls><source src={gitUrlword + word.audioMeaning} /></audio>
 
           <div className="play-word">
             <img src={playImg} width="25" height="25" alt="play" onClick={this.handleGameTools(audioRef)} />
           </div>
-          <audio controls src={gitUrlWorld + world.audioMeaning} ref={audioRef} />
+          <audio controls src={gitUrlword + word.audioMeaning} ref={audioRef} />
 
-          <ListGroupItem>{world.textExample}</ListGroupItem>
-          <ListGroupItem>{world.textExampleTranslate}</ListGroupItem>
-          <audio controls><source src={gitUrlWorld + world.audioExample} /></audio>
+          <ListGroupItem>{word.textExample}</ListGroupItem>
+          <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
+          <audio controls><source src={gitUrlword + word.audioExample} /></audio>
 
         </ListGroup>
         <Card.Footer>
           {/* todo: add info from back */}
           {/* todo: add img to difficulty */}
-          <div>{world.difficulty}</div>
+          <div>{word.difficulty}</div>
           <div>
             <span>Давность: 11 дней назад | </span>
             <span>Повторений: 3 | </span>
@@ -69,5 +69,5 @@ class CardWorld extends Component {
   };
 }
 
-CardWorld.propTypes = propTypes;
-export default CardWorld;
+Cardword.propTypes = propTypes;
+export default Cardword;

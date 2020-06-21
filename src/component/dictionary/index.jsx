@@ -6,22 +6,22 @@ import {
 } from 'react-bootstrap';
 
 import Loader from '../common/loader';
-import CardWorld from './cardWorldClass';
+import CardWord from './cardWordClass';
 
-import fetchWorldService from './service';
+import fetchWordService from './service';
 import './styles.css';
 import {
   getWordsSelector,
-  getWorldCountSelector,
-  getWorldCountTodaySelector,
+  getWordCountSelector,
+  getWordCountTodaySelector,
   getLosingFlagSelector,
 } from './selectors';
 
 const propTypes = {
-  fetchWorld: PropTypes.func.isRequired,
+  fetchWord: PropTypes.func.isRequired,
   words: PropTypes.arrayOf(PropTypes.object).isRequired,
-  worldCount: PropTypes.number.isRequired,
-  worldCountToday: PropTypes.number.isRequired,
+  wordCount: PropTypes.number.isRequired,
+  wordCountToday: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -32,13 +32,13 @@ class Dictionary extends Component {
   }
 
   componentDidMount() {
-    const { fetchWorld } = this.props;
-    fetchWorld();
+    const { fetchWord } = this.props;
+    fetchWord();
   }
 
   render() {
     const {
-      words, isLoading, worldCount, worldCountToday,
+      words, isLoading, wordCount, wordCountToday,
     } = this.props;
     console.log(words);
 
@@ -49,11 +49,11 @@ class Dictionary extends Component {
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${worldCount} (${worldCountToday} сегодня)`}
+            {`Число слов: ${wordCount} (${wordCountToday} сегодня)`}
           </div>
 
           <CardDeck className="my-4">
-            {words.map((item, i) => <CardWorld key={i} world={item} audioRef={this.audioRef} />)}
+            {words.map((item, i) => <CardWord key={i} word={item} audioRef={this.audioRef} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова" disabled>
@@ -78,13 +78,13 @@ class Dictionary extends Component {
 
 const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
-  worldCount: getWorldCountSelector(store),
-  worldCountToday: getWorldCountTodaySelector(store),
+  wordCount: getWordCountSelector(store),
+  wordCountToday: getWordCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
 });
 
 const mapDispatchToProps = {
-  fetchWorld: fetchWorldService,
+  fetchWord: fetchWordService,
 };
 
 Dictionary.propTypes = propTypes;
