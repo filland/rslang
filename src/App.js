@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from './component/navbar';
 import Login from './component/login';
 import Settings from './component/settings';
-import Dictionary from "./component/dictionary";
+import Dictionary from './component/dictionary';
 import Weather from './component/weather';
-import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
+import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
 import './App.scss';
 
 function App() {

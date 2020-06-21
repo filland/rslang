@@ -12,6 +12,7 @@ import {
   SHOW_FULL_IMG,
   SHOW_TRANSLATE_OF_SENTENCE,
   AUTO_PLAY_AUDIO,
+  START_GAME,
 } from './actions';
 
 const defaultState = {
@@ -35,6 +36,7 @@ const defaultState = {
   pictureData: { imageSrc: 'level1/ice_land.jpg' },
   translateIsShowed: false,
   autoPlay: true,
+  gameWasStarted: false,
 };
 
 const GamePageReducer = (state = defaultState, action) => {
@@ -136,6 +138,11 @@ const GamePageReducer = (state = defaultState, action) => {
       return {
         ...state,
         autoPlay: action.payload.autoPlay,
+      };
+    case START_GAME:
+      return {
+        ...state,
+        gameWasStarted: action.payload.gameWasStarted,
       };
 
     default:
