@@ -1,0 +1,26 @@
+.audioChallenge {
+	min-height: 90vh;
+
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.btn-close {
+	position: absolute;
+	top: 5rem;
+	right: 1rem;
+}
+
+.audioGroup {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.progressBar {
+	width: 100%;
+}

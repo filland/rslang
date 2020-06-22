@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonGroup, Button, ProgressBar } from "react-bootstrap";
-import { AudioGroup } from "../components/AudioGroup/AudioGroup/AudioGroup";
+import { AudioGroup } from "../components/AudioGroup/AudioGroup";
 import "../styles.css";
 
 const nowProgress = 20;

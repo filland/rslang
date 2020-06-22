@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Image } from "react-bootstrap";
-import "../../../styles.css";
+import "../../styles.css";
 
 export const AudioGroup = (props) => {
   const { word, imgURL } = props;
