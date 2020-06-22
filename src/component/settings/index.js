@@ -30,43 +30,54 @@ export default class Settings extends React.Component {
     super(props);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSelectWords = this.handleSelectWords.bind(this);
-    this.handlesubmit = this.handlesubmit.bind(this);
+    this.handleSelectCards = this.handleSelectCards.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
-      informationOnCards: {
+      optional: {
         informationTranslate: true,
         informationDescription: false,
         informationExample: false,
         informationTranscription: true,
         informationPicture: false,
-      },
-      buttonOnCards: {
         btnShow: true,
         btnDelete: true,
         btnComplicated: false,
-      },
-      levelButtons: {
         btnAgain: true,
         btnHard: true,
         btnGood: true,
         btnEasy: true,
+        customSwitch: false,
+        newCardsPerDay: 25,
       },
-      customSwitch: false,
       wordsPerDay: 5,
-      newCardsPerDay: 25,
     };
   }
 
-  handlesubmit = () => {
-    console.log('submit', this.state);
-  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('submit', JSON.stringify(this.state));
+    const url = 'https://afternoon-falls-25894.herokuapp.com/doc/#/Users%2FSetting/put_users__id__settings';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({
+          optional: data.optional,
+          wordsPerDay: data.wordsPerDay,
+        }));
+  };
 
   handleCheckbox = (event) => {
-    const object = {
-      // eslint-disable-next-line max-len
-      ...this.state.informationOnCards, ...this.state.buttonOnCards, ...this.state.levelButtons, ...this.state.customSwitch,
-    };
+    const object = { ...this.state.optional };
     object[event.target.id] = event.target.checked;
-    this.setState({ informationOnCards: object });
+    this.setState({ optional: object });
   }
 
   handleSelectWords = (event) => {
@@ -74,7 +85,9 @@ export default class Settings extends React.Component {
   }
 
   handleSelectCards = (event) => {
-    this.setState({ newCardsPerDay: event.target.value });
+    const object = { ...this.state.optional };
+    object.newCardsPerDay = event.target.value;
+    this.setState({ optional: object });
   }
 
   render() {
@@ -93,8 +106,8 @@ export default class Settings extends React.Component {
                       type="checkbox"
                       id={id}
                       label={label}
-                      checked = {this.state.informationOnCards[id]}
-                      onChange = {this.handleCheckbox}
+                      checked={this.state.optional[id]}
+                      onChange={this.handleCheckbox}
                     />
                   </div>
                 ))}
@@ -115,8 +128,8 @@ export default class Settings extends React.Component {
                       type="checkbox"
                       id={id}
                       label={label}
-                      checked = {this.state.buttonOnCards[id]}
-                      onChange = {this.handleCheckbox}
+                      checked={this.state.optional[id]}
+                      onChange={this.handleCheckbox}
                     />
                   </div>
                 ))}
@@ -137,8 +150,8 @@ export default class Settings extends React.Component {
                       type="checkbox"
                       id={id}
                       label={label}
-                      checked = {this.state.levelButtons[id]}
-                      onChange = {this.handleCheckbox}
+                      checked={this.state.optional[id]}
+                      onChange={this.handleCheckbox}
                     />
                   </div>
                 ))}
@@ -163,7 +176,7 @@ export default class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Максимальное количество карточек в день:</Form.Label>
             <Form.Control as="select" custom
-            value={this.state.newCardsPerDay} onChange={this.handleSelectCards}>
+              value={this.state.optional.newCardsPerDay} onChange={this.handleSelectCards}>
               <option>10</option>
               <option>25</option>
               <option>30</option>
@@ -178,15 +191,15 @@ export default class Settings extends React.Component {
           <Form.Check
             type="switch"
             id="customSwitch"
-            checked = {this.state.id}
-            onChange = {this.handleCheckbox}
+            checked={this.state.optional.id}
+            onChange={this.handleCheckbox}
             label="Автоматическое воспроизведение звука"
           />
         </Form>
         <br /> <br />
         <Button
-        onClick = {this.handlesubmit}
-        variant="success">Save</Button>{' '}
+          onClick={this.handleSubmit}
+          variant="success">Save</Button>{' '}
       </Accordion>
     );
   }
