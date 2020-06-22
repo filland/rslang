@@ -1,9 +1,11 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import { connect } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { setUserSettings, getUserSettings } from './service';
 
 import './style.css';
 
@@ -25,7 +27,7 @@ const arrOfLevelButtons = [
   { id: 'btnGood', label: "Кнопка 'Хорошо'" },
   { id: 'btnEasy', label: "Кнопка 'Легко'" },
 ];
-export default class Settings extends React.Component {
+export class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -54,25 +56,15 @@ export default class Settings extends React.Component {
     };
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('submit', JSON.stringify(this.state));
-    const url = 'https://afternoon-falls-25894.herokuapp.com/doc/#/Users%2FSetting/put_users__id__settings';
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(this.state),
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          optional: data.optional,
-          wordsPerDay: data.wordsPerDay,
-        }));
-  };
+  componentDidMount() {
+    const { getUserSettings } = this.props;
+    getUserSettings();
+  }
+
+  handleSubmit = async () => {
+    const { setUserSettings } = this.props;
+    setUserSettings(this.state);
+  }
 
   handleCheckbox = (event) => {
     const object = { ...this.state.optional };
@@ -204,3 +196,15 @@ export default class Settings extends React.Component {
     );
   }
 }
+
+const isLoading = (store) => store.login.isLoading;
+
+const mapStateToProps = (store) => ({
+  isLoading: isLoading(store),
+});
+
+const mapDispatchToProps = {
+  setUserSettings, getUserSettings,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
