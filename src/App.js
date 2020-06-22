@@ -5,6 +5,7 @@ import Login from './component/login';
 import Settings from './component/settings';
 import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
+import SpeakIt from './component/game/speakit';
 import './App.scss';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
         <Route path="/english-puzzle" component={EnglishPuzzle} />
+        <Route path="/game/speakit" component={SpeakIt} />
       </div>
     </Router>
   );

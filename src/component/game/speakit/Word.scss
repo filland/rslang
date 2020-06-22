@@ -1,0 +1,34 @@
+@import './styles.scss';
+
+.word {
+
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin: 10px;
+    flex: 1;
+    border: 1px solid gainsboro;
+    border-radius: $speakIt_borderRadius;
+    cursor: pointer;
+
+    .speaker {
+        height: 50px;
+        width: 50px;
+        flex: 2;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    .word-info {
+        flex: 6;
+        padding: 5px;
+    }
+
+}
