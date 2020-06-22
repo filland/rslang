@@ -6,6 +6,7 @@ import Settings from './component/settings';
 import Dictionary from "./component/dictionary";
 import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
+import Sprint from './component/sprint/sprint';
 import './App.scss';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dictionary" component={Dictionary} />
         <Route path="/login" component={Login} />
         <Route path="/english-puzzle" component={EnglishPuzzle} />
+        <Route path="/sprint" component={Sprint} />
       </div>
     </Router>
   );

@@ -15,6 +15,7 @@ export default function NavBar() {
         <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
         <Nav.Link as={Link} to="/dictionary">Dictionary</Nav.Link>
         <Nav.Link as={Link} to="/english-puzzle">english-puzzle</Nav.Link>
+        <Nav.Link as={Link} to="/sprint">Sprint</Nav.Link>
       </Nav>
     </Navbar>
   );
