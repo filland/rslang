@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import {
-  isLoading, isError, isLoaded, getError
+  isLoading, isError, isLoaded, getError,
 } from './selectors';
 import registerUser from './service';
 
@@ -51,7 +52,7 @@ class Registration extends Component {
           <Form.Control type="password" ref={this.passwordInput} placeholder="Password" required />
         </Form.Group>
         {isError && (<div><Form.Label className="error-label">{error}</Form.Label></div>)}
-        {isLoaded && (<div><Form.Label className="success-label">You were successfully registered!</Form.Label></div>)}
+        {isLoaded && (<div><Form.Label className="success-label">You were successfully registered! Now you can <Link to="/login">log in</Link></Form.Label></div>)}
         <Button variant="primary" type="submit">
           Register
         </Button>
