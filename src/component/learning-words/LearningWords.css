@@ -1,0 +1,46 @@
+.learning-words-wrapper {
+    background-color: lightblue;
+    padding: 10%;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-areas: 
+    "progress progress"
+    "info panel";
+}
+
+.learning-words-wrapper__progress {
+    grid-area: progress;
+}
+
+.learning-words-wrapper__card {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    margin-top: 30px;
+    grid-area: info;
+}
+
+.learning-words-wrapper__panel {
+    /* display: flex;
+    flex-direction: column; */
+    margin-top: 30px;
+    grid-area: panel;
+}
+
+.learning-words-wrapper__settings {
+    width: 100%;
+}
+
+.learning-words-wrapper__difficulty {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.learning-words-wrapper__controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.learning-words-wrapper__controls-btn {
+    margin-top: 20px;
+}
