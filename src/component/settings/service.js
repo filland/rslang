@@ -1,15 +1,28 @@
 import { settingsRequest, settingSuccess, settingFail } from './actions';
+import { getUserId } from '../../common/utils/UserUtils';
+import { getJwtToken } from '../../common/utils/TokenUtils';
+
+const userId = getUserId();
+console.log('userId: ', userId);
+const token = getJwtToken();
+console.log('token: ', token);
 
 const getUserSettings = () => async (dispatch) => {
   try {
     dispatch(settingsRequest());
-    const getSettingsURL = 'https://afternoon-falls-25894.herokuapp.com/doc/#/Users%2FSetting/get_users__id__settings';
-    const response = await fetch(getSettingsURL);
+    const getSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
+    const response = await fetch(getSettingsURL, {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      },
+    });
     const data = await response.json();
-    console.log('data: ', data);
+    console.log('data GET: ', data);
     dispatch(settingSuccess(data));
   } catch (error) {
-    console.log('error: ', error);
     dispatch(settingFail(error));
   }
 };
@@ -17,18 +30,21 @@ const getUserSettings = () => async (dispatch) => {
 const setUserSettings = (settings) => async (dispatch) => {
   try {
     dispatch(settingsRequest());
-    const setSettingsURL = 'https://afternoon-falls-25894.herokuapp.com/doc/#/Users%2FSetting/put_users__id__settings';
+    const setSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
     const response = await fetch(setSettingsURL, {
-      method: 'POST',
+      method: 'PUT',
+      withCredentials: true,
       headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(settings),
     });
-    // const data = await response.json();
-    // dispatch(settingSuccess(data));
+    const data = await response.json();
+    console.log('data PUT: ', data);
+    dispatch(settingSuccess(data));
   } catch (error) {
-    console.log('error: ', error);
     dispatch(settingFail(error));
   }
 };

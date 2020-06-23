@@ -61,9 +61,15 @@ export class Settings extends React.Component {
     getUserSettings();
   }
 
+  componentDidUpdate() {
+    setUserSettings(this.state);
+  }
+
+
   handleSubmit = async () => {
     const { setUserSettings } = this.props;
     setUserSettings(this.state);
+    console.log('JSON.stringify ', JSON.stringify(this.state));
   }
 
   handleCheckbox = (event) => {

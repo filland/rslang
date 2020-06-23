@@ -20,7 +20,6 @@ const loginUser = (email, password) => async (dispatch) => {
       body: JSON.stringify(userData),
     });
     const parsedResponse = await response.json();
-
     setJwtToken(parsedResponse.token);
     setUserId(parsedResponse.userId);
     dispatch(loginSuccess());
