@@ -1,10 +1,10 @@
 import React from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import './VoiceInput.scss';
+import './styles.scss';
 
 export default function VoiceInput() {
-  return (
+    return (
         <div className="voice-input-container">
             <div className="voice-input">
                 <InputGroup className="mb-3">
@@ -17,5 +17,5 @@ export default function VoiceInput() {
                 </InputGroup>
             </div>
         </div>
-  );
+    );
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Menu from './Menu';
-import Game from './Game';
+import Menu from './menu';
+import Game from './game';
 import { MENU_PAGE, GAME_PAGE } from './constants';
 
 class SpeakIt extends Component {
@@ -11,21 +11,21 @@ class SpeakIt extends Component {
     };
   }
 
-    setCurrentPage = (page) => {
-      this.setState({ page });
-    }
+  setCurrentPage = (page) => {
+    this.setState({ page });
+  }
 
-    render() {
-      const { page } = this.state;
+  render() {
+    const { page } = this.state;
 
-      if (page === MENU_PAGE) {
-        return (<Menu setCurrentPage={this.setCurrentPage}></Menu>);
-      } if (page === GAME_PAGE) {
-        return (<Game setCurrentPage={this.setCurrentPage}></Game>);
-      }
-
+    if (page === MENU_PAGE) {
       return (<Menu setCurrentPage={this.setCurrentPage}></Menu>);
+    } if (page === GAME_PAGE) {
+      return (<Game setCurrentPage={this.setCurrentPage}></Game>);
     }
+
+    return (<Menu setCurrentPage={this.setCurrentPage}></Menu>);
+  }
 }
 
 export default SpeakIt;

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Word from './Word';
-import VoiceInput from './VoiceInput';
-import Stepper from './Stepper';
-import blankPicture from './assets/blank.jpg';
-import './Game.scss';
+import Word from '../word';
+import VoiceInput from '../voice-input';
+import Stepper from '../stepper';
+import blankPicture from '../assets/blank.jpg';
+import './styles.scss';
 
 class Game extends Component {
-  render() {
-    return (<div className="speakit-container">
+    render() {
+        return (<div className="speakit-container">
             <div className="speakit">
                 <Stepper></Stepper>
                 <div className="picture-container">
@@ -34,7 +34,7 @@ class Game extends Component {
                 </div>
             </div>
         </div >);
-  }
+    }
 }
 
 export default Game;
