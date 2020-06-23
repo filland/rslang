@@ -1,3 +1,4 @@
 export const isLoading = (store) => store.registration.isLoading;
 export const isError = (store) => store.registration.isError;
-export const isDone = (store) => store.registration.isDone;
+export const isLoaded = (store) => store.registration.isLoaded;
+export const getError = (store) => store.registration.error;

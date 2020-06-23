@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import {
-  isLoading, isError, isDone,
+  isLoading, isError, isLoaded, getError
 } from './selectors';
 import registerUser from './service';
 
@@ -13,8 +13,9 @@ import './styles.scss';
 
 const propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  isDone: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 };
 
 class Registration extends Component {
@@ -36,7 +37,7 @@ class Registration extends Component {
   }
 
   render() {
-    const { isError, isDone } = this.props;
+    const { isError, isLoaded, error } = this.props;
 
     return (
       <Form onSubmit={this.handleUserLogin}>
@@ -49,8 +50,8 @@ class Registration extends Component {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" ref={this.passwordInput} placeholder="Password" required />
         </Form.Group>
-        {isError && (<div><Form.Label className="error-label">Email or password is invalid</Form.Label></div>)}
-        {isDone && (<div><Form.Label className="success-label">You were successfully registered!</Form.Label></div>)}
+        {isError && (<div><Form.Label className="error-label">{error}</Form.Label></div>)}
+        {isLoaded && (<div><Form.Label className="success-label">You were successfully registered!</Form.Label></div>)}
         <Button variant="primary" type="submit">
           Register
         </Button>
@@ -62,7 +63,8 @@ class Registration extends Component {
 const mapStateToProps = (store) => ({
   isLoading: isLoading(store),
   isError: isError(store),
-  isDone: isDone(store),
+  isLoaded: isLoaded(store),
+  error: getError(store),
 });
 
 const mapDispatchToProps = {

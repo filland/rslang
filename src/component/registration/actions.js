@@ -10,7 +10,7 @@ export function registrationRequest() {
     payload: {
       isLoading: true,
       isError: false,
-      isDone: false,
+      isLoaded: false,
     },
   };
 }
@@ -20,7 +20,7 @@ export function registrationSuccess() {
     type: REGISTRATION_SUCCESS,
     payload: {
       isLoading: false,
-      isDone: true,
+      isLoaded: true,
     },
   };
 }
@@ -31,7 +31,7 @@ export function registrationFail(error) {
     payload: {
       isLoading: false,
       isError: true,
-      isDone: false,
+      isLoaded: false,
       error,
     },
   };

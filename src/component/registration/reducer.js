@@ -3,7 +3,7 @@ import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_FAIL } from '.
 const initialState = {
   isLoading: false,
   isError: false,
-  isDone: false,
+  isLoaded: false,
 };
 
 function registrationReducer(state = initialState, action) {
