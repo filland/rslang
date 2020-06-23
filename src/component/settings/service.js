@@ -3,9 +3,7 @@ import { getUserId } from '../../common/utils/UserUtils';
 import { getJwtToken } from '../../common/utils/TokenUtils';
 
 const userId = getUserId();
-console.log('userId: ', userId);
 const token = getJwtToken();
-console.log('token: ', token);
 
 const getUserSettings = () => async (dispatch) => {
   try {
@@ -15,11 +13,13 @@ const getUserSettings = () => async (dispatch) => {
       method: 'GET',
       withCredentials: true,
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
       },
     });
     const data = await response.json();
+    const obj = { optional: data.optional, wordsPerDay: data.wordsPerDay };
+    console.log('obj: ', obj);
     console.log('data GET: ', data);
     dispatch(settingSuccess(data));
   } catch (error) {
@@ -35,8 +35,8 @@ const setUserSettings = (settings) => async (dispatch) => {
       method: 'PUT',
       withCredentials: true,
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(settings),

@@ -61,15 +61,24 @@ export class Settings extends React.Component {
     getUserSettings();
   }
 
-  componentDidUpdate() {
-    setUserSettings(this.state);
+  static getDerivedStateFromProps(nextProps, prevProps) {
+    if (JSON.stringify(prevProps.optional) !== JSON.stringify(nextProps.optional)
+    || prevProps.wordsPerDay !== nextProps.wordsPerDay) {
+      console.log('nextProps.wordsPerDay: ', nextProps.wordsPerDay);
+      console.log('prevProps.wordsPerDay: ', prevProps.wordsPerDay);
+      console.log('nextProps.optional: ', JSON.stringify(nextProps.optional));
+      console.log('prevProps.optional: ', JSON.stringify(prevProps.optional));
+      return {
+        optional: nextProps.optional,
+        wordsPerDay: nextProps.wordsPerDay,
+      };
+    }
+    return null;
   }
-
 
   handleSubmit = async () => {
     const { setUserSettings } = this.props;
     setUserSettings(this.state);
-    console.log('JSON.stringify ', JSON.stringify(this.state));
   }
 
   handleCheckbox = (event) => {
@@ -203,10 +212,12 @@ export class Settings extends React.Component {
   }
 }
 
-const isLoading = (store) => store.login.isLoading;
+const isLoading = (store) => store.settings.isLoading;
+const data = (store) => store.settings.isLoading;
 
 const mapStateToProps = (store) => ({
   isLoading: isLoading(store),
+  settings: data(store),
 });
 
 const mapDispatchToProps = {
