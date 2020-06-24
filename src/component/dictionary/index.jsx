@@ -35,7 +35,6 @@ class Dictionary extends Component {
     const {
       words, isLoading, wordCount, wordCountToday,
     } = this.props;
-    console.log(words);
 
     if (isLoading) {
       return (<Loader />);

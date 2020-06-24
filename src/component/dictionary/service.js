@@ -4,15 +4,15 @@ import {
   fetchWordRequest,
 } from './actions';
 import { getJwtToken } from '../../common/utils/TokenUtils';
+import { getUserId } from '../../common/utils/UserUtils';
 
 const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
 
-    const userId = '5eea9233dffad00017faa8e3';
-    dispatch(fetchWordRequest(userId));
+    dispatch(fetchWordRequest(getUserId()));
 
-    const urlWordIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
+    const urlWordIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words`;
     const responseWordIds = await fetch(urlWordIds, {
       method: 'GET',
       withCredentials: true,
