@@ -47,7 +47,7 @@ class Dictionary extends Component {
           </div>
 
           <CardDeck className="my-4">
-            {words.map((item, i) => <CardWord key={i} word={item} audioRef={this.audioRef} />)}
+            {words.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова" disabled>
