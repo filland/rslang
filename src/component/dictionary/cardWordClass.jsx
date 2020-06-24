@@ -4,7 +4,7 @@ import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import './styles.css';
-
+import { GIT_URL_WORD } from './constants';
 import playImg from './assets/images/audioPlayWord.png';
 
 const propTypes = {
@@ -14,19 +14,30 @@ const propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
 };
-const gitUrlword = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
 
 class Cardword extends Component {
   constructor(props) {
     super(props);
     this.audioRef = React.createRef();
+    this.audioMeaningRef = React.createRef();
+    this.audioExampleRef = React.createRef();
   }
 
   playAudio = () => {
-    console.log('handleGameTools: ');
     if (this.audioRef.current) {
-      console.log('this.audioRef.current: ', this.audioRef.current);
       this.audioRef.current.play();
+    }
+  };
+
+  playAudioMeaning = () => {
+    if (this.audioMeaningRef.current) {
+      this.audioMeaningRef.current.play();
+    }
+  };
+
+  playAudioExample = () => {
+    if (this.audioExampleRef.current) {
+      this.audioExampleRef.current.play();
     }
   };
 
@@ -34,27 +45,29 @@ class Cardword extends Component {
     const { word } = this.props;
     return (
       <Card bg="Light" className="wordCard">
-        <Card.Img variant="top" src={gitUrlword + word.image} />
+        <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
         <Card.Body>
           <Card.Title>{word.word}</Card.Title>
           <Card.Text>{word.wordTranslate}</Card.Text>
           <Card.Text>
-            {word.transcription}
-            {word.textMeaning}&nbsp;
-            {/* <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-            <audio src={gitUrlword + word.audio} ref={this.audioRef} /> */}
+            {word.transcription}&nbsp;
+            <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
+            <audio src={GIT_URL_WORD + word.audio} ref={this.audioRef} />
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
             {word.textMeaning}&nbsp;
-            <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-            <audio src={gitUrlword + word.audioMeaning} ref={this.audioRef} />
+            <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
+            <audio src={GIT_URL_WORD + word.audioMeaning} ref={this.audioMeaningRef} />
           </ListGroupItem>
           <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
-          <ListGroupItem>{word.textExample}</ListGroupItem>
+          <ListGroupItem>
+            {word.textExample}&nbsp;
+            <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
+            <audio src={GIT_URL_WORD + word.audioExample} ref={this.audioExampleRef} />
+          </ListGroupItem>
           <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
-          <audio controls><source src={gitUrlword + word.audioExample} /></audio>
         </ListGroup>
         <Card.Footer>
           {/* todo: add info from back */}

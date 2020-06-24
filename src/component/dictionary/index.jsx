@@ -26,7 +26,6 @@ const propTypes = {
 };
 
 class Dictionary extends Component {
-
   componentDidMount() {
     const { fetchWord } = this.props;
     fetchWord();
