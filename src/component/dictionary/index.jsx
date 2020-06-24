@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 
 import Loader from '../common/loader';
-import CardWord from './cardWordClass';
+import CardWord from './cardWord/index';
 
 import fetchWordService from './service';
 import './styles.css';
@@ -60,7 +60,6 @@ class Dictionary extends Component {
     );
   }
 }
-
 const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
   wordCount: getWordCountSelector(store),

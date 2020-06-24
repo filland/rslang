@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
-import './styles.css';
-import { GIT_URL_WORD } from './constants';
-import playImg from './assets/images/audioPlayWord.png';
+
+import { GIT_URL_WORD } from '../constants';
+import playImg from '../assets/images/audioPlayWord.png';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
