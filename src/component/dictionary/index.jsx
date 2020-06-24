@@ -26,10 +26,6 @@ const propTypes = {
 };
 
 class Dictionary extends Component {
-  constructor(props) {
-    super(props);
-    this.audioRef = React.createRef();
-  }
 
   componentDidMount() {
     const { fetchWord } = this.props;
@@ -65,15 +61,6 @@ class Dictionary extends Component {
       </Tabs>
     );
   }
-
-  // handleGameTools = (audioRefLink) => {
-  //   // audioRef.current.play();
-  //   console.log(this);
-  //   console.log(audioRefLink);
-
-  //   // console.log(this.audioRef.current);
-  //   // this.audioRef.current.play();
-  // }
 }
 
 const mapStateToProps = (store) => ({

@@ -4,7 +4,7 @@ import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import './styles.css';
-import GIT_URL_WORD from './constants';
+import { GIT_URL_WORD } from './constants';
 
 import playImg from './assets/images/audioPlayWord.png';
 
@@ -17,6 +17,11 @@ const propTypes = {
 };
 
 class Cardword extends Component {
+  constructor(props) {
+    super(props);
+    this.audioRef = React.createRef();
+  }
+
   render() {
     const { word, audioRef } = this.props;
     return (
@@ -36,7 +41,7 @@ class Cardword extends Component {
           <div className="play-word">
             <img src={playImg} width="25" height="25" alt="play" onClick={this.handleGameTools(audioRef)} />
           </div>
-          <audio controls src={GIT_URL_WORD + word.audioMeaning} ref={audioRef} />
+          <audio controls src={GIT_URL_WORD + word.audioMeaning} ref={this.audioRef} />
 
           <ListGroupItem>{word.textExample}</ListGroupItem>
           <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
@@ -59,13 +64,10 @@ class Cardword extends Component {
 
   handleGameTools = () => {
     console.log(this);
-    console.log(this.props.audioRef.current);
-    // console.log(target);
-    // return this.props.audioRef.current.play();
-    // return this.props.audioRef.current.play();
-    // return target.current.play();
-    // console.log(typeof (this.audioRef.current.play()));
-    // return this.audioRef.current.play();
+    // this is null
+    console.log(this.audioRef.current);
+    if (this.audioRef.current) this.audioRef.current.play();
+
   };
 }
 
