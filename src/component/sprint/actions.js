@@ -13,7 +13,7 @@ export function fetchSprintRequest() {
   };
 }
 
-export function fetchSprintSuccess(word, translation, randomIndex, randomIndex2, id) {
+export function fetchSprintSuccess(word, translation, randomIndex, randomIndex2, wordTranslate) {
   return {
     type: FETCH_SPRINT_SUCCESS,
     payload: {
@@ -22,7 +22,7 @@ export function fetchSprintSuccess(word, translation, randomIndex, randomIndex2,
       translation,
       randomIndex,
       randomIndex2,
-      id,
+      wordTranslate,
     },
   };
 }

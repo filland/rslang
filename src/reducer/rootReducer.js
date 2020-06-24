@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   weather: weatherReducer,
   login: loginReducer,
   puzzleGame: GamePageReducer,
-  sprint: sprintReducer,
+  sprint: sprintReducer,
 });
 
 export default rootReducer;

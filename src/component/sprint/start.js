@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
@@ -14,7 +15,7 @@ class Start extends Component {
     };
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({ display: 'none' });
   }
 
@@ -24,13 +25,25 @@ class Start extends Component {
       <Container id="outer" style={style}>
         <Card className="d-flex flex-column align-items-center p-5 inner" id="inner">
           <Card.Body className="d-flex flex-column align-items-center p-4">
-            <Card.Title className="mb-4">Начать Игру?</Card.Title>
+            <Card.Title className="mb-4">Выберите уровень сложности игры:</Card.Title>
             <Row>
-              <Link className="btn btn-primary mr-2" to="/game" onClick={() => this.handleClick()}>
-                Да!
+              <Nav.Link as={Link} to="/game" className="btn btn-primary mr-2 mb-2" onClick={() => this.handleClick()}>
+                Очень Легкая
+              </Nav.Link>
+              <Link className="btn btn-danger mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+                Легкая
               </Link>
-              <Link className="btn btn-danger" to="/statistics" onClick={() => this.handleClick()}>
-                Нет :(
+              <Link className="btn btn-success mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+                Интересная
+              </Link>
+              <Link className="btn btn-warning mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+                Очень Интересная
+              </Link>
+              <Link className="btn btn-info mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+                Сложная
+              </Link>
+              <Link className="btn btn-secondary mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+                Let me speak from my hard advanced
               </Link>
             </Row>
           </Card.Body>

@@ -3,7 +3,7 @@ import { FETCH_SPRINT_REQUEST, FETCH_SPRINT_SUCCESS, FETCH_SPRINT_FAIL } from '.
 const initialState = {
   word: null,
   translation: null,
-  id: null,
+  wordTranslate: null,
   isLoading: false,
 };
 
