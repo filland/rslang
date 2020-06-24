@@ -3,13 +3,13 @@ import {
   fetchWordFail,
   fetchWordRequest,
 } from './actions';
+import { getJwtToken } from '../../common/utils/TokenUtils';
 
 const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
 
     const userId = '5eea9233dffad00017faa8e3';
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5Mjk5NTEyNCwiZXhwIjoxNTkzMDA5NTI0fQ.LMNq64SBWgALF3yTECxCOkWyDYkoOkEMiAE72MNOakU';
     dispatch(fetchWordRequest(userId));
 
     const urlWordIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
@@ -17,7 +17,7 @@ const fetchWordService = () => async (dispatch) => {
       method: 'GET',
       withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getJwtToken()}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },

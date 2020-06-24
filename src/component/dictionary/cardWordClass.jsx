@@ -4,7 +4,6 @@ import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import './styles.css';
-import { GIT_URL_WORD } from './constants';
 
 import playImg from './assets/images/audioPlayWord.png';
 
@@ -15,6 +14,7 @@ const propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
 };
+const gitUrlword = 'https://raw.githubusercontent.com/agnusha/rslang-data/master/';
 
 class Cardword extends Component {
   constructor(props) {
@@ -22,31 +22,39 @@ class Cardword extends Component {
     this.audioRef = React.createRef();
   }
 
+  playAudio = () => {
+    console.log('handleGameTools: ');
+    if (this.audioRef.current) {
+      console.log('this.audioRef.current: ', this.audioRef.current);
+      this.audioRef.current.play();
+    }
+  };
+
   render() {
-    const { word, audioRef } = this.props;
+    const { word } = this.props;
     return (
       <Card bg="Light" className="wordCard">
-        <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
+        <Card.Img variant="top" src={gitUrlword + word.image} />
         <Card.Body>
           <Card.Title>{word.word}</Card.Title>
           <Card.Text>{word.wordTranslate}</Card.Text>
-          <Card.Text>{word.transcription}</Card.Text>
-          <audio controls><source src={GIT_URL_WORD + word.audio} /></audio>
+          <Card.Text>
+            {word.transcription}
+            {word.textMeaning}&nbsp;
+            {/* <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
+            <audio src={gitUrlword + word.audio} ref={this.audioRef} /> */}
+          </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>{word.textMeaning}</ListGroupItem>
+          <ListGroupItem>
+            {word.textMeaning}&nbsp;
+            <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
+            <audio src={gitUrlword + word.audioMeaning} ref={this.audioRef} />
+          </ListGroupItem>
           <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
-          <audio controls><source src={GIT_URL_WORD + word.audioMeaning} /></audio>
-
-          <div className="play-word">
-            <img src={playImg} width="25" height="25" alt="play" onClick={this.handleGameTools(audioRef)} />
-          </div>
-          <audio controls src={GIT_URL_WORD + word.audioMeaning} ref={this.audioRef} />
-
           <ListGroupItem>{word.textExample}</ListGroupItem>
           <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
-          <audio controls><source src={GIT_URL_WORD + word.audioExample} /></audio>
-
+          <audio controls><source src={gitUrlword + word.audioExample} /></audio>
         </ListGroup>
         <Card.Footer>
           {/* todo: add info from back */}
@@ -61,14 +69,6 @@ class Cardword extends Component {
       </Card>
     );
   }
-
-  handleGameTools = () => {
-    console.log(this);
-    // this is null
-    console.log(this.audioRef.current);
-    if (this.audioRef.current) this.audioRef.current.play();
-
-  };
 }
 
 Cardword.propTypes = propTypes;
