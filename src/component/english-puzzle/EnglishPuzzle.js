@@ -4,11 +4,9 @@ import GamePage from './GamePage/GamePage';
 import StartPage from './StartPage/StartPage';
 
 const EnglishPuzzle = ({ gameWasStarted }) => (
-    <>
-    {
-        gameWasStarted ? <GamePage/> : <StartPage/>
-    }
-    </>
+
+  gameWasStarted ? <GamePage/> : <StartPage/>
+
 );
 const mapStateToProps = (state) => ({
   gameWasStarted: state.puzzleGame.gameWasStarted,
