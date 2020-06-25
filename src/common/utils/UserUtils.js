@@ -5,6 +5,10 @@ export const setUserId = (userId) => {
 };
 
 export const getUserId = () => {
-  const jwtToken = localStorage.getItem(USER_ID);
-  return jwtToken;
+  const userId = localStorage.getItem(USER_ID);
+  return userId;
+};
+
+export const deleteUserId = () => {
+  localStorage.removeItem(USER_ID);
 };

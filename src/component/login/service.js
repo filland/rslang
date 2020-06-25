@@ -2,7 +2,7 @@ import { loginRequest, loginSuccess, loginFail } from './actions';
 import { setJwtToken } from '../../common/utils/TokenUtils';
 import { setUserId } from '../../common/utils/UserUtils';
 
-const loginUser = (email, password) => async (dispatch) => {
+const loginUser = (email, password, history) => async (dispatch) => {
   try {
     dispatch(loginRequest());
 
@@ -22,6 +22,8 @@ const loginUser = (email, password) => async (dispatch) => {
     const parsedResponse = await response.json();
     setJwtToken(parsedResponse.token);
     setUserId(parsedResponse.userId);
+    history.push("/settings");
+
     dispatch(loginSuccess());
   } catch (error) {
     dispatch(loginFail(error));
