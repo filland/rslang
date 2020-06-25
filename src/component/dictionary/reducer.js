@@ -8,7 +8,7 @@ const initialState = {
   user: null,
 };
 
-export function dictionaryReducer(state = initialState, action) {
+function dictionaryReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_WORLD_REQUEST:
       return {
@@ -33,3 +33,5 @@ export function dictionaryReducer(state = initialState, action) {
       return state;
   }
 }
+
+export default dictionaryReducer;
