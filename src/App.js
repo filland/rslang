@@ -7,6 +7,7 @@ import Settings from './component/settings';
 import Dictionary from "./component/dictionary";
 import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
+import AuthProvider from "./component/common/auth-provider";
 import './App.scss';
 
 function App() {
@@ -14,11 +15,13 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={NavBar} />
-        <Route path="/weather" component={Weather} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/dictionary" component={Dictionary} />
         <Route path="/login" component={Login} />
-        <Route path="/english-puzzle" component={EnglishPuzzle} />
+        <AuthProvider>
+          <Route path="/weather" component={Weather} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/dictionary" component={Dictionary} />
+          <Route path="/english-puzzle" component={EnglishPuzzle} />
+        </AuthProvider>
       </div>
     </Router>
   );

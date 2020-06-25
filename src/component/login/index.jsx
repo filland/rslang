@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -24,8 +26,8 @@ class Login extends Component {
     const email = this.emailInput.current.value;
     const password = this.passwordInput.current.value;
 
-    const { loginUser } = this.props;
-    loginUser(email, password);
+    const { loginUser, history } = this.props;
+    loginUser(email, password, history);
   }
 
   render() {
@@ -59,4 +61,7 @@ const mapDispatchToProps = {
   loginUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(Login);
