@@ -6,7 +6,7 @@ import Registration from './component/registration';
 import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
-import './App.css';
+import './App.scss';
 import LearningWords from './component/learning-words/LearningWords';
 
 import './App.scss';
@@ -20,16 +20,7 @@ function App() {
         <Route path="/weather" component={Weather} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
-        <Route path="/registration" component={Registration} />
-        <AuthProvider>
-          <Route path="/weather" component={Weather} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/dictionary" component={Dictionary} />
-          <Route path="/english-puzzle" component={EnglishPuzzle} />
-          <Route path="/game/speakit" component={SpeakIt} />
-          <Route path="/statistics" component={Statistics} />
-          <Route path="/audioChallenge" component={AudioChallenge} />
-        </AuthProvider>
+        {/* <Route path="/english-puzzle" component={EnglishPuzzle} /> */}
       </div>
     </Router>
   );
