@@ -9,9 +9,9 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
+import LearningWords from './component/learning-words/LearningWords';
 
 import './App.scss';
-import LearningWords from './component/learning-words/LearningWords';
 
 
 function App() {
@@ -19,10 +19,6 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={NavBar} />
-        <Route path="/learning-words" component={LearningWords}/>
-        <Route path="/weather" component={Weather} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/dictionary" component={Dictionary} />
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <AuthProvider>
@@ -30,6 +26,7 @@ function App() {
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
+          <Route path="/learning-words" component={LearningWords}/>
           <Route path="/game/speakit" component={SpeakIt} />
         </AuthProvider>
       </div>
