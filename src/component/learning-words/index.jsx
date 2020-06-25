@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import FormControl from "react-bootstrap/FormControl";
 
-import "./LearningWords.scss";
+import "./styles.scss";
 
 const mediaStorage =
   "https://raw.githubusercontent.com/liplyanin/rslang-data/master/";

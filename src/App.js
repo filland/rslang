@@ -9,7 +9,7 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
-import LearningWords from './component/learning-words/LearningWords';
+import LearningWords from './component/learning-words';
 
 import './App.scss';
 
