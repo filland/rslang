@@ -6,6 +6,7 @@ import dictionaryReducer from '../component/dictionary/reducer';
 import settingsReducer from '../component/settings/reducer';
 import GamePageReducer from '../component/english-puzzle/redux/reducers';
 import authReducer from '../component/common/auth-provider/reducer';
+import savannaReducer from '../component/savanna/redux/reducer';
 
 const rootReducer = combineReducers({
   weather: weatherReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   dictionary: dictionaryReducer,
   puzzleGame: GamePageReducer,
   auth: authReducer,
+  savannaGame: savannaReducer,
 });
 
 export default rootReducer;
