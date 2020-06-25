@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
@@ -10,7 +11,6 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import fetchSprintService from './service';
-import Loader from '../common/loader';
 import {
   getWordSelector,
   getTranslationSelector,
@@ -42,10 +42,16 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      word: { word: null },
-
+      word: null,
+      wordTranslate: null,
+      randomIndex: null,
+      randomIndex2: null,
       minutes: 1,
       seconds: 0,
+      border: '',
+      visibilityWrong: '',
+      visibilityCorrect: '',
+      pointsInfo: '',
     };
   }
 
@@ -72,85 +78,96 @@ class Game extends Component {
         }
       }
     }, 1000);
+    document.addEventListener('keydown', (event) => this.handlePressKey(event), false);
   }
 
   componentWillUnmount() {
     clearInterval(this.myInterval);
   }
 
-  handleClickCorrect = (a, b) => {
-    const { word, wordTranslate } = this.props;
-    if (a === b) {
-      document.getElementById('card').style.border = 'none';
-      document.getElementById('wrong').style.visibility = 'hidden';
-      document.getElementById('correct').style.visibility = 'visible';
-      document.getElementById('card').style.border = '5px solid green';
-      document.getElementById('points-info').innerText = `+${addPoints} очков за слово`;
+  handleClickCorrect = () => {
+    const {
+      word, wordTranslate, randomIndex, randomIndex2,
+    } = this.props;
+    if (randomIndex === randomIndex2) {
+      this.setState({ border: '5px solid green' });
+      this.setState({ visibilityWrong: 'hidden' });
+      this.setState({ visibilityCorrect: 'visible' });
+      this.setState({ pointsInfo: `+${addPoints} очков за слово` });
       points += addPoints;
       correctAnswers += 1;
       if (correctAnswers === 4) {
         addPoints *= 2;
         correctAnswers = 0;
       }
-      knowArr.push(`${word} - ${wordTranslate}`);
+      if (!knowArr.includes(`${word} - ${wordTranslate}`) && !mistakesArr.includes(`${word} - ${wordTranslate}`)) {
+        knowArr.push(`${word} - ${wordTranslate}`);
+      }
     } else {
-      document.getElementById('card').style.border = 'none';
-      document.getElementById('correct').style.visibility = 'hidden';
-      document.getElementById('wrong').style.visibility = 'visible';
-      document.getElementById('card').style.border = '5px solid red';
-      document.getElementById('points-info').innerText = '';
+      this.setState({ border: '5px solid red' });
+      this.setState({ visibilityCorrect: 'hidden' });
+      this.setState({ visibilityWrong: 'visible' });
+      this.setState({ pointsInfo: '' });
       correctAnswers = 0;
       addPoints = 10;
-      mistakesArr.push(`${word} - ${wordTranslate}`);
+      if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
+        mistakesArr.push(`${word} - ${wordTranslate}`);
+      }
     }
     const { fetchSprint } = this.props;
     fetchSprint();
   };
 
-  handleClickWrong = (a, b) => {
-    const { word, wordTranslate } = this.props;
-    if (a !== b) {
-      document.getElementById('card').style.border = 'none';
-      document.getElementById('wrong').style.visibility = 'hidden';
-      document.getElementById('correct').style.visibility = 'visible';
-      document.getElementById('card').style.border = '5px solid green';
-      document.getElementById('points-info').innerText = `+${addPoints} очков за слово`;
+  handleClickWrong = () => {
+    const {
+      word, wordTranslate, randomIndex, randomIndex2,
+    } = this.props;
+    if (randomIndex !== randomIndex2) {
+      this.setState({ border: '5px solid green' });
+      this.setState({ visibilityWrong: 'hidden' });
+      this.setState({ visibilityCorrect: 'visible' });
+      this.setState({ pointsInfo: `+${addPoints} очков за слово` });
       points += addPoints;
       correctAnswers += 1;
       if (correctAnswers === 4) {
         addPoints *= 2;
         correctAnswers = 0;
       }
-      knowArr.push(`${word} - ${wordTranslate}`);
+      if (!knowArr.includes(`${word} - ${wordTranslate}`) && !mistakesArr.includes(`${word} - ${wordTranslate}`)) {
+        knowArr.push(`${word} - ${wordTranslate}`);
+      }
     } else {
-      document.getElementById('card').style.border = 'none';
-      document.getElementById('correct').style.visibility = 'hidden';
-      document.getElementById('wrong').style.visibility = 'visible';
-      document.getElementById('card').style.border = '5px solid red';
-      document.getElementById('points-info').innerText = '';
+      this.setState({ border: '5px solid red' });
+      this.setState({ visibilityCorrect: 'hidden' });
+      this.setState({ visibilityWrong: 'visible' });
+      this.setState({ pointsInfo: '' });
       correctAnswers = 0;
       addPoints = 10;
-      mistakesArr.push(`${word} - ${wordTranslate}`);
+      if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
+        mistakesArr.push(`${word} - ${wordTranslate}`);
+      }
     }
     const { fetchSprint } = this.props;
     fetchSprint();
   };
 
-  handlePressKey = (event, a, b) => {
+  handlePressKey = (event) => {
     if (event.keyCode === 37) {
-      this.handleClickCorrect(a, b);
-    }
-    if (event.keyCode === 39) {
-      this.handleClickWrong(a, b);
+      this.handleClickCorrect();
+    } else if (event.keyCode === 39) {
+      this.handleClickWrong();
     }
   }
 
   render() {
+    const styleCard = { border: this.state.border };
+    const styleWrong = { visibility: this.state.visibilityWrong };
+    const styleCorrect = { visibility: this.state.visibilityCorrect };
+    const { pointsInfo } = this.state;
     const { minutes, seconds } = this.state;
     const {
-      word, translation, randomIndex, randomIndex2, isLoading,
+      word, translation, randomIndex, randomIndex2,
     } = this.props;
-    document.addEventListener('keydown', (event) => this.handlePressKey(event, randomIndex, randomIndex2), false);
     return (
       <Container fluid>
        <Row className="d-flex flex-column align-items-center">
@@ -163,13 +180,13 @@ class Game extends Component {
                 }
               </Col>
           </Row>
-          <Card className="d-flex flex-column align-items-center p-3" id="card">
-            <Card.Img variant="top" src={correct} alt="Correct sing" id="correct"/>
+          <Card style={ styleCard } className="d-flex flex-column align-items-center p-3" id="card">
+            <Card.Img variant="top" style={ styleCorrect } src={correct} alt="Correct sing" id="correct"/>
             <Card.Body className="d-flex flex-column align-items-center p-4">
-              <Card.Text id="points-info"></Card.Text>
+              <Card.Text id="points-info">{ pointsInfo }</Card.Text>
               <Card.Title className="mb-4">{word}</Card.Title>
               <Card.Subtitle className="mb-3 text-muted">{translation}</Card.Subtitle>
-              <Card.Img variant="top" className="mb-3" src={wrong} alt="Wrong sing" id="wrong"/>
+              <Card.Img variant="top" className="mb-3" style={ styleWrong } src={wrong} alt="Wrong sing" id="wrong"/>
               <Row>
                 <Button onClick={() => this.handleClickCorrect(randomIndex, randomIndex2)} variant="primary" className="mr-2">
                 Правильно!</Button>

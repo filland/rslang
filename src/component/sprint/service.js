@@ -4,14 +4,30 @@ import {
   fetchSprintFail,
 } from './actions';
 
+const indexes = [];
+let page = 0;
+
 const fetchSprintService = () => async (dispatch) => {
   try {
     dispatch(fetchSprintRequest());
-    const urlWords = `https://afternoon-falls-25894.herokuapp.com/words?page=2&group=2`;
+    const urlWords = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=0`;
     const response = await fetch(urlWords);
     const data = await response.json();
     const randomIndex = Math.round(Math.random() * data.length);
-    const randomIndex2 = Math.round(Math.random() * data.length);
+    indexes.push(randomIndex);
+    if (indexes.length === 20) {
+      indexes.length = 0;
+      page += 1;
+      if (page === 29) {
+        page = 0;
+      }
+    }
+    let randomIndex2;
+    if (indexes.length % 3 === 0) {
+      randomIndex2 = randomIndex;
+    } else {
+      randomIndex2 = Math.round(Math.random() * data.length);
+    }
     const { word } = data[randomIndex];
     const { wordTranslate } = data[randomIndex];
     const translation = data[randomIndex2].wordTranslate;

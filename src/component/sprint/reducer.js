@@ -4,6 +4,7 @@ const initialState = {
   word: null,
   translation: null,
   wordTranslate: null,
+  difficulty: null,
   isLoading: false,
 };
 

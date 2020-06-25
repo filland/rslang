@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
 import Container from 'react-bootstrap/Container';
@@ -52,5 +53,4 @@ class Start extends Component {
     );
   }
 }
-
 export default Start;
