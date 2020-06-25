@@ -7,6 +7,9 @@ import {
 export function settingsRequest() {
   return {
     type: SETTINGS_REQUEST,
+    payload: {
+      isLoading: true,
+    },
   };
 }
 
@@ -20,6 +23,9 @@ export function settingSuccess(data) {
 export function settingFail(error) {
   return {
     type: SETTINGS_FAIL,
-    payload: error,
+    payload: {
+      isLoading: false,
+      error,
+    },
   };
 }
