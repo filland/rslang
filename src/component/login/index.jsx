@@ -35,6 +35,7 @@ class Login extends Component {
 
     return (
       <Form onSubmit={this.handleUserLogin}>
+        <h3>Login page</h3>
         <Form.Group>
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" ref={this.emailInput} placeholder="Enter email" />
