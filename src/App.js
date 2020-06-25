@@ -26,7 +26,7 @@ function App() {
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
-          <Route path="/learning-words" component={LearningWords}/>
+          <Route path="/learning" component={LearningWords}/>
           <Route path="/game/speakit" component={SpeakIt} />
         </AuthProvider>
       </div>
