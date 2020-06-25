@@ -31,9 +31,9 @@ class NavBar extends Component {
             </>
           )
             : (<>
-                <Nav.Link as={Link} to="/login">Login</Nav.Link>)
-                <Nav.Link as={Link} to="/registration">Registration</Nav.Link>
-              </>
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/registration">Registration</Nav.Link>
+            </>)
           }
         </Nav>
       </Navbar>
