@@ -5,7 +5,7 @@ import Login from './component/login';
 import Settings from './component/settings';
 import Dictionary from "./component/dictionary";
 import Weather from './component/weather';
-import './App.css';
+import './App.scss';
 import LearningWords from './component/learning-words/LearningWords';
 
 
@@ -19,7 +19,7 @@ function App() {
         <Route path="/settings" component={Settings} />
         <Route path="/dictionary" component={Dictionary} />
         <Route path="/login" component={Login} />
-        <Route path="/english-puzzle" component={EnglishPuzzle} />
+        {/* <Route path="/english-puzzle" component={EnglishPuzzle} /> */}
       </div>
     </Router>
   );

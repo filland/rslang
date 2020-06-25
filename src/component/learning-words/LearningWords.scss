@@ -1,0 +1,99 @@
+.learning-words-wrapper {
+    background-color: lightblue;
+    padding: 10%;
+    display: grid;
+    grid-template-columns: 5fr 50px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "progress progress progress"
+        "info  .  panel";
+}
+
+.learning-words-wrapper__progress {
+    grid-area: progress;
+}
+
+.learning-words-wrapper__card {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    margin-top: 30px;
+    grid-area: info;
+
+    .sound {
+        margin-left: 40px;
+    }
+
+
+    .sentence {
+        padding: 20px 0;
+    }
+
+    .translate,
+    .transcrption,
+    .example,
+    .meaning {
+        border-top: 1px solid gray;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    &__media {
+        .media-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid gray;
+
+
+            .picture {
+                width: auto;
+
+                img {
+                    border: 6px solid darkcyan;
+                    border-radius: 8px;
+                }
+            }
+
+         
+        }
+    }
+}
+
+.learning-words-wrapper__panel {
+    /* display: flex;
+    flex-direction: column; */
+    margin-top: 30px;
+    grid-area: panel;
+}
+
+.learning-words-wrapper__settings {
+    width: 100%;
+}
+
+.learning-words-wrapper__difficulty {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.learning-words-wrapper__controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.learning-words-wrapper__controls-btn {
+    margin-top: 20px;
+}
+
+.word-input {
+    margin: 0 20px;
+}
+
+.input-wrong {
+    background-color: salmon;
+}
+
+.input-right {
+    background-color: lightgreen;
+}
