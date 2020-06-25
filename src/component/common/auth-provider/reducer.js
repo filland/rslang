@@ -1,25 +1,24 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants';
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAIL } from './constants';
 
 const initialState = {
   isLoading: false,
-  isError: false,
 };
 
-function loginReducer(state = initialState, action) {
+function authReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case AUTH_REQUEST:
       return {
         ...state,
         ...action.payload,
       };
 
-    case LOGIN_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         ...action.payload,
       };
 
-    case LOGIN_FAIL:
+    case AUTH_FAIL:
       return {
         ...state,
         ...action.payload,
@@ -30,4 +29,4 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default loginReducer;
+export default authReducer;

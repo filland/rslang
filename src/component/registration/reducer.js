@@ -1,25 +1,26 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants';
+import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_FAIL } from './constants';
 
 const initialState = {
   isLoading: false,
   isError: false,
+  isLoaded: false,
 };
 
-function loginReducer(state = initialState, action) {
+function registrationReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case REGISTRATION_REQUEST:
       return {
         ...state,
         ...action.payload,
       };
 
-    case LOGIN_SUCCESS:
+    case REGISTRATION_SUCCESS:
       return {
         ...state,
         ...action.payload,
       };
 
-    case LOGIN_FAIL:
+    case REGISTRATION_FAIL:
       return {
         ...state,
         ...action.payload,
@@ -30,4 +31,4 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default loginReducer;
+export default registrationReducer;
