@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import './styles.css';
+import './styles.scss';
 
 export default function NavBar() {
   return (
@@ -13,6 +13,8 @@ export default function NavBar() {
         <Nav.Link as={Link} to="/weather">Weather</Nav.Link>
         <Nav.Link as={Link} to="/login">Login</Nav.Link>
         <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
+        <Nav.Link as={Link} to="/dictionary">Dictionary</Nav.Link>
+        <Nav.Link as={Link} to="/english-puzzle">english-puzzle</Nav.Link>
       </Nav>
     </Navbar>
   );
