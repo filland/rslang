@@ -44,7 +44,7 @@ class Cardword extends Component {
   render() {
     const { word } = this.props;
     return (
-      <Card bg="Light" className="wordCard">
+      <Card bg="Light" className="wordCard my-4">
         <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
         <Card.Body>
           <Card.Title>{word.word}</Card.Title>
@@ -71,15 +71,16 @@ class Cardword extends Component {
         </ListGroup>
         <Card.Footer>
           {/* todo: add info from back */}
-          {/* todo: add img to difficulty */}
-          <div>{word.difficulty}</div>
+          <div className={`dot-container-${word.difficulty}`}>
+            {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
+          </div>
           <div>
             <span>Давность: 11 дней назад | </span>
             <span>Повторений: 3 | </span>
             <span>Следующее: 20.03.2020 | </span>
           </div>
         </Card.Footer>
-      </Card>
+      </Card >
     );
   }
 }

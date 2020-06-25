@@ -45,8 +45,7 @@ class Dictionary extends Component {
           <div className="my-4">
             {`Число слов: ${wordCount} (${wordCountToday} сегодня)`}
           </div>
-
-          <CardDeck className="my-4">
+          <CardDeck className="my-4 justify-content-between">
             {words.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
