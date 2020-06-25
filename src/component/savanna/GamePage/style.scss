@@ -1,0 +1,11 @@
+.wordsForAnswer{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+    
+    .answer{
+        border: 0.5px solid;
+        padding: 3px;
+    }
+}
