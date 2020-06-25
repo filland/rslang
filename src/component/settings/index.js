@@ -51,9 +51,9 @@ export class Settings extends React.Component {
   }
 
   handleCheckbox = (event) => {
-    const object = { ...this.state.settings };
-    object.optional[event.target.id] = event.target.checked;
-    this.setState({ optional: object });
+    const { optional } = this.state.settings;
+    optional[event.target.id] = event.target.checked;
+    this.setState({ ...optional });
   }
 
   handleSelectWords = (event) => {
@@ -64,9 +64,9 @@ export class Settings extends React.Component {
   }
 
   handleSelectCards = (event) => {
-    const object = { ...this.state.settings };
-    object.optional.newCardsPerDay = event.target.value;
-    this.setState({ optional: object });
+    const { optional } = this.state.settings;
+    optional.newCardsPerDay = event.target.value;
+    this.setState({ ...optional });
   }
 
   render() {
@@ -120,7 +120,9 @@ export class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
-              value={this.state.settings.wordsPerDay} onChange={this.handleSelectWords}>
+              value={this.state.settings.wordsPerDay}
+              onChange={this.handleSelectWords}
+              >
               <option>1</option>
               <option>5</option>
               <option>10</option>
