@@ -9,17 +9,9 @@ import { isAuthorized } from '../../../common/utils/TokenUtils';
 class AuthProvider extends Component {
   componentDidMount() {
     if (isAuthorized()) {
-      console.log('AuthProvider is fetching data...');
-
       const { fetchData } = this.props;
       fetchData();
-
-      console.log('AuthProvider fetched data.');
-    }
-  }
-
-  componentWillMount() {
-    if (!isAuthorized()) {
+    } else {
       const { history } = this.props;
       history.push('/login');
     }

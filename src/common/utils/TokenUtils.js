@@ -27,7 +27,5 @@ export const isAuthorized = () => {
   const userSessionInfo = jwt(jwtToken);
   const date = new Date(0);
   date.setUTCSeconds(userSessionInfo.exp);
-  console.log('is authorized = ', (date.getTime() > Date.now()));
-
   return date.getTime() > Date.now();
 };
