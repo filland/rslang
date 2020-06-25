@@ -10,10 +10,7 @@ const initialState = {
     btnShow: true,
     btnDelete: true,
     btnComplicated: false,
-    btnAgain: true,
-    btnHard: true,
-    btnGood: true,
-    btnEasy: true,
+    levelButtons: true,
     customSwitch: false,
     newCardsPerDay: 25,
   },
@@ -26,20 +23,19 @@ function settingsReducer(state = initialState, action) {
     case SETTINGS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        ...action.payload,
       };
 
     case SETTINGS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        data: action.payload.data,
+        ...action.payload,
       };
 
     case SETTINGS_FAIL:
       return {
         ...state,
-        isLoading: false,
+        ...action.payload,
       };
 
     default:

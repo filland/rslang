@@ -18,16 +18,13 @@ const getUserSettings = () => async (dispatch) => {
       },
     });
     const data = await response.json();
-    const obj = { optional: data.optional, wordsPerDay: data.wordsPerDay };
-    console.log('obj: ', obj);
-    console.log('data GET: ', data);
     dispatch(settingSuccess(data));
   } catch (error) {
     dispatch(settingFail(error));
   }
 };
 
-const setUserSettings = (settings) => async (dispatch) => {
+const setUserSettings = ({ optional, wordsPerDay }) => async (dispatch) => {
   try {
     dispatch(settingsRequest());
     const setSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
@@ -39,10 +36,9 @@ const setUserSettings = (settings) => async (dispatch) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(settings),
+      body: JSON.stringify({ optional, wordsPerDay }),
     });
     const data = await response.json();
-    console.log('data PUT: ', data);
     dispatch(settingSuccess(data));
   } catch (error) {
     dispatch(settingFail(error));

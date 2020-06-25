@@ -21,12 +21,6 @@ const arrOfButtons = [
   { id: 'btnDelete', label: "Кнопка 'Удалить слово' (исключить слово из изучения)" },
   { id: 'btnComplicated', label: "Кнопка 'Сложные' (поместить слово в группу 'Сложные')" },
 ];
-const arrOfLevelButtons = [
-  { id: 'btnAgain', label: "Кнопка 'Снова'" },
-  { id: 'btnHard', label: "Кнопка 'Трудно'" },
-  { id: 'btnGood', label: "Кнопка 'Хорошо'" },
-  { id: 'btnEasy', label: "Кнопка 'Легко'" },
-];
 export class Settings extends React.Component {
   constructor(props) {
     super(props);
@@ -36,23 +30,7 @@ export class Settings extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      optional: {
-        informationTranslate: true,
-        informationDescription: false,
-        informationExample: false,
-        informationTranscription: true,
-        informationPicture: false,
-        btnShow: true,
-        btnDelete: true,
-        btnComplicated: false,
-        btnAgain: true,
-        btnHard: true,
-        btnGood: true,
-        btnEasy: true,
-        customSwitch: false,
-        newCardsPerDay: 25,
-      },
-      wordsPerDay: 5,
+      settings: props.settings,
     };
   }
 
@@ -61,39 +39,33 @@ export class Settings extends React.Component {
     getUserSettings();
   }
 
-  static getDerivedStateFromProps(nextProps, prevProps) {
-    if (JSON.stringify(prevProps.optional) !== JSON.stringify(nextProps.optional)
-    || prevProps.wordsPerDay !== nextProps.wordsPerDay) {
-      console.log('nextProps.wordsPerDay: ', nextProps.wordsPerDay);
-      console.log('prevProps.wordsPerDay: ', prevProps.wordsPerDay);
-      console.log('nextProps.optional: ', JSON.stringify(nextProps.optional));
-      console.log('prevProps.optional: ', JSON.stringify(prevProps.optional));
-      return {
-        optional: nextProps.optional,
-        wordsPerDay: nextProps.wordsPerDay,
-      };
+  componentDidUpdate(nextProps) {
+    if (JSON.stringify(nextProps.settings) !== JSON.stringify(this.props.settings)) {
+      this.setState({ settings: this.props.settings });
     }
-    return null;
   }
 
   handleSubmit = async () => {
     const { setUserSettings } = this.props;
-    setUserSettings(this.state);
+    setUserSettings(this.state.settings);
   }
 
   handleCheckbox = (event) => {
-    const object = { ...this.state.optional };
-    object[event.target.id] = event.target.checked;
+    const object = { ...this.state.settings };
+    object.optional[event.target.id] = event.target.checked;
     this.setState({ optional: object });
   }
 
   handleSelectWords = (event) => {
-    this.setState({ wordsPerDay: event.target.value });
+    const { settings } = this.state;
+    const wordsPerDay = event.target.value;
+    const newObj = { settings: { ...settings, wordsPerDay: Number(wordsPerDay) } };
+    this.setState(newObj);
   }
 
   handleSelectCards = (event) => {
-    const object = { ...this.state.optional };
-    object.newCardsPerDay = event.target.value;
+    const object = { ...this.state.settings };
+    object.optional.newCardsPerDay = event.target.value;
     this.setState({ optional: object });
   }
 
@@ -113,7 +85,7 @@ export class Settings extends React.Component {
                       type="checkbox"
                       id={id}
                       label={label}
-                      checked={this.state.optional[id]}
+                      checked={this.state.settings.optional[id]}
                       onChange={this.handleCheckbox}
                     />
                   </div>
@@ -135,29 +107,7 @@ export class Settings extends React.Component {
                       type="checkbox"
                       id={id}
                       label={label}
-                      checked={this.state.optional[id]}
-                      onChange={this.handleCheckbox}
-                    />
-                  </div>
-                ))}
-              </Form>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="2">
-            Кнопки для определения уровня сложности слова:
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body>
-              <Form>
-                {arrOfLevelButtons.map(({ id, label }) => (
-                  <div key={`button-${id}`} className="mb-3" >
-                    <Form.Check
-                      type="checkbox"
-                      id={id}
-                      label={label}
-                      checked={this.state.optional[id]}
+                      checked={this.state.settings.optional[id]}
                       onChange={this.handleCheckbox}
                     />
                   </div>
@@ -170,7 +120,7 @@ export class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
-              value={this.state.wordsPerDay} onChange={this.handleSelectWords}>
+              value={this.state.settings.wordsPerDay} onChange={this.handleSelectWords}>
               <option>1</option>
               <option>5</option>
               <option>10</option>
@@ -183,7 +133,8 @@ export class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Максимальное количество карточек в день:</Form.Label>
             <Form.Control as="select" custom
-              value={this.state.optional.newCardsPerDay} onChange={this.handleSelectCards}>
+              value={this.state.settings.optional.newCardsPerDay}
+              onChange={this.handleSelectCards}>
               <option>10</option>
               <option>25</option>
               <option>30</option>
@@ -198,9 +149,19 @@ export class Settings extends React.Component {
           <Form.Check
             type="switch"
             id="customSwitch"
-            checked={this.state.optional.id}
+            checked={this.state.settings.optional.customSwitch}
             onChange={this.handleCheckbox}
             label="Автоматическое воспроизведение звука"
+          />
+        </Form>
+        <br />
+        <Form>
+          <Form.Check
+            type="switch"
+            id="levelButtons"
+            checked={this.state.settings.optional.levelButtons}
+            onChange={this.handleCheckbox}
+            label="Отображать кнопки для определения уровня сложности слова"
           />
         </Form>
         <br /> <br />
@@ -213,11 +174,11 @@ export class Settings extends React.Component {
 }
 
 const isLoading = (store) => store.settings.isLoading;
-const data = (store) => store.settings.isLoading;
+const getSettings = (store) => store.settings;
 
 const mapStateToProps = (store) => ({
   isLoading: isLoading(store),
-  settings: data(store),
+  settings: getSettings(store),
 });
 
 const mapDispatchToProps = {
