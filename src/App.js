@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Weather from "./component/weather";
 import NavBar from "./component/navbar";
-import AudioChallenge from "./component/games/audioChallenge";
+import AudioChallenge from "./component/game/audioChallenge";
 import "./App.css";
 
 function App() {

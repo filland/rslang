@@ -15,12 +15,6 @@
 	right: 1rem;
 }
 
-.audioGroup {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 .progressBar {
 	width: 100%;
 }
