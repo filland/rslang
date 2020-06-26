@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
 import { connect } from 'react-redux';
@@ -17,6 +16,7 @@ import {
   getrandomIndex2Selector,
   getwordTranslateSelector,
 } from './selectors';
+import Statistics from './statistics';
 import correct from './correct.png';
 import wrong from './wrong.png';
 
@@ -49,6 +49,7 @@ class Game extends Component {
       visibilityWrong: '',
       visibilityCorrect: '',
       pointsInfo: '',
+      timeEnded: false,
     };
   }
 
@@ -170,6 +171,9 @@ class Game extends Component {
     const styleCorrect = { visibility: this.state.visibilityCorrect };
     const { pointsInfo } = this.state;
     const { minutes, seconds } = this.state;
+    if (minutes === 0 && seconds === 0) {
+      return <Statistics />;
+    }
     const {
       word, translation, randomIndex, randomIndex2,
     } = this.props;
@@ -179,10 +183,7 @@ class Game extends Component {
           <Col className="points my-5 text-center">{points} очков</Col>
           <Row className="time justify-content-center">
             <Col className="align-self-center text-center time-span">
-            { minutes === 0 && seconds === 0
-              ? <Redirect to="/statistics"></Redirect>
-              : <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
-                }
+              <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
               </Col>
           </Row>
           <Card style={ styleCard } className="d-flex flex-column align-items-center p-3" id="card">

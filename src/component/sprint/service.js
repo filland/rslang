@@ -4,7 +4,7 @@ import {
   fetchSprintFail,
 } from './actions';
 
-import { level } from './start';
+import { level } from './sprint';
 
 const indexes = [];
 let page = 0;
