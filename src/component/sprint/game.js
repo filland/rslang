@@ -87,10 +87,12 @@ class Game extends Component {
       word, wordTranslate, randomIndex, randomIndex2,
     } = this.props;
     if (randomIndex === randomIndex2) {
-      this.setState({ border: '5px solid green' });
-      this.setState({ visibilityWrong: 'hidden' });
-      this.setState({ visibilityCorrect: 'visible' });
-      this.setState({ pointsInfo: `+${addPoints} очков за слово` });
+      this.setState({
+        border: '5px solid green',
+        visibilityWrong: 'hidden',
+        visibilityCorrect: 'visible',
+        pointsInfo: `+${addPoints} очков за слово`,
+      });
       points += addPoints;
       correctAnswers += 1;
       if (correctAnswers === 4) {
@@ -101,10 +103,12 @@ class Game extends Component {
         knowArr.push(`${word} - ${wordTranslate}`);
       }
     } else {
-      this.setState({ border: '5px solid red' });
-      this.setState({ visibilityCorrect: 'hidden' });
-      this.setState({ visibilityWrong: 'visible' });
-      this.setState({ pointsInfo: '' });
+      this.setState({
+        border: '5px solid red',
+        visibilityCorrect: 'hidden',
+        visibilityWrong: 'visible',
+        pointsInfo: '',
+      });
       correctAnswers = 0;
       addPoints = 10;
       if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
@@ -120,10 +124,12 @@ class Game extends Component {
       word, wordTranslate, randomIndex, randomIndex2,
     } = this.props;
     if (randomIndex !== randomIndex2) {
-      this.setState({ border: '5px solid green' });
-      this.setState({ visibilityWrong: 'hidden' });
-      this.setState({ visibilityCorrect: 'visible' });
-      this.setState({ pointsInfo: `+${addPoints} очков за слово` });
+      this.setState({
+        border: '5px solid green',
+        visibilityWrong: 'hidden',
+        visibilityCorrect: 'visible',
+        pointsInfo: `+${addPoints} очков за слово`,
+      });
       points += addPoints;
       correctAnswers += 1;
       if (correctAnswers === 4) {
@@ -134,10 +140,12 @@ class Game extends Component {
         knowArr.push(`${word} - ${wordTranslate}`);
       }
     } else {
-      this.setState({ border: '5px solid red' });
-      this.setState({ visibilityCorrect: 'hidden' });
-      this.setState({ visibilityWrong: 'visible' });
-      this.setState({ pointsInfo: '' });
+      this.setState({
+        border: '5px solid red',
+        visibilityCorrect: 'hidden',
+        visibilityWrong: 'visible',
+        pointsInfo: '',
+      });
       correctAnswers = 0;
       addPoints = 10;
       if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
