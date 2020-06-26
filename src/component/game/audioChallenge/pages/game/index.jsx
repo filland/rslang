@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { ButtonGroup, Button, ProgressBar } from "react-bootstrap";
 import { RightWord } from "../../components/RightWord";
+import { MENU_PAGE } from "../../constants";
 import "./styles.css";
 
 const nowProgress = 20;
@@ -13,12 +15,12 @@ const words = [
 ];
 const rightWord = { word: "word1", image: "https://sinkvein.ru/wp-content/uploads/2018/10/%D1%81%D0%BB%D0%BE%D0%B2%D0%BE-300x170.png" };
 
-function Game() {
+function Game({ setCurrentPage }) {
   return (
     <div className="audioChallenge">
       <ProgressBar className="progressBar" variant="info" now={nowProgress} label={`${nowProgress}%`} srOnly />
       <RightWord word={rightWord.word} imgURL={rightWord.image} />
-      <Button className="btn-close" variant="outline-danger">Close</Button>
+      <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
       <ButtonGroup aria-label="List words">
         {words.map(({ word, id }) => <Button key={id}>{word}</Button>)}
       </ButtonGroup>
@@ -26,5 +28,9 @@ function Game() {
     </div>
   );
 }
+
+Game.propTypes = {
+  setCurrentPage: PropTypes.func.isRequired,
+};
 
 export default Game;
