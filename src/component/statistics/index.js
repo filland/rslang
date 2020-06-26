@@ -5,9 +5,9 @@ import './style.scss';
 
 const arrOfStatistics = [
   { label: 'Карточек завершено:', value: 30 },
-  { label: 'Правильные ответы:', value: 23 },
+  { label: 'Правильные ответы, %:', value: 23 },
   { label: 'Новые слова:', value: 10 },
-  { label: 'Самая длинная серия правильных ответов, %', value: 75 },
+  { label: 'Самая длинная серия правильных ответов:', value: 75 },
 ];
 
 export default class Statistics extends React.Component {
