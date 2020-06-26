@@ -4,8 +4,6 @@ const initialState = {
   word: null,
   translation: null,
   wordTranslate: null,
-  difficulty: null,
-  isLoading: false,
 };
 
 function sprintReducer(state = initialState, action) {

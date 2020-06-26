@@ -4,13 +4,15 @@ import {
   fetchSprintFail,
 } from './actions';
 
+import { level } from './start';
+
 const indexes = [];
 let page = 0;
 
 const fetchSprintService = () => async (dispatch) => {
   try {
     dispatch(fetchSprintRequest());
-    const urlWords = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=0`;
+    const urlWords = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`;
     const response = await fetch(urlWords);
     const data = await response.json();
     const randomIndex = Math.round(Math.random() * data.length);

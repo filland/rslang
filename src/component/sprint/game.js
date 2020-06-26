@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
@@ -17,7 +16,6 @@ import {
   getrandomIndexSelector,
   getrandomIndex2Selector,
   getwordTranslateSelector,
-  getLosingFlagSelector,
 } from './selectors';
 import correct from './correct.png';
 import wrong from './wrong.png';
@@ -29,7 +27,6 @@ const propTypes = {
   randomIndex: PropTypes.number.isRequired,
   randomIndex2: PropTypes.number.isRequired,
   wordTranslate: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 let points = 0;
@@ -211,7 +208,6 @@ const mapStateToProps = (store) => ({
   wordTranslate: getwordTranslateSelector(store),
   randomIndex: getrandomIndexSelector(store),
   randomIndex2: getrandomIndex2Selector(store),
-  isLoading: getLosingFlagSelector(store),
 });
 
 const mapDispatchToProps = {

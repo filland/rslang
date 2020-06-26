@@ -35,12 +35,3 @@ export function fetchSprintFail() {
     },
   };
 }
-
-export function getDifficultyService(difficulty) {
-  return {
-    type: FETCH_SPRINT_SUCCESS,
-    payload: {
-      difficulty,
-    },
-  };
-}

@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.css';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
+// eslint-disable-next-line import/no-mutable-exports
+let level;
+
 class Start extends Component {
   constructor(props) {
     super(props);
     this.state = {
       display: 'block',
+      level: '',
     };
   }
 
-  handleClick = () => {
+  handleClick = (levelValue) => {
     this.setState({ display: 'none' });
+    level = levelValue;
   }
 
   render() {
@@ -27,23 +30,23 @@ class Start extends Component {
         <Card className="d-flex flex-column align-items-center p-5 inner" id="inner">
           <Card.Body className="d-flex flex-column align-items-center p-4">
             <Card.Title className="mb-4">Выберите уровень сложности игры:</Card.Title>
-            <Row>
-              <Nav.Link as={Link} to="/game" className="btn btn-primary mr-2 mb-2" onClick={() => this.handleClick()}>
+            <Row className="d-flex flex-column justify-content-center">
+              <Link className="btn btn-primary mb-2" to="/game" onClick={() => this.handleClick(0)}>
                 Очень Легкая
-              </Nav.Link>
-              <Link className="btn btn-danger mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+              </Link>
+              <Link className="btn btn-danger mb-2" to="/game" onClick={() => this.handleClick(1)}>
                 Легкая
               </Link>
-              <Link className="btn btn-success mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+              <Link className="btn btn-success mb-2" to="/game" onClick={() => this.handleClick(2)}>
                 Интересная
               </Link>
-              <Link className="btn btn-warning mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+              <Link className="btn btn-warning mb-2" to="/game" onClick={() => this.handleClick(3)}>
                 Очень Интересная
               </Link>
-              <Link className="btn btn-info mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+              <Link className="btn btn-info mb-2" to="/game" onClick={() => this.handleClick(4)}>
                 Сложная
               </Link>
-              <Link className="btn btn-secondary mr-2 mb-2" to="/game" onClick={() => this.handleClick()}>
+              <Link className="btn btn-secondary mb-2" to="/game" onClick={() => this.handleClick(5)}>
                 Let me speak from my hard advanced
               </Link>
             </Row>
@@ -53,4 +56,6 @@ class Start extends Component {
     );
   }
 }
+
 export default Start;
+export { level };
