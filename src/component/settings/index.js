@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { setUserSettings, getUserSettings } from './service';
 
-import './style.css';
+import './style.scss';
 
 const arrOfInformation = [
   { id: 'informationTranslate', label: 'Перевод слова' },
@@ -27,6 +27,7 @@ export class Settings extends React.Component {
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSelectWords = this.handleSelectWords.bind(this);
     this.handleSelectCards = this.handleSelectCards.bind(this);
+    this.handleSelectLevel = this.handleSelectLevel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
@@ -68,6 +69,13 @@ export class Settings extends React.Component {
     optional.newCardsPerDay = event.target.value;
     this.setState({ ...optional });
   }
+  
+  handleSelectLevel = (event) => {
+    const { optional } = this.state.settings;
+    optional.difficultyLevel = event.target.value;
+    this.setState({ ...optional });
+  }
+
 
   render() {
     return (
@@ -144,6 +152,21 @@ export class Settings extends React.Component {
               <option>40</option>
               <option>45</option>
               <option>50</option>
+            </Form.Control>
+          </Form.Group>
+        </Form>
+        <Form>
+          <Form.Group controlId="exampleForm.SelectCustom">
+            <Form.Label>Сложность изучаемых слов - от легкого(1) до сложного(6):</Form.Label>
+            <Form.Control as="select" custom
+              value={this.state.settings.optional.difficultyLevel}
+              onChange={this.handleSelectLevel}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
             </Form.Control>
           </Form.Group>
         </Form>

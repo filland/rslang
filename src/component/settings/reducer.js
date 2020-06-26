@@ -13,6 +13,7 @@ const initialState = {
     levelButtons: true,
     customSwitch: false,
     newCardsPerDay: 25,
+    difficultyLevel: 2,
   },
   wordsPerDay: 5,
   isLoading: false,
