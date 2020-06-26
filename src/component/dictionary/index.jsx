@@ -1,22 +1,22 @@
 /* eslint-disable react/no-array-index-key */
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Tabs, Tab, CardDeck, Container, Row,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
-import Loader from "../common/loader";
-import CardWorld from "./cardWorldClass";
+import Loader from '../common/loader';
+import CardWorld from './cardWorldClass';
 
-import { fetchWorldService } from "./service";
-import "./styles.css";
+import { fetchWorldService } from './service';
+import './styles.css';
 import {
   getWordsSelector,
   getWorldCountSelector,
   getWorldCountTodaySelector,
   getLosingFlagSelector,
-} from "./selectors";
+} from './selectors';
 
 const propTypes = {
   fetchWorld: PropTypes.func.isRequired,
