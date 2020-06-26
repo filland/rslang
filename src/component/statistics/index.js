@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import './style.scss';
@@ -20,8 +19,7 @@ export default class Statistics extends React.Component {
     return (
             <div className="statistics-wrapper">
                 <h3>Серия завершена!</h3>
-                <Card style={{ width: '60%' }}>
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush" style={{ width: '60%' }} >
                         {arrOfStatistics.map(({ label, value, index }) => (
                             <ListGroup.Item key = {`${value}-${index}`}>
                                 <div className="statistics-content">
@@ -31,7 +29,6 @@ export default class Statistics extends React.Component {
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
-                </Card>
             </div>
     );
   }
