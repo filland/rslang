@@ -6,6 +6,7 @@ import {
 
 import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
+import './styles.scss';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,

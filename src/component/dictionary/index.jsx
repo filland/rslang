@@ -9,7 +9,6 @@ import Loader from '../common/loader';
 import CardWord from './cardWord/index';
 
 import fetchWordService from './service';
-import './styles.css';
 import {
   getWordsSelector,
   getWordCountSelector,
