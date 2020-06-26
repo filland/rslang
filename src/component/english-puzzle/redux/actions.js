@@ -1,16 +1,16 @@
 import {
   getListOfWords,
   getArrOfRandomWords,
-} from "../fetchGameData";
-import paintings1 from "../dataOfPicturesGallery/level1";
-import paintings2 from "../dataOfPicturesGallery/level2";
-import paintings3 from "../dataOfPicturesGallery/level3";
-import paintings4 from "../dataOfPicturesGallery/level4";
-import paintings5 from "../dataOfPicturesGallery/level5";
-import paintings6 from "../dataOfPicturesGallery/level6";
+} from '../fetchGameData';
+import paintings1 from '../dataOfPicturesGallery/level1';
+import paintings2 from '../dataOfPicturesGallery/level2';
+import paintings3 from '../dataOfPicturesGallery/level3';
+import paintings4 from '../dataOfPicturesGallery/level4';
+import paintings5 from '../dataOfPicturesGallery/level5';
+import paintings6 from '../dataOfPicturesGallery/level6';
 
 const arrOfGalleryData = [
-  "",
+  '',
   paintings1,
   paintings2,
   paintings3,
@@ -19,19 +19,28 @@ const arrOfGalleryData = [
   paintings6,
 ];
 
-export const CHANGE_DIFFICULT_OF_GAME = "CHANGE_DIFFICULT_OF_GAME";
-export const CHANGE_CURRENT_STRING = "CHANGE_CURRENT_STRING";
-export const PUSH_WORD_IN_RESULT_ARR = "PUSH_WORD_IN_RESULT_ARR";
-export const REMOVE_WORD_FROM_RESULT_ARR = "REMOVE_WORD_FROM_RESULT_ARR";
-export const CHECK_RESULT_ARR = "CHECK_RESULT_ARR";
-export const SHOW_CORRECT_RESULT = "SHOW_CORRECT_RESULT";
-export const PUSH_SENTENCE_IN_SOLVED_ARR = "PUSH_SENTENCE_IN_SOLVED_ARR";
-export const DELL_SENTENCES_IN_SOLVED_ARR = "DELL_SENTENCES_IN_SOLVED_ARR";
-export const SHOW_STATISTIC = "SHOW_STATISTIC";
-export const GAME_CHANGE_INPUT = "GAME_CHANGE_INPUT";
-export const SHOW_FULL_IMG = "SHOW_FULL_IMG";
-export const SHOW_TRANSLATE_OF_SENTENCE = "SHOW_TRANSLATE_OF_SENTENCE";
-export const AUTO_PLAY_AUDIO = "AUTO_PLAY_AUDIO";
+export const CHANGE_DIFFICULT_OF_GAME = 'CHANGE_DIFFICULT_OF_GAME';
+export const CHANGE_CURRENT_STRING = 'CHANGE_CURRENT_STRING';
+export const CHANGE_RESULT_ARR = 'CHANGE_RESULT_ARR';
+export const CHANGE_ARR_OF_RANDOM_WORDS = 'CHANGE_ARR_OF_RANDOM_WORDS';
+export const CHECK_RESULT_ARR = 'CHECK_RESULT_ARR';
+export const SHOW_CORRECT_RESULT = 'SHOW_CORRECT_RESULT';
+export const PUSH_SENTENCE_IN_SOLVED_ARR = 'PUSH_SENTENCE_IN_SOLVED_ARR';
+export const DELL_SENTENCES_IN_SOLVED_ARR = 'DELL_SENTENCES_IN_SOLVED_ARR';
+export const SHOW_STATISTIC = 'SHOW_STATISTIC';
+export const GAME_CHANGE_INPUT = 'GAME_CHANGE_INPUT';
+export const SHOW_FULL_IMG = 'SHOW_FULL_IMG';
+export const SHOW_TRANSLATE_OF_SENTENCE = 'SHOW_TRANSLATE_OF_SENTENCE';
+export const AUTO_PLAY_AUDIO = 'AUTO_PLAY_AUDIO';
+export const START_GAME = 'START_GAME';
+export const DISABLE_IS_CHECKED = 'DISABLE_IS_CHECKED';
+
+export const startGame = () => ({
+  type: START_GAME,
+  payload: {
+    gameWasStarted: true,
+  },
+});
 
 export const changeAutoPlayAudio = (bool) => (dispatch) => {
   let autoPlay;
@@ -94,7 +103,7 @@ export const pushSentenceInSolvedArr = (correctArr, arrayOfSolvedSentences) => (
   dispatch,
 ) => {
   const arr = correctArr.slice();
-  arrayOfSolvedSentences.push(arr.join(" "));
+  arrayOfSolvedSentences.push(arr.join(' '));
   dispatch({
     type: PUSH_SENTENCE_IN_SOLVED_ARR,
     payload: { arrayOfSolvedSentences, isChecked: false, isDone: false },
@@ -109,7 +118,7 @@ export const showCorrectResult = (
 ) => (dispatch) => {
   const arrOfResult = correctArr.slice();
   iDontKnowArr.push({
-    str: arrOfResult.join(" "),
+    str: arrOfResult.join(' '),
     audioSrc: arrayOfData[numberOfStr].audioExample,
     word: arrayOfData[numberOfStr].word,
   });
@@ -138,7 +147,7 @@ export const checkResultArr = (
   if (arrOfError.length === 0) {
     isDone = true;
     iKnowArr.push({
-      str: resultArr.join(" "),
+      str: resultArr.join(' '),
       audioSrc: arrayOfData[numberOfStr].audioExample,
       word: arrayOfData[numberOfStr].word,
     });
@@ -151,35 +160,15 @@ export const checkResultArr = (
   });
 };
 
-export const dellWordFromResultArr = (arr, id, arrOfResult) => (dispatch) => {
-  const i = arrOfResult.indexOf(id);
-  const wordForResult = arrOfResult.splice(i, 1);
-  arr.push(wordForResult[0]);
-  dispatch({
-    type: REMOVE_WORD_FROM_RESULT_ARR,
-    payload: {
-      arrOfResult,
-      arrOfRandomWords: arr,
-      wordForResult,
-      isChecked: false,
-    },
-  });
-};
+export const changeResultArr = (arr) => ({
+  type: CHANGE_RESULT_ARR,
+  payload: { arrOfResult: arr.slice() },
+});
 
-export const pushWordInResultArr = (arr, id, arrOfResult) => (dispatch) => {
-  const i = arr.indexOf(id);
-  const wordForResult = arr.splice(i, 1);
-  arrOfResult.push(wordForResult[0]);
-  dispatch({
-    type: PUSH_WORD_IN_RESULT_ARR,
-    payload: {
-      arrOfResult,
-      arrOfRandomWords: arr,
-      wordForResult,
-      isChecked: false,
-    },
-  });
-};
+export const changeArrOfRandomWords = (arr) => ({
+  type: CHANGE_ARR_OF_RANDOM_WORDS,
+  payload: { arrOfRandomWords: arr.slice() },
+});
 
 export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
   let pageForUser;
@@ -202,9 +191,9 @@ export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
 
   if (arrayOfData.length !== 0) {
     const pictureData = arrOfGalleryData[level][pageForUser - 1];
-    const correctArr = arrayOfData[0].textExample.replace(/<[^>]*>/g, "").split(" ");
+    const correctArr = arrayOfData[0].textExample.replace(/<[^>]*>/g, '').split(' ');
     const arrOfRandomWords = getArrOfRandomWords(0, arrayOfData);
-
+    const arrOfResult = Array(correctArr.length).fill('');
     dispatch({
       type: CHANGE_DIFFICULT_OF_GAME,
       payload: {
@@ -215,14 +204,16 @@ export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
         correctArr,
         pageForUser,
         pictureData,
+        arrOfResult,
       },
     });
   }
 };
 
 export const changeCurrentString = (numberOfStr, arrayOfData) => (dispatch) => {
-  const correctArr = arrayOfData[numberOfStr + 1].textExample.replace(/<[^>]*>/g, "").split(" ");
+  const correctArr = arrayOfData[numberOfStr + 1].textExample.replace(/<[^>]*>/g, '').split(' ');
   const arrOfRandomWords = getArrOfRandomWords(numberOfStr + 1, arrayOfData);
+  const arrOfResult = Array(correctArr.length).fill('');
 
   dispatch({
     type: CHANGE_CURRENT_STRING,
@@ -231,6 +222,7 @@ export const changeCurrentString = (numberOfStr, arrayOfData) => (dispatch) => {
       correctArr,
       numberOfStr: numberOfStr + 1,
       isDone: false,
+      arrOfResult,
     },
   });
 };
@@ -238,4 +230,9 @@ export const changeCurrentString = (numberOfStr, arrayOfData) => (dispatch) => {
 export const setInputValue = (name, value) => ({
   type: GAME_CHANGE_INPUT,
   payload: { value, name },
+});
+
+export const disableIsChecked = () => ({
+  type: DISABLE_IS_CHECKED,
+  payload: { isChecked: false },
 });

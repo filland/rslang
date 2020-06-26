@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import {
   changeDifficultOfGame,
   changeCurrentString,
-  pushWordInResultArr,
-  dellWordFromResultArr,
+  changeResultArr,
+  changeArrOfRandomWords,
+  disableIsChecked,
   checkResultArr,
   showCorrectResult,
   pushSentenceInSolvedArr,
@@ -34,25 +35,26 @@ class GamePage extends React.Component {
 
   handleWordClick = ({ target }) => {
     const {
-      dellWordFromResultArr, pushWordInResultArr, arrOfRandomWords, arrOfResult,
+      arrOfRandomWords, arrOfResult, changeArrOfRandomWords, changeResultArr,
     } = this.props;
 
     if (
       target.classList.contains('result')
-      || target.classList.contains('correct')
-      || target.classList.contains('error')
     ) {
-      dellWordFromResultArr(
-        arrOfRandomWords,
-        target.id,
-        arrOfResult,
-      );
+      const i = target.parentElement.id;
+      arrOfResult.splice(i, 1, '');
+      const n = arrOfRandomWords.indexOf('');
+      arrOfRandomWords.splice(n, 1, target.innerText);
+      changeResultArr(arrOfResult);
+      changeArrOfRandomWords(arrOfRandomWords);
     } else {
-      pushWordInResultArr(
-        arrOfRandomWords,
-        target.id,
-        arrOfResult,
-      );
+      const n = arrOfResult.indexOf('');
+      const i = target.parentElement.id;
+      arrOfRandomWords.splice(i, 1, '');
+      arrOfResult.splice(n, 1, target.innerText);
+
+      changeResultArr(arrOfResult);
+      changeArrOfRandomWords(arrOfRandomWords);
     }
   };
 
@@ -132,7 +134,7 @@ class GamePage extends React.Component {
       statisticIsShowed, iKnowArr, iDontKnowArr,
       pictureData, autoPlay, arrayOfData, numberOfStr,
       imgIsShowed, arrayOfSolvedSentences, translateIsShowed,
-      isDone, isChecked, arrOfRandomWords,
+      isDone, isChecked, arrOfRandomWords, disableIsChecked,
     } = this.props;
     return (
       <div className="gameField">
@@ -190,7 +192,9 @@ class GamePage extends React.Component {
                 numberOfStr={numberOfStr}
                 audioRef={this.audioRef}
               />
-              <Dnd {...this.props} handleWordClick={this.handleWordClick} />
+              <Dnd {...this.props}
+               disableIsChecked={disableIsChecked}
+               handleWordClick={this.handleWordClick}/>
             </>
           ) : (
             <div>
@@ -224,8 +228,9 @@ const mapStateToProps = (state) => ({
 const mapDispathToProps = {
   changeDifficultOfGame,
   changeCurrentString,
-  pushWordInResultArr,
-  dellWordFromResultArr,
+  changeArrOfRandomWords,
+  changeResultArr,
+  disableIsChecked,
   checkResultArr,
   showCorrectResult,
   pushSentenceInSolvedArr,
