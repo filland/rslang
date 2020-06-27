@@ -13,6 +13,12 @@ import {
   getWordsSelector,
   getWordCountSelector,
   getWordCountTodaySelector,
+  getWordsDifficultSelector,
+  getWordDifficultCountSelector,
+  getWordDifficultCountTodaySelector,
+  getWordsDeletedSelector,
+  getWordDeletedCountSelector,
+  getWordDeletedCountTodaySelector,
   getLosingFlagSelector,
 } from './selectors';
 
@@ -24,23 +30,27 @@ const propTypes = {
 
   wordCount: PropTypes.number.isRequired,
   wordCountToday: PropTypes.number.isRequired,
-  wordCountDifficult: PropTypes.number.isRequired,
-  wordCountTodayDifficult: PropTypes.number.isRequired,
-  wordCountDeleted: PropTypes.number.isRequired,
-  wordCountTodayDeleted: PropTypes.number.isRequired,
+  wordDifficultCount: PropTypes.number.isRequired,
+  wordDifficultCountToday: PropTypes.number.isRequired,
+  wordDeletedCount: PropTypes.number.isRequired,
+  wordDeletedCountToday: PropTypes.number.isRequired,
 
   isLoading: PropTypes.bool.isRequired,
 };
 
 class Dictionary extends Component {
   componentDidMount() {
-    const { fetchWord } = this.props;
+    const { fetchWord/* , fetchWordDifficult, fetchWordDeleted */ } = this.props;
     fetchWord();
+    // fetchWordDifficult();
+    // fetchWordDeleted();
   }
 
   render() {
     const {
-      words, isLoading, wordCount, wordCountToday,
+      isLoading, words, wordCount, wordCountToday,
+      wordsDifficult, wordDifficultCount, wordDifficultCountToday,
+      wordsDeleted, wordDeletedCount, wordDeletedCountToday,
     } = this.props;
 
     if (isLoading) {
@@ -58,18 +68,18 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
-            {`Число слов: ${wordCountDifficult} (${wordCountToday} сегодня)`}
+            {`Число слов: ${wordDifficultCount} (${wordDifficultCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {words.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDifficult.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
           <div className="my-4">
-            {`Число слов: ${wordCount} (${wordCountToday} сегодня)`}
+            {`Число слов: ${wordDeletedCount} (${wordDeletedCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {words.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDeleted.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
       </Tabs>
@@ -80,6 +90,12 @@ const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
   wordCount: getWordCountSelector(store),
   wordCountToday: getWordCountTodaySelector(store),
+  wordsDifficult: getWordsDifficultSelector(store),
+  wordDifficultCount: getWordDifficultCountSelector(store),
+  wordDifficultCountToday: getWordDifficultCountTodaySelector(store),
+  wordsDeleted: getWordsDeletedSelector(store),
+  wordDeletedCount: getWordDeletedCountSelector(store),
+  wordDeletedCountToday: getWordDeletedCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
 });
 

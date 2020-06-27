@@ -6,27 +6,38 @@ import {
 import { getJwtToken } from '../../common/utils/TokenUtils';
 import { getUserId } from '../../common/utils/UserUtils';
 
+async function fetchWordUserIds() {
+  const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words`;
+  const responseWordUserIds = await fetch(urlWordUserIds, {
+    method: 'GET',
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${getJwtToken()}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await responseWordUserIds.json();
+  return result;
+}
+
+async function fetchAllWords() {
+  const urlWords = 'https://afternoon-falls-25894.herokuapp.com/words';
+  const responseWords = await fetch(urlWords);
+  const result = await responseWords.json();
+  return result;
+}
+
 const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
-
     dispatch(fetchWordRequest(getUserId()));
 
-    const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words`;
-    const responseWordUserIds = await fetch(urlWordUserIds, {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${getJwtToken()}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    const wordUserIdList = await responseWordUserIds.json();
+    const wordUserIdList = await fetchWordUserIds();
+    const allWordList = await fetchAllWords();
 
-    const urlWords = 'https://afternoon-falls-25894.herokuapp.com/words';
-    const responseWords = await fetch(urlWords);
-    const allWordList = await responseWords.json();
+    console.log(wordUserIdList);
+    console.log(allWordList);
 
     wordUserIdList.forEach((x) => {
       const parsedResponseWord = allWordList.find((word) => word.id === x.wordId);

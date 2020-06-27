@@ -2,10 +2,19 @@ import { FETCH_WORD_REQUEST, FETCH_WORD_SUCCESS, FETCH_WORD_FAIL } from './const
 
 const initialState = {
   words: [],
+  wordCount: 0,
+  wordCountToday: 0,
+
+  wordsDifficult: [],
+  wordDifficultCount: 0,
+  wordDifficultCountToday: 0,
+
+  wordsDeleted: [],
+  wordDeletedCount: 0,
+  wordDeletedCountToday: 0,
+
   isLoading: false,
-  worldCount: 0,
-  worldCountToday: 0,
-  user: null,
+
 };
 
 function dictionaryReducer(state = initialState, action) {
