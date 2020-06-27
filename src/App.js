@@ -9,7 +9,8 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
 
 import SpeakIt from './component/game/speakit';
-import AuthProvider from "./component/common/auth-provider";
+import AuthProvider from './component/common/auth-provider';
+import LineStatistics from './component/long-term-statistics';
 
 import './App.scss';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/game/speakit" component={SpeakIt} />
+          <Route path="/long-term-statistics" component={LineStatistics} />
         </AuthProvider>
       </div>
     </Router>

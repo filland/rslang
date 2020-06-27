@@ -27,6 +27,7 @@ class NavBar extends Component {
               <Nav.Link as={Link} to="/dictionary">Dictionary</Nav.Link>
               <Nav.Link as={Link} to="/english-puzzle">english-puzzle</Nav.Link>
               <Nav.Link as={Link} to="/game/speakit">SpeakIt</Nav.Link>
+              <Nav.Link as={Link} to="/long-term-statistics">Long-term Statistics</Nav.Link>
               <Nav.Link onClick={this.logoutUser} to="/logout" >Logout</Nav.Link>
             </>
           )
