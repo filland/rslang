@@ -1,22 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getData } from './redux/actions';
+import { changeWord, checkAnswer, startGame } from './redux/actions';
 import Loader from '../common/loader/index';
 import GamePage from './GamePage/GamePage';
+import StartPage from './StartPage/StartPage';
+import gamePageImg from './assets/backgroundGame.jpg';
 import './style.scss';
 
 class Savanna extends React.Component {
   componentDidMount() {
-    this.props.getData(1, 1);
+    const { changeWord, numOfCurrentWord, data } = this.props;
+    changeWord(1, 1, numOfCurrentWord, data);
   }
 
   render() {
     return (
-      <div className='savannaGame'>
-        {this.props.data.length === 0
-          ? <Loader />
-          : <GamePage {...this.props} />}
-      </div>
+      this.props.gameWasStarted
+        ? (
+          <div className='savannaGame' style={{ backgroundImage: `url(${gamePageImg})` }}>
+            {this.props.data.length === 0
+              ? <Loader />
+              : <GamePage {...this.props} />}
+          </div>
+        ) : (
+          <StartPage startGame={this.props.startGame} />
+        )
     );
   }
 }
@@ -26,7 +34,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispathToProps = {
-  getData,
+  changeWord, checkAnswer, startGame,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Savanna);
