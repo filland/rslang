@@ -6,6 +6,26 @@ import {
 import { getJwtToken } from '../../common/utils/TokenUtils';
 import { getUserId } from '../../common/utils/UserUtils';
 
+async function fetchUpdateWordDeletedUser(wordId) {
+  const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words/${wordId}`;
+  const responseWordUserIds = await fetch(urlWordUserIds, {
+    method: 'PUT',
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${getJwtToken()}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: {
+      optional: {
+        deleted: 'true',
+      },
+    },
+  });
+  const result = await responseWordUserIds.json();
+  return result;
+}
+
 async function fetchWordUserIds() {
   const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words`;
   const responseWordUserIds = await fetch(urlWordUserIds, {

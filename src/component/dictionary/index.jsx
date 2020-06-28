@@ -48,7 +48,7 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, words, wordCount, wordCountToday,
+      isLoading, words, wordCountToday,
       wordsDifficult, wordDifficultCount, wordDifficultCountToday,
       wordsDeleted, wordDeletedCount, wordDeletedCountToday,
     } = this.props;
@@ -60,7 +60,7 @@ class Dictionary extends Component {
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${wordCount} (${wordCountToday} сегодня)`}
+            {`Число слов: ${words.length} (${wordCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {words.map((item, i) => <CardWord key={i} word={item} />)}
