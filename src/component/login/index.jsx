@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import {
   isLoading, isError,
 } from './selectors';
+import { isAuthorized } from '../../common/utils/TokenUtils';
 import loginUser from './service';
 
 import './styles.css';
@@ -26,13 +26,16 @@ class Login extends Component {
     const email = this.emailInput.current.value;
     const password = this.passwordInput.current.value;
 
-    const { loginUser, history } = this.props;
-    loginUser(email, password, history);
+    const { loginUser } = this.props;
+    loginUser(email, password);
   }
 
   render() {
     const { isError } = this.props;
 
+    if (isAuthorized()) {
+      return <Redirect to="/settings"></Redirect>;
+    }
     return (
       <Form onSubmit={this.handleUserLogin}>
         <h3>Login page</h3>
@@ -62,7 +65,4 @@ const mapDispatchToProps = {
   loginUser,
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

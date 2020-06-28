@@ -6,7 +6,7 @@ import { fetchData } from './service';
 import { isAuthorized } from '../../../common/utils/TokenUtils';
 
 class AuthProvider extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (isAuthorized()) {
       const { fetchData } = this.props;
       fetchData();
