@@ -3,7 +3,7 @@ import { setJwtToken } from '../../common/utils/TokenUtils';
 import { setUserId } from '../../common/utils/UserUtils';
 import { fetchData } from '../common/auth-provider/service';
 
-const loginUser = (email, password) => async (dispatch) => {
+const loginUser = (email, password, callback) => async (dispatch) => {
   try {
     dispatch(loginRequest());
 
@@ -25,6 +25,7 @@ const loginUser = (email, password) => async (dispatch) => {
     setUserId(parsedResponse.userId);
 
     dispatch(loginSuccess());
+    callback();
     fetchData()(dispatch);
   } catch (error) {
     dispatch(loginFail(error));
