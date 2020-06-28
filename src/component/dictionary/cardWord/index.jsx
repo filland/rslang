@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
+import fetchWordServiceRestore from '../serviceRestore';
 
 import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
@@ -24,6 +25,10 @@ class Cardword extends Component {
     this.audioMeaningRef = React.createRef();
     this.audioExampleRef = React.createRef();
   }
+
+  restoreWord = () => {
+    fetchWordServiceRestore(this.props.word.id);
+  };
 
   playAudio = () => {
     if (this.audioRef.current) {
@@ -82,7 +87,7 @@ class Cardword extends Component {
             <span>Следующее: 20.03.2020 | </span>
           </div>
           <div className="mt-3">
-            <Button variant="primary" onClick="restoreWord">Восстановить</Button>
+            <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
           </div>
         </Card.Footer>
       </Card >

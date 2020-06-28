@@ -9,6 +9,7 @@ import Loader from '../common/loader';
 import CardWord from './cardWord/index';
 
 import fetchWordService from './service';
+
 import {
   getWordsSelector,
   getWordCountSelector,
@@ -40,6 +41,7 @@ const propTypes = {
 
 class Dictionary extends Component {
   componentDidMount() {
+    // update it after connecting to redux store
     const { fetchWord/* , fetchWordDifficult, fetchWordDeleted */ } = this.props;
     fetchWord();
     // fetchWordDifficult();
