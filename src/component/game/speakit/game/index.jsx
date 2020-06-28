@@ -6,7 +6,8 @@ import VoiceInput from '../voice-input';
 import Stepper from '../stepper';
 import blankPicture from '../assets/blank.jpg';
 import './styles.scss';
-import { getDictionaryWords, getUserWords } from '../../../common/word/selectors';
+import getUserWords from '../../../common/word/user-word/selectors';
+import getDictionaryWords from '../../../common/word/dictionary-word/selectors';
 
 class Game extends Component {
   render() {

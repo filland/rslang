@@ -1,6 +1,7 @@
 import { getUserId } from '../../../common/utils/UserUtils';
 import authorizedRequest from '../../../common/utils/ApiUtils';
-import { fetchDictionaryWords, fetchUserWords } from '../word/service';
+import fetchDictionaryWords from '../word/dictionary-word/service';
+import fetchUserWords from '../word/user-word/service';
 
 export const fetchSettings = async () => {
   const userId = getUserId();
