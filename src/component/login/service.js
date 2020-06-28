@@ -26,7 +26,7 @@ const loginUser = (email, password, callback) => async (dispatch) => {
 
     dispatch(loginSuccess());
     callback();
-    fetchData()(dispatch);
+    dispatch(fetchData());
   } catch (error) {
     dispatch(loginFail(error));
   }
