@@ -18,6 +18,7 @@ export default class Draggable extends React.Component {
         onDragOver={this.noAllowDrop}
         className={this.props.className}
         onClick={this.props.handleWordClick}
+        onMouseDown={this.props.onMouseDown}
       >
         {this.props.children}
       </div>

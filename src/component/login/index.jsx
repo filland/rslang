@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import {
   isLoading, isError,
 } from './selectors';
+import { isAuthorized } from '../../common/utils/TokenUtils';
 import loginUser from './service';
 
 import './styles.css';
@@ -24,15 +27,19 @@ class Login extends Component {
     const email = this.emailInput.current.value;
     const password = this.passwordInput.current.value;
 
-    const { loginUser } = this.props;
-    loginUser(email, password);
+    const { loginUser, history } = this.props;
+    loginUser(email, password, () => {
+      if (isAuthorized()) {
+        history.push('/settings');
+      }
+    });
   }
 
   render() {
     const { isError } = this.props;
-
     return (
       <Form onSubmit={this.handleUserLogin}>
+        <h3>Login page</h3>
         <Form.Group>
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" ref={this.emailInput} placeholder="Enter email" />
@@ -59,4 +66,7 @@ const mapDispatchToProps = {
   loginUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(Login);

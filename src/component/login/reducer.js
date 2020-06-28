@@ -2,6 +2,7 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants';
 
 const initialState = {
   isLoading: false,
+  isError: false,
 };
 
 function loginReducer(state = initialState, action) {

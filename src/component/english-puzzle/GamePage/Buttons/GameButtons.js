@@ -3,7 +3,7 @@ import React from 'react';
 const GameButtons = ({
   isChecked, isDone, imgIsShowed, handleButtonClick, arrOfRandomWords,
 }) => {
-  const isShowButton = arrOfRandomWords.length === 0 && !isDone && isChecked;
+  const isShowButton = arrOfRandomWords.every((el) => el === '') && !isDone && isChecked;
 
   return (
     <div className="gameButtons">
