@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
@@ -79,6 +80,9 @@ class Cardword extends Component {
             <span>Давность: 11 дней назад | </span>
             <span>Повторений: 3 | </span>
             <span>Следующее: 20.03.2020 | </span>
+          </div>
+          <div className="mt-3">
+            <Button variant="primary" onClick="restoreWord">Восстановить</Button>
           </div>
         </Card.Footer>
       </Card >
