@@ -2,6 +2,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 
+
 import './style.scss';
 
 export default class LineStatistics extends React.Component {
@@ -9,6 +10,7 @@ export default class LineStatistics extends React.Component {
     super(props);
     this.transformDate = this.transformDate.bind(this);
     this.chartData = this.chartData.bind(this);
+
     this.chartPieData = this.chartPieData.bind(this);
 
 
@@ -119,6 +121,7 @@ export default class LineStatistics extends React.Component {
     return data;
   }
 
+
   chartPieData = () => {
     const percentOfNewWords = (this.state.optional.newWords / this.state.learnedWords) * 100;
     const percentOfOldWords = (this.state.optional.oldWords / this.state.learnedWords) * 100;
@@ -142,11 +145,13 @@ export default class LineStatistics extends React.Component {
     return data;
   }
 
+
   render() {
     return (
       <div className='statisticsWrapper'>
         <div className='graph'>
-          <h3>График эффективности обучения</h3>
+          <h2>График эффективности обучения</h2>
+
           <Line
             data={this.chartData}
             options={{
@@ -167,12 +172,21 @@ export default class LineStatistics extends React.Component {
             <div className="statistics-name">Старые слова:</div>
             <div className="statistics-value">{this.state.optional.oldWords}</div>
           </div>
+
           <div className='graph-pie'>
             <h3>Процентное соотношение новых и старых слов</h3>
             <Pie data={this.chartPieData} />
+            <div className="statistics-content">
+              <div className="statistics-name">Процент новых слов от общего количества:</div>
+              <div className="statistics-value">{(this.state.optional.newWords / this.state.learnedWords) * 100}%</div>
+            </div>
+            <div className="statistics-content">
+              <div className="statistics-name">Процент старых слов от общего количества:</div>
+              <div className="statistics-value">{(this.state.optional.oldWords / this.state.learnedWords) * 100}%</div>
+            </div>
           </div>
         </div>
-      </div>
+      </div> 
     );
   }
 }
