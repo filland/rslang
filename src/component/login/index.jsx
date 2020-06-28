@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import {
   isLoading, isError,
 } from './selectors';
+import { isAuthorized } from '../../common/utils/TokenUtils';
 import loginUser from './service';
 
 import './styles.css';
@@ -27,12 +28,15 @@ class Login extends Component {
     const password = this.passwordInput.current.value;
 
     const { loginUser, history } = this.props;
-    loginUser(email, password, history);
+    loginUser(email, password, () => {
+      if (isAuthorized()) {
+        history.push('/settings');
+      }
+    });
   }
 
   render() {
     const { isError } = this.props;
-
     return (
       <Form onSubmit={this.handleUserLogin}>
         <h3>Login page</h3>
