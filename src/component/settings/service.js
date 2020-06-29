@@ -2,10 +2,9 @@ import { settingsRequest, settingSuccess, settingFail } from './actions';
 import { getUserId } from '../../common/utils/UserUtils';
 import { getJwtToken } from '../../common/utils/TokenUtils';
 
-const userId = getUserId();
-const token = getJwtToken();
-
 const getUserSettings = () => async (dispatch) => {
+  const userId = getUserId();
+  const token = getJwtToken();
   try {
     dispatch(settingsRequest());
     const getSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
@@ -25,6 +24,8 @@ const getUserSettings = () => async (dispatch) => {
 };
 
 const setUserSettings = ({ optional, wordsPerDay }) => async (dispatch) => {
+  const userId = getUserId();
+  const token = getJwtToken();
   try {
     dispatch(settingsRequest());
     const setSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
