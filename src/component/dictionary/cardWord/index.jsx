@@ -28,6 +28,7 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
+    console.log(this);
     fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
   };
 

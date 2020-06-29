@@ -1,13 +1,20 @@
 import { getJwtToken } from '../../common/utils/TokenUtils';
 import { getUserId } from '../../common/utils/UserUtils';
 
-async function fetchUpdateWordDeletedUser(wordId) {
+async function fetchUpdateWordDeletedUser(wordId, restoreButton) {
   const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words/${wordId}`;
-  const data = {
-    optional: {
-      deleted: 'false',
-    },
-  };
+  let data;
+  if (restoreButton === 'delete') {
+    data = {
+      optional: {
+        deleted: false,
+      },
+    };
+  } else if (restoreButton === 'difficult') {
+    data = {
+      difficulty: 'normal',
+    };
+  }
   const responseWordUserIds = await fetch(urlWordUserIds, {
     method: 'PUT',
     withCredentials: true,
@@ -24,7 +31,7 @@ async function fetchUpdateWordDeletedUser(wordId) {
 
 const fetchWordServiceRestore = (wordId, restoreButton) => {
   try {
-    const result = fetchUpdateWordDeletedUser(wordId);
+    const result = fetchUpdateWordDeletedUser(wordId, restoreButton);
     console.log(restoreButton);
     console.log(result);
   } catch (error) {
