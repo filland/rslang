@@ -10,6 +10,9 @@ import CardWord from './cardWord/index';
 
 import fetchWordService from './service';
 
+import getUserWords from '../common/word/user-word/selectors';
+import getDictionaryWords from '../common/word/dictionary-word/selectors';
+
 import {
   getWordsSelector,
   getWordCountSelector,
@@ -52,12 +55,16 @@ class Dictionary extends Component {
     const {
       isLoading, words, wordCountToday,
       wordsDifficult, wordDifficultCount, wordDifficultCountToday,
-      wordsDeleted, wordDeletedCount, wordDeletedCountToday,
+      wordsDeleted, wordDeletedCount, wordDeletedCountToday, dictionaryWords, userWords,
     } = this.props;
+
+    console.log(dictionaryWords);
+    console.log(userWords);
 
     if (isLoading) {
       return (<Loader />);
     }
+
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
@@ -99,6 +106,8 @@ const mapStateToProps = (store) => ({
   wordDeletedCount: getWordDeletedCountSelector(store),
   wordDeletedCountToday: getWordDeletedCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
+  dictionaryWords: getDictionaryWords(store),
+  userWords: getUserWords(store),
 });
 
 const mapDispatchToProps = {
