@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-import { fetchWeatherService } from "./service";
+import fetchWeatherService from './service';
+import Loader from '../common/loader';
 
-import "./styles.css";
 import {
   getCitySelector,
   getLosingFlagSelector,
   getTempSelector,
-} from "./selectors";
-import Loader from "../common/loader";
+} from './selectors';
+import './styles.scss';
 
 const propTypes = {
   fetchWeather: PropTypes.func.isRequired,
-  city: PropTypes.bool.isRequired,
-  temp: PropTypes.bool.isRequired,
+  city: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  temp: PropTypes.string,
 };
 
 class Weather extends Component {

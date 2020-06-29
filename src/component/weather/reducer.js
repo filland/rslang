@@ -1,6 +1,6 @@
-import { FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAIL } from "./constants";
+import { FETCH_WEATHER_REQUEST, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAIL } from './constants';
 
-const DEFAULT_CITY_NAME = "Minsk";
+const DEFAULT_CITY_NAME = 'Minsk';
 
 const initialState = {
   temp: null,
@@ -8,12 +8,12 @@ const initialState = {
   isLoading: false,
 };
 
-export function weatherReducer(state = initialState, action) {
+function weatherReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_WEATHER_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        ...action.payload,
       };
 
     case FETCH_WEATHER_SUCCESS:
@@ -25,10 +25,12 @@ export function weatherReducer(state = initialState, action) {
     case FETCH_WEATHER_FAIL:
       return {
         ...state,
-        isLoading: false,
+        ...action.payload,
       };
 
     default:
       return state;
   }
 }
+
+export default weatherReducer;
