@@ -7,6 +7,7 @@ import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
+import AudioChallenge from "./component/game/audioChallenge";
 
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/game/speakit" component={SpeakIt} />
+          <Route path="/audioChallenge" component={AudioChallenge} />
         </AuthProvider>
       </div>
     </Router>
