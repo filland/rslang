@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -44,11 +45,8 @@ const propTypes = {
 
 class Dictionary extends Component {
   componentDidMount() {
-    // update it after connecting to redux store
-    const { fetchWord/* , fetchWordDifficult, fetchWordDeleted */ } = this.props;
+    const { fetchWord } = this.props;
     fetchWord();
-    // fetchWordDifficult();
-    // fetchWordDeleted();
   }
 
   render() {
@@ -58,8 +56,19 @@ class Dictionary extends Component {
       wordsDeleted, wordDeletedCount, wordDeletedCountToday, dictionaryWords, userWords,
     } = this.props;
 
-    console.log(dictionaryWords);
-    console.log(userWords);
+    // console.log(dictionaryWords);
+    // console.log(userWords);
+
+    const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard'));
+    const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'deleted') && x.deleted);
+    const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
+
+    console.log(words);
+    console.log(wordsLearningList);
+    console.log(wordsDifficultList);
+    console.log(wordsDeletedList);
+
+    console.log('---------------');
 
     if (isLoading) {
       return (<Loader />);
@@ -69,26 +78,26 @@ class Dictionary extends Component {
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${words.length} (${wordCountToday} сегодня)`}
+            {`Число слов: ${wordsLearningList.length} (${wordCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {words.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
-            {`Число слов: ${wordDifficultCount} (${wordDifficultCountToday} сегодня)`}
+            {`Число слов: ${wordsDifficultList.length} (${wordDifficultCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDifficult.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
           <div className="my-4">
-            {`Число слов: ${wordDeletedCount} (${wordDeletedCountToday} сегодня)`}
+            {`Число слов: ${wordsDeletedList.length} (${wordDeletedCountToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDeleted.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} />)}
           </CardDeck>
         </Tab>
       </Tabs>

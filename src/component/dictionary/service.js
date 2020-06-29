@@ -44,11 +44,11 @@ const fetchWordService = () => async (dispatch) => {
           audio: parsedResponseWord.audio,
           audioExample: parsedResponseWord.audioExample,
           audioMeaning: parsedResponseWord.audioMeaning,
-          deleted: Object.prototype.hasOwnProperty.call(x, 'optional.deleted') ? x.optional.deleted : false,
+          deleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
           difficulty: x.difficulty,
           group: parsedResponseWord.group,
           id: parsedResponseWord.id,
-          idUserWord: x.Id,
+          idUserWord: x.id,
           image: parsedResponseWord.image,
           page: parsedResponseWord.page,
           textExample: parsedResponseWord.textExample,
@@ -64,6 +64,7 @@ const fetchWordService = () => async (dispatch) => {
       }
     });
     dispatch(fetchWordSuccess(words));
+
   } catch (error) {
     dispatch(fetchWordFail(error));
   }
