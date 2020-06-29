@@ -58,9 +58,8 @@ class Dictionary extends Component {
 
     // console.log(dictionaryWords);
     // console.log(userWords);
-
-    const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard'));
     const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'deleted') && x.deleted);
+    const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
     const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     console.log(words);
