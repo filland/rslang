@@ -64,7 +64,6 @@ const fetchWordService = () => async (dispatch) => {
       }
     });
     dispatch(fetchWordSuccess(words));
-
   } catch (error) {
     dispatch(fetchWordFail(error));
   }

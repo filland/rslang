@@ -22,9 +22,10 @@ async function fetchUpdateWordDeletedUser(wordId) {
   return result;
 }
 
-const fetchWordServiceRestore = (wordId) => {
+const fetchWordServiceRestore = (wordId, restoreButton) => {
   try {
     const result = fetchUpdateWordDeletedUser(wordId);
+    console.log(restoreButton);
     console.log(result);
   } catch (error) {
     console.log(error);

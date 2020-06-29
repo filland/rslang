@@ -12,6 +12,7 @@ import './styles.scss';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
+  restoreButton: PropTypes.string.isRequired,
   audioRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
@@ -27,7 +28,7 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    fetchWordServiceRestore(this.props.word.id);
+    fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
   };
 
   playAudio = () => {
@@ -49,7 +50,9 @@ class Cardword extends Component {
   };
 
   render() {
-    const { word } = this.props;
+    const { word, restoreButton } = this.props;
+    console.log(restoreButton);
+
     return (
       <Card bg="Light" className="wordCard my-4">
         <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
@@ -86,8 +89,12 @@ class Cardword extends Component {
             <span>Повторений: 3 | </span>
             <span>Следующее: 20.03.2020 | </span>
           </div>
-          <div className="mt-3">
-            <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
+          < div className="mt-3">
+            {
+              (restoreButton === 'difficult' || restoreButton === 'delete')
+                ? <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
+                : ''
+            }
           </div>
         </Card.Footer>
       </Card >
