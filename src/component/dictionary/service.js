@@ -1,67 +1,72 @@
 import {
-  fetchWorldSuccess,
-  fetchWorldFail,
-  fetchWorldRequest,
-} from "./actions";
+  fetchWordSuccess,
+  fetchWordFail,
+  fetchWordRequest,
+} from './actions';
+import { getJwtToken } from '../../common/utils/TokenUtils';
+import { getUserId } from '../../common/utils/UserUtils';
 
-export const fetchWorldService = () => async (dispatch, getState) => {
+async function fetchWordUserIds() {
+  const urlWordUserIds = `https://afternoon-falls-25894.herokuapp.com/users/${getUserId()}/words`;
+  const responseWordUserIds = await fetch(urlWordUserIds, {
+    method: 'GET',
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${getJwtToken()}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await responseWordUserIds.json();
+  return result;
+}
+
+async function fetchAllWords() {
+  const urlWords = 'https://afternoon-falls-25894.herokuapp.com/words';
+  const responseWords = await fetch(urlWords);
+  const result = await responseWords.json();
+  return result;
+}
+
+const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
-    // const state = getState();
-    // const defaultUser = getUserIdSelector(state);
-    // const userId = user || defaultUser;
-    // const token = getUserTokenSelector();
-    const userId = "5eea9233dffad00017faa8e3";
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWE5MjMzZGZmYWQwMDAxN2ZhYThlMyIsImlhdCI6MTU5MjYyNjkwOCwiZXhwIjoxNTkyNjQxMzA4fQ.Iw9a2d2wcccInulba7dBBThKITwS-KaTVV2fNUA1Juc";
-    dispatch(fetchWorldRequest(userId));
+    dispatch(fetchWordRequest(getUserId()));
 
-    const urlWorldIds = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
-    const responseWorldIds = await fetch(urlWorldIds, {
-      method: "GET",
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    const wordUserIdList = await fetchWordUserIds();
+    const allWordList = await fetchAllWords();
+
+    wordUserIdList.forEach((x) => {
+      const parsedResponseWord = allWordList.find((word) => word.id === x.wordId);
+
+      if (parsedResponseWord) {
+        const currentWord = {
+          audio: parsedResponseWord.audio,
+          audioExample: parsedResponseWord.audioExample,
+          audioMeaning: parsedResponseWord.audioMeaning,
+          deleted: Object.prototype.hasOwnProperty.call(x, 'optional.deleted') ? x.optional.deleted : false,
+          difficulty: x.difficulty,
+          group: parsedResponseWord.group,
+          id: parsedResponseWord.id,
+          idUserWord: x.Id,
+          image: parsedResponseWord.image,
+          page: parsedResponseWord.page,
+          textExample: parsedResponseWord.textExample,
+          textExampleTranslate: parsedResponseWord.textExampleTranslate,
+          textMeaning: parsedResponseWord.textMeaning,
+          textMeaningTranslate: parsedResponseWord.textMeaningTranslate,
+          transcription: parsedResponseWord.transcription,
+          word: parsedResponseWord.word,
+          wordTranslate: parsedResponseWord.wordTranslate,
+          wordsPerExampleSentence: parsedResponseWord.wordsPerExampleSentence,
+        };
+        words.push(currentWord);
+      }
     });
-    const parsedResponse = await responseWorldIds.json();
-    const worldIdList = parsedResponse;
-    //  worlds - array with worldId and diffictullty
-    console.log(worldIdList);
-
-    await Promise.all(worldIdList.map(async (x) => {
-      const urlWorld = `https://afternoon-falls-25894.herokuapp.com/words/${x.wordId}`;
-
-      const responseWorld = await fetch(urlWorld);
-      const parsedResponseWorld = await responseWorld.json();
-
-      const currentWorld = {
-        audio: parsedResponseWorld.audio,
-        audioExample: parsedResponseWorld.audioExample,
-        audioMeaning: parsedResponseWorld.audioMeaning,
-        difficulty: x.difficulty,
-        group: parsedResponseWorld.group,
-        id: parsedResponseWorld.id,
-        idUserWorld: x.Id,
-        image: parsedResponseWorld.image,
-        page: parsedResponseWorld.page,
-        textExample: parsedResponseWorld.textExample,
-        textExampleTranslate: parsedResponseWorld.textExampleTranslate,
-        textMeaning: parsedResponseWorld.textMeaning,
-        textMeaningTranslate: parsedResponseWorld.textMeaningTranslate,
-        transcription: parsedResponseWorld.transcription,
-        word: parsedResponseWorld.word,
-        wordTranslate: parsedResponseWorld.wordTranslate,
-        wordsPerExampleSentence: parsedResponseWorld.wordsPerExampleSentence,
-      };
-      words.push(currentWorld);
-    }));
-
-    console.log("returned");
-    console.log(words);
-    dispatch(fetchWorldSuccess(words));
+    dispatch(fetchWordSuccess(words));
   } catch (error) {
-    dispatch(fetchWorldFail(error));
+    dispatch(fetchWordFail(error));
   }
 };
+
+export default fetchWordService;
