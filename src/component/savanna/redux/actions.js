@@ -3,6 +3,7 @@ import { getListOfWords } from '../../english-puzzle/fetchGameData';
 export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD';
 export const CHECK_ANSWER = 'CHECK_ANSWER';
 export const START_GAME = 'START_GAME';
+export const END_GAME = 'END_GAME';
 
 export const changeWord = (page, group, numOfCurrentWord, arrOfData) => async (dispatch) => {
   let data;
@@ -62,9 +63,16 @@ export const changeWord = (page, group, numOfCurrentWord, arrOfData) => async (d
   });
 };
 
-export const checkAnswer = (target, answer) => async (dispatch) => {
+export const checkAnswer = (target, answer, lifesCount, iKnowArr,
+  iDontKnowArr, currentWordData) => async (dispatch) => {
+  let lifes = lifesCount;
   if (target.id === answer.id) {
     target.classList.add('true');
+    iKnowArr.push({
+      word: currentWordData.word,
+      wordTranslate: currentWordData.wordTranslate,
+      audio: currentWordData.audio,
+    });
   } else {
     const arr = target.parentElement.childNodes;
     for (let i = 0; i < arr.length; i += 1) {
@@ -74,12 +82,21 @@ export const checkAnswer = (target, answer) => async (dispatch) => {
     }
 
     target.classList.add('false');
+    lifes -= 1;
+
+    iDontKnowArr.push({
+      word: currentWordData.word,
+      wordTranslate: currentWordData.wordTranslate,
+      audio: currentWordData.audio,
+    });
   }
 
   dispatch({
     type: CHECK_ANSWER,
     payload: {
-
+      lifesCount: lifes,
+      iKnowArr,
+      iDontKnowArr,
     },
   });
 };
@@ -88,5 +105,15 @@ export const startGame = () => ({
   type: START_GAME,
   payload: {
     gameWasStarted: true,
+  },
+});
+
+export const endGame = () => ({
+  type: END_GAME,
+  payload: {
+    gameWasStarted: false,
+    lifesCount: 5,
+    iKnowArr: [],
+    iDontKnowArr: [],
   },
 });

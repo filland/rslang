@@ -1,4 +1,6 @@
-import { CHANGE_CURRENT_WORD, START_GAME } from './actions';
+import {
+  CHANGE_CURRENT_WORD, START_GAME, CHECK_ANSWER, END_GAME,
+} from './actions';
 
 const stateDefault = {
   data: [],
@@ -7,6 +9,8 @@ const stateDefault = {
   currentPage: 1,
   gameWasStarted: false,
   lifesCount: 5,
+  iKnowArr: [],
+  iDontKnowArr: [],
 };
 
 const savannaReducer = (state = stateDefault, action) => {
@@ -17,7 +21,22 @@ const savannaReducer = (state = stateDefault, action) => {
         ...action.payload,
 
       };
+
     case START_GAME:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case CHECK_ANSWER:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case END_GAME:
       return {
         ...state,
         ...action.payload,
