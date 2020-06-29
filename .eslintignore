@@ -4,3 +4,6 @@
 *.json
 serviceWorker.js
 *.jpg
+*.svg
+*.ttf
+*.otf

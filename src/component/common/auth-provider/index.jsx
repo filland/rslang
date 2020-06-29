@@ -3,11 +3,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchData } from './service';
-import { isLoading, isError } from './selectors';
 import { isAuthorized } from '../../../common/utils/TokenUtils';
 
 class AuthProvider extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (isAuthorized()) {
       const { fetchData } = this.props;
       fetchData();
@@ -25,16 +24,11 @@ class AuthProvider extends Component {
   }
 }
 
-const mapStateToProps = (store) => ({
-  isLoading: isLoading(store),
-  isError: isError(store),
-});
-
 const mapDispatchToProps = {
   fetchData,
 };
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
 )(AuthProvider);
