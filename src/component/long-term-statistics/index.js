@@ -1,44 +1,26 @@
 import React from 'react';
 import { Line, Pie } from 'react-chartjs-2';
+import { connect } from 'react-redux';
+import getUserStatistics from './service';
 
 import './style.scss';
 
-export default class LineStatistics extends React.Component {
+class LineStatistics extends React.Component {
   constructor(props) {
     super(props);
     this.transformDate = this.transformDate.bind(this);
     this.chartData = this.chartData.bind(this);
-
     this.chartPieData = this.chartPieData.bind(this);
 
     this.state = {
-      learnedWords: 200,
-      optional: {
-        day1AllWords: 10,
-        day1NewWords: 2,
-        day1Date: 1593216000000,
-        day2AllWords: 20,
-        day2NewWords: 10,
-        day2Date: 1593186963956,
-        day3AllWords: 30,
-        day3NewWords: 0,
-        day3Date: 1593186963956,
-        day4AllWords: 40,
-        day4NewWords: 15,
-        day4Date: 1593186963956,
-        day5AllWords: 30,
-        day5NewWords: 16,
-        day5Date: 1593186963956,
-        day6AllWords: 40,
-        day6NewWords: 25,
-        day6Date: 1593186963956,
-        day7AllWords: 30,
-        day7NewWords: 7,
-        day7Date: 1593186963956,
-        newWords: 70,
-        oldWords: 130,
-      },
+      learnedWords: props.learnedWords,
+      optional: props.optional,
     };
+  }
+
+  componentDidMount() {
+    const { getUserStatistics } = this.props;
+    getUserStatistics();
   }
 
   transformDate = (date) => {
@@ -154,7 +136,7 @@ export default class LineStatistics extends React.Component {
             }} />
         </div>
         <div className='statistics-field'>
-          <h3>Общая статистика за 7 дней:</h3>
+          <h3>Общая статистика за 7 дней</h3>
           <div className="statistics-content">
             <div className="statistics-name">Общее количество изученных слов:</div>
             <div className="statistics-value">{this.state.learnedWords}</div>
@@ -176,3 +158,18 @@ export default class LineStatistics extends React.Component {
     );
   }
 }
+const isLoading = (store) => store.isLoading;
+const getStatisticsTotalWords = (store) => store.statistics.learnedWords;
+const getStatisticsOptional = (store) => store.statistics.optional;
+
+const mapStateToProps = (store) => ({
+  isLoading: isLoading(store),
+  learnedWords: getStatisticsTotalWords(store),
+  optional: getStatisticsOptional(store),
+});
+
+const mapDispatchToProps = {
+  getUserStatistics,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LineStatistics);
