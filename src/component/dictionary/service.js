@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   fetchWordSuccess,
   fetchWordFail,
@@ -27,11 +28,15 @@ async function fetchAllWords() {
   const result = await responseWords.json();
   return result;
 }
+// new dont use
+function sameDateCheck(currentDate) {
+  return currentDate.setHours(0, 0, 0, 0) === (new Date()).setHours(0, 0, 0, 0);
+}
 
 function formatDate(d) { return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`; }
+
 function diffUpdatedDateToNowDays(date1, date2) {
-  return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) -
-    Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24));
+  return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())) / (1000 * 60 * 60 * 24));
 }
 const fetchWordService = () => async (dispatch) => {
   try {
@@ -52,6 +57,7 @@ const fetchWordService = () => async (dispatch) => {
           optionalCounter: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'counter') ? x.optional.counter : 0,
           optionalDeleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
           optionalShowDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'showDate') ? formatDate(new Date(x.optional.showDate)) : formatDate(new Date()),
+          optionalUpdatedDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? new Date(x.optional.updatedDate) : new Date(),
           optionalUpdatedDateToNowDays: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? diffUpdatedDateToNowDays(new Date(x.optional.updatedDate), new Date()) : 0,
           difficulty: x.difficulty,
           group: parsedResponseWord.group,

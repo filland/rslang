@@ -51,22 +51,23 @@ class Dictionary extends Component {
   render() {
     const {
       isLoading, words,
-      wordCountToday,
-      wordDifficultCountToday,
-      wordDeletedCountToday,
     } = this.props;
 
     // console.log(dictionaryWords);
     // console.log(userWords);
+    // console.log(wordsLearningList);
+    // console.log(wordsDifficultList);
+    // console.log(wordsDeletedList);
+
     const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'optionalDeleted') && x.optionalDeleted);
     const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
     const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
-    console.log(words);
-    console.log(wordsLearningList);
-    console.log(wordsDifficultList);
-    console.log(wordsDeletedList);
+    const wordsDeletedToday = wordsDeletedList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
+    const wordsDifficultToday = wordsDifficultList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
+    const wordsLearningToday = wordsLearningList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
 
+    console.log(words);
     console.log('---------------');
 
     if (isLoading) {
@@ -77,7 +78,7 @@ class Dictionary extends Component {
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${wordsLearningList.length} (${wordCountToday} сегодня)`}
+            {`Число слов: ${wordsLearningList.length} (${wordsLearningToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsLearningList.map((item, i) => <CardWord key={i} word={item} restoreButton="false" />)}
@@ -85,7 +86,7 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
-            {`Число слов: ${wordsDifficultList.length} (${wordDifficultCountToday} сегодня)`}
+            {`Число слов: ${wordsDifficultList.length} (${wordsDifficultToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} restoreButton="difficult" />)}
@@ -93,7 +94,7 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
           <div className="my-4">
-            {`Число слов: ${wordsDeletedList.length} (${wordDeletedCountToday} сегодня)`}
+            {`Число слов: ${wordsDeletedList.length} (${wordsDeletedToday} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} restoreButton="delete" />)}

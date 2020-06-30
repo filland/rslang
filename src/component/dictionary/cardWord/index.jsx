@@ -81,7 +81,6 @@ class Cardword extends Component {
           <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
         </ListGroup>
         <Card.Footer>
-          {/* todo: add info from back */}
           <div className={`dot-container-${word.difficulty}`}>
             {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
           </div>
