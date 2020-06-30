@@ -28,6 +28,8 @@ async function fetchAllWords() {
   return result;
 }
 
+function formatDate(d) { return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`; }
+
 const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
@@ -44,7 +46,9 @@ const fetchWordService = () => async (dispatch) => {
           audio: parsedResponseWord.audio,
           audioExample: parsedResponseWord.audioExample,
           audioMeaning: parsedResponseWord.audioMeaning,
-          deleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
+          optionalCounter: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'counter') ? x.optional.counter : 0,
+          optionalDeleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
+          optionalShowDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'showDate') ? formatDate(new Date(x.optional.showDate)) : formatDate(new Date()),
           difficulty: x.difficulty,
           group: parsedResponseWord.group,
           id: parsedResponseWord.id,

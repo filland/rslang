@@ -32,7 +32,6 @@ const propTypes = {
   words: PropTypes.arrayOf(PropTypes.object).isRequired,
   wordsDifficult: PropTypes.arrayOf(PropTypes.object).isRequired,
   wordsDeleted: PropTypes.arrayOf(PropTypes.object).isRequired,
-
   wordCount: PropTypes.number.isRequired,
   wordCountToday: PropTypes.number.isRequired,
   wordDifficultCount: PropTypes.number.isRequired,
@@ -51,14 +50,15 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, words, wordCountToday,
-      wordDifficultCount, wordDifficultCountToday,
-      wordDeletedCount, wordDeletedCountToday, dictionaryWords, userWords,
+      isLoading, words,
+      wordCountToday,
+      wordDifficultCountToday,
+      wordDeletedCountToday,
     } = this.props;
 
     // console.log(dictionaryWords);
     // console.log(userWords);
-    const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'deleted') && x.deleted);
+    const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'optionalDeleted') && x.optionalDeleted);
     const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
     const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
