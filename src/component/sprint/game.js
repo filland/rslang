@@ -29,9 +29,6 @@ const propTypes = {
   wordTranslate: PropTypes.string.isRequired,
 };
 
-let points = 0;
-let correctAnswers = 0;
-let addPoints = 10;
 export const knowArr = [];
 export const mistakesArr = [];
 
@@ -45,6 +42,9 @@ class Game extends Component {
       randomIndex2: null,
       minutes: 1,
       seconds: 0,
+      points: 0,
+      correctAnswers: 0,
+      addPoints: 10,
       border: '',
       visibilityWrong: '',
       visibilityCorrect: '',
@@ -87,18 +87,21 @@ class Game extends Component {
     const {
       word, wordTranslate, randomIndex, randomIndex2,
     } = this.props;
+    const { addPoints, points, correctAnswers } = this.state;
     if (randomIndex === randomIndex2) {
       this.setState({
         border: '5px solid green',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
+        points: points + addPoints,
+        correctAnswers: correctAnswers + 1,
       });
-      points += addPoints;
-      correctAnswers += 1;
       if (correctAnswers === 4) {
-        addPoints *= 2;
-        correctAnswers = 0;
+        this.setState({
+          addPoints: addPoints * 2,
+          correctAnswers: 0,
+        });
       }
       if (!knowArr.includes(`${word} - ${wordTranslate}`) && !mistakesArr.includes(`${word} - ${wordTranslate}`)) {
         knowArr.push(`${word} - ${wordTranslate}`);
@@ -109,9 +112,9 @@ class Game extends Component {
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
+        correctAnswers: 0,
+        addPoints: 10,
       });
-      correctAnswers = 0;
-      addPoints = 10;
       if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
         mistakesArr.push(`${word} - ${wordTranslate}`);
       }
@@ -124,18 +127,21 @@ class Game extends Component {
     const {
       word, wordTranslate, randomIndex, randomIndex2,
     } = this.props;
+    const { addPoints, points, correctAnswers } = this.state;
     if (randomIndex !== randomIndex2) {
       this.setState({
         border: '5px solid green',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
+        points: points + addPoints,
+        correctAnswers: correctAnswers + 1,
       });
-      points += addPoints;
-      correctAnswers += 1;
       if (correctAnswers === 4) {
-        addPoints *= 2;
-        correctAnswers = 0;
+        this.setState({
+          addPoints: addPoints * 2,
+          correctAnswers: 0,
+        });
       }
       if (!knowArr.includes(`${word} - ${wordTranslate}`) && !mistakesArr.includes(`${word} - ${wordTranslate}`)) {
         knowArr.push(`${word} - ${wordTranslate}`);
@@ -146,9 +152,9 @@ class Game extends Component {
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
+        correctAnswers: 0,
+        addPoints: 10,
       });
-      correctAnswers = 0;
-      addPoints = 10;
       if (!mistakesArr.includes(`${word} - ${wordTranslate}`) && !knowArr.includes(`${word} - ${wordTranslate}`)) {
         mistakesArr.push(`${word} - ${wordTranslate}`);
       }
@@ -171,6 +177,7 @@ class Game extends Component {
     const styleCorrect = { visibility: this.state.visibilityCorrect };
     const { pointsInfo } = this.state;
     const { minutes, seconds } = this.state;
+    const { points } = this.state;
     if (minutes === 0 && seconds === 0) {
       return <Statistics />;
     }
