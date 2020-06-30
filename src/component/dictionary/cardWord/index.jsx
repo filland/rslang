@@ -28,7 +28,6 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    console.log(this);
     fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
   };
 
@@ -52,8 +51,6 @@ class Cardword extends Component {
 
   render() {
     const { word, restoreButton } = this.props;
-    console.log(restoreButton);
-
     return (
       <Card bg="Light" className="wordCard my-4">
         <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
