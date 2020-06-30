@@ -28,12 +28,11 @@ async function fetchAllWords() {
   const result = await responseWords.json();
   return result;
 }
-// new dont use
-function sameDateCheck(currentDate) {
-  return currentDate.setHours(0, 0, 0, 0) === (new Date()).setHours(0, 0, 0, 0);
-}
 
-function formatDate(d) { return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`; }
+function formatDate(d) {
+  console.log(d);
+  return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+}
 
 function diffUpdatedDateToNowDays(date1, date2) {
   return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())) / (1000 * 60 * 60 * 24));
@@ -48,6 +47,7 @@ const fetchWordService = () => async (dispatch) => {
 
     wordUserIdList.forEach((x) => {
       const parsedResponseWord = allWordList.find((word) => word.id === x.wordId);
+      console.log(x);
 
       if (parsedResponseWord) {
         const currentWord = {
@@ -56,9 +56,9 @@ const fetchWordService = () => async (dispatch) => {
           audioMeaning: parsedResponseWord.audioMeaning,
           optionalCounter: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'counter') ? x.optional.counter : 0,
           optionalDeleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
-          optionalShowDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'showDate') ? formatDate(new Date(x.optional.showDate)) : formatDate(new Date()),
-          optionalUpdatedDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? new Date(x.optional.updatedDate) : new Date(),
-          optionalUpdatedDateToNowDays: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? diffUpdatedDateToNowDays(new Date(x.optional.updatedDate), new Date()) : 0,
+          optionalShowDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'showDate') ? formatDate(new Date(parseInt(x.optional.showDate, 10))) : formatDate(new Date()),
+          optionalUpdatedDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? new Date(parseInt(x.optional.updatedDate, 10)) : new Date(),
+          optionalUpdatedDateToNowDays: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? diffUpdatedDateToNowDays(new Date(parseInt(x.optional.updatedDate, 10)), new Date()) : 0,
           difficulty: x.difficulty,
           group: parsedResponseWord.group,
           id: parsedResponseWord.id,
