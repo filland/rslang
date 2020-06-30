@@ -1,8 +1,11 @@
 import React from "react";
 import { Component } from "react";
+import { connect } from "react-redux";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import FormControl from "react-bootstrap/FormControl";
+import getUserWords from "../common/word/user-word/selectors";
+import getDictionaryWords from "../common/word/dictionary-word/selectors";
 
 import "./styles.scss";
 
@@ -18,26 +21,48 @@ class LearningWords extends Component {
     difficulty: "",
     answer: "",
     numberOfWords: 0,
+    wordsPerDay: 0,
   };
-  componentDidMount() {
-    fetch("https://afternoon-falls-25894.herokuapp.com/words?page=2&group=0")
-      .then((response) => response.json())
-      .then((res) => this.setState({ words: res, numberOfWords: res.length }));
+
+  componentDidUpdate() {
+    if (!this.state.words.length) {
+      let wordArr = [];
+      for (let i = 0; i < 20; i++) {
+        wordArr.push(this.props.dictionaryWords[i]);
+      }
+      this.setState({ words: wordArr });
+    }
   }
 
   checkAnswer = (e) => {
-    if (e.target.value == this.state.words[0].word) {
-      this.setState({
-        inputBG: "lightgreen",
-        answer: "correct",
-      });
-    } else {
-      this.setState({ inputBG: "salmon", answer: "wrong" });
-    }
+    let check =
+      e.target.value === this.state.words[0].word
+        ? {
+            inputBG: "lightgreen",
+            answer: "correct",
+          }
+        : { inputBG: "salmon", answer: "wrong" };
+    this.setState(check);
+  };
+
+  removeWordFromQueue = () => {
+    this.setState({ words: this.state.words.slice(1) });
+  };
+
+  reinstallWordIntoQueue = () => {
+    let wordArr = this.state.words;
+    let currentWord = wordArr.shift();
+    wordArr.push(currentWord);
+    this.setState({ words: wordArr });
+  };
+
+  radioSelect = (e) => {
+    this.setState({ difficulty: e.currentTarget.value });
   };
 
   render() {
     console.log(this.state);
+    console.log(this.props);
 
     return (
       <div className="learning-words-wrapper">
@@ -65,7 +90,7 @@ class LearningWords extends Component {
                   this.setState({ input: e.target.value, inputBG: "white" })
                 }
                 onKeyPress={(e) => {
-                  if (e.key == "Enter") this.checkAnswer(e);
+                  if (e.key === "Enter") this.checkAnswer(e);
                 }}
                 onBlur={(e) => this.checkAnswer(e)}
               />
@@ -77,7 +102,7 @@ class LearningWords extends Component {
             <div className="translate">
               <div>Слово: {this.state.words[0].wordTranslate}</div>
             </div>
-            {this.state.answer == "correct" && (
+            {this.state.answer === "correct" && (
               <div>
                 <div className="transcrption">
                   <div>Транскрипция: {this.state.words[0].transcription}</div>
@@ -100,8 +125,9 @@ class LearningWords extends Component {
                   </div>
                 </div>
                 <div className="example">
-                  <div>Пример: {this.state.words[0].textExampleTranslate}
-                  <Button
+                  <div>
+                    Пример: {this.state.words[0].textExampleTranslate}
+                    <Button
                       className="sound"
                       onClick={() => {
                         let sound = new Audio(
@@ -112,7 +138,8 @@ class LearningWords extends Component {
                       }}
                     >
                       Sound
-                    </Button></div>
+                    </Button>
+                  </div>
                 </div>
                 <div className="learning-words-wrapper__card__media">
                   <div className="media-wrapper">
@@ -150,10 +177,8 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="0"
-                checked={this.state.difficulty == "0"}
-                onChange={(e) =>
-                  this.setState({ difficulty: e.currentTarget.value })
-                }
+                checked={this.state.difficulty === "0"}
+                onChange={(e) => this.radioSelect(e)}
               />{" "}
               Снова
             </label>
@@ -162,10 +187,8 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="1"
-                checked={this.state.difficulty == "1"}
-                onChange={(e) =>
-                  this.setState({ difficulty: e.currentTarget.value })
-                }
+                checked={this.state.difficulty === "1"}
+                onChange={(e) => this.radioSelect(e)}
               />{" "}
               Сложно
             </label>
@@ -174,10 +197,8 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="2"
-                checked={this.state.difficulty == "2"}
-                onChange={(e) =>
-                  this.setState({ difficulty: e.currentTarget.value })
-                }
+                checked={this.state.difficulty === "2"}
+                onChange={(e) => this.radioSelect(e)}
               />{" "}
               Нормально
             </label>
@@ -186,10 +207,8 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="3"
-                checked={this.state.difficulty == "3"}
-                onChange={(e) =>
-                  this.setState({ difficulty: e.currentTarget.value })
-                }
+                checked={this.state.difficulty === "3"}
+                onChange={(e) => this.radioSelect(e)}
               />{" "}
               Легко
             </label>
@@ -198,26 +217,23 @@ class LearningWords extends Component {
             <Button
               className="learning-words-wrapper__controls-btn"
               disabled={
-                this.state.difficulty == "" ||
-                this.state.answer == "" ||
-                this.state.answer == "wrong"
+                this.state.difficulty === "" ||
+                this.state.answer === "" ||
+                this.state.answer === "wrong"
               }
               onClick={() => {
                 switch (this.state.difficulty) {
                   case "0":
-                    let wordArr = this.state.words;
-                    let currentWord = wordArr.shift();
-                    wordArr.push(currentWord);
-                    this.setState({ words: wordArr });
+                    this.reinstallWordIntoQueue();
                     break;
                   case "1":
-                    this.setState({ words: this.state.words.slice(1) });
+                    this.removeWordFromQueue();
                     break;
                   case "2":
-                    this.setState({ words: this.state.words.slice(1) });
+                    this.removeWordFromQueue();
                     break;
                   case "3":
-                    this.setState({ words: this.state.words.slice(1) });
+                    this.removeWordFromQueue();
                     break;
                   default:
                     break;
@@ -239,4 +255,14 @@ class LearningWords extends Component {
   }
 }
 
-export default LearningWords;
+const getUserSettings = (store) => store.settings;
+
+const mapStateToProps = (store) => ({
+  dictionaryWords: getDictionaryWords(store),
+  userWords: getUserWords(store),
+  settings: getUserSettings(store),
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LearningWords);
