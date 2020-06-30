@@ -16,29 +16,12 @@ import getDictionaryWords from '../common/word/dictionary-word/selectors';
 
 import {
   getWordsSelector,
-  getWordCountSelector,
-  getWordCountTodaySelector,
-  getWordsDifficultSelector,
-  getWordDifficultCountSelector,
-  getWordDifficultCountTodaySelector,
-  getWordsDeletedSelector,
-  getWordDeletedCountSelector,
-  getWordDeletedCountTodaySelector,
   getLosingFlagSelector,
 } from './selectors';
 
 const propTypes = {
   fetchWord: PropTypes.func.isRequired,
   words: PropTypes.arrayOf(PropTypes.object).isRequired,
-  wordsDifficult: PropTypes.arrayOf(PropTypes.object).isRequired,
-  wordsDeleted: PropTypes.arrayOf(PropTypes.object).isRequired,
-  wordCount: PropTypes.number.isRequired,
-  wordCountToday: PropTypes.number.isRequired,
-  wordDifficultCount: PropTypes.number.isRequired,
-  wordDifficultCountToday: PropTypes.number.isRequired,
-  wordDeletedCount: PropTypes.number.isRequired,
-  wordDeletedCountToday: PropTypes.number.isRequired,
-
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -52,12 +35,6 @@ class Dictionary extends Component {
     const {
       isLoading, words,
     } = this.props;
-
-    // console.log(dictionaryWords);
-    // console.log(userWords);
-    // console.log(wordsLearningList);
-    // console.log(wordsDifficultList);
-    // console.log(wordsDeletedList);
 
     const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'optionalDeleted') && x.optionalDeleted);
     const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
@@ -106,17 +83,9 @@ class Dictionary extends Component {
 }
 const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
-  wordCount: getWordCountSelector(store),
-  wordCountToday: getWordCountTodaySelector(store),
-  wordsDifficult: getWordsDifficultSelector(store),
-  wordDifficultCount: getWordDifficultCountSelector(store),
-  wordDifficultCountToday: getWordDifficultCountTodaySelector(store),
-  wordsDeleted: getWordsDeletedSelector(store),
-  wordDeletedCount: getWordDeletedCountSelector(store),
-  wordDeletedCountToday: getWordDeletedCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
-  dictionaryWords: getDictionaryWords(store),
-  userWords: getUserWords(store),
+  // dictionaryWords: getDictionaryWords(store),
+  // userWords: getUserWords(store),
 });
 
 const mapDispatchToProps = {
