@@ -29,7 +29,10 @@ async function fetchAllWords() {
 }
 
 function formatDate(d) { return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`; }
-
+function diffUpdatedDateToNowDays(date1, date2) {
+  return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) -
+    Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24));
+}
 const fetchWordService = () => async (dispatch) => {
   try {
     const words = [];
@@ -49,6 +52,7 @@ const fetchWordService = () => async (dispatch) => {
           optionalCounter: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'counter') ? x.optional.counter : 0,
           optionalDeleted: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'deleted') ? x.optional.deleted : false,
           optionalShowDate: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'showDate') ? formatDate(new Date(x.optional.showDate)) : formatDate(new Date()),
+          optionalUpdatedDateToNowDays: Object.prototype.hasOwnProperty.call(x, 'optional') && Object.prototype.hasOwnProperty.call(x.optional, 'updatedDate') ? diffUpdatedDateToNowDays(new Date(x.optional.updatedDate), new Date()) : 0,
           difficulty: x.difficulty,
           group: parsedResponseWord.group,
           id: parsedResponseWord.id,

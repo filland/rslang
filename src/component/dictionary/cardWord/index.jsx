@@ -86,7 +86,7 @@ class Cardword extends Component {
             {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
           </div>
           <div>
-            <span>Давность: 11 дн. назад | </span>
+            <span>Давность: {word.optionalUpdatedDateToNowDays}  дн. назад | </span>
             <span>Повторений: {word.optionalCounter} | </span>
             <span>Следующее: {word.optionalShowDate}  | </span>
           </div>
