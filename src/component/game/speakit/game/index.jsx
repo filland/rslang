@@ -8,12 +8,15 @@ import blankPicture from '../assets/blank.jpg';
 import './styles.scss';
 import getUserWords from '../../../common/word/user-word/selectors';
 import getDictionaryWords from '../../../common/word/dictionary-word/selectors';
+import { prepareWords } from '../../../../common/service/WordsService';
 
 class Game extends Component {
   render() {
-    const { dictionaryWords, userWords } = this.props;
+    const { userWords, dictionaryWords } = this.props;
 
-    const wordsTemplate = dictionaryWords
+    const preparedWords = prepareWords(userWords, dictionaryWords, 10);
+
+    const wordsTemplate = preparedWords
       .filter((val, index) => index <= 9)
       .map((word) => (<Word key={word.id} word={word}></Word>));
 
