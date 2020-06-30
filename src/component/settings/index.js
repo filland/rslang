@@ -10,9 +10,9 @@ import { setUserSettings, getUserSettings } from './service';
 import './style.scss';
 
 const arrOfInformation = [
-  { id: 'informationTranslate', label: 'Перевод слова' },
-  { id: 'informationDescription', label: 'Предложение с объяснением значения слова' },
-  { id: 'informationExample', label: 'Предложение с примером использования изучаемого слова' },
+  { id: 'informationTranslate', label: 'Перевод слова', isValidate: true },
+  { id: 'informationDescription', label: 'Предложение с объяснением значения слова', isValidate: true },
+  { id: 'informationExample', label: 'Предложение с примером использования изучаемого слова', isValidate: true },
   { id: 'informationTranscription', label: 'Транскрипция слова' },
   { id: 'informationPicture', label: 'Картинка-ассоциация' },
 ];
@@ -46,7 +46,8 @@ class Settings extends React.Component {
     }
   }
 
-  handleSubmit = async () => {
+  handleSubmit = async (e) => {
+    e.preventDefault();
     const { setUserSettings } = this.props;
     setUserSettings(this.state.settings);
   }
@@ -78,6 +79,7 @@ class Settings extends React.Component {
 
   render() {
     return (
+      <Form onSubmit={this.handleSubmit}>
       <Accordion defaultActiveKey="0">
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -85,10 +87,11 @@ class Settings extends React.Component {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <Form>
-                {arrOfInformation.map(({ id, label }) => (
+                {arrOfInformation.map(({ id, label, isValidate }) => (
                   <div key={`information-${id}`} className="mb-3">
                     <Form.Check
+                      required = {isValidate}
+                      feedback="You must agree before submitting."
                       type="checkbox"
                       id={id}
                       label={label}
@@ -97,7 +100,6 @@ class Settings extends React.Component {
                     />
                   </div>
                 ))}
-              </Form>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
@@ -107,7 +109,6 @@ class Settings extends React.Component {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              <Form>
                 {arrOfButtons.map(({ id, label }) => (
                   <div key={`button-${id}`} className="mb-3">
                     <Form.Check
@@ -119,11 +120,10 @@ class Settings extends React.Component {
                     />
                   </div>
                 ))}
-              </Form>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Form>
+        <br />
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
@@ -137,8 +137,6 @@ class Settings extends React.Component {
               <option>20</option>
             </Form.Control>
           </Form.Group>
-        </Form>
-        <Form>
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Максимальное количество карточек в день:</Form.Label>
             <Form.Control as="select" custom
@@ -153,8 +151,6 @@ class Settings extends React.Component {
               <option>50</option>
             </Form.Control>
           </Form.Group>
-        </Form>
-        <Form>
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Сложность изучаемых слов - от легкого(1) до сложного(6):</Form.Label>
             <Form.Control as="select" custom
@@ -168,8 +164,6 @@ class Settings extends React.Component {
               <option>6</option>
             </Form.Control>
           </Form.Group>
-        </Form>
-        <Form>
           <Form.Check
             type="switch"
             id="customSwitch"
@@ -177,9 +171,7 @@ class Settings extends React.Component {
             onChange={this.handleCheckbox}
             label="Автоматическое воспроизведение звука"
           />
-        </Form>
         <br />
-        <Form>
           <Form.Check
             type="switch"
             id="levelButtons"
@@ -187,12 +179,13 @@ class Settings extends React.Component {
             onChange={this.handleCheckbox}
             label="Отображать кнопки для определения уровня сложности слова"
           />
-        </Form>
         <br /> <br />
         <Button
-          onClick={this.handleSubmit}
-          variant="success">Save</Button>{' '}
+          variant="success"
+          type="submit"
+          >Save</Button>{' '}
       </Accordion>
+      </Form>
     );
   }
 }
