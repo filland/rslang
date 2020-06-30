@@ -1,29 +1,38 @@
-import { FETCH_WORLD_REQUEST, FETCH_WORLD_SUCCESS, FETCH_WORLD_FAIL } from "./constants";
+import { FETCH_WORD_REQUEST, FETCH_WORD_SUCCESS, FETCH_WORD_FAIL } from './constants';
 
 const initialState = {
   words: [],
+  wordCount: 0,
+  wordCountToday: 0,
+
+  wordsDifficult: [],
+  wordDifficultCount: 0,
+  wordDifficultCountToday: 0,
+
+  wordsDeleted: [],
+  wordDeletedCount: 0,
+  wordDeletedCountToday: 0,
+
   isLoading: false,
-  worldCount: 0,
-  worldCountToday: 0,
-  user: null,
+
 };
 
-export function dictionaryReducer(state = initialState, action) {
+function dictionaryReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_WORLD_REQUEST:
+    case FETCH_WORD_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
 
-    case FETCH_WORLD_SUCCESS:
+    case FETCH_WORD_SUCCESS:
       return {
         ...state,
         ...action.payload,
 
       };
 
-    case FETCH_WORLD_FAIL:
+    case FETCH_WORD_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -33,3 +42,5 @@ export function dictionaryReducer(state = initialState, action) {
       return state;
   }
 }
+
+export default dictionaryReducer;

@@ -1,12 +1,12 @@
 import {
-  FETCH_WORLD_REQUEST,
-  FETCH_WORLD_SUCCESS,
-  FETCH_WORLD_FAIL,
-} from "./constants";
+  FETCH_WORD_REQUEST,
+  FETCH_WORD_SUCCESS,
+  FETCH_WORD_FAIL,
+} from './constants';
 
-export function fetchWorldRequest(user) {
+export function fetchWordRequest(user) {
   return {
-    type: FETCH_WORLD_REQUEST,
+    type: FETCH_WORD_REQUEST,
     payload: {
       isLoading: true,
       user,
@@ -14,10 +14,9 @@ export function fetchWorldRequest(user) {
   };
 }
 
-export function fetchWorldSuccess(words) {
-  console.log("Success");
+export function fetchWordSuccess(words) {
   return {
-    type: FETCH_WORLD_SUCCESS,
+    type: FETCH_WORD_SUCCESS,
     payload: {
       isLoading: false,
       words,
@@ -25,9 +24,9 @@ export function fetchWorldSuccess(words) {
   };
 }
 
-export function fetchWorldFail() {
+export function fetchWordFail() {
   return {
-    type: FETCH_WORLD_FAIL,
+    type: FETCH_WORD_FAIL,
     payload: {
       isLoading: false,
     },

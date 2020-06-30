@@ -14,14 +14,11 @@ class Sprint extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'block',
-      level: '',
       gameRender: false,
     };
   }
 
   handleClick = (levelValue) => {
-    this.setState({ display: 'none' });
     level = levelValue;
     this.setState({ gameRender: true });
   }
@@ -32,13 +29,12 @@ class Sprint extends Component {
     const listDifficulties = difficulties.map((difficulty, index) => <Button key={index} className={colors[index]} onClick={() => this.handleClick(index)}>
     {difficulty}
     </Button>);
-    const style = { display: this.state.display };
     const { gameRender } = this.state;
     if (gameRender) {
       return <Game />;
     }
     return (
-      <Container id="outer" style={style}>
+      <Container id="outer">
         <Card className="d-flex flex-column align-items-center p-5 inner" id="inner">
           <Card.Body className="d-flex flex-column align-items-center p-4">
             <Card.Title className="mb-4">Выберите уровень сложности игры:</Card.Title>

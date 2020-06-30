@@ -1,8 +1,6 @@
 import {
   CHANGE_DIFFICULT_OF_GAME,
   CHANGE_CURRENT_STRING,
-  PUSH_WORD_IN_RESULT_ARR,
-  REMOVE_WORD_FROM_RESULT_ARR,
   CHECK_RESULT_ARR,
   SHOW_CORRECT_RESULT,
   PUSH_SENTENCE_IN_SOLVED_ARR,
@@ -12,6 +10,10 @@ import {
   SHOW_FULL_IMG,
   SHOW_TRANSLATE_OF_SENTENCE,
   AUTO_PLAY_AUDIO,
+  START_GAME,
+  CHANGE_RESULT_ARR,
+  CHANGE_ARR_OF_RANDOM_WORDS,
+  DISABLE_IS_CHECKED,
 } from './actions';
 
 const defaultState = {
@@ -34,7 +36,8 @@ const defaultState = {
   imgIsShowed: false,
   pictureData: { imageSrc: 'level1/ice_land.jpg' },
   translateIsShowed: false,
-  autoPlay: true,
+  autoPlay: false,
+  gameWasStarted: false,
 };
 
 const GamePageReducer = (state = defaultState, action) => {
@@ -49,13 +52,14 @@ const GamePageReducer = (state = defaultState, action) => {
         correctArr: action.payload.correctArr,
         pageForUser: action.payload.pageForUser,
         pictureData: action.payload.pictureData,
-        arrOfResult: [],
+        arrOfResult: action.payload.arrOfResult,
         arrayOfSolvedSentences: [],
         iDontKnowArr: [],
         iKnowArr: [],
         statisticIsShowed: false,
         imgIsShowed: false,
         numberOfStr: 0,
+
       };
     case CHANGE_CURRENT_STRING:
       return {
@@ -64,24 +68,7 @@ const GamePageReducer = (state = defaultState, action) => {
         correctArr: action.payload.correctArr,
         numberOfStr: action.payload.numberOfStr,
         isDone: action.payload.isDone,
-        arrOfResult: [],
-      };
-    case PUSH_WORD_IN_RESULT_ARR:
-      return {
-        ...state,
-        arrOfRandomWords: action.payload.arrOfRandomWords,
         arrOfResult: action.payload.arrOfResult,
-        wordForResult: action.payload.wordForResult,
-        isChecked: action.payload.isChecked,
-      };
-    case REMOVE_WORD_FROM_RESULT_ARR:
-      return {
-        ...state,
-        arrOfRandomWords: action.payload.arrOfRandomWords,
-        arrOfResult: action.payload.arrOfResult,
-        wordForResult: action.payload.wordForResult,
-        isChecked: action.payload.isChecked,
-        isDone: false,
       };
     case CHECK_RESULT_ARR:
       return {
@@ -96,7 +83,6 @@ const GamePageReducer = (state = defaultState, action) => {
         arrOfResult: action.payload.arrOfResult,
         isChecked: action.payload.isChecked,
         isDone: action.payload.isDone,
-        arrOfRandomWords: [],
       };
     case PUSH_SENTENCE_IN_SOLVED_ARR:
       return {
@@ -136,6 +122,26 @@ const GamePageReducer = (state = defaultState, action) => {
       return {
         ...state,
         autoPlay: action.payload.autoPlay,
+      };
+    case START_GAME:
+      return {
+        ...state,
+        gameWasStarted: action.payload.gameWasStarted,
+      };
+    case CHANGE_RESULT_ARR:
+      return {
+        ...state,
+        arrOfResult: action.payload.arrOfResult,
+      };
+    case CHANGE_ARR_OF_RANDOM_WORDS:
+      return {
+        ...state,
+        arrOfRandomWords: action.payload.arrOfRandomWords,
+      };
+    case DISABLE_IS_CHECKED:
+      return {
+        ...state,
+        isChecked: action.payload.isChecked,
       };
 
     default:
