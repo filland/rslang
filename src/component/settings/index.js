@@ -21,7 +21,7 @@ const arrOfButtons = [
   { id: 'btnDelete', label: "Кнопка 'Удалить слово' (исключить слово из изучения)" },
   { id: 'btnComplicated', label: "Кнопка 'Сложные' (поместить слово в группу 'Сложные')" },
 ];
-export class Settings extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -69,13 +69,12 @@ export class Settings extends React.Component {
     optional.newCardsPerDay = event.target.value;
     this.setState({ ...optional });
   }
-  
+
   handleSelectLevel = (event) => {
     const { optional } = this.state.settings;
     optional.difficultyLevel = event.target.value;
     this.setState({ ...optional });
   }
-
 
   render() {
     return (
