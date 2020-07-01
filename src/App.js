@@ -9,7 +9,7 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
 import AudioChallenge from './component/game/audioChallenge';
 import Sprint from './component/sprint/sprint';
-
+import LearningWords from './component/learning-words';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
 import Statistics from './component/statistics';
@@ -27,6 +27,7 @@ function App() {
           <Route path="/weather" component={Weather} />
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
+          <Route path="/learning" component={LearningWords} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/game/speakit" component={SpeakIt} />
           <Route path="/statistics" component={Statistics} />
