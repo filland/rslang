@@ -16,16 +16,17 @@ class Savanna extends React.Component {
   }
 
   render() {
+    const { data, startGame, gameWasStarted } = this.props;
     return (
-      this.props.gameWasStarted
+      gameWasStarted
         ? (
           <div className='savannaGame' style={{ backgroundImage: `url(${gamePageImg})` }}>
-            {this.props.data.length === 0
+            {data.length === 0
               ? <Loader />
               : <GamePage {...this.props} />}
           </div>
         ) : (
-          <StartPage startGame={this.props.startGame} />
+          <StartPage startGame={startGame} />
         )
     );
   }

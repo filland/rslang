@@ -8,6 +8,7 @@ const stateDefault = {
   currentLevel: 1,
   currentPage: 1,
   gameWasStarted: false,
+  checkingAnswer: false,
   lifesCount: 5,
   iKnowArr: [],
   iDontKnowArr: [],

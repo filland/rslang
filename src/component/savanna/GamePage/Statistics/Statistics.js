@@ -6,14 +6,14 @@ const Statistics = ({ iKnowArr, iDontKnowArr, endGame }) => (
     <div className='popup'>
       <div className='iKnow'>
         <span>I know: </span>
-        {iKnowArr.map((el, i) => (
-          <div className='item' key={el + i}> {el.word} - {el.wordTranslate} </div>
+        {iKnowArr.map(({ word, wordTranslate }, i) => (
+          <div className='item' key={i}> {word} - {wordTranslate} </div>
         ))}
       </div>
       <div className='iDontKnow'>
         <span>I don't know:</span>
-        {iDontKnowArr.map((el, i) => (
-          <div className='item' key={el + i}> {el.word} - {el.wordTranslate} </div>
+        {iDontKnowArr.map(({ word, wordTranslate }, i) => (
+          <div className='item' key={i}> {word} - {wordTranslate} </div>
         ))}
       </div>
       <button onClick={endGame} className='btn btn-warning'> Continue </button>
