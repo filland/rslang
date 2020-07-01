@@ -7,7 +7,8 @@ import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
-import AudioChallenge from "./component/game/audioChallenge";
+import AudioChallenge from './component/game/audioChallenge';
+import Sprint from './component/sprint/sprint';
 import LearningWords from './component/learning-words';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/game/speakit" component={SpeakIt} />
           <Route path="/statistics" component={Statistics} />
           <Route path="/audioChallenge" component={AudioChallenge} />
+          <Route path="/sprint" component={Sprint} />
         </AuthProvider>
       </div>
     </Router>
