@@ -6,14 +6,16 @@ import Registration from './component/registration';
 import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
-<<<<<<< HEAD
-=======
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
+import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
+
+import SpeakIt from './component/game/speakit';
+import AuthProvider from './component/common/auth-provider';
+import Statistics from './component/statistics';
 import LearningWords from './component/learning-words';
 
->>>>>>> 2921154... fix: merge commit to fix conflicts
 import './App.scss';
 
 import './App.scss';
@@ -23,13 +25,11 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={NavBar} />
-<<<<<<< HEAD
         <Route path="/learning-words" component={LearningWords}/>
         <Route path="/weather" component={Weather} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
         {/* <Route path="/english-puzzle" component={EnglishPuzzle} /> */}
-=======
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <AuthProvider>
@@ -40,7 +40,6 @@ function App() {
           <Route path="/learning" component={LearningWords}/>
           <Route path="/game/speakit" component={SpeakIt} />
         </AuthProvider>
->>>>>>> 2921154... fix: merge commit to fix conflicts
       </div>
     </Router>
   );
