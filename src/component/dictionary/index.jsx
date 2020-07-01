@@ -35,8 +35,10 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, words,
+      isLoading, words, dictionaryWords, userWords,
     } = this.props;
+    console.log(dictionaryWords);
+    console.log(userWords);
 
     const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'optionalDeleted') && x.optionalDeleted);
     const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
@@ -46,7 +48,6 @@ class Dictionary extends Component {
     const wordsDifficultToday = wordsDifficultList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
     const wordsLearningToday = wordsLearningList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
 
-    console.log(words);
     console.log('---------------');
 
     if (isLoading) {
@@ -86,8 +87,8 @@ class Dictionary extends Component {
 const mapStateToProps = (store) => ({
   words: getWordsSelector(store),
   isLoading: getLosingFlagSelector(store),
-  // dictionaryWords: getDictionaryWords(store),
-  // userWords: getUserWords(store),
+  dictionaryWords: getDictionaryWords(store),
+  userWords: getUserWords(store),
 });
 
 const mapDispatchToProps = {
