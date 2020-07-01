@@ -44,9 +44,9 @@ class Dictionary extends Component {
     const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
     const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
-    const wordsDeletedToday = wordsDeletedList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
-    const wordsDifficultToday = wordsDifficultList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
-    const wordsLearningToday = wordsLearningList.filter((x) => x.optionalUpdatedDateToNowDays === 0).length;
+    const wordsDeletedToday = wordsDeletedList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
+    const wordsDifficultToday = wordsDifficultList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
+    const wordsLearningToday = wordsLearningList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
 
     console.log('---------------');
 
