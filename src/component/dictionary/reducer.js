@@ -17,15 +17,7 @@ const initialState = {
 
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 function dictionaryReducer(state = initialState, action) {
-=======
-export default function dictionaryReducer(state = initialState, action) {
->>>>>>> d2bb239... upd: learning-words works on static data array
-=======
-function dictionaryReducer(state = initialState, action) {
->>>>>>> 2921154... fix: merge commit to fix conflicts
   switch (action.type) {
     case FETCH_WORD_REQUEST:
       return {

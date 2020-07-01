@@ -9,14 +9,9 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
-import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
-import SpeakIt from './component/game/speakit';
-import AuthProvider from './component/common/auth-provider';
-import Statistics from './component/statistics';
 import LearningWords from './component/learning-words';
-
-
-import './App.scss';
+import AudioChallenge from "./component/game/audioChallenge";
+import Statistics from './component/statistics';
 
 import './App.scss';
 
@@ -39,11 +34,8 @@ function App() {
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/learning" component={LearningWords}/>
           <Route path="/game/speakit" component={SpeakIt} />
-<<<<<<< HEAD
-=======
           <Route path="/statistics" component={Statistics} />
           <Route path="/audioChallenge" component={AudioChallenge} />
->>>>>>> 14e65b1... fix: fix conflicts
         </AuthProvider>
       </div>
     </Router>

@@ -6,21 +6,6 @@ import { isAuthorized, deleteJwtToken } from '../../common/utils/TokenUtils';
 import { deleteUserId } from '../../common/utils/UserUtils';
 import './styles.scss';
 
-<<<<<<< HEAD
-export default function NavBar() {
-  return (
-    <Navbar bg="light" variant="light">
-      <Navbar.Brand as={Link} to="/">Logo</Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
-        <Nav.Link as={Link} to="/learning-words">Learn new words</Nav.Link>
-        <Nav.Link as={Link} to="/weather">Weather</Nav.Link>
-        <Nav.Link as={Link} to="/login">Login</Nav.Link>
-        <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
-      </Nav>
-    </Navbar>
-  );
-=======
 class NavBar extends Component {
   logoutUser = () => {
     deleteJwtToken();
@@ -55,7 +40,6 @@ class NavBar extends Component {
       </Navbar>
     );
   }
->>>>>>> 2921154... fix: merge commit to fix conflicts
 }
 
 export default withRouter(NavBar);
