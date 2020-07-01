@@ -10,6 +10,7 @@ const GamePage = (props) => (
       iKnowArr={props.iKnowArr}
       iDontKnowArr={props.iDontKnowArr}
       endGame={props.endGame}
+      audioOn={props.audioOn}
     />
 );
 

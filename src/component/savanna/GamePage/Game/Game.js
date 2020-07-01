@@ -1,10 +1,15 @@
 import React from 'react';
 import heartImg from '../../assets/heart-solid.svg';
+import startGameAudio from '../../assets/start.mp3';
+import volomeOn from '../../../english-puzzle/assets/images/volume-up-solid.svg';
+import volomeOff from '../../../english-puzzle/assets/images/volume-mute-solid.svg';
+
 import './style.scss';
 
 const Game = ({
   changeWord, checkAnswer, currentPage, currentLevel, numOfCurrentWord, data, lifesCount,
   iKnowArr, iDontKnowArr, currentWordData, arrOfRandomWords, checkingAnswer,
+  errorAudioRef, correctAudioRef, audioOn, changeVolume,
 }) => {
   const answer = React.createRef();
 
@@ -12,6 +17,9 @@ const Game = ({
     if (!checkingAnswer) {
       if (target.id === answer.current.id) {
         target.classList.add('true');
+        if (audioOn) {
+          correctAudioRef.current.play();
+        }
       } else {
         const arr = target.parentElement.childNodes;
         for (let i = 0; i < arr.length; i += 1) {
@@ -20,6 +28,9 @@ const Game = ({
           }
         }
         target.classList.add('false');
+        if (audioOn) {
+          errorAudioRef.current.play();
+        }
       }
 
       checkAnswer({
@@ -39,10 +50,21 @@ const Game = ({
       }, 2000);
     }
   };
+  const changeVolumeHandler = () => {
+    changeVolume(audioOn);
+  };
 
   const arr = new Array(lifesCount).fill('');
   return (
   <>
+  <audio src={startGameAudio} autoPlay={audioOn}></audio>
+    <div className='volume' onClick={changeVolumeHandler}>
+    {
+      audioOn
+        ? <img src={volomeOn} alt='audio'/>
+        : <img src={volomeOff} alt='audio'/>
+    }
+    </div>
     <div className='lifesCount'>
       {arr.map((el, i) => (
         <img src={heartImg} alt='life' key={i} />

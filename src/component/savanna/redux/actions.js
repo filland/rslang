@@ -4,6 +4,7 @@ export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD';
 export const CHECK_ANSWER = 'CHECK_ANSWER';
 export const START_GAME = 'START_GAME';
 export const END_GAME = 'END_GAME';
+export const CHANGE_VOLUME = 'CHANGE_VOLUME';
 
 export const changeWord = (
   page, group, numOfCurrentWord, arrOfData,
@@ -73,3 +74,19 @@ export const endGame = () => ({
     iDontKnowArr: [],
   },
 });
+
+export const changeVolume = (audio) => (dispatch) => {
+  let audioOn;
+  if (audio) {
+    audioOn = false;
+  } else {
+    audioOn = true;
+  }
+
+  dispatch({
+    type: CHANGE_VOLUME,
+    payload: {
+      audioOn,
+    },
+  });
+};

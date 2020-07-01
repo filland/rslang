@@ -1,8 +1,14 @@
 import React from 'react';
+import resultsAudio from '../../assets/show_results.mp3';
+
 import './style.scss';
 
-const Statistics = ({ iKnowArr, iDontKnowArr, endGame }) => (
+const Statistics = ({
+  iKnowArr, iDontKnowArr, endGame, audioOn,
+}) => (
   <div className='statistics'>
+    <audio src={resultsAudio} autoPlay={audioOn}></audio>
+
     <div className='popup'>
       <div className='iKnow'>
         <span>I know: </span>

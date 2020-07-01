@@ -1,5 +1,5 @@
 import {
-  CHANGE_CURRENT_WORD, START_GAME, CHECK_ANSWER, END_GAME,
+  CHANGE_CURRENT_WORD, START_GAME, CHECK_ANSWER, END_GAME, CHANGE_VOLUME,
 } from './actions';
 
 const stateDefault = {
@@ -9,6 +9,7 @@ const stateDefault = {
   currentPage: 1,
   gameWasStarted: false,
   checkingAnswer: false,
+  audioOn: true,
   lifesCount: 5,
   iKnowArr: [],
   iDontKnowArr: [],
@@ -38,6 +39,13 @@ const savannaReducer = (state = stateDefault, action) => {
       };
 
     case END_GAME:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case CHANGE_VOLUME:
       return {
         ...state,
         ...action.payload,
