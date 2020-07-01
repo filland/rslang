@@ -36,15 +36,13 @@ class LearningWords extends Component {
     }
   }
 
-  checkAnswer = (e) => {
-    let check =
-      e.target.value === this.state.words[0].word
-        ? {
-            inputBG: "lightgreen",
-            answer: "correct",
-          }
-        : { inputBG: "salmon", answer: "wrong" };
-    this.setState(check);
+  checkAnswer = ({ target }) => {
+    const isSuccess = target.value === this.state.words[0].word;
+
+    this.setState({
+      inputBG: isSuccess ? "lightgreen" : "salmon",
+      answer: isSuccess ? "correct" : "wrong",
+    });
   };
 
   removeWordFromQueue = () => {
@@ -102,38 +100,42 @@ class LearningWords extends Component {
   };
 
   render() {
-    let { words, difficulty, numberOfWords, answer } = this.state;
+    let {
+      words,
+      difficulty,
+      numberOfWords,
+      answer,
+      input,
+      inputBG,
+    } = this.state;
     let currentWord = words ? words[0] : null;
 
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
           Lesson progress: <br />
-          <ProgressBar
-            now={numberOfWords - words.length}
-            max={numberOfWords}
-          />
+          <ProgressBar now={numberOfWords - words.length} max={numberOfWords} />
         </label>
-        {currentWord && (
+        {currentWord ? (
           <div className="learning-words-wrapper__card">
             <div className="sentence d-flex align-items-center">
               {currentWord.textExample.substring(
-                  0,
-                  currentWord.textExample.indexOf("<b>")
-                )}
+                0,
+                currentWord.textExample.indexOf("<b>")
+              )}
               <FormControl
                 autoFocus
                 className="d-inline w-auto word-input"
-                style={{ backgroundColor: this.state.inputBG }}
+                style={{ backgroundColor: inputBG }}
                 aria-describedby="basic-addon1"
-                value={this.state.input}
+                value={input}
                 onChange={(e) => this.handleInput(e)}
                 onKeyPress={(e) => {
                   this.handleInputEnter(e);
                 }}
                 onBlur={(e) => this.checkAnswer(e)}
               />
-              { currentWord.textExample.substring(
+              {currentWord.textExample.substring(
                 currentWord.textExample.indexOf("</b>") + 4,
                 currentWord.textExample.length
               )}
@@ -152,10 +154,7 @@ class LearningWords extends Component {
                     <Button
                       className="sound"
                       onClick={() =>
-                        this.playSound(
-                          currentWord.audioMeaning,
-                          defaultVolume
-                        )
+                        this.playSound(currentWord.audioMeaning, defaultVolume)
                       }
                     >
                       Sound
@@ -182,7 +181,9 @@ class LearningWords extends Component {
                     </div>
                     <Button
                       className="sound"
-                      onClick={() => this.playSound(currentWord.audio, defaultVolume)}
+                      onClick={() =>
+                        this.playSound(currentWord.audio, defaultVolume)
+                      }
                     >
                       Sound
                     </Button>
@@ -191,6 +192,8 @@ class LearningWords extends Component {
               </div>
             )}
           </div>
+        ) : (
+          <div>Loading data... Please wait.</div>
         )}
         <div className="learning-words-wrapper__panel">
           <Button className="learning-words-wrapper__settings-btn">
@@ -242,9 +245,7 @@ class LearningWords extends Component {
             <Button
               className="learning-words-wrapper__controls-btn"
               disabled={
-                difficulty === "" ||
-                answer === "" ||
-                answer === "wrong"
+                difficulty === "" || answer === "" || answer === "wrong"
               }
               onClick={() => this.NextWordBtnClick()}
             >
