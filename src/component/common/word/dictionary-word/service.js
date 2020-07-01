@@ -1,12 +1,13 @@
 import { fetchDictionaryWordsRequest, fetchDictionaryWordsSuccess, fetchDictionaryWordsFail } from './actions';
 import authorizedRequest from '../../../../common/utils/ApiUtils';
 
-const fetchDictionaryWords = async (dispatch, difficultyLevel) => {
+const fetchDictionaryWords = async (dispatch, store) => {
   try {
     dispatch(fetchDictionaryWordsRequest());
 
-    const group = difficultyLevel;
-    const PAGE_NUMBER = 30;
+    const { difficultyLevel } = store.settings.optional;
+    const group = difficultyLevel - 1;
+    const PAGE_NUMBER = 5;
 
     // refactor ?
     // https://stackoverflow.com/questions/46241827/fetch-api-requesting-multiple-get-requests
