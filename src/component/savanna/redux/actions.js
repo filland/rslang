@@ -5,6 +5,7 @@ export const CHECK_ANSWER = 'CHECK_ANSWER';
 export const START_GAME = 'START_GAME';
 export const END_GAME = 'END_GAME';
 export const CHANGE_VOLUME = 'CHANGE_VOLUME';
+export const SHOW_WORD_DATA = 'SHOW_WORD_DATA';
 
 export const changeWord = (
   page, group, numOfCurrentWord, arrOfData,
@@ -34,6 +35,8 @@ export const checkAnswer = ({
     word: currentWordData.word,
     wordTranslate: currentWordData.wordTranslate,
     audio: currentWordData.audio,
+    image: currentWordData.image,
+    transcription: currentWordData.transcription,
   };
 
   if (target.id === answer.id) {
@@ -87,6 +90,23 @@ export const changeVolume = (audio) => (dispatch) => {
     type: CHANGE_VOLUME,
     payload: {
       audioOn,
+    },
+  });
+};
+
+export const showWordData = (isShowing, dataOfClickedWord) => (dispatch) => {
+  let wordDataIsShowing;
+  if (isShowing) {
+    wordDataIsShowing = false;
+  } else {
+    wordDataIsShowing = true;
+  }
+
+  dispatch({
+    type: SHOW_WORD_DATA,
+    payload: {
+      wordDataIsShowing,
+      dataOfClickedWord,
     },
   });
 };

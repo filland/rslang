@@ -11,6 +11,9 @@ const GamePage = (props) => (
       iDontKnowArr={props.iDontKnowArr}
       endGame={props.endGame}
       audioOn={props.audioOn}
+      showWordData={props.showWordData}
+      wordDataIsShowing={props.wordDataIsShowing}
+      dataOfClickedWord={props.dataOfClickedWord}
     />
 );
 

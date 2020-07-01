@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  changeWord, checkAnswer, startGame, endGame, changeVolume,
+  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
 } from './redux/actions';
 import Loader from '../common/loader/index';
 import GamePage from './GamePage/GamePage';
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispathToProps = {
-  changeWord, checkAnswer, startGame, endGame, changeVolume,
+  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Savanna);
