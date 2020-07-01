@@ -5,14 +5,15 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import { setUserSettings, getUserSettings } from './service';
 
 import './style.scss';
 
 const arrOfInformation = [
-  { id: 'informationTranslate', label: 'Перевод слова', isValidate: true },
-  { id: 'informationDescription', label: 'Предложение с объяснением значения слова', isValidate: true },
-  { id: 'informationExample', label: 'Предложение с примером использования изучаемого слова', isValidate: true },
+  { id: 'informationTranslate', label: 'Перевод слова *' },
+  { id: 'informationDescription', label: 'Предложение с объяснением значения слова *' },
+  { id: 'informationExample', label: 'Предложение с примером использования изучаемого слова *' },
   { id: 'informationTranscription', label: 'Транскрипция слова' },
   { id: 'informationPicture', label: 'Картинка-ассоциация' },
 ];
@@ -29,6 +30,7 @@ class Settings extends React.Component {
     this.handleSelectCards = this.handleSelectCards.bind(this);
     this.handleSelectLevel = this.handleSelectLevel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validation = this.validation.bind(this);
 
     this.state = {
       settings: props.settings,
@@ -67,30 +69,43 @@ class Settings extends React.Component {
 
   handleSelectCards = (event) => {
     const { optional } = this.state.settings;
-    optional.newCardsPerDay = event.target.value;
+    optional.newCardsPerDay = Number(event.target.value);
     this.setState({ ...optional });
   }
 
   handleSelectLevel = (event) => {
     const { optional } = this.state.settings;
-    optional.difficultyLevel = event.target.value;
+    optional.difficultyLevel = Number(event.target.value);
     this.setState({ ...optional });
+  }
+
+  validation = () => {
+    const {
+      informationTranslate,
+      informationDescription,
+      informationExample,
+    } = this.state.settings.optional;
+    let result = false;
+    if (informationTranslate === false && informationDescription === false
+      && informationExample === false) {
+      result = true;
+    }
+    return result;
   }
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-      <Accordion defaultActiveKey="0">
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            Информация, отображаемая на карточках:
+        <Accordion defaultActiveKey="0">
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Информация, отображаемая на карточках:
           </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-                {arrOfInformation.map(({ id, label, isValidate }) => (
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>
+                {arrOfInformation.map(({ id, label }) => (
                   <div key={`information-${id}`} className="mb-3">
                     <Form.Check
-                      required = {isValidate}
                       feedback="You must agree before submitting."
                       type="checkbox"
                       id={id}
@@ -100,15 +115,15 @@ class Settings extends React.Component {
                     />
                   </div>
                 ))}
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="1">
-            Кнопки, отображаемые на карточках:
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="1">
+              Кнопки, отображаемые на карточках:
           </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>
                 {arrOfButtons.map(({ id, label }) => (
                   <div key={`button-${id}`} className="mb-3">
                     <Form.Check
@@ -120,16 +135,16 @@ class Settings extends React.Component {
                     />
                   </div>
                 ))}
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <br />
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <br />
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
               value={this.state.settings.wordsPerDay}
               onChange={this.handleSelectWords}
-              >
+            >
               <option>1</option>
               <option>5</option>
               <option>10</option>
@@ -171,7 +186,7 @@ class Settings extends React.Component {
             onChange={this.handleCheckbox}
             label="Автоматическое воспроизведение звука"
           />
-        <br />
+          <br />
           <Form.Check
             type="switch"
             id="levelButtons"
@@ -179,12 +194,22 @@ class Settings extends React.Component {
             onChange={this.handleCheckbox}
             label="Отображать кнопки для определения уровня сложности слова"
           />
-        <br /> <br />
-        <Button
-          variant="success"
-          type="submit"
-          >Save</Button>{' '}
-      </Accordion>
+          <br /> <br />
+          <div className="btnWrapper">
+            <div className="btn">
+              <Button
+                disabled={this.validation()}
+                variant="success"
+                type="submit"
+              >Save</Button>
+            </div>
+            <div className={!this.validation() ? 'alert' : 'show'}>
+              <Alert key='1' variant='danger'>
+                Хотя бы 1 пункт, отмеченный звездочкой (*), должен быть выбран!
+          </Alert>
+            </div>
+          </div>
+        </Accordion>
       </Form>
     );
   }
