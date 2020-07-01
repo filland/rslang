@@ -1,0 +1,15 @@
+.btnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.alert {
+    display: none;
+}
+
+.show {
+    width: 80%;
+    display: block;
+}
