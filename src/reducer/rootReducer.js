@@ -4,6 +4,7 @@ import loginReducer from '../component/login/reducer';
 import registrationReducer from '../component/registration/reducer';
 import dictionaryReducer from '../component/dictionary/reducer';
 import settingsReducer from '../component/settings/reducer';
+import statisticsReducer from '../component/long-term-statistics/reducer';
 import GamePageReducer from '../component/english-puzzle/redux/reducers';
 import dictionaryWordsReducer from '../component/common/word/dictionary-word/reducer';
 import userWordsReducer from '../component/common/word/user-word/reducer';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   puzzleGame: GamePageReducer,
   dictionaryWords: dictionaryWordsReducer,
   userWords: userWordsReducer,
+  statistics: statisticsReducer,
 });
 
 export default rootReducer;

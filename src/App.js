@@ -12,6 +12,8 @@ import AudioChallenge from "./component/game/audioChallenge";
 import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
 import Statistics from './component/statistics';
+import LineStatistics from './component/long-term-statistics';
+
 
 import './App.scss';
 
@@ -29,6 +31,7 @@ function App() {
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/game/speakit" component={SpeakIt} />
           <Route path="/statistics" component={Statistics} />
+          <Route path="/long-term-statistics" component={LineStatistics} />
           <Route path="/audioChallenge" component={AudioChallenge} />
         </AuthProvider>
       </div>
