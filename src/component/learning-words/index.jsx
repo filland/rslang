@@ -12,6 +12,8 @@ import "./styles.scss";
 const mediaStorage =
   "https://raw.githubusercontent.com/liplyanin/rslang-data/master/";
 
+const defaultVolume = 0.2;
+
 class LearningWords extends Component {
   state = {
     words: [],
@@ -30,7 +32,7 @@ class LearningWords extends Component {
       for (let i = 0; i < 20; i++) {
         wordArr.push(this.props.dictionaryWords[i]);
       }
-      this.setState({ words: wordArr });
+      this.setState({ words: wordArr, numberOfWords: wordArr.length });
     }
   }
 
@@ -60,6 +62,45 @@ class LearningWords extends Component {
     this.setState({ difficulty: e.currentTarget.value });
   };
 
+  NextWordBtnClick = () => {
+    switch (this.state.difficulty) {
+      case "0":
+        this.reinstallWordIntoQueue();
+        break;
+      case "1":
+        this.removeWordFromQueue();
+        break;
+      case "2":
+        this.removeWordFromQueue();
+        break;
+      case "3":
+        this.removeWordFromQueue();
+        break;
+      default:
+        break;
+    }
+    this.setState({
+      difficulty: "",
+      input: "",
+      inputBG: "white",
+      answer: "",
+    });
+  };
+
+  playSound = (path, volume = 0.2) => {
+    let sound = new Audio(mediaStorage + path);
+    sound.volume = volume;
+    sound.play();
+  };
+
+  handleInput = (e) => {
+    this.setState({ input: e.target.value, inputBG: "white" });
+  };
+
+  handleInputEnter = (e) => {
+    if (e.key === "Enter") this.checkAnswer(e);
+  };
+
   render() {
     console.log(this.state);
     console.log(this.props);
@@ -86,11 +127,9 @@ class LearningWords extends Component {
                 style={{ backgroundColor: this.state.inputBG }}
                 aria-describedby="basic-addon1"
                 value={this.state.input}
-                onChange={(e) =>
-                  this.setState({ input: e.target.value, inputBG: "white" })
-                }
+                onChange={(e) => this.handleInput(e)}
                 onKeyPress={(e) => {
-                  if (e.key === "Enter") this.checkAnswer(e);
+                  this.handleInputEnter(e);
                 }}
                 onBlur={(e) => this.checkAnswer(e)}
               />
@@ -112,13 +151,12 @@ class LearningWords extends Component {
                     Значение: {this.state.words[0].textMeaningTranslate}
                     <Button
                       className="sound"
-                      onClick={() => {
-                        let sound = new Audio(
-                          mediaStorage + this.state.words[0].audioMeaning
-                        );
-                        sound.volume = 0.2;
-                        sound.play();
-                      }}
+                      onClick={() =>
+                        this.playSound(
+                          this.state.words[0].audioMeaning,
+                          defaultVolume
+                        )
+                      }
                     >
                       Sound
                     </Button>
@@ -129,13 +167,12 @@ class LearningWords extends Component {
                     Пример: {this.state.words[0].textExampleTranslate}
                     <Button
                       className="sound"
-                      onClick={() => {
-                        let sound = new Audio(
-                          mediaStorage + this.state.words[0].audioExample
-                        );
-                        sound.volume = 0.2;
-                        sound.play();
-                      }}
+                      onClick={() =>
+                        this.playSound(
+                          this.state.words[0].audioExample,
+                          defaultVolume
+                        )
+                      }
                     >
                       Sound
                     </Button>
@@ -151,13 +188,9 @@ class LearningWords extends Component {
                     </div>
                     <Button
                       className="sound"
-                      onClick={() => {
-                        let sound = new Audio(
-                          mediaStorage + this.state.words[0].audio
-                        );
-                        sound.volume = 0.2;
-                        sound.play();
-                      }}
+                      onClick={() =>
+                        this.playSound(this.state.words[0].audio, defaultVolume)
+                      }
                     >
                       Sound
                     </Button>
@@ -221,30 +254,7 @@ class LearningWords extends Component {
                 this.state.answer === "" ||
                 this.state.answer === "wrong"
               }
-              onClick={() => {
-                switch (this.state.difficulty) {
-                  case "0":
-                    this.reinstallWordIntoQueue();
-                    break;
-                  case "1":
-                    this.removeWordFromQueue();
-                    break;
-                  case "2":
-                    this.removeWordFromQueue();
-                    break;
-                  case "3":
-                    this.removeWordFromQueue();
-                    break;
-                  default:
-                    break;
-                }
-                this.setState({
-                  difficulty: "",
-                  input: "",
-                  inputBG: "white",
-                  answer: "",
-                });
-              }}
+              onClick={() => this.NextWordBtnClick()}
             >
               Следующее слово
             </Button>
