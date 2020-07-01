@@ -2,21 +2,18 @@ import { STATISTICS_REQUEST, STATISTICS_SUCCESS, STATISTICS_FAIL } from './const
 
 const currentDay = Date.now();
 const millisecondsInDay = 86400000;
+const arrayOfDays = [1, 2, 3, 4, 5, 6, 7];
+
+const dayDateList = arrayOfDays
+  .map((element, index) => currentDay - millisecondsInDay * index)
+  .reverse();
 
 const initialState = {
   learnedWords: 0,
   optional: {
     dayAllWords: [0, 0, 0, 0, 0, 0, 0],
     dayNewWords: [0, 0, 0, 0, 0, 0, 0],
-    dayDate: [
-      currentDay - millisecondsInDay * 6,
-      currentDay - millisecondsInDay * 5,
-      currentDay - millisecondsInDay * 4,
-      currentDay - millisecondsInDay * 3,
-      currentDay - millisecondsInDay * 2,
-      currentDay - millisecondsInDay,
-      currentDay,
-    ],
+    dayDate: dayDateList,
     newWords: 0,
     oldWords: 0,
   },

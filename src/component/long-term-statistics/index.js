@@ -35,46 +35,24 @@ class LineStatistics extends React.Component {
       dayDate,
     } = this.state.optional;
 
+    const datesOfDays = dayDate.map((date) => this.transformDate(date));
+
     const data = {
-      labels: [
-        this.transformDate(dayDate[0]),
-        this.transformDate(dayDate[1]),
-        this.transformDate(dayDate[2]),
-        this.transformDate(dayDate[3]),
-        this.transformDate(dayDate[4]),
-        this.transformDate(dayDate[5]),
-        this.transformDate(dayDate[6]),
-      ],
+      labels: datesOfDays,
       datasets: [
         {
           label: 'Количество изученных слов за день',
           backgroundColor: 'rgba(75,192,192,0.4)',
           pointBorderColor: 'rgb(52, 141, 141)',
           pointHoverRadius: 5,
-          data: [
-            dayAllWords[0],
-            dayAllWords[1],
-            dayAllWords[2],
-            dayAllWords[3],
-            dayAllWords[4],
-            dayAllWords[5],
-            dayAllWords[6],
-          ],
+          data: dayAllWords,
         },
         {
           label: 'Количество новых слов за день',
           backgroundColor: 'rgba(236, 67, 132,0.4)',
           pointBorderColor: 'rgb(236, 67, 132)',
           pointHoverRadius: 5,
-          data: [
-            dayNewWords[0],
-            dayNewWords[1],
-            dayNewWords[2],
-            dayNewWords[3],
-            dayNewWords[4],
-            dayNewWords[5],
-            dayNewWords[6],
-          ],
+          data: dayNewWords,
         },
       ],
     };
@@ -82,8 +60,9 @@ class LineStatistics extends React.Component {
   }
 
   chartPieData = () => {
-    const percentOfNewWords = (this.state.optional.newWords / this.state.learnedWords) * 100;
-    const percentOfOldWords = (this.state.optional.oldWords / this.state.learnedWords) * 100;
+    const { optional, learnedWords } = this.state;
+    const percentOfNewWords = (optional.newWords / learnedWords) * 100;
+    const percentOfOldWords = (optional.oldWords / learnedWords) * 100;
     const data = {
       labels: [
         'Новые слова, %',
