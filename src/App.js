@@ -12,7 +12,6 @@ import AuthProvider from "./component/common/auth-provider";
 import LearningWords from './component/learning-words';
 import AudioChallenge from "./component/game/audioChallenge";
 import Statistics from './component/statistics';
-import LearningWords from './component/learning-words';
 
 import './App.scss';
 
@@ -22,11 +21,6 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={NavBar} />
-        <Route path="/learning-words" component={LearningWords}/>
-        <Route path="/weather" component={Weather} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/login" component={Login} />
-        {/* <Route path="/english-puzzle" component={EnglishPuzzle} /> */}
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <AuthProvider>

@@ -102,9 +102,8 @@ class LearningWords extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(this.props);
-
+    let textExample = this.state.words[0].textExample;
+    let {words, difficulty} = this.state;
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
@@ -114,12 +113,12 @@ class LearningWords extends Component {
             max={this.state.numberOfWords}
           />
         </label>
-        {this.state.words[0] && (
+        {words && (
           <div className="learning-words-wrapper__card">
             <div className="sentence d-flex align-items-center">
-              {this.state.words[0].textExample.substring(
+              {textExample.substring(
                 0,
-                this.state.words[0].textExample.indexOf("<b>")
+                textExample.indexOf("<b>")
               )}
               <FormControl
                 autoFocus
@@ -133,9 +132,9 @@ class LearningWords extends Component {
                 }}
                 onBlur={(e) => this.checkAnswer(e)}
               />
-              {this.state.words[0].textExample.substring(
-                this.state.words[0].textExample.indexOf("</b>") + 4,
-                this.state.words[0].textExample.length
+              {textExample.substring(
+                textExample.indexOf("</b>") + 4,
+                textExample.length
               )}
             </div>
             <div className="translate">
@@ -148,7 +147,7 @@ class LearningWords extends Component {
                 </div>
                 <div className="meaning">
                   <div>
-                    Значение: {this.state.words[0].textMeaningTranslate}
+                    Значение: {words.textMeaningTranslate}
                     <Button
                       className="sound"
                       onClick={() =>
@@ -164,12 +163,12 @@ class LearningWords extends Component {
                 </div>
                 <div className="example">
                   <div>
-                    Пример: {this.state.words[0].textExampleTranslate}
+                    Пример: {words.textExampleTranslate}
                     <Button
                       className="sound"
                       onClick={() =>
                         this.playSound(
-                          this.state.words[0].audioExample,
+                          words.audioExample,
                           defaultVolume
                         )
                       }
@@ -182,14 +181,14 @@ class LearningWords extends Component {
                   <div className="media-wrapper">
                     <div className="picture">
                       <img
-                        src={mediaStorage + this.state.words[0].image}
+                        src={mediaStorage + words.image}
                         alt=""
                       />
                     </div>
                     <Button
                       className="sound"
                       onClick={() =>
-                        this.playSound(this.state.words[0].audio, defaultVolume)
+                        this.playSound(words.audio, defaultVolume)
                       }
                     >
                       Sound
@@ -210,9 +209,9 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="0"
-                checked={this.state.difficulty === "0"}
+                checked={difficulty === "0"}
                 onChange={(e) => this.radioSelect(e)}
-              />{" "}
+              />
               Снова
             </label>
             <label>
@@ -220,9 +219,9 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="1"
-                checked={this.state.difficulty === "1"}
+                checked={difficulty === "1"}
                 onChange={(e) => this.radioSelect(e)}
-              />{" "}
+              />
               Сложно
             </label>
             <label>
@@ -230,9 +229,9 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="2"
-                checked={this.state.difficulty === "2"}
+                checked={difficulty === "2"}
                 onChange={(e) => this.radioSelect(e)}
-              />{" "}
+              />
               Нормально
             </label>
             <label>
@@ -240,9 +239,9 @@ class LearningWords extends Component {
                 type="radio"
                 name="difficulty"
                 value="3"
-                checked={this.state.difficulty === "3"}
+                checked={difficulty === "3"}
                 onChange={(e) => this.radioSelect(e)}
-              />{" "}
+              />
               Легко
             </label>
           </div>
