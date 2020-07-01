@@ -16,9 +16,7 @@ class Game extends Component {
 
     const preparedWords = prepareWords(userWords, dictionaryWords, 10);
 
-    const wordsTemplate = preparedWords
-      .filter((val, index) => index <= 9)
-      .map((word) => (<Word key={word.id} word={word}></Word>));
+    const wordsTemplate = preparedWords.map((word) => (<Word key={word.id} word={word}></Word>));
 
     return (<div className="speakit-container">
       <div className="speakit">

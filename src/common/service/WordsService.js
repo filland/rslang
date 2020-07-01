@@ -1,3 +1,37 @@
+function getRandomIndex(upperBorder) {
+  return Math.round(Math.random() * upperBorder);
+}
+
+/**
+ * Checks if the dictionary word was already added to user's dictionary
+ */
+function isUserWord(dictionaryWord, userWords) {
+  return userWords.find((word) => word.wordId === dictionaryWord.id) !== undefined;
+}
+/**
+ * This function creates an array of randomly selected dictionary words of the
+ * specified length @param numberOfDictionaryWords which were not added to user words yet
+ */
+function prepareDictionaryWords(userWords, dictionaryWords, numberOfDictionaryWords) {
+  const dictionaryWordsArray = [];
+
+  while (dictionaryWordsArray.length !== numberOfDictionaryWords) {
+    const dictionaryWordIndex = getRandomIndex(dictionaryWords.length - 1);
+    const dictionaryWord = dictionaryWords[dictionaryWordIndex];
+
+    if (!isUserWord(dictionaryWord, userWords) && !dictionaryWordsArray.includes(dictionaryWord)) {
+      dictionaryWordsArray.push(dictionaryWord);
+    }
+  }
+
+  return dictionaryWordsArray;
+}
+
+/**
+ * Shuffle elements of the provided @param array
+ */
+const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+
 /**
  * This function prepares an array of words for mini games
  * @param {*} userWords all user words
@@ -14,44 +48,23 @@ export function prepareWords(userWords, dictionaryWords, number) {
   // 50 % of words in the result array should be populated with dictionary words
   // and 50 % with user words
   // if we do not have enough user words then use dictionary words instead
-  let numberOfDictionaryWords;
+  let numberOfDictWords;
   if (tempUserWords.length < number / 2) {
-    numberOfDictionaryWords = number - tempUserWords.length;
+    numberOfDictWords = number - tempUserWords.length;
   }
 
   // prepare array with user words
-  const userWordsArr = [];
-  for (let i = 0; i < tempUserWords.length; i += 1) {
-    const userWord = tempUserWords[i];
-
-    // retrieve real word
-    userWordsArr.push(userWord.dictionaryWord);
-  }
+  const userWordsArr = tempUserWords.map((word) => word.dictionaryWord);
 
   // prepare array with dictionary words (do not include words which already added as user words)
-  const dictionaryWordsArray = [];
-  for (let j = 0; j < numberOfDictionaryWords; j += 1) {
-    const dictionaryWord = dictionaryWords[j];
-
-    // do not include words that were added to the user words in the past
-    // TODO
-    dictionaryWordsArray.push(dictionaryWord);
-  }
+  const dictionaryWordsArray = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
 
   const result = userWordsArr.concat(dictionaryWordsArray);
 
   // shuffle the array
-  const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
   const resultShuffled = shuffleArray(result);
 
   return resultShuffled;
-}
-
-/**
- * Checks if the dictionary word was already added to user's dictionary
- */
-function containsWord(dictionaryWord, userWords) {
-  return userWords.find((word) => word.wordId === dictionaryWord.id) === undefined;
 }
 
 export function saveOrUpdateUserWord(word) {
