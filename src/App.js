@@ -6,14 +6,21 @@ import Registration from './component/registration';
 import Settings from './component/settings';
 import Dictionary from './component/dictionary';
 import Weather from './component/weather';
+<<<<<<< HEAD
 import EnglishPuzzle from './component/english-puzzle/GamePage/GamePage';
+=======
+import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
+
+>>>>>>> 7f28cfec94800e6bf8b943aa8abfc1ac55b3d7a2
 import SpeakIt from './component/game/speakit';
 import AuthProvider from "./component/common/auth-provider";
 import LearningWords from './component/learning-words';
 import AudioChallenge from "./component/game/audioChallenge";
 import Statistics from './component/statistics';
+import LearningWords from './component/learning-words';
 
 import './App.scss';
+
 
 function App() {
   return (
@@ -34,8 +41,11 @@ function App() {
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/learning" component={LearningWords}/>
           <Route path="/game/speakit" component={SpeakIt} />
+<<<<<<< HEAD
+=======
           <Route path="/statistics" component={Statistics} />
           <Route path="/audioChallenge" component={AudioChallenge} />
+>>>>>>> develop
         </AuthProvider>
       </div>
     </Router>
