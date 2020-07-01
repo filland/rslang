@@ -9,13 +9,9 @@ import Weather from './component/weather';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
 
 import SpeakIt from './component/game/speakit';
-<<<<<<< HEAD
-import AuthProvider from "./component/common/auth-provider";
-import LearningWords from './component/learning-words';
-=======
 import AuthProvider from './component/common/auth-provider';
 import Statistics from './component/statistics';
->>>>>>> develop
+import LearningWords from './component/learning-words';
 
 import './App.scss';
 
