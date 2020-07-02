@@ -14,12 +14,12 @@ export function fetchUserWordsRequest() {
   };
 }
 
-export function fetchUserWordsSuccess(userWords) {
+export function fetchUserWordsSuccess(words) {
   return {
     type: FETCH_USER_WORD_SUCCESS,
     payload: {
       isUserWordsLoading: false,
-      userWords,
+      words,
     },
   };
 }

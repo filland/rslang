@@ -12,13 +12,12 @@ export const fetchStatistics = async () => {
   return statistics;
 };
 
-export const fetchData = () => async (dispatch) => {
+export const fetchData = () => async (dispatch, getState) => {
+  const store = getState();
+
   await getUserSettings(dispatch);
 
-  // difficulty level should be taken form settings
-  const difficultyLevel = 1;
-
-  await fetchDictionaryWords(dispatch, difficultyLevel);
+  await fetchDictionaryWords(dispatch, store);
 
   await fetchUserWords(dispatch);
 
