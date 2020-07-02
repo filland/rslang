@@ -32,7 +32,6 @@ async function fetchUpdateWordDeletedUser(wordId, restoreButton) {
 const fetchWordServiceRestore = (wordId, restoreButton) => {
   try {
     const result = fetchUpdateWordDeletedUser(wordId, restoreButton);
-    console.log(restoreButton);
     console.log(result);
   } catch (error) {
     console.log(error);

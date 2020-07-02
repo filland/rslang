@@ -70,6 +70,7 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
+            {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} restoreButton="difficult" />)}

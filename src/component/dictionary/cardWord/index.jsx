@@ -9,7 +9,7 @@ import fetchWordServiceRestore from '../serviceRestore';
 import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
-import { formatDateInWord } from '../utils';
+import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -85,7 +85,7 @@ class Cardword extends Component {
             {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
           </div>
           <div>
-            <span>Давность: {word.optionalUpdatedDateToNowDays}  дн. назад | </span>
+            <span>Давность: {getDiffUpdatedDateToNowDays(word)}  дн. назад | </span>
             <span>Повторений: {word.optional.counter} | </span>
             <span>Следующее: {formatDateInWord(word)} </span>
           </div>
