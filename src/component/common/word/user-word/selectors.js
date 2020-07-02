@@ -1,3 +1,3 @@
-const getUserWords = (store) => store.userWords.words;
+const getUserWords = (store) => store.userWords.userWords;
 
 export default getUserWords;

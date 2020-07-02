@@ -15,6 +15,7 @@ import fetchWordService from './service';
 
 import getUserWords from '../common/word/user-word/selectors';
 import getDictionaryWords from '../common/word/dictionary-word/selectors';
+import getWordTodayCount from './utils';
 
 import {
   getWordsSelector,
@@ -35,30 +36,33 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, words, dictionaryWords, userWords,
+      isLoading,
+      // words,
+      dictionaryWords, userWords,
     } = this.props;
+
     console.log(dictionaryWords);
     console.log(userWords);
-
-    const wordsDeletedList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'optionalDeleted') && x.optionalDeleted);
-    const wordsDifficultList = words.filter((x) => Object.prototype.hasOwnProperty.call(x, 'difficulty') && (x.difficulty === 'hard') && !wordsDeletedList.includes(x));
-    const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
-
-    const wordsDeletedToday = wordsDeletedList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
-    const wordsDifficultToday = wordsDifficultList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
-    const wordsLearningToday = wordsLearningList.filter(({ optionalUpdatedDateToNowDays }) => optionalUpdatedDateToNowDays === 0).length;
-
     console.log('---------------');
+
+    let words = [];
+    if (userWords !== undefined) {
+      console.log('-----not -underfined------');
+      words = userWords;
+    }
+    const wordsDeletedList = words.filter((x) => x.optional && x.optional.deleted);
+    const wordsDifficultList = words.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     if (isLoading) {
       return (<Loader />);
     }
 
     return (
-      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
+      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${wordsLearningList.length} (${wordsLearningToday} сегодня)`}
+            {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsLearningList.map((item, i) => <CardWord key={i} word={item} restoreButton="false" />)}
@@ -66,7 +70,7 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
-            {`Число слов: ${wordsDifficultList.length} (${wordsDifficultToday} сегодня)`}
+            {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} restoreButton="difficult" />)}
@@ -74,7 +78,7 @@ class Dictionary extends Component {
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
           <div className="my-4">
-            {`Число слов: ${wordsDeletedList.length} (${wordsDeletedToday} сегодня)`}
+            {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
             {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} restoreButton="delete" />)}

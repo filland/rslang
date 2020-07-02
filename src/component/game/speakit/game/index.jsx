@@ -12,7 +12,8 @@ import getDictionaryWords from '../../../common/word/dictionary-word/selectors';
 class Game extends Component {
   render() {
     const { dictionaryWords, userWords } = this.props;
-
+    console.log(dictionaryWords);
+    console.log(userWords);
     const wordsTemplate = dictionaryWords
       .filter((val, index) => index <= 9)
       .map((word) => (<Word key={word.id} word={word}></Word>));
