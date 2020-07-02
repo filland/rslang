@@ -29,7 +29,8 @@ class Savanna extends React.Component {
         <audio src={errorAudio} ref={this.errorAudioRef}></audio>
         {gameWasStarted
           ? (
-            <div className='savannaGame' style={{ backgroundImage: `url(${gamePageImg})` }}>
+            <div className='savannaGame'
+            style={{ backgroundImage: `url(${gamePageImg})` }}>
               {data.length === 0
                 ? <Loader />
                 : <GamePage
