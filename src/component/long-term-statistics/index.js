@@ -115,9 +115,7 @@ class LineStatistics extends React.Component {
 }
 const isLoading = (store) => store.isLoading;
 const getStatisticsTotalWords = (store) => store.statistics.learnedWords;
-const getStatisticsOptional = (store) => { 
-  console.log('store: ', store);
-  return store.statistics.optional };
+const getStatisticsOptional = (store) => store.statistics.optional;
 
 const mapStateToProps = (store) => ({
   isLoading: isLoading(store),
