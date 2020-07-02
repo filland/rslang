@@ -29,16 +29,28 @@ const propTypes = {
 };
 
 class Dictionary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      wordsLearningList: [],
+      wordsDeletedList: [],
+      wordsDifficultList: [],
+    };
+  }
+
   componentDidMount() {
     const { fetchWord } = this.props;
     fetchWord();
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  // componentDidUpdate() {
+  //   console.log('update');
+  // }
+
   render() {
     const {
-      isLoading,
-      // words,
-      dictionaryWords, userWords,
+      isLoading, dictionaryWords, userWords,
     } = this.props;
 
     console.log(dictionaryWords);
@@ -50,9 +62,16 @@ class Dictionary extends Component {
       console.log('-----not -underfined------');
       words = userWords;
     }
+
     const wordsDeletedList = words.filter((x) => x.optional && x.optional.deleted);
     const wordsDifficultList = words.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
     const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
+
+    // this.setState({
+    //   wordsDeletedList,
+    //   wordsDifficultList,
+    //   wordsLearningList,
+    // });
 
     if (isLoading) {
       return (<Loader />);
