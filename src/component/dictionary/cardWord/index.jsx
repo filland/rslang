@@ -9,6 +9,7 @@ import fetchWordServiceRestore from '../serviceRestore';
 import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
+import { formatDateInWord } from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -51,6 +52,8 @@ class Cardword extends Component {
 
   render() {
     const { word, restoreButton } = this.props;
+    console.log(word);
+
     return (
       <Card bg="Light" className="wordCard my-4">
         <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
@@ -83,8 +86,8 @@ class Cardword extends Component {
           </div>
           <div>
             <span>Давность: {word.optionalUpdatedDateToNowDays}  дн. назад | </span>
-            <span>Повторений: {word.optionalCounter} | </span>
-            <span>Следующее: {word.optionalShowDate}  | </span>
+            <span>Повторений: {word.optional.counter} | </span>
+            <span>Следующее: {formatDateInWord(word)} </span>
           </div>
           < div className="mt-3">
             {
