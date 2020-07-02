@@ -8,7 +8,6 @@ import statisticsReducer from '../component/long-term-statistics/reducer';
 import GamePageReducer from '../component/english-puzzle/redux/reducers';
 import dictionaryWordsReducer from '../component/common/word/dictionary-word/reducer';
 import userWordsReducer from '../component/common/word/user-word/reducer';
-import sprintReducer from '../component/sprint/reducer';
 
 const rootReducer = combineReducers({
   weather: weatherReducer,
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   settings: settingsReducer,
   dictionary: dictionaryReducer,
   puzzleGame: GamePageReducer,
-  sprint: sprintReducer,
   dictionaryWords: dictionaryWordsReducer,
   userWords: userWordsReducer,
   statistics: statisticsReducer,
