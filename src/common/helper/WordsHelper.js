@@ -54,19 +54,15 @@ export function prepareWords(userWords, dictionaryWords, number) {
   }
 
   // prepare array with user words
-  const userWordsArr = tempUserWords.map((word) => word.dictionaryWord);
+  const preparedUserWords = tempUserWords.map((word) => word.dictionaryWord);
 
   // prepare array with dictionary words (do not include words which already added as user words)
-  const dictionaryWordsArray = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
+  const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
 
-  const result = userWordsArr.concat(dictionaryWordsArray);
+  const result = preparedUserWords.concat(preparedDictionaryWords);
 
   // shuffle the array
   const resultShuffled = shuffleArray(result);
 
   return resultShuffled;
-}
-
-export function saveOrUpdateUserWord(word) {
-  //  TODO 
 }

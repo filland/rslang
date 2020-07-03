@@ -8,7 +8,7 @@ import blankPicture from '../assets/blank.jpg';
 import './styles.scss';
 import getUserWords from '../../../common/word/user-word/selectors';
 import getDictionaryWords from '../../../common/word/dictionary-word/selectors';
-import { prepareWords } from '../../../../common/service/WordsService';
+import { prepareWords } from '../../../../common/helper/WordsHelper';
 
 class Game extends Component {
   render() {
