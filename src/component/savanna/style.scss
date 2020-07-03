@@ -1,0 +1,10 @@
+.savannaGame{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+    background-size: cover;
+    position: relative;
+    user-select: none;
+}
