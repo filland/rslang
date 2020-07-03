@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ButtonGroup } from 'react-bootstrap';
 import Word from '../Word';
+import './styles.scss';
 
 const Words = ({
   words,
