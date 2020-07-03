@@ -15,7 +15,7 @@ export function statisticsSuccess(data) {
     type: STATISTICS_SUCCESS,
     payload: {
       isLoading: false,
-      data,
+      ...data,
     },
   };
 }
