@@ -2,9 +2,11 @@ import { statisticsRequest, statisticsSuccess, statisticsFail } from '../../../c
 import { getUserId } from '../../utils/UserUtils';
 import { getJwtToken } from '../../utils/TokenUtils';
 import parseStringtoArray from '../../../component/long-term-statistics/helpers';
-import { parseArraytoString } from './helpers';
+import { parseArraytoString, transformArray } from './helpers';
 
-const setUserStatistics = (state) => async (dispatch) => {
+const setUserStatistics = (playAllWords, playNewWords) => async (dispatch, getStore) => {
+  const store = getStore();
+  const newStatistics = transformArray(playAllWords, playNewWords, store);
   const userId = getUserId();
   const token = getJwtToken();
   try {
@@ -18,7 +20,7 @@ const setUserStatistics = (state) => async (dispatch) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(parseArraytoString(state)),
+      body: JSON.stringify(parseArraytoString(newStatistics)),
     });
     const dataString = await response.json();
     const data = parseStringtoArray(dataString);

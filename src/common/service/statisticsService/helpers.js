@@ -17,45 +17,40 @@ export const parseArraytoString = (data) => {
   return result;
 };
 
-const millisecondsInDay = 86400000;
-const numberOfDays = [1, 2, 3, 4, 5, 6, 7];
-const dayDateList = numberOfDays
-  .map((element, index) => Date.now() - millisecondsInDay * index)
-  .reverse();
-const templateInput = {
-  learnedWords: 0, // totalWeekWords
-  optional: {
-    dayAllWords: [0, 0, 0, 0, 0, 0, 0], // renewDayAllWords
-    dayNewWords: [0, 0, 0, 0, 0, 0, 0], // renewtotalNewWords
-    dayDate: dayDateList, // arrayOfDate
-    newWords: 0, // totalWeekNewWords
-    oldWords: 0, // totalWeekOldWords
-  },
-};
-
-export const transformArray = (playAllWords, playNewWords) => {
-  const dateNow = Date.now();
-  const currentDate = new Date(dateNow).toLocaleDateString();
-  const inputDate = new Date(dayDateList[dayDateList.length - 1]).toLocaleDateString();
+export const transformArray = (playAllWords, playNewWords, store) => {
+  const templateInput = {
+    learnedWords: store.statistics.learnedWords,
+    optional: {
+      dayAllWords: store.statistics.optional.dayAllWords,
+      dayNewWords: store.statistics.optional.dayNewWords,
+      dayDate: store.statistics.optional.dayDate,
+      newWords: store.statistics.optional.newWords,
+      oldWords: store.statistics.optional.oldWords,
+    },
+  };
 
   const templateString = JSON.stringify(templateInput);
   let template = JSON.parse(templateString);
-
   const { dayAllWords, dayNewWords, dayDate } = template.optional;
-  let arrayOfDate;
+
+  const dateNow = Date.now();
+  const currentDate = new Date(dateNow).toLocaleDateString();
+  const inputDate = new Date(Number(dayDate[dayDate.length - 1])).toLocaleDateString();
 
   if (currentDate === inputDate) {
     const totalDayWords = Number(playAllWords) + Number(dayAllWords[dayAllWords.length - 1]);
     dayAllWords[dayAllWords.length - 1] = totalDayWords;
     const totalDayNewWords = Number(playNewWords) + Number(dayNewWords[dayNewWords.length - 1]);
     dayNewWords[dayNewWords.length - 1] = totalDayNewWords;
-    arrayOfDate = dayDate;
   } else {
     const totalDayWords = playAllWords;
-    dayAllWords.shift().push(totalDayWords);
+    dayAllWords.shift();
+    dayAllWords.push(totalDayWords);
     const totalDayNewWords = playNewWords;
-    dayNewWords.shift().push(totalDayNewWords);
-    arrayOfDate = dayDate.shift().push(dateNow);
+    dayNewWords.shift();
+    dayNewWords.push(totalDayNewWords);
+    dayDate.shift();
+    dayDate.push(dateNow);
   }
   const totalWeekWords = dayAllWords.reduce((total, current) => Number(total) + Number(current), 0);
   const totalWeekNewWords = dayNewWords.reduce((total, current) => Number(total) + Number(current), 0);
@@ -66,12 +61,10 @@ export const transformArray = (playAllWords, playNewWords) => {
     optional: {
       dayAllWords,
       dayNewWords,
-      dayDate: arrayOfDate,
+      dayDate,
       newWords: totalWeekNewWords,
       oldWords: totalWeekOldWords,
     },
   };
-
-  console.log('template: ', template);
   return template;
 };

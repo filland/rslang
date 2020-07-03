@@ -2,7 +2,6 @@ import React from 'react';
 import { Line, Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import getUserStatistics from './service';
-import { transformArray } from '../../common/service/statisticsService/helpers';
 
 import './style.scss';
 
@@ -22,7 +21,6 @@ class LineStatistics extends React.Component {
   componentDidMount() {
     const { getUserStatistics } = this.props;
     getUserStatistics();
-    transformArray(30, 10, 1593716204381);
   }
 
   static getDerivedStateFromProps(nextProps, prevProps) {
@@ -135,6 +133,7 @@ class LineStatistics extends React.Component {
     );
   }
 }
+
 const isLoading = (store) => store.isLoading;
 const getStatisticsTotalWords = (store) => store.statistics.learnedWords;
 const getStatisticsOptional = (store) => store.statistics.optional;
