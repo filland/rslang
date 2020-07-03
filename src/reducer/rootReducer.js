@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   dictionaryWords: dictionaryWordsReducer,
   userWords: userWordsReducer,
   statistics: statisticsReducer,
+  savannaGame: savannaReducer,
 });
 
 export default rootReducer;
