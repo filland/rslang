@@ -10,7 +10,6 @@ import './styles.css';
 import getUserWords from '../../../../common/word/user-word/selectors';
 import getDictionaryWords from '../../../../common/word/dictionary-word/selectors';
 
-const nowProgress = 20;
 const randomWord = (words) => words[Math.round(Math.random() * words.length)];
 
 function Game({ setCurrentPage, dictionaryWords, difficulty }) {
@@ -18,7 +17,7 @@ function Game({ setCurrentPage, dictionaryWords, difficulty }) {
   const [rightWord, setRightWord] = useState({ word: null });
   const [words, setWords] = useState([]);
   const [isSelectAnswer, setIsSelectAnswer] = useState(false);
-  // const [numStages, useNumStages] = useState(0);
+  const [numStages, setNumStages] = useState(0);
 
   const setSelectAnswer = () => {
     setIsSelectAnswer(true);
@@ -38,9 +37,8 @@ function Game({ setCurrentPage, dictionaryWords, difficulty }) {
     return arrayWords;
   };
 
-  let numStages = 0;
   const nextStage = () => {
-    numStages += 1;
+    setNumStages(numStages + 1);
     setIsSelectAnswer(false);
     setRightWord(getRightWord(1, dictionaryWords));
     setWords(setStageWords(dictionaryWords, rightWord));
@@ -70,7 +68,7 @@ function Game({ setCurrentPage, dictionaryWords, difficulty }) {
   if (isSetupGame) {
     return (
       <div className="audioChallenge">
-        <ProgressBar className="progressBar" variant="info" now={nowProgress} label={`${nowProgress}%`} srOnly />
+        <ProgressBar className="progressBar" variant="info" now={numStages * 10} label={`${numStages * 10}%`} srOnly />
         <RightWord word={rightWord.word} imgURL={rightWord.image} audioURL={rightWord.audio} isSelectAnswer={isSelectAnswer} />
         <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
         <Words words={words} rightWord={rightWord} setIsSelectAnswer={setSelectAnswer} isSelectAnswer={isSelectAnswer} />
