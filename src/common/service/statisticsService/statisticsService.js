@@ -2,7 +2,7 @@ import { statisticsRequest, statisticsSuccess, statisticsFail } from '../../../c
 import { getUserId } from '../../utils/UserUtils';
 import { getJwtToken } from '../../utils/TokenUtils';
 import parseStringtoArray from '../../../component/long-term-statistics/helpers';
-import parseArraytoString from './helpers';
+import { parseArraytoString } from './helpers';
 
 const setUserStatistics = (state) => async (dispatch) => {
   const userId = getUserId();
