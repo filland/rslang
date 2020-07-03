@@ -11,44 +11,47 @@ import correctAudio from './assets/correct.mp3';
 import errorAudio from './assets/error.mp3';
 import './style.scss';
 
-class Savanna extends React.Component {
-  componentDidMount() {
-    const { changeWord, numOfCurrentWord, data } = this.props;
-    changeWord(1, 1, numOfCurrentWord, data);
-  }
+const Savanna = (props) => {
+  const {
+    data, startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, userWords,
+  } = props;
+  const errorAudioRef = React.createRef();
+  const correctAudioRef = React.createRef();
 
-  errorAudioRef = React.createRef();
+  const getWords = () => {
+    changeWord(numOfCurrentWord, dictionaryWords, userWords);
+  };
 
-  correctAudioRef = React.createRef();
-
-  render() {
-    const { data, startGame, gameWasStarted } = this.props;
-    return (
-      <>
-        <audio src={correctAudio} ref={this.correctAudioRef}></audio>
-        <audio src={errorAudio} ref={this.errorAudioRef}></audio>
-        {gameWasStarted
-          ? (
-            <div className='savannaGame'
+  return (
+    <>
+      <audio src={correctAudio} ref={correctAudioRef}></audio>
+      <audio src={errorAudio} ref={errorAudioRef}></audio>
+      {gameWasStarted
+        ? (
+          <div className='savannaGame'
             style={{ backgroundImage: `url(${gamePageImg})` }}>
-              {data.length === 0
-                ? <Loader />
-                : <GamePage
-                  {...this.props}
-                  errorAudioRef={this.errorAudioRef}
-                  correctAudioRef={this.correctAudioRef}
-                  />}
-            </div>
-          ) : (
-            <StartPage startGame={startGame} />
-          )}
-      </>
-    );
-  }
-}
+            {data.length === 0
+              ? <Loader />
+              : <GamePage
+                {...props}
+                errorAudioRef={errorAudioRef}
+                correctAudioRef={correctAudioRef}
+              />}
+          </div>
+        ) : (
+          <StartPage
+            startGame={startGame}
+            getWords={getWords}
+            dictionaryWords={dictionaryWords} />
+        )}
+    </>
+  );
+};
 
 const mapStateToProps = (state) => ({
   ...state.savannaGame,
+  dictionaryWords: state.dictionaryWords.words,
+  userWords: state.userWords.words,
 });
 
 const mapDispathToProps = {

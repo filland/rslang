@@ -33,9 +33,9 @@ class Game extends React.Component {
 
    handleAnswer = ({ target }) => {
      const {
-       changeWord, checkAnswer, currentPage, currentLevel, numOfCurrentWord, data, lifesCount,
+       changeWord, checkAnswer, numOfCurrentWord, lifesCount,
        iKnowArr, iDontKnowArr, currentWordData, checkingAnswer,
-       errorAudioRef, correctAudioRef, audioOn,
+       errorAudioRef, correctAudioRef, audioOn, dictionaryWords, userWords,
      } = this.props;
      if (!checkingAnswer) {
        if (target.id === this.answer.current.id) {
@@ -66,7 +66,7 @@ class Game extends React.Component {
        });
 
        setTimeout(() => {
-         changeWord(currentPage, currentLevel, numOfCurrentWord + 1, data);
+         changeWord(numOfCurrentWord + 1, dictionaryWords, userWords);
          if (!checkingAnswer) {
            target.parentElement.childNodes.forEach((el) => el.classList.remove('true', 'false'));
          }

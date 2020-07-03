@@ -8,9 +8,9 @@ export const CHANGE_VOLUME = 'CHANGE_VOLUME';
 export const SHOW_WORD_DATA = 'SHOW_WORD_DATA';
 
 export const changeWord = (
-  page, group, numOfCurrentWord, arrOfData,
+  numOfCurrentWord, dictionaryWords, userWords,
 ) => async (dispatch) => {
-  const dataForNextWord = await getDataForNextWord(page, group, numOfCurrentWord, arrOfData);
+  const dataForNextWord = await getDataForNextWord(numOfCurrentWord, dictionaryWords, userWords);
 
   dispatch({
     type: CHANGE_CURRENT_WORD,
@@ -19,8 +19,6 @@ export const changeWord = (
       data: dataForNextWord.data,
       arrOfRandomWords: dataForNextWord.arrOfRandomWords,
       numOfCurrentWord: dataForNextWord.numOfWord,
-      currentLevel: dataForNextWord.currentLevel,
-      currentPage: dataForNextWord.currentPage,
       checkingAnswer: false,
     },
   });
@@ -75,6 +73,7 @@ export const endGame = () => ({
     lifesCount: 5,
     iKnowArr: [],
     iDontKnowArr: [],
+    numOfCurrentWord: 0,
   },
 });
 

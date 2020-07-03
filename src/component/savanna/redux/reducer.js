@@ -8,8 +8,6 @@ import {
 const stateDefault = {
   data: [],
   numOfCurrentWord: 0,
-  currentLevel: 1,
-  currentPage: 1,
   gameWasStarted: false,
   checkingAnswer: false,
   audioOn: true,
