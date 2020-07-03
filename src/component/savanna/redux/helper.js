@@ -1,4 +1,4 @@
-import { prepareWords } from '../../../common/service/WordsService';
+import { prepareWords } from '../../../common/helper/WordsHelper';
 
 const getDataForNextWord = async (numOfCurrentWord, dictionaryWords, userWords) => {
   const data = prepareWords(userWords, dictionaryWords, 50);

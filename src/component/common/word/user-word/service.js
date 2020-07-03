@@ -2,7 +2,7 @@ import { fetchUserWordsRequest, fetchUserWordsFail, fetchUserWordsSuccess } from
 import authorizedRequest from '../../../../common/utils/ApiUtils';
 import { getUserId } from '../../../../common/utils/UserUtils';
 
-const fetchUserWords = async (dispatch) => {
+const fetchUserWords = () => async (dispatch) => {
   try {
     dispatch(fetchUserWordsRequest());
 

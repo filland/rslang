@@ -12,7 +12,7 @@ import correct from './correct.png';
 import wrong from './wrong.png';
 import getUserWords from '../common/word/user-word/selectors';
 import getDictionaryWords from '../common/word/dictionary-word/selectors';
-import { prepareWords } from '../../common/service/WordsService';
+import { prepareWords } from '../../common/helper/WordsHelper';
 
 export const knowArr = [];
 export const mistakesArr = [];
@@ -185,25 +185,25 @@ class Game extends Component {
     }
     return (
       <Container fluid>
-       <Row className="d-flex flex-column align-items-center">
+        <Row className="d-flex flex-column align-items-center">
           <Col className="points my-5 text-center">{points} очков</Col>
           <Row className="time justify-content-center">
             <Col className="align-self-center text-center time-span">
               <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
-              </Col>
+            </Col>
           </Row>
-          <Card style={ styleCard } className="d-flex flex-column align-items-center p-3" id="card">
-            <Card.Img variant="top" style={ styleCorrect } src={correct} alt="Correct sing" id="correct"/>
+          <Card style={styleCard} className="d-flex flex-column align-items-center p-3" id="card">
+            <Card.Img variant="top" style={styleCorrect} src={correct} alt="Correct sing" id="correct" />
             <Card.Body className="d-flex flex-column align-items-center p-4">
-              <Card.Text id="points-info">{ pointsInfo }</Card.Text>
+              <Card.Text id="points-info">{pointsInfo}</Card.Text>
               <Card.Title className="mb-4">{englishWord}</Card.Title>
               <Card.Subtitle className="mb-3 text-muted">{russianWord}</Card.Subtitle>
-              <Card.Img variant="top" className="mb-3" style={ styleWrong } src={wrong} alt="Wrong sing" id="wrong"/>
+              <Card.Img variant="top" className="mb-3" style={styleWrong} src={wrong} alt="Wrong sing" id="wrong" />
               <Row>
                 <Button onClick={() => this.handleClickCorrect()} variant="primary" className="mr-2">
-                Правильно!</Button>
+                  Правильно!</Button>
                 <Button onClick={() => this.handleClickWrong()} variant="danger">
-               Неверно</Button>
+                  Неверно</Button>
               </Row>
             </Card.Body>
           </Card>
