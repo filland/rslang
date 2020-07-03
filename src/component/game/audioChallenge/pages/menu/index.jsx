@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { GAME_PAGE } from '../../constants';
-import './styles.css';
+import './styles.scss';
 
 export default function Menu({ setCurrentPage }) {
   return (
