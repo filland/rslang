@@ -5,14 +5,12 @@ import fetchUserWords from '../word/user-word/service';
 import { getUserSettings } from '../../settings/service';
 import getUserStatistics from '../../long-term-statistics/service';
 
-export const fetchData = () => async (dispatch, getState) => {
-  const store = getState();
+export const fetchData = () => async (dispatch) => {
+  await dispatch(getUserSettings());
 
-  await getUserSettings(dispatch);
+  dispatch(fetchDictionaryWords());
 
-  await fetchDictionaryWords(dispatch, store);
-
-  await fetchUserWords(dispatch);
+  dispatch(fetchUserWords());
 
   await getUserStatistics(dispatch);
 };

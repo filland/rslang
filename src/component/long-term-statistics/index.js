@@ -18,6 +18,22 @@ class LineStatistics extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevProps) {
+    const { learnedWords, optional } = nextProps;
+    const actualProps = {
+      learnedWords,
+      optional,
+    };
+    if (JSON.stringify(prevProps) !== JSON.stringify(actualProps)) {
+      return {
+        optional: actualProps.optional,
+        learnedWords: actualProps.learnedWords,
+      };
+    }
+    return null;
+  }
+
+
   transformDate = (date) => {
     const correctDate = new Date(Number(date)).toLocaleDateString();
     return correctDate;
@@ -113,6 +129,7 @@ class LineStatistics extends React.Component {
     );
   }
 }
+
 const isLoading = (store) => store.isLoading;
 const getStatisticsTotalWords = (store) => store.statistics.learnedWords;
 const getStatisticsOptional = (store) => store.statistics.optional;

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Menu from "./pages/menu";
-import Game from "./pages/game/index";
-import { MENU_PAGE, GAME_PAGE } from "./constants";
+import React, { useState } from 'react';
+import Menu from './pages/menu';
+import Game from './pages/game/index';
+import { MENU_PAGE, GAME_PAGE } from './constants';
 
 function AudioChallenge() {
   const [page, setPage] = useState(MENU_PAGE);
