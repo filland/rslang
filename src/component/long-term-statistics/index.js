@@ -18,11 +18,6 @@ class LineStatistics extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { getUserStatistics } = this.props;
-    getUserStatistics();
-  }
-
   static getDerivedStateFromProps(nextProps, prevProps) {
     const { learnedWords, optional } = nextProps;
     const actualProps = {
@@ -37,6 +32,7 @@ class LineStatistics extends React.Component {
     }
     return null;
   }
+
 
   transformDate = (date) => {
     const correctDate = new Date(Number(date)).toLocaleDateString();

@@ -96,6 +96,7 @@ class Settings extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        <br />
         <Accordion defaultActiveKey="0">
           <Card>
             <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -118,6 +119,7 @@ class Settings extends React.Component {
               </Card.Body>
             </Accordion.Collapse>
           </Card>
+          <br />
           <Card>
             <Accordion.Toggle as={Card.Header} eventKey="1">
               Кнопки, отображаемые на карточках:
@@ -167,7 +169,7 @@ class Settings extends React.Component {
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.SelectCustom">
-            <Form.Label>Сложность изучаемых слов - от легкого(1) до сложного(6):</Form.Label>
+            <Form.Label>Сложность изучаемых слов - от легкого (1) до сложного (6):</Form.Label>
             <Form.Control as="select" custom
               value={this.state.settings.optional.difficultyLevel}
               onChange={this.handleSelectLevel}>
