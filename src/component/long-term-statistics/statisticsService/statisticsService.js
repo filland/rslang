@@ -1,7 +1,7 @@
-import { statisticsRequest, statisticsSuccess, statisticsFail } from '../../../component/long-term-statistics/actions';
-import { getUserId } from '../../utils/UserUtils';
-import { getJwtToken } from '../../utils/TokenUtils';
-import parseStringtoArray from '../../../component/long-term-statistics/helpers';
+import { statisticsRequest, statisticsSuccess, statisticsFail } from '../actions';
+import { getUserId } from '../../../common/utils/UserUtils';
+import { getJwtToken } from '../../../common/utils/TokenUtils';
+import parseStringtoArray from '../helpers';
 import { parseArraytoString, transformArray } from './helpers';
 
 const setUserStatistics = (playAllWords, playNewWords) => async (dispatch, getStore) => {
