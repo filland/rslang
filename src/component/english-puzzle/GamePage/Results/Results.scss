@@ -1,0 +1,43 @@
+.backgroundOfStatistics{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.856);
+    z-index: 1;
+
+    .statistics{
+        background-color: whitesmoke;
+        font-size: 0.8em;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        
+        .pictureData{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+
+            .picture img{
+                width: 80px;
+            }
+        }
+
+        .item img{
+            width: 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        
+        button{
+            align-self: center;
+        }
+
+    }
+}
