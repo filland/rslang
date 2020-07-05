@@ -17,13 +17,12 @@ import getUserWords from '../common/word/user-word/selectors';
 
 import { getWordTodayCount } from './utils';
 import {
-  getWordsSelector,
   getLosingFlagSelector,
 } from './selectors';
 
 const propTypes = {
   fetchWord: PropTypes.func.isRequired,
-  words: PropTypes.arrayOf(PropTypes.object).isRequired,
+  userWords: PropTypes.arrayOf(PropTypes.object).isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 

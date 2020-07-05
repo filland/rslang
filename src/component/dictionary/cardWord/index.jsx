@@ -6,7 +6,6 @@ import {
 } from 'react-bootstrap';
 import fetchWordServiceRestore from '../serviceRestore';
 
-import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
 import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
@@ -55,28 +54,28 @@ class Cardword extends Component {
     console.log(word);
 
     return (
-      <Card bg="Light" className="wordCard my-4">
-        {/* <Card.Img variant="top" src={GIT_URL_WORD + word.dictionaryWord.image} />  */}
+      <Card bg="Light" className="wordCard my-4 text-center">
+        <Card.Img variant="top" src={`data:image/jpg;base64,${word.dictionaryWord.image}`} className="mx-auto" />
         <Card.Body>
           <Card.Title>{word.dictionaryWord.word}</Card.Title>
           <Card.Text>{word.dictionaryWord.wordTranslate}</Card.Text>
           <Card.Text>
             {word.dictionaryWord.transcription}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-            <audio src={GIT_URL_WORD + word.dictionaryWord.audio} ref={this.audioRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audio}`} ref={this.audioRef} />
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
             {word.dictionaryWord.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-            <audio src={GIT_URL_WORD + word.dictionaryWord.audioMeaning} ref={this.audioMeaningRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioMeaning}`} ref={this.audioMeaningRef} />
           </ListGroupItem>
           <ListGroupItem>{word.dictionaryWord.textMeaningTranslate}</ListGroupItem>
           <ListGroupItem>
             {word.dictionaryWord.textExample}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-            <audio src={GIT_URL_WORD + word.dictionaryWord.audioExample} ref={this.audioExampleRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioExample}`} ref={this.audioExampleRef} />
           </ListGroupItem>
           <ListGroupItem>{word.dictionaryWord.textExampleTranslate}</ListGroupItem>
         </ListGroup>
