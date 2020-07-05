@@ -14,9 +14,8 @@ import CardWord from './cardWord/index';
 import fetchWordService from './service';
 
 import getUserWords from '../common/word/user-word/selectors';
-import getDictionaryWords from '../common/word/dictionary-word/selectors';
-import { getWordTodayCount } from './utils';
 
+import { getWordTodayCount } from './utils';
 import {
   getWordsSelector,
   getLosingFlagSelector,
@@ -29,19 +28,19 @@ const propTypes = {
 };
 
 class Dictionary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      wordsLearningList: [],
-      wordsDeletedList: [],
-      wordsDifficultList: [],
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     wordsLearningList: [],
+  //     wordsDeletedList: [],
+  //     wordsDifficultList: [],
+  //   };
+  // }
 
-  componentDidMount() {
-    const { fetchWord } = this.props;
-    fetchWord();
-  }
+  // componentDidMount() {
+  //   const { fetchWord } = this.props;
+  //   fetchWord();
+  // }
 
   // eslint-disable-next-line class-methods-use-this
   // componentDidUpdate() {
@@ -50,28 +49,14 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, dictionaryWords, userWords,
+      isLoading, userWords,
     } = this.props;
 
-    console.log(dictionaryWords);
     console.log(userWords);
-    console.log('---------------');
 
-    let words = [];
-    if (userWords !== undefined) {
-      console.log('-----not -underfined------');
-      words = userWords;
-    }
-
-    const wordsDeletedList = words.filter((x) => x.optional && x.optional.deleted);
-    const wordsDifficultList = words.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
-    const wordsLearningList = words.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
-
-    // this.setState({
-    //   wordsDeletedList,
-    //   wordsDifficultList,
-    //   wordsLearningList,
-    // });
+    const wordsDeletedList = userWords.filter((x) => x.optional && x.optional.deleted);
+    const wordsDifficultList = userWords.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsLearningList = userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     if (isLoading) {
       return (<Loader />);
@@ -108,9 +93,7 @@ class Dictionary extends Component {
   }
 }
 const mapStateToProps = (store) => ({
-  words: getWordsSelector(store),
   isLoading: getLosingFlagSelector(store),
-  dictionaryWords: getDictionaryWords(store),
   userWords: getUserWords(store),
 });
 
