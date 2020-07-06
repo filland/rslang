@@ -23,16 +23,13 @@ async function fetchUpdateWordDeletedUser(wordId, restoreButton) {
       'Content-Type': 'application/json',
     },
   });
-  console.log(responseWordUserIds);
-
   const result = await responseWordUserIds.json();
   return result;
 }
 
 const fetchWordServiceRestore = (wordId, restoreButton) => {
   try {
-    const result = fetchUpdateWordDeletedUser(wordId, restoreButton);
-    console.log(result);
+    fetchUpdateWordDeletedUser(wordId, restoreButton);
   } catch (error) {
     console.log(error);
   }
