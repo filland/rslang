@@ -6,12 +6,14 @@ import {
 } from 'react-bootstrap';
 import fetchWordServiceRestore from '../serviceRestore';
 
-import { GIT_URL_WORD } from '../constants';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
+import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
+  restoreButton: PropTypes.string.isRequired,
+  handlerRestore: PropTypes.func,
   audioRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
@@ -27,7 +29,8 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    fetchWordServiceRestore(this.props.word.id);
+    this.props.handlerRestore();
+    fetchWordServiceRestore(this.props.word.wordId, this.props.restoreButton);
   };
 
   playAudio = () => {
@@ -49,45 +52,50 @@ class Cardword extends Component {
   };
 
   render() {
-    const { word } = this.props;
+    const { word, restoreButton } = this.props;
+    console.log(word);
+
     return (
-      <Card bg="Light" className="wordCard my-4">
-        <Card.Img variant="top" src={GIT_URL_WORD + word.image} />
+      <Card bg="Light" className="wordCard my-4 text-center">
+        <Card.Img variant="top" src={`data:image/jpg;base64,${word.dictionaryWord.image}`} className="mx-auto" />
         <Card.Body>
-          <Card.Title>{word.word}</Card.Title>
-          <Card.Text>{word.wordTranslate}</Card.Text>
+          <Card.Title>{word.dictionaryWord.word}</Card.Title>
+          <Card.Text>{word.dictionaryWord.wordTranslate}</Card.Text>
           <Card.Text>
-            {word.transcription}&nbsp;
+            {word.dictionaryWord.transcription}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-            <audio src={GIT_URL_WORD + word.audio} ref={this.audioRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audio}`} ref={this.audioRef} />
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
-            {word.textMeaning}&nbsp;
+            {word.dictionaryWord.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-            <audio src={GIT_URL_WORD + word.audioMeaning} ref={this.audioMeaningRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioMeaning}`} ref={this.audioMeaningRef} />
           </ListGroupItem>
-          <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
+          <ListGroupItem>{word.dictionaryWord.textMeaningTranslate}</ListGroupItem>
           <ListGroupItem>
-            {word.textExample}&nbsp;
+            {word.dictionaryWord.textExample}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-            <audio src={GIT_URL_WORD + word.audioExample} ref={this.audioExampleRef} />
+            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioExample}`} ref={this.audioExampleRef} />
           </ListGroupItem>
-          <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
+          <ListGroupItem>{word.dictionaryWord.textExampleTranslate}</ListGroupItem>
         </ListGroup>
         <Card.Footer>
-          {/* todo: add info from back */}
           <div className={`dot-container-${word.difficulty}`}>
             {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
           </div>
           <div>
-            <span>Давность: 11 дней назад | </span>
-            <span>Повторений: 3 | </span>
-            <span>Следующее: 20.03.2020 | </span>
+            <span>Давность: {getDiffUpdatedDateToNowDays(word.dictionaryWord)}  дн. назад | </span>
+            <span>Повторений: {word.optional.counter} | </span>
+            <span>Следующее: {formatDateInWord(word.dictionaryWord)} </span>
           </div>
-          <div className="mt-3">
-            <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
+          < div className="mt-3">
+            {
+              (restoreButton === 'difficult' || restoreButton === 'delete')
+                ? <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
+                : ''
+            }
           </div>
         </Card.Footer>
       </Card >
