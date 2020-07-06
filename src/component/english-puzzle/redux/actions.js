@@ -1,7 +1,8 @@
 import {
-  getListOfWords,
   getArrOfRandomWords,
 } from '../fetchGameData';
+import { prepareWords } from '../../../common/helper/WordsHelper';
+
 import paintings1 from '../dataOfPicturesGallery/level1';
 import paintings2 from '../dataOfPicturesGallery/level2';
 import paintings3 from '../dataOfPicturesGallery/level3';
@@ -170,24 +171,21 @@ export const changeArrOfRandomWords = (arr) => ({
   payload: { arrOfRandomWords: arr.slice() },
 });
 
-export const changeDifficultOfGame = (lev, p) => async (dispatch) => {
+export const changeDifficultOfGame = (lev, p, dictionaryWords, userWords) => async (dispatch) => {
   let pageForUser;
   let level;
-  if (p === 61) {
+
+  if (p === 31) {
     pageForUser = 1;
     level = lev + 1;
   } else {
     pageForUser = p;
     level = lev;
   }
-  const page = Math.ceil(pageForUser / 2);
-  const arrayOfData = await getListOfWords(page, level);
 
-  if (pageForUser % 2) {
-    arrayOfData.splice(10, 10);
-  } else {
-    arrayOfData.splice(0, 10);
-  }
+  const page = pageForUser;
+  const arrayOfData = prepareWords(userWords, dictionaryWords, 100)
+    .concat().splice(page * 10 - 10, page * 10);
 
   if (arrayOfData.length !== 0) {
     const pictureData = arrOfGalleryData[level][pageForUser - 1];
