@@ -19,7 +19,7 @@ class Sprint extends Component {
 
   handleClick = (levelValue) => {
     const { setUserDifficulty } = this.props;
-    setUserDifficulty(5);
+    setUserDifficulty(levelValue + 1);
     this.setState({ gameRender: true });
   }
 
