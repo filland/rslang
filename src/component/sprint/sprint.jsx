@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import './sprint.scss';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import { setUserDifficulty } from '../settings/service';
 import Game from './game';
-
-// eslint-disable-next-line import/no-mutable-exports
-let level;
 
 class Sprint extends Component {
   constructor(props) {
@@ -19,7 +18,8 @@ class Sprint extends Component {
   }
 
   handleClick = (levelValue) => {
-    level = levelValue;
+    const { setUserDifficulty } = this.props;
+    setUserDifficulty(5);
     this.setState({ gameRender: true });
   }
 
@@ -48,5 +48,11 @@ class Sprint extends Component {
   }
 }
 
-export default Sprint;
-export { level };
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = {
+  setUserDifficulty,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sprint);

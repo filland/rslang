@@ -66,7 +66,7 @@ class Game extends Component {
     clearInterval(this.myInterval);
   }
 
-  handleClickCorrect = () => {
+  handleClickCorrect = async () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
       knowArray, mistakesArray,
@@ -108,6 +108,7 @@ class Game extends Component {
       }
     }
     const { userWords, dictionaryWords } = this.props;
+    console.log(dictionaryWords);
     const preparedWords = prepareWords(userWords, dictionaryWords, 2);
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
