@@ -12,10 +12,10 @@ const initialState = {
     btnComplicated: false,
     levelButtons: true,
     customSwitch: false,
-    newCardsPerDay: 25,
+    newCardsPerDay: 5,
     difficultyLevel: 2,
   },
-  wordsPerDay: 5,
+  wordsPerDay: 35,
   isLoading: false,
 };
 

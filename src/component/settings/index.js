@@ -146,21 +146,22 @@ class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
-              value={this.state.settings.wordsPerDay}
-              onChange={this.handleSelectWords}
-            >
-              <option>1</option>
-              <option>5</option>
-              <option>10</option>
-              <option>15</option>
-              <option>20</option>
+             value={this.state.settings.optional.newCardsPerDay}
+             onChange={this.handleSelectCards}>
+              <option disabled = {this.state.settings.wordsPerDay < 1}>1</option>
+              <option disabled = {this.state.settings.wordsPerDay < 5}>5</option>
+              <option disabled = {this.state.settings.wordsPerDay < 10}>10</option>
+              <option disabled = {this.state.settings.wordsPerDay < 15}>15</option>
+              <option disabled = {this.state.settings.wordsPerDay < 20}>20</option>
+              <option disabled = {this.state.settings.wordsPerDay < 25}>25</option>
+              <option disabled = {this.state.settings.wordsPerDay < 30}>30</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Максимальное количество карточек в день:</Form.Label>
             <Form.Control as="select" custom
-              value={this.state.settings.optional.newCardsPerDay}
-              onChange={this.handleSelectCards}>
+              value={this.state.settings.wordsPerDay}
+              onChange={this.handleSelectWords}>
               <option>10</option>
               <option>25</option>
               <option>30</option>
