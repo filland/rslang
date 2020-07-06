@@ -14,8 +14,6 @@ const initialState = {
     dayAllWords: [0, 0, 0, 0, 0, 0, 0],
     dayNewWords: [0, 0, 0, 0, 0, 0, 0],
     dayDate: dayDateList,
-    newWords: 0,
-    oldWords: 0,
   },
   isLoading: false,
 };

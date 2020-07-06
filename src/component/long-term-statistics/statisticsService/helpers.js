@@ -10,8 +10,6 @@ export const parseArraytoString = (data) => {
       dayAllWords: dayAllWordsString,
       dayNewWords: dayNewWordsString,
       dayDate: dayDateString,
-      newWords: data.optional.newWords,
-      oldWords: data.optional.oldWords,
     },
   };
   return result;
@@ -24,14 +22,13 @@ export const transformArray = (playAllWords, playNewWords, store) => {
       dayAllWords: store.statistics.optional.dayAllWords,
       dayNewWords: store.statistics.optional.dayNewWords,
       dayDate: store.statistics.optional.dayDate,
-      newWords: store.statistics.optional.newWords,
-      oldWords: store.statistics.optional.oldWords,
     },
   };
 
   const templateString = JSON.stringify(templateInput);
   let template = JSON.parse(templateString);
   const { dayAllWords, dayNewWords, dayDate } = template.optional;
+  const { learnedWords } = template;
 
   const dateNow = Date.now();
   const currentDate = new Date(dateNow).toLocaleDateString();
@@ -52,18 +49,15 @@ export const transformArray = (playAllWords, playNewWords, store) => {
     dayDate.shift();
     dayDate.push(dateNow);
   }
-  const totalWeekWords = dayAllWords.reduce((total, current) => Number(total) + Number(current), 0);
-  const totalWeekNewWords = dayNewWords.reduce((total, current) => Number(total) + Number(current), 0);
-  const totalWeekOldWords = totalWeekWords - totalWeekNewWords;
+
+  const numberAllPeriodAmountOfWords = learnedWords + playAllWords;
 
   template = {
-    learnedWords: totalWeekWords,
+    learnedWords: numberAllPeriodAmountOfWords,
     optional: {
       dayAllWords,
       dayNewWords,
       dayDate,
-      newWords: totalWeekNewWords,
-      oldWords: totalWeekOldWords,
     },
   };
   return template;

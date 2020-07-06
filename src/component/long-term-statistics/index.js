@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Line, Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux';
@@ -32,7 +33,6 @@ class LineStatistics extends React.Component {
     }
     return null;
   }
-
 
   transformDate = (date) => {
     const correctDate = new Date(Number(date)).toLocaleDateString();
@@ -71,9 +71,10 @@ class LineStatistics extends React.Component {
   }
 
   chartPieData = () => {
-    const { optional, learnedWords } = this.state;
-    const percentOfNewWords = (optional.newWords / learnedWords) * 100;
-    const percentOfOldWords = (optional.oldWords / learnedWords) * 100;
+    const { optional } = this.state;
+    const percentOfNewWords = Math.round((optional.dayNewWords[6] / optional.dayAllWords[6]) * 100);
+    const dayOldWords = optional.dayAllWords[6] - optional.dayNewWords[6];
+    const percentOfOldWords = Math.round((dayOldWords / optional.dayAllWords[6]) * 100);
     const data = {
       labels: [
         'Новые слова, %',
@@ -107,21 +108,13 @@ class LineStatistics extends React.Component {
             }} />
         </div>
         <div className='statistics-field'>
-          <h3>Общая статистика за 7 дней</h3>
+          <h3>Общая статистика за весь период обучения</h3>
           <div className="long-statistics-content">
             <div className="long-statistics-name">Общее количество изученных слов:</div>
             <div className="long-statistics-value">{this.state.learnedWords}</div>
           </div>
-          <div className="long-statistics-content">
-            <div className="long-statistics-name">Новые слова:</div>
-            <div className="long-statistics-value">{this.state.optional.newWords}</div>
-          </div>
-          <div className="long-statistics-content">
-            <div className="long-statistics-name">Старые слова:</div>
-            <div className="long-statistics-value">{this.state.optional.oldWords}</div>
-          </div>
           <div className='graph-pie'>
-            <h3>Процентное соотношение новых и старых слов</h3>
+          <h3>Процентное соотношение новых и старых слов на {new Date(Number(this.state.optional.dayDate[6])).toLocaleDateString()}</h3>
             <Pie data={this.chartPieData} />
           </div>
         </div>
