@@ -11,10 +11,11 @@ class GameItems extends React.Component {
   };
 
   onSubmitHandler = (event) => {
+    const { dictionaryWords, userWords } = this.props;
     event.preventDefault();
     const levelValue = this.refs.level.value;
     const pageValue = this.refs.page.value;
-    this.props.changeDifficultOfGame(levelValue, pageValue);
+    this.props.changeDifficultOfGame(levelValue, pageValue, dictionaryWords, userWords);
   };
 
   render() {
@@ -34,7 +35,7 @@ class GameItems extends React.Component {
         <input
           type="number"
           min="1"
-          max="60"
+          max="30"
           required
           value={this.props.pageForUser}
           name="pageForUser"
@@ -52,6 +53,8 @@ class GameItems extends React.Component {
 
 const mapStateToProps = (state) => ({
   ...state.puzzleGame,
+  dictionaryWords: state.dictionaryWords.words,
+  userWords: state.userWords.words,
 });
 
 const mapDispathToProps = {

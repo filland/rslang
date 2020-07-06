@@ -29,8 +29,10 @@ class GamePage extends React.Component {
   }
 
   async componentDidMount() {
-    const { changeDifficultOfGame, page, level } = this.props;
-    await changeDifficultOfGame(page, level);
+    const {
+      changeDifficultOfGame, page, level, dictionaryWords, userWords,
+    } = this.props;
+    await changeDifficultOfGame(page, level, dictionaryWords, userWords);
   }
 
   handleWordClick = ({ target }) => {
@@ -64,7 +66,7 @@ class GamePage extends React.Component {
       iKnowArr, arrayOfData, numberOfStr,
       pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
       showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
-      changeCurrentString, level, pageForUser, changeDifficultOfGame,
+      changeCurrentString, level, pageForUser, changeDifficultOfGame, dictionaryWords, userWords,
     } = this.props;
 
     if (e.target.name === 'check') {
@@ -86,6 +88,8 @@ class GamePage extends React.Component {
         changeDifficultOfGame(
           level,
           +pageForUser + 1,
+          dictionaryWords,
+          userWords,
         );
       } else {
         pushSentenceInSolvedArr(
@@ -223,6 +227,8 @@ class GamePage extends React.Component {
 
 const mapStateToProps = (state) => ({
   ...state.puzzleGame,
+  dictionaryWords: state.dictionaryWords.words,
+  userWords: state.userWords.words,
 });
 
 const mapDispathToProps = {
