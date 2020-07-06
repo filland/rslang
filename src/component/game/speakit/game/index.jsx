@@ -6,16 +6,12 @@ import VoiceInput from '../voice-input';
 import Stepper from '../stepper';
 import blankPicture from '../assets/blank.jpg';
 import './styles.scss';
-import getUserWords from '../../../common/word/user-word/selectors';
-import getDictionaryWords from '../../../common/word/dictionary-word/selectors';
 import { prepareWords } from '../../../../common/helper/WordsHelper';
 
 class Game extends Component {
   render() {
-    const { userWords, dictionaryWords } = this.props;
-
-    const preparedWords = prepareWords(userWords, dictionaryWords, 10);
-
+    const { prepareWords } = this.props;
+    const { preparedWords } = prepareWords(10);
     const wordsTemplate = preparedWords.map((word) => (<Word key={word.id} word={word}></Word>));
 
     return (<div className="speakit-container">
@@ -39,11 +35,10 @@ class Game extends Component {
 }
 
 const mapStateToProps = (store) => ({
-  dictionaryWords: getDictionaryWords(store),
-  userWords: getUserWords(store),
 });
 
 const mapDispatchToProps = {
+  prepareWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
