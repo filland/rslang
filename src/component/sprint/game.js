@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './sprint.css';
+import './sprint.scss';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -13,9 +13,7 @@ import wrong from './wrong.png';
 import getUserWords from '../common/word/user-word/selectors';
 import getDictionaryWords from '../common/word/dictionary-word/selectors';
 import { prepareWords } from '../../common/helper/WordsHelper';
-
-export const knowArr = [];
-export const mistakesArr = [];
+import dispatchWords from './service.js';
 
 class Game extends Component {
   constructor(props) {
@@ -36,6 +34,8 @@ class Game extends Component {
       visibilityCorrect: '',
       pointsInfo: '',
       timeEnded: false,
+      knowArray: [],
+      mistakesArray: [],
     };
   }
 
@@ -66,9 +66,10 @@ class Game extends Component {
     clearInterval(this.myInterval);
   }
 
-  handleClickCorrect = () => {
+  handleClickCorrect = async () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
+      knowArray, mistakesArray,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
     if (idEnglishWord === idRussianWord) {
@@ -80,14 +81,16 @@ class Game extends Component {
         points: points + addPoints,
         correctAnswers: correctAnswers + 1,
       });
+      if (!knowArray.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArray.includes(`${englishWord} - ${englishWordTranslate}`)) {
+        this.setState((prevState) => ({
+          knowArray: [...prevState.knowArray, `${englishWord} - ${englishWordTranslate}`],
+        }));
+      }
       if (correctAnswers === 4) {
         this.setState({
           addPoints: addPoints * 2,
           correctAnswers: 0,
         });
-      }
-      if (!knowArr.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArr.includes(`${englishWord} - ${englishWordTranslate}`)) {
-        knowArr.push(`${englishWord} - ${englishWordTranslate}`);
       }
     } else {
       this.setState({
@@ -98,11 +101,14 @@ class Game extends Component {
         correctAnswers: 0,
         addPoints: 10,
       });
-      if (!mistakesArr.includes(`${englishWord} - ${englishWordTranslate}`) && !knowArr.includes(`${englishWord} - ${englishWordTranslate}`)) {
-        mistakesArr.push(`${englishWord} - ${englishWordTranslate}`);
+      if (!knowArray.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArray.includes(`${englishWord} - ${englishWordTranslate}`)) {
+        this.setState((prevState) => ({
+          mistakesArray: [...prevState.mistakesArray, `${englishWord} - ${englishWordTranslate}`],
+        }));
       }
     }
     const { userWords, dictionaryWords } = this.props;
+    console.log(dictionaryWords);
     const preparedWords = prepareWords(userWords, dictionaryWords, 2);
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
@@ -118,6 +124,7 @@ class Game extends Component {
   handleClickWrong = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
+      knowArray, mistakesArray,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
     if (idEnglishWord !== idRussianWord) {
@@ -129,14 +136,16 @@ class Game extends Component {
         points: points + addPoints,
         correctAnswers: correctAnswers + 1,
       });
+      if (!knowArray.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArray.includes(`${englishWord} - ${englishWordTranslate}`)) {
+        this.setState((prevState) => ({
+          knowArray: [...prevState.knowArray, `${englishWord} - ${englishWordTranslate}`],
+        }));
+      }
       if (correctAnswers === 4) {
         this.setState({
           addPoints: addPoints * 2,
           correctAnswers: 0,
         });
-      }
-      if (!knowArr.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArr.includes(`${englishWord} - ${englishWordTranslate}`)) {
-        knowArr.push(`${englishWord} - ${englishWordTranslate}`);
       }
     } else {
       this.setState({
@@ -147,8 +156,10 @@ class Game extends Component {
         correctAnswers: 0,
         addPoints: 10,
       });
-      if (!mistakesArr.includes(`${englishWord} - ${englishWordTranslate}`) && !knowArr.includes(`${englishWord} - ${englishWordTranslate}`)) {
-        mistakesArr.push(`${englishWord} - ${englishWordTranslate}`);
+      if (!knowArray.includes(`${englishWord} - ${englishWordTranslate}`) && !mistakesArray.includes(`${englishWord} - ${englishWordTranslate}`)) {
+        this.setState((prevState) => ({
+          mistakesArray: [...prevState.mistakesArray, `${englishWord} - ${englishWordTranslate}`],
+        }));
       }
     }
     const { userWords, dictionaryWords } = this.props;
@@ -179,8 +190,11 @@ class Game extends Component {
     const { minutes, seconds } = this.state;
     const { points, pointsInfo } = this.state;
     const { englishWord, russianWord } = this.state;
+    const { dispatchWordsStatistics } = this.props;
+    const { knowArray, mistakesArray } = this.state;
 
     if (minutes === 0 && seconds === 0) {
+      dispatchWordsStatistics(knowArray, mistakesArray);
       return <Statistics />;
     }
     return (
@@ -223,6 +237,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
+  dispatchWordsStatistics: dispatchWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
