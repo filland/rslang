@@ -72,9 +72,13 @@ class LineStatistics extends React.Component {
 
   chartPieData = () => {
     const { optional } = this.state;
-    const percentOfNewWords = Math.round((optional.dayNewWords[6] / optional.dayAllWords[6]) * 100);
-    const dayOldWords = optional.dayAllWords[6] - optional.dayNewWords[6];
-    const percentOfOldWords = Math.round((dayOldWords / optional.dayAllWords[6]) * 100);
+    const AllWordsInDay = optional.dayAllWords;
+    const NewWordsInDay = optional.dayNewWords;
+    const NewWordsOfLastDay = NewWordsInDay[NewWordsInDay.length - 1];
+    const wordsOfLastDay = AllWordsInDay[AllWordsInDay.length - 1];
+    const percentOfNewWords = Math.round((NewWordsOfLastDay / wordsOfLastDay) * 100);
+    const dayOldWords = wordsOfLastDay - NewWordsOfLastDay;
+    const percentOfOldWords = Math.round((dayOldWords / wordsOfLastDay) * 100);
     const data = {
       labels: [
         'Новые слова, %',
