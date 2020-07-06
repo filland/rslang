@@ -59,8 +59,8 @@ class Dictionary extends Component {
     console.log(userWords);
     console.log(this.state);
 
-    const wordsDeletedList = this.state.userWords.filter((x) => x.optional && x.optional.deleted);
-    const wordsDifficultList = this.state.userWords.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsDeletedList = this.state.userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
+    const wordsDifficultList = this.state.userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
     const wordsLearningList = this.state.userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     if (isLoading) {

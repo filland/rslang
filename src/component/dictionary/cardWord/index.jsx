@@ -30,7 +30,7 @@ class Cardword extends Component {
 
   restoreWord = () => {
     this.props.handlerRestore();
-    fetchWordServiceRestore(this.props.word.wordId, this.props.restoreButton);
+    fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
   };
 
   playAudio = () => {
@@ -57,38 +57,38 @@ class Cardword extends Component {
 
     return (
       <Card bg="Light" className="wordCard my-4 text-center">
-        <Card.Img variant="top" src={`data:image/jpg;base64,${word.dictionaryWord.image}`} className="mx-auto" />
+        <Card.Img variant="top" src={`data:image/jpg;base64,${word.image}`} className="mx-auto" />
         <Card.Body>
-          <Card.Title>{word.dictionaryWord.word}</Card.Title>
-          <Card.Text>{word.dictionaryWord.wordTranslate}</Card.Text>
+          <Card.Title>{word.word}</Card.Title>
+          <Card.Text>{word.wordTranslate}</Card.Text>
           <Card.Text>
-            {word.dictionaryWord.transcription}&nbsp;
+            {word.transcription}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audio}`} ref={this.audioRef} />
+            <audio src={`data:audio/mpeg;base64,${word.audio}`} ref={this.audioRef} />
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
-            {word.dictionaryWord.textMeaning}&nbsp;
+            {word.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioMeaning}`} ref={this.audioMeaningRef} />
+            <audio src={`data:audio/mpeg;base64,${word.audioMeaning}`} ref={this.audioMeaningRef} />
           </ListGroupItem>
-          <ListGroupItem>{word.dictionaryWord.textMeaningTranslate}</ListGroupItem>
+          <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
           <ListGroupItem>
-            {word.dictionaryWord.textExample}&nbsp;
+            {word.textExample}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-            <audio src={`data:audio/mpeg;base64,${word.dictionaryWord.audioExample}`} ref={this.audioExampleRef} />
+            <audio src={`data:audio/mpeg;base64,${word.audioExample}`} ref={this.audioExampleRef} />
           </ListGroupItem>
-          <ListGroupItem>{word.dictionaryWord.textExampleTranslate}</ListGroupItem>
+          <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
         </ListGroup>
         <Card.Footer>
-          <div className={`dot-container-${word.difficulty}`}>
-            {Array.from({ length: word.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
+          <div className={`dot-container-${word.userWord.difficulty}`}>
+            {Array.from({ length: word.userWord.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
           </div>
           <div>
-            <span>Давность: {getDiffUpdatedDateToNowDays(word.dictionaryWord)}  дн. назад | </span>
-            <span>Повторений: {word.optional.counter} | </span>
-            <span>Следующее: {formatDateInWord(word.dictionaryWord)} </span>
+            <span>Давность: {getDiffUpdatedDateToNowDays(word.userWord)}  дн. назад | </span>
+            <span>Повторений: {word.userWord.optional.counter} | </span>
+            <span>Следующее: {formatDateInWord(word.userWord)} </span>
           </div>
           < div className="mt-3">
             {
