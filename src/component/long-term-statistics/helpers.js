@@ -1,14 +1,14 @@
 const parseStringtoArray = (data) => {
-  const dayAllWordsString = data.optional.dayAllWords.split(',');
-  const dayNewWordsString = data.optional.dayNewWords.split(',');
-  const dayDateString = data.optional.dayDate.split(',');
+  const dayAllWordsArray = data.optional.dayAllWords.split(',');
+  const dayNewWordsArray = data.optional.dayNewWords.split(',');
+  const dayDateArray = data.optional.dayDate.split(',');
 
   const result = {
     learnedWords: data.learnedWords,
     optional: {
-      dayAllWords: dayAllWordsString,
-      dayNewWords: dayNewWordsString,
-      dayDate: dayDateString,
+      dayAllWords: dayAllWordsArray,
+      dayNewWords: dayNewWordsArray,
+      dayDate: dayDateArray,
       newWords: data.optional.newWords,
       oldWords: data.optional.oldWords,
     },

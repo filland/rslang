@@ -3,23 +3,14 @@ import authorizedRequest from '../../../common/utils/ApiUtils';
 import fetchDictionaryWords from '../word/dictionary-word/service';
 import fetchUserWords from '../word/user-word/service';
 import { getUserSettings } from '../../settings/service';
+import getUserStatistics from '../../long-term-statistics/service';
 
-export const fetchStatistics = async () => {
-  const userId = getUserId();
-  const USER_STATISTICS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
+export const fetchData = () => async (dispatch) => {
+  await dispatch(getUserSettings());
 
-  const statistics = await authorizedRequest(USER_STATISTICS_URL);
-  return statistics;
-};
+  dispatch(fetchDictionaryWords());
 
-export const fetchData = () => async (dispatch, getState) => {
-  const store = getState();
+  dispatch(fetchUserWords());
 
-  await getUserSettings(dispatch);
-
-  await fetchDictionaryWords(dispatch, store);
-
-  await fetchUserWords(dispatch);
-
-  // await fetchStatistics();
+  await dispatch(getUserStatistics());
 };
