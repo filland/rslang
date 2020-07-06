@@ -51,7 +51,6 @@ class Cardword extends Component {
 
   render() {
     const { word, restoreButton, settings } = this.props;
-    console.log(settings);
 
     return (
       <Card bg="Light" className="wordCard my-4 text-center">
