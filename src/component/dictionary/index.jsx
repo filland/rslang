@@ -20,7 +20,7 @@ import {
 
 const propTypes = {
   userWords: PropTypes.arrayOf(PropTypes.any).isRequired,
-  settings: PropTypes.arrayOf(PropTypes.any).isRequired,
+  settings: PropTypes.objectOf(PropTypes.any).isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
