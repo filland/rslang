@@ -16,6 +16,7 @@ import Statistics from './component/statistics';
 import LineStatistics from './component/long-term-statistics';
 
 import './App.scss';
+import Savanna from './component/savanna/index';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/learning" component={LearningWords} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
+          <Route path="/savanna" component={Savanna} />
           <Route path="/game/speakit" component={SpeakIt} />
           <Route path="/statistics" component={Statistics} />
           <Route path="/long-term-statistics" component={LineStatistics} />

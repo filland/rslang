@@ -6,7 +6,7 @@ function getRandomIndex(upperBorder) {
  * Checks if the dictionary word was already added to user's dictionary
  */
 function isUserWord(dictionaryWord, userWords) {
-  return userWords.find((word) => word.wordId === dictionaryWord.id) !== undefined;
+  return userWords.find((word) => word.userWord.wordId === dictionaryWord.id) !== undefined;
 }
 /**
  * This function creates an array of randomly selected dictionary words of the
@@ -15,13 +15,20 @@ function isUserWord(dictionaryWord, userWords) {
 function prepareDictionaryWords(userWords, dictionaryWords, numberOfDictionaryWords) {
   const dictionaryWordsArray = [];
 
+  // this number is used to avoid infinite loop
+  const MAX_ITERATION_NUMBER = 1000;
+  let counter = 0;
   while (dictionaryWordsArray.length !== numberOfDictionaryWords) {
+    if (counter > MAX_ITERATION_NUMBER) {
+      break;
+    }
     const dictionaryWordIndex = getRandomIndex(dictionaryWords.length - 1);
     const dictionaryWord = dictionaryWords[dictionaryWordIndex];
 
     if (!isUserWord(dictionaryWord, userWords) && !dictionaryWordsArray.includes(dictionaryWord)) {
       dictionaryWordsArray.push(dictionaryWord);
     }
+    counter += 1;
   }
 
   return dictionaryWordsArray;
@@ -30,7 +37,9 @@ function prepareDictionaryWords(userWords, dictionaryWords, numberOfDictionaryWo
 /**
  * Shuffle elements of the provided @param array
  */
-const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+const shuffleArray = (array) => {
+  array.sort(() => Math.random() - 0.5);
+};
 
 /**
  * This function prepares an array of words for mini games
@@ -38,12 +47,13 @@ const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
  * @param {*} dictionaryWords all dictionary words
  * @param {*} number the number of words that should be returned
  */
+// eslint-disable-next-line import/prefer-default-export
 export function prepareWords(userWords, dictionaryWords, number) {
   const tempUserWords = userWords
     // we need only words with the deleted field set to false
-    .filter((word) => !word.optional.deleted)
+    .filter((word) => !word.userWord.optional.deleted)
     // check what user words can be used today (see the showDate field in the user words)
-    .filter((word) => word.optional.showDate < new Date().getTime());
+    .filter((word) => word.userWord.optional.showDate < new Date().getTime());
 
   // 50 % of words in the result array should be populated with dictionary words
   // and 50 % with user words
@@ -53,20 +63,12 @@ export function prepareWords(userWords, dictionaryWords, number) {
     numberOfDictWords = number - tempUserWords.length;
   }
 
-  // prepare array with user words
-  const userWordsArr = tempUserWords.map((word) => word.dictionaryWord);
-
   // prepare array with dictionary words (do not include words which already added as user words)
-  const dictionaryWordsArray = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
+  const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
 
-  const result = userWordsArr.concat(dictionaryWordsArray);
+  const result = tempUserWords.concat(preparedDictionaryWords);
 
-  // shuffle the array
-  const resultShuffled = shuffleArray(result);
+  shuffleArray(result);
 
-  return resultShuffled;
-}
-
-export function saveOrUpdateUserWord(word) {
-  //  TODO 
+  return result;
 }

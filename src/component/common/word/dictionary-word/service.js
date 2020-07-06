@@ -1,8 +1,9 @@
 import { fetchDictionaryWordsRequest, fetchDictionaryWordsSuccess, fetchDictionaryWordsFail } from './actions';
 import authorizedRequest from '../../../../common/utils/ApiUtils';
 
-const fetchDictionaryWords = async (dispatch, store) => {
+const fetchDictionaryWords = () => async (dispatch, getState) => {
   try {
+    const store = getState();
     dispatch(fetchDictionaryWordsRequest());
 
     const { difficultyLevel } = store.settings.optional;

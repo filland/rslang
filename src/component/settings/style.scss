@@ -4,7 +4,6 @@
     justify-content: space-between;
 }
 
-
 .alert {
     display: none;
 }
@@ -12,4 +11,15 @@
 .show {
     width: 80%;
     display: block;
+}
+.accordion > .card {
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 0 5px rgba(0,0,0,.125);
+    cursor: pointer;
+}
+
+.custom-select,
+.custom-control-label {
+    cursor: pointer;
 }
