@@ -20,6 +20,7 @@ import {
 
 const propTypes = {
   userWords: PropTypes.arrayOf(PropTypes.any).isRequired,
+  settings: PropTypes.objectOf(PropTypes.any).isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -32,13 +33,8 @@ class Dictionary extends Component {
     this.handlerRestore = this.handlerRestore.bind(this);
   }
 
-  // componentDidMount() {
-  //   const { getUserWords } = this.props;
-  //   getUserWords();
-  // }
-
+  // will use next two method afrer redux set method
   componentDidUpdate(nextProps) {
-    console.log('update');
     if (JSON.stringify(nextProps.userWords) !== JSON.stringify(this.props.userWords)) {
       this.setState({ userWords: this.props.userWords });
     }
@@ -46,21 +42,15 @@ class Dictionary extends Component {
 
   handlerRestore = async () => {
     console.log('handlerRestore');
-
-    // const { setUserWords } = this.props;
-    // setUserWords(this.state.userWords);
   }
 
   render() {
     const {
-      isLoading, userWords,
+      isLoading, settings,
     } = this.props;
 
-    console.log(userWords);
-    console.log(this.state);
-
-    const wordsDeletedList = this.state.userWords.filter((x) => x.optional && x.optional.deleted);
-    const wordsDifficultList = this.state.userWords.filter((x) => x.difficulty && x.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsDeletedList = this.state.userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
+    const wordsDifficultList = this.state.userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
     const wordsLearningList = this.state.userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     if (isLoading) {
@@ -74,7 +64,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} restoreButton="false" />)}
+            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
@@ -82,7 +72,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} restoreButton="difficult" handlerRestore={this.handlerRestore} />)}
+            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
@@ -90,7 +80,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
+            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
       </Tabs>
@@ -98,13 +88,16 @@ class Dictionary extends Component {
   }
 }
 
+const getSettings = (store) => store.settings;
+
 const mapStateToProps = (store) => ({
   isLoading: getLosingFlagSelector(store),
   userWords: getUserWords(store),
+  settings: getSettings(store),
 });
 
 const mapDispatchToProps = {
-  getUserWords,
+  getUserWords, getSettings,
 };
 
 Dictionary.propTypes = propTypes;
