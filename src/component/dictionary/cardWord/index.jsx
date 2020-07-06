@@ -13,6 +13,7 @@ import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
   restoreButton: PropTypes.string.isRequired,
+  handlerRestore: PropTypes.func,
   audioRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
@@ -28,7 +29,8 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
+    this.props.handlerRestore();
+    fetchWordServiceRestore(this.props.word.wordId, this.props.restoreButton);
   };
 
   playAudio = () => {

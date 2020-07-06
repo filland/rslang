@@ -29,6 +29,7 @@ class Dictionary extends Component {
     this.state = {
       userWords: props.userWords,
     };
+    this.handlerRestore = this.handlerRestore.bind(this);
   }
 
   // componentDidMount() {
@@ -43,10 +44,11 @@ class Dictionary extends Component {
     }
   }
 
-  handleRestore = async (e) => {
-    e.preventDefault();
-    const { setUserWords } = this.props;
-    setUserWords(this.state.userWords);
+  handlerRestore = async () => {
+    console.log('handlerRestore');
+
+    // const { setUserWords } = this.props;
+    // setUserWords(this.state.userWords);
   }
 
   render() {
@@ -72,7 +74,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} restoreButton="false" handlerRestore={this.handlerRestore} />)}
+            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} restoreButton="false" />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">

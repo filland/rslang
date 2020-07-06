@@ -11,9 +11,7 @@ async function fetchUpdateWordDeletedUser(wordId, restoreButton) {
       },
     };
   } else if (restoreButton === 'difficult') {
-    data = {
-      difficulty: 'normal',
-    };
+    data = { difficulty: 'normal' };
   }
   const responseWordUserIds = await fetch(urlWordUserIds, {
     method: 'PUT',
@@ -25,6 +23,8 @@ async function fetchUpdateWordDeletedUser(wordId, restoreButton) {
       'Content-Type': 'application/json',
     },
   });
+  console.log(responseWordUserIds);
+
   const result = await responseWordUserIds.json();
   return result;
 }
