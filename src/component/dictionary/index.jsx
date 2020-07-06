@@ -109,7 +109,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
-  getUserWords,
+  getUserWords, getSettings,
 };
 
 Dictionary.propTypes = propTypes;
