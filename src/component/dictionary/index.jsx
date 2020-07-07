@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -10,101 +11,93 @@ import {
 import Loader from '../common/loader';
 import CardWord from './cardWord/index';
 
-import fetchWordService from './service';
+import getUserWords from '../common/word/user-word/selectors';
 
+import { getWordTodayCount } from './utils';
 import {
-  getWordsSelector,
-  getWordCountSelector,
-  getWordCountTodaySelector,
-  getWordsDifficultSelector,
-  getWordDifficultCountSelector,
-  getWordDifficultCountTodaySelector,
-  getWordsDeletedSelector,
-  getWordDeletedCountSelector,
-  getWordDeletedCountTodaySelector,
   getLosingFlagSelector,
 } from './selectors';
 
 const propTypes = {
-  fetchWord: PropTypes.func.isRequired,
-  words: PropTypes.arrayOf(PropTypes.object).isRequired,
-  wordsDifficult: PropTypes.arrayOf(PropTypes.object).isRequired,
-  wordsDeleted: PropTypes.arrayOf(PropTypes.object).isRequired,
-
-  wordCount: PropTypes.number.isRequired,
-  wordCountToday: PropTypes.number.isRequired,
-  wordDifficultCount: PropTypes.number.isRequired,
-  wordDifficultCountToday: PropTypes.number.isRequired,
-  wordDeletedCount: PropTypes.number.isRequired,
-  wordDeletedCountToday: PropTypes.number.isRequired,
-
+  userWords: PropTypes.arrayOf(PropTypes.any).isRequired,
+  settings: PropTypes.objectOf(PropTypes.any).isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
 class Dictionary extends Component {
-  componentDidMount() {
-    // update it after connecting to redux store
-    const { fetchWord/* , fetchWordDifficult, fetchWordDeleted */ } = this.props;
-    fetchWord();
-    // fetchWordDifficult();
-    // fetchWordDeleted();
+  constructor(props) {
+    super(props);
+    this.state = {
+      userWords: props.userWords,
+    };
+    this.handlerRestore = this.handlerRestore.bind(this);
+  }
+
+  // will use next two method afrer redux set method
+  componentDidUpdate(nextProps) {
+    if (JSON.stringify(nextProps.userWords) !== JSON.stringify(this.props.userWords)) {
+      this.setState({ userWords: this.props.userWords });
+    }
+  }
+
+  handlerRestore = async () => {
+    console.log('handlerRestore');
   }
 
   render() {
     const {
-      isLoading, words, wordCountToday,
-      wordsDifficult, wordDifficultCount, wordDifficultCountToday,
-      wordsDeleted, wordDeletedCount, wordDeletedCountToday,
+      isLoading, settings,
     } = this.props;
+
+    const wordsDeletedList = this.state.userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
+    const wordsDifficultList = this.state.userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsLearningList = this.state.userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     if (isLoading) {
       return (<Loader />);
     }
+
     return (
-      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode">
+      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >
         <Tab eventKey="learn" title="Изучаемые слова">
           <div className="my-4">
-            {`Число слов: ${words.length} (${wordCountToday} сегодня)`}
+            {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {words.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
           <div className="my-4">
-            {`Число слов: ${wordDifficultCount} (${wordDifficultCountToday} сегодня)`}
+            {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDifficult.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
           <div className="my-4">
-            {`Число слов: ${wordDeletedCount} (${wordDeletedCountToday} сегодня)`}
+            {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDeleted.map((item, i) => <CardWord key={i} word={item} />)}
+            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
       </Tabs>
     );
   }
 }
+
+const getSettings = (store) => store.settings;
+
 const mapStateToProps = (store) => ({
-  words: getWordsSelector(store),
-  wordCount: getWordCountSelector(store),
-  wordCountToday: getWordCountTodaySelector(store),
-  wordsDifficult: getWordsDifficultSelector(store),
-  wordDifficultCount: getWordDifficultCountSelector(store),
-  wordDifficultCountToday: getWordDifficultCountTodaySelector(store),
-  wordsDeleted: getWordsDeletedSelector(store),
-  wordDeletedCount: getWordDeletedCountSelector(store),
-  wordDeletedCountToday: getWordDeletedCountTodaySelector(store),
   isLoading: getLosingFlagSelector(store),
+  userWords: getUserWords(store),
+  settings: getSettings(store),
 });
 
 const mapDispatchToProps = {
-  fetchWord: fetchWordService,
+  getUserWords, getSettings,
 };
 
 Dictionary.propTypes = propTypes;

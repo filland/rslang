@@ -29,7 +29,7 @@ export default function Stepper() {
     },
   ];
 
-  const dotsTemplate = dots.map((dot) => (<a key={dot.category} href="#" className={`dot ${dot.active ? 'active' : ''}`}></a>));
+  const dotsTemplate = dots.map((dot) => (<span key={dot.category} className={`dot ${dot.active ? 'active' : ''}`}></span>));
 
   return (
     <div className="stepper-container">

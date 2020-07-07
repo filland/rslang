@@ -9,8 +9,6 @@ const parseStringtoArray = (data) => {
       dayAllWords: dayAllWordsArray,
       dayNewWords: dayNewWordsArray,
       dayDate: dayDateArray,
-      newWords: data.optional.newWords,
-      oldWords: data.optional.oldWords,
     },
   };
   return result;

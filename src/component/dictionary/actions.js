@@ -4,12 +4,11 @@ import {
   FETCH_WORD_FAIL,
 } from './constants';
 
-export function fetchWordRequest(user) {
+export function fetchWordRequest() {
   return {
     type: FETCH_WORD_REQUEST,
     payload: {
       isLoading: true,
-      user,
     },
   };
 }
@@ -24,11 +23,12 @@ export function fetchWordSuccess(words) {
   };
 }
 
-export function fetchWordFail() {
+export function fetchWordFail(error) {
   return {
     type: FETCH_WORD_FAIL,
     payload: {
       isLoading: false,
+      error,
     },
   };
 }
