@@ -1,7 +1,7 @@
+/* eslint-disable max-len */
 import getUserWords from '../../component/common/word/user-word/selectors';
 import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
-import { putOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
-import { transformOldWordsArrayToCorrectType, transformNewWordsArrayToCorrectType } from './helpers';
+import fetchUserWords, { putOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
 
 function getRandomIndex(upperBorder) {
   return Math.round(Math.random() * upperBorder);
@@ -107,132 +107,21 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
   return { preparedWords: result, newWordsNumber };
 };
 
-const dictionaryWord = [
-  {
-    audio: 'files/01_2401.mp3',
-    audioExample: 'files/01_2401_example.mp3',
-    audioMeaning: 'files/01_2401_meaning.mp3',
-    group: 4,
-    id: '5e9f5ee35eb9e72bc21afe00',
-    image: 'files/01_2401.jpg',
-    page: 0,
-    textExample: 'I love the <b>aroma</b> of coffee in the morning.',
-    textExampleTranslate: 'Я люблю аромат кофе по утрам',
-    textMeaning: 'An <i>aroma</i> is a scent or smell.',
-    textMeaningTranslate: 'Аромат - это запах или благоухание',
-    transcription: '[əróumə]',
-    word: 'aroma',
-    wordTranslate: 'аромат',
-    wordsPerExampleSentence: 9,
-  },
-  {
-    audio: 'files/01_2402.mp3',
-    audioExample: 'files/01_2402_example.mp3',
-    audioMeaning: 'files/01_2402_meaning.mp3',
-    group: 4,
-    id: '5e9f5ee35eb9e72bc21afe01',
-    image: 'files/01_2402.jpg',
-    page: 0,
-    textExample: 'The waiter brought our <b>beverages</b> first. Then he brought our food.',
-    textExampleTranslate: 'Сначала официант принес наши напитки. Затем он принес нашу еду',
-    textMeaning: 'A <i>beverage</i> is a drink.',
-    textMeaningTranslate: 'Напиток - это то, что пьют',
-    transcription: '[bévəridʒ]',
-    word: 'beverage',
-    wordTranslate: 'напиток',
-    wordsPerExampleSentence: 11,
-  },
-  {
-    audio: 'audio',
-    audioExample: 'SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjE3LjEwMQAAAA',
-    audioMeaning: 'SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjE3LjEwMQAAAA',
-    group: 0,
-    id: '5e9f5ee35eb9e72bc21af4a2',
-    image: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg',
-    page: 0,
-    textExample: 'There is a small <b>boat</b> on the lake.',
-    textExampleTranslate: 'На озере есть маленькая лодка',
-    textMeaning: 'A <i>boat</i> is a vehicle that moves across water.',
-    textMeaningTranslate: 'Лодка - это транспортное средство, которое движется по воде',
-    transcription: '[bout]',
-    userWord: {
-      difficulty: 'normal',
-      id: '5f0202599c3d6500177e3522',
-      optional: {
-        counter: 1,
-        createdDate: 1593967172737,
-        deleted: false,
-        group: 0,
-        showDate: 1593967172737,
-        updatedDate: 1593967172737,
-      },
-      wordId: '5e9f5ee35eb9e72bc21af4a2',
-    },
-    word: 'boat',
-    wordTranslate: 'лодка',
-    wordsPerExampleSentence: 8,
-  },
-  {
-    audio: 'audio',
-    audioExample: 'SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjE3LjEwMQAAAA',
-    audioMeaning: 'SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjE3LjEwMQAAAA',
-    group: 0,
-    id: '5e9f5ee35eb9e72bc21af4a1',
-    image: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg',
-    page: 0,
-    textExample: 'The students <b>agree</b> they have too much homework.',
-    textExampleTranslate: 'Студенты согласны, что у них слишком много домашней работы',
-    textMeaning: 'To <i>agree</i> is to have the same opinion or belief as another person.',
-    textMeaningTranslate: 'Согласиться - значит иметь то же мнение или убеждение, что и другой человек',
-    transcription: '[əgríː]',
-    userWord: {
-      difficulty: 'normal',
-      optional: {
-        deleted: false,
-        showDate: 1593967215344,
-      },
-      wordId: '5e9f5ee35eb9e72bc21af4a1',
-    },
-    word: 'agree',
-    wordTranslate: 'согласна',
-    wordsPerExampleSentence: 8,
-  },
-];
-
-const userWord = {
-  difficulty: 'normal',
-  id: '5f0202599c3d6500177e3522',
-  optional: {
-    counter: 1,
-    createdDate: 1593967172737,
-    deleted: false,
-    group: 0,
-    showDate: 1593967172737,
-    updatedDate: 1593967172737,
-  },
-};
-
 export const passDictionaryWordsToUserWords = (dictionaryWord) => async (dispatch) => {
   const newWords = [];
   const oldWords = [];
   dictionaryWord.forEach((word) => {
     if (word.userWord) {
       if (!word.userWord.id || word.userWord.id === '') {
-        console.log('Поле есть, id НЕТ или Пустое, слово НОВОЕ (POST)!!!');
         newWords.push(word);
       } else {
-        console.log('Поле есть, id есть, слово СТАРОЕ (PUT)!!!');
         oldWords.push(word);
       }
     } else {
-      console.log('Поля нет, слово НОВОЕ (POST)!!!');
       newWords.push(word);
     }
   });
-  const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
-  const transformNewWords = transformNewWordsArrayToCorrectType(newWords);
-
-  dispatch(putOldUserWords(transformOldWords))
-  // dispatch(postNewUserWords(newWords-что-то другое будет));
-
+  if (newWords.length !== 0) { dispatch(postNewUserWords(newWords)); }
+  if (oldWords.length !== 0) { dispatch(putOldUserWords(oldWords)); }
+  dispatch(fetchUserWords());
 };
