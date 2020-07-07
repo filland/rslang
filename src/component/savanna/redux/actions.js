@@ -1,16 +1,21 @@
 import getDataForNextWord from './helper';
 
-export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD';
-export const CHECK_ANSWER = 'CHECK_ANSWER';
-export const START_GAME = 'START_GAME';
-export const END_GAME = 'END_GAME';
-export const CHANGE_VOLUME = 'CHANGE_VOLUME';
-export const SHOW_WORD_DATA = 'SHOW_WORD_DATA';
+export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD_SAVANNAH';
+export const CHECK_ANSWER = 'CHECK_ANSWER_SAVANNAH';
+export const START_GAME = 'START_SAVANNAH_GAME';
+export const END_GAME = 'END_SAVANNAH_GAME';
+export const CHANGE_VOLUME = 'CHANGE_VOLUME_SAVANNAH';
+export const SHOW_WORD_DATA = 'SHOW_WORD_DATA_SAVANNAH';
+export const CHANGE_TIMER = 'CHANGE_TIMER_SAVANNAH';
+export const TIMER_OFF = 'TIMER_OFF';
+export const ANIMATION = 'ANIMATION';
+export const CHANGE_WAITING_ANSWER = 'CHANGE_WAITING_ANSWER';
+export const TIME_IS_OVER = 'TIME_IS_OVER';
 
 export const changeWord = (
-  numOfCurrentWord, dictionaryWords, userWords,
+  numOfCurrentWord, words,
 ) => async (dispatch) => {
-  const dataForNextWord = await getDataForNextWord(numOfCurrentWord, dictionaryWords, userWords);
+  const dataForNextWord = await getDataForNextWord(numOfCurrentWord, words);
 
   dispatch({
     type: CHANGE_CURRENT_WORD,
@@ -20,6 +25,9 @@ export const changeWord = (
       arrOfRandomWords: dataForNextWord.arrOfRandomWords,
       numOfCurrentWord: dataForNextWord.numOfWord,
       checkingAnswer: false,
+      timeIsOn: false,
+      isWaitingAnswer: true,
+      allWords: words,
     },
   });
 };
@@ -55,6 +63,31 @@ export const checkAnswer = ({
       iKnowArr,
       iDontKnowArr,
       checkingAnswer: true,
+      isWaitingAnswer: false,
+    },
+  });
+};
+
+export const changeWordAfterTimer = ({
+  lifesCount, iKnowArr,
+  iDontKnowArr, currentWordData,
+}) => async (dispatch) => {
+  iDontKnowArr.push({
+    word: currentWordData.word,
+    wordTranslate: currentWordData.wordTranslate,
+    audio: currentWordData.audio,
+    image: currentWordData.image,
+    transcription: currentWordData.transcription,
+  });
+
+  dispatch({
+    type: TIME_IS_OVER,
+    payload: {
+      lifesCount: lifesCount - 1,
+      iKnowArr,
+      iDontKnowArr,
+      checkingAnswer: true,
+      isWaitingAnswer: false,
     },
   });
 };
@@ -74,6 +107,10 @@ export const endGame = () => ({
     iKnowArr: [],
     iDontKnowArr: [],
     numOfCurrentWord: 0,
+    timerIsOff: false,
+    seconds: 3,
+    isWaitingAnswer: false,
+    timeIsOn: false,
   },
 });
 
@@ -109,3 +146,35 @@ export const showWordData = (isShowing, dataOfClickedWord) => (dispatch) => {
     },
   });
 };
+
+export const changeTimerCount = (seconds, isAnimate) => ({
+  type: CHANGE_TIMER,
+  payload: {
+    seconds: seconds - 1,
+    isAnimate: !isAnimate,
+  },
+});
+
+export const animation = (boolean) => ({
+  type: ANIMATION,
+  payload: {
+    isAnimate: !boolean,
+  },
+});
+
+export const changeTimer = (boolean) => (dispatch) => {
+  dispatch({
+    type: CHANGE_TIMER,
+    payload: {
+      timeIsOn: !boolean,
+    },
+  });
+};
+
+export const timerOff = () => ({
+  type: TIMER_OFF,
+  payload: {
+    seconds: 3,
+    timerIsOff: true,
+  },
+});

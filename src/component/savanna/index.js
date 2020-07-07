@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
+  changeWord, checkAnswer, startGame, animation, changeTimer,
+  endGame, changeVolume, showWordData, changeTimerCount, timerOff, changeWordAfterTimer,
 } from './redux/actions';
+import { prepareWords } from '../../common/helper/WordsHelper';
 import Loader from '../common/loader/index';
 import GamePage from './GamePage/GamePage';
 import StartPage from './StartPage/StartPage';
@@ -13,13 +15,14 @@ import './style.scss';
 
 const Savanna = (props) => {
   const {
-    data, startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, userWords,
+    data, startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, prepareWords,
   } = props;
   const errorAudioRef = React.createRef();
   const correctAudioRef = React.createRef();
 
   const getWords = () => {
-    changeWord(numOfCurrentWord, dictionaryWords, userWords);
+    const words = prepareWords(50).preparedWords;
+    changeWord(numOfCurrentWord, words);
   };
 
   return (
@@ -55,7 +58,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispathToProps = {
-  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
+  changeWord,
+  checkAnswer,
+  startGame,
+  endGame,
+  changeVolume,
+  showWordData,
+  changeTimerCount,
+  timerOff,
+  animation,
+  changeTimer,
+  changeWordAfterTimer,
+  prepareWords,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Savanna);

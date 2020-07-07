@@ -1,5 +1,5 @@
-import getUserWords from "../../component/common/word/user-word/selectors";
-import getDictionaryWords from "../../component/common/word/dictionary-word/selectors";
+import getUserWords from '../../component/common/word/user-word/selectors';
+import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
 
 function getRandomIndex(upperBorder) {
   return Math.round(Math.random() * upperBorder);
