@@ -6,6 +6,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import FormControl from "react-bootstrap/FormControl";
 import getUserWords from "../common/word/user-word/selectors";
 import getDictionaryWords from "../common/word/dictionary-word/selectors";
+import { prepareWords } from "../../common/helper/WordsHelper";
 
 import "./styles.scss";
 
@@ -28,6 +29,7 @@ class LearningWords extends Component {
 
   componentDidMount() {
     if (!this.state.words.length && this.props.dictionaryWords.length) {
+      
       let wordArr = [];
       for (let i = 0; i < 20; i++) {
         wordArr.push(this.props.dictionaryWords[i]);
@@ -38,6 +40,10 @@ class LearningWords extends Component {
 
   componentDidUpdate() {
     if (!this.state.words.length && this.props.dictionaryWords.length) {
+      console.log(
+        "lol hi",
+        prepareWords(this.props.userWords, this.props.dictionaryWords, 50)
+      );
       let wordArr = [];
       for (let i = 0; i < 20; i++) {
         wordArr.push(this.props.dictionaryWords[i]);
@@ -279,12 +285,14 @@ class LearningWords extends Component {
                 Легко
               </label>
             </div>
-          )  }
+          )}
           <div className="learning-words-wrapper__controls">
             <Button
               className="learning-words-wrapper__controls-btn"
               disabled={
-                (levelButtons && difficulty === "") || answer === "" || answer === "wrong"
+                (levelButtons && difficulty === "") ||
+                answer === "" ||
+                answer === "wrong"
               }
               onClick={() => this.NextWordBtnClick()}
             >
