@@ -2,7 +2,8 @@ import {
   CHANGE_CURRENT_WORD,
   START_GAME, CHECK_ANSWER,
   END_GAME, CHANGE_VOLUME,
-  SHOW_WORD_DATA,
+  SHOW_WORD_DATA, CHANGE_TIMER,
+  TIMER_OFF, ANIMATION, TIME_IS_OVER,
 } from './actions';
 
 const stateDefault = {
@@ -16,6 +17,11 @@ const stateDefault = {
   iKnowArr: [],
   iDontKnowArr: [],
   dataOfClickedWord: {},
+  timerIsOff: false,
+  seconds: 3,
+  isAnimate: false,
+  isWaitingAnswer: true,
+  timeIsOn: false,
 };
 
 const savannaReducer = (state = stateDefault, action) => {
@@ -51,6 +57,34 @@ const savannaReducer = (state = stateDefault, action) => {
       };
 
     case SHOW_WORD_DATA:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case CHANGE_TIMER:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case TIMER_OFF:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case ANIMATION:
+      return {
+        ...state,
+        ...action.payload,
+
+      };
+
+    case TIME_IS_OVER:
       return {
         ...state,
         ...action.payload,
