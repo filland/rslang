@@ -14,6 +14,7 @@ const initialState = {
     customSwitch: false,
     newCardsPerDay: 5,
     difficultyLevel: 2,
+    volumeValue: 7,
   },
   wordsPerDay: 35,
   isLoading: false,

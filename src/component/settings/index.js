@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { connect } from 'react-redux';
+import InputRange from 'react-input-range';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -9,6 +10,8 @@ import Alert from 'react-bootstrap/Alert';
 import {
   setUserSettings, getUserSettings,
 } from './service';
+import createTemplateOfStoreSettings from './helpers';
+import 'react-input-range/lib/css/index.css';
 
 import './style.scss';
 
@@ -33,6 +36,7 @@ class Settings extends React.Component {
     this.handleSelectLevel = this.handleSelectLevel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validation = this.validation.bind(this);
+    this.handleVolumelevel = this.handleVolumelevel.bind(this);
 
     this.state = {
       settings: props.settings,
@@ -81,6 +85,14 @@ class Settings extends React.Component {
     this.setState({ ...optional });
   }
 
+  handleVolumelevel = (value) => {
+    const inputSettings = createTemplateOfStoreSettings(this.state);
+    const templateSettings = JSON.stringify(inputSettings);
+    const template = JSON.parse(templateSettings);
+    template.optional.volumeValue = value;
+    this.setState({ settings: template });
+  }
+
   validation = () => {
     const {
       informationTranslate,
@@ -96,6 +108,8 @@ class Settings extends React.Component {
   }
 
   render() {
+    const { wordsPerDay } = this.state.settings;
+    const { newCardsPerDay, volumeValue } = this.state.settings.optional;
     return (
       <Form onSubmit={this.handleSubmit}>
         <br />
@@ -146,15 +160,16 @@ class Settings extends React.Component {
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Количество новых слов в день:</Form.Label>
             <Form.Control as="select" custom
-             value={this.state.settings.optional.newCardsPerDay}
-             onChange={this.handleSelectCards}>
-              <option disabled = {this.state.settings.wordsPerDay < 1}>1</option>
-              <option disabled = {this.state.settings.wordsPerDay < 5}>5</option>
-              <option disabled = {this.state.settings.wordsPerDay < 10}>10</option>
-              <option disabled = {this.state.settings.wordsPerDay < 15}>15</option>
-              <option disabled = {this.state.settings.wordsPerDay < 20}>20</option>
-              <option disabled = {this.state.settings.wordsPerDay < 25}>25</option>
-              <option disabled = {this.state.settings.wordsPerDay < 30}>30</option>
+              value={this.state.settings.optional.newCardsPerDay}
+              onChange={this.handleSelectCards}>
+              <option disabled={wordsPerDay < 0}>0</option>
+              <option disabled={wordsPerDay < 2}>2</option>
+              <option disabled={wordsPerDay < 5}>5</option>
+              <option disabled={wordsPerDay < 10}>10</option>
+              <option disabled={wordsPerDay < 15}>15</option>
+              <option disabled={wordsPerDay < 20}>20</option>
+              <option disabled={wordsPerDay < 25}>25</option>
+              <option disabled={wordsPerDay < 30}>30</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.SelectCustom">
@@ -162,13 +177,14 @@ class Settings extends React.Component {
             <Form.Control as="select" custom
               value={this.state.settings.wordsPerDay}
               onChange={this.handleSelectWords}>
-              <option>10</option>
-              <option>25</option>
-              <option>30</option>
-              <option>35</option>
-              <option>40</option>
-              <option>45</option>
-              <option>50</option>
+              <option disabled={newCardsPerDay > 5}>5</option>
+              <option disabled={newCardsPerDay > 10}>10</option>
+              <option disabled={newCardsPerDay > 25}>25</option>
+              <option disabled={newCardsPerDay > 30}>30</option>
+              <option disabled={newCardsPerDay > 35}>35</option>
+              <option disabled={newCardsPerDay > 40}>40</option>
+              <option disabled={newCardsPerDay > 45}>45</option>
+              <option disabled={newCardsPerDay > 50}>50</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.SelectCustom">
@@ -186,19 +202,32 @@ class Settings extends React.Component {
           </Form.Group>
           <Form.Check
             type="switch"
+            id="levelButtons"
+            checked={this.state.settings.optional.levelButtons}
+            onChange={this.handleCheckbox}
+            label="Отображать кнопки для определения уровня сложности слова"
+          />
+          <br />
+          <Form.Check
+            type="switch"
             id="customSwitch"
             checked={this.state.settings.optional.customSwitch}
             onChange={this.handleCheckbox}
             label="Автоматическое воспроизведение звука"
           />
           <br />
-          <Form.Check
-            type="switch"
-            id="levelButtons"
-            checked={this.state.settings.optional.levelButtons}
-            onChange={this.handleCheckbox}
-            label="Отображать кнопки для определения уровня сложности слова"
-          />
+          <div> Уровень громкости
+          <div className = 'volumeWrapper'>
+            <span>min</span>
+            <span>max</span>
+          </div>
+          <InputRange
+            maxValue={20}
+            minValue={0}
+            value={volumeValue}
+            onChange={this.handleVolumelevel}
+            />
+            </div>
           <br /> <br />
           <div className="btnWrapper">
             <div className="btn">

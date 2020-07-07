@@ -33,7 +33,6 @@ class LineStatistics extends React.Component {
     return null;
   }
 
-
   transformDate = (date) => {
     const correctDate = new Date(Number(date)).toLocaleDateString();
     return correctDate;
