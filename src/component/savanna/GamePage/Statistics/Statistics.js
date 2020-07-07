@@ -23,6 +23,19 @@ const Statistics = ({
       showWordData(wordDataIsShowing, data);
     }
   };
+  const handleEndOfGame = () => {
+    const allWords = iDontKnowArr.concat(iKnowArr);
+    const allCountWord = allWords.length;
+    let countOfNewWors = 0;
+
+    allWords.forEach((el) => {
+      if (!el.userWord) {
+        countOfNewWors += 1;
+      }
+    });
+
+    endGame(allCountWord, countOfNewWors);
+  };
   return (
     <div className='statistics'>
       <audio src={resultsAudio} autoPlay={audioOn}></audio>
@@ -57,7 +70,7 @@ const Statistics = ({
                   <span onClick={handleClick} id={i} className='dontKnowArr'>{word}</span> - {wordTranslate} </div>
               ))}
             </div>
-            <button onClick={endGame} className='btn btn-warning'> Continue </button>
+            <button onClick={handleEndOfGame} className='btn btn-warning'> Continue </button>
           </div>)
       }
     </div>

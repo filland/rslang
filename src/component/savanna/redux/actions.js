@@ -1,4 +1,5 @@
 import getDataForNextWord from './helper';
+import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
 
 export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD_SAVANNAH';
 export const CHECK_ANSWER = 'CHECK_ANSWER_SAVANNAH';
@@ -99,20 +100,23 @@ export const startGame = () => ({
   },
 });
 
-export const endGame = () => ({
-  type: END_GAME,
-  payload: {
-    gameWasStarted: false,
-    lifesCount: 5,
-    iKnowArr: [],
-    iDontKnowArr: [],
-    numOfCurrentWord: 0,
-    timerIsOff: false,
-    seconds: 3,
-    isWaitingAnswer: false,
-    timeIsOn: false,
-  },
-});
+export const endGame = (allWords, newWords) => (dispatch) => {
+  setUserStatistics(allWords, newWords);
+  dispatch({
+    type: END_GAME,
+    payload: {
+      gameWasStarted: false,
+      lifesCount: 5,
+      iKnowArr: [],
+      iDontKnowArr: [],
+      numOfCurrentWord: 0,
+      timerIsOff: false,
+      seconds: 3,
+      isWaitingAnswer: false,
+      timeIsOn: false,
+    },
+  });
+};
 
 export const changeVolume = (audio) => (dispatch) => {
   let audioOn;
