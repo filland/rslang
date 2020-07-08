@@ -4,6 +4,7 @@ import {
   setInputValue,
   changeDifficultOfGame,
 } from '../redux/actions';
+import { prepareWords } from '../../../common/helper/WordsHelper';
 
 class GameItems extends React.Component {
   onChangeInputHandler = (event) => {
@@ -11,11 +12,12 @@ class GameItems extends React.Component {
   };
 
   onSubmitHandler = (event) => {
-    const { dictionaryWords, userWords } = this.props;
+    const { prepareWords } = this.props;
     event.preventDefault();
     const levelValue = this.refs.level.value;
     const pageValue = this.refs.page.value;
-    this.props.changeDifficultOfGame(levelValue, pageValue, dictionaryWords, userWords);
+    const words = prepareWords(100).preparedWords;
+    this.props.changeDifficultOfGame(levelValue, pageValue, words);
   };
 
   render() {
@@ -60,6 +62,7 @@ const mapStateToProps = (state) => ({
 const mapDispathToProps = {
   setInputValue,
   changeDifficultOfGame,
+  prepareWords,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(GameItems);
