@@ -1,8 +1,7 @@
 import {
   getArrOfRandomWords,
 } from '../fetchGameData';
-import { prepareWords } from '../../../common/helper/WordsHelper';
-
+import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
 import paintings1 from '../dataOfPicturesGallery/level1';
 import paintings2 from '../dataOfPicturesGallery/level2';
 import paintings3 from '../dataOfPicturesGallery/level3';
@@ -74,12 +73,26 @@ export const showTranslate = (bool) => (dispatch) => {
   });
 };
 
-export const showFullImg = () => ({
-  type: SHOW_FULL_IMG,
-  payload: {
-    imgIsShowed: true,
-  },
-});
+export const showFullImg = (konwArr, notKnowArr) => (dispatch) => {
+  const words = konwArr.concat(notKnowArr);
+  const allWordsCount = words.length;
+  let newWordsCount = 0;
+
+  words.forEach((el) => {
+    if (!el.userWord) {
+      newWordsCount += 1;
+    }
+  });
+  setUserStatistics(allWordsCount, newWordsCount);
+
+  dispatch({
+    type: SHOW_FULL_IMG,
+    payload: {
+      imgIsShowed: true,
+    },
+  });
+};
+
 export const showStatistic = () => ({
   type: SHOW_STATISTIC,
   payload: {
@@ -171,7 +184,7 @@ export const changeArrOfRandomWords = (arr) => ({
   payload: { arrOfRandomWords: arr.slice() },
 });
 
-export const changeDifficultOfGame = (lev, p, dictionaryWords, userWords) => async (dispatch) => {
+export const changeDifficultOfGame = (lev, p, words) => async (dispatch) => {
   let pageForUser;
   let level;
 
@@ -184,8 +197,8 @@ export const changeDifficultOfGame = (lev, p, dictionaryWords, userWords) => asy
   }
 
   const page = pageForUser;
-  const arrayOfData = prepareWords(userWords, dictionaryWords, 100)
-    .concat().splice(page * 10 - 10, page * 10);
+
+  const arrayOfData = words;
 
   if (arrayOfData.length !== 0) {
     const pictureData = arrOfGalleryData[level][pageForUser - 1];

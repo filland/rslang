@@ -21,6 +21,7 @@ import Results from './Results/Results';
 import Hints from './Hints/Hints';
 import GameButtons from './Buttons/GameButtons';
 import './GamePage.scss';
+import { prepareWords } from '../../../common/helper/WordsHelper';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -28,11 +29,12 @@ class GamePage extends React.Component {
     this.audioRef = React.createRef();
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const {
-      changeDifficultOfGame, page, level, dictionaryWords, userWords,
+      changeDifficultOfGame, page, level, prepareWords,
     } = this.props;
-    await changeDifficultOfGame(page, level, dictionaryWords, userWords);
+    const words = prepareWords(100).preparedWords;
+    changeDifficultOfGame(level, page, words);
   }
 
   handleWordClick = ({ target }) => {
@@ -66,7 +68,7 @@ class GamePage extends React.Component {
       iKnowArr, arrayOfData, numberOfStr,
       pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
       showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
-      changeCurrentString, level, pageForUser, changeDifficultOfGame, dictionaryWords, userWords,
+      changeCurrentString, level, pageForUser, changeDifficultOfGame,
     } = this.props;
 
     if (e.target.name === 'check') {
@@ -83,13 +85,19 @@ class GamePage extends React.Component {
           correctArr,
           arrayOfSolvedSentences,
         );
-        showFullImg();
+        showFullImg(iDontKnowArr, iKnowArr);
       } else if (imgIsShowed) {
+        let words;
+        if (pageForUser === '30') {
+          words = prepareWords(100).preparedWords;
+        } else {
+          words = arrayOfData;
+        }
+
         changeDifficultOfGame(
           level,
           +pageForUser + 1,
-          dictionaryWords,
-          userWords,
+          words,
         );
       } else {
         pushSentenceInSolvedArr(
@@ -245,5 +253,6 @@ const mapDispathToProps = {
   showFullImg,
   showTranslate,
   changeAutoPlayAudio,
+  prepareWords,
 };
 export default connect(mapStateToProps, mapDispathToProps)(GamePage);
