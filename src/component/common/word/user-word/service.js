@@ -15,10 +15,15 @@ const fetchUserWords = () => async (dispatch) => {
       const userWord = userWords[i];
       const FETCH_DICTIONARY_WORD_URL = `https://afternoon-falls-25894.herokuapp.com/words/${userWord.wordId}`;
       const dictionaryWord = authorizedRequest(FETCH_DICTIONARY_WORD_URL);
-      dictionaryWord.userWord = userWord;
       preparedUserWords.push(dictionaryWord);
     }
-    dispatch(fetchUserWordsSuccess(await Promise.all(preparedUserWords)));
+    const dictionaryUserWords = await Promise.all(preparedUserWords);
+    const finalUserWords = [];
+    for (let i = 0; i < dictionaryUserWords.length; i += 1) {
+      dictionaryUserWords[i].userWord = userWords[i];
+      finalUserWords.push(dictionaryUserWords);
+    }
+    dispatch(fetchUserWordsSuccess(finalUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
   }
