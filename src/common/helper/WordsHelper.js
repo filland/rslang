@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import getUserWords from '../../component/common/word/user-word/selectors';
 import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
-import fetchUserWords, { updateOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
+import { updateOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
 import { transformOldWordsArrayToCorrectType } from './helpers';
 
 function getRandomIndex(upperBorder) {
