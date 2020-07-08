@@ -10,10 +10,9 @@ import Button from 'react-bootstrap/Button';
 import Statistics from './statistics';
 import correct from './correct.png';
 import wrong from './wrong.png';
-import getUserWords from '../common/word/user-word/selectors';
-import getDictionaryWords from '../common/word/dictionary-word/selectors';
 import { prepareWords } from '../../common/helper/WordsHelper';
 import dispatchWords from './service.js';
+import setUserStatistics from '../long-term-statistics/statisticsService/statisticsService';
 
 class Game extends Component {
   constructor(props) {
@@ -36,6 +35,8 @@ class Game extends Component {
       timeEnded: false,
       knowArray: [],
       mistakesArray: [],
+      playAllWords: [],
+      newWords: 0,
     };
   }
 
@@ -69,9 +70,14 @@ class Game extends Component {
   handleClickCorrect = async () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray,
+      knowArray, mistakesArray, playAllWords, newWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
+    if (!playAllWords.includes(englishWord)) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, englishWord],
+      }));
+    }
     if (idEnglishWord === idRussianWord) {
       this.setState({
         border: '5px solid green',
@@ -107,9 +113,13 @@ class Game extends Component {
         }));
       }
     }
-    const { userWords, dictionaryWords } = this.props;
-    console.log(dictionaryWords);
-    const preparedWords = prepareWords(userWords, dictionaryWords, 2);
+    const { prepareWords } = this.props;
+    const preparedWordsObject = prepareWords(2);
+    const { preparedWords } = preparedWordsObject;
+    const { newWordsNumber } = preparedWordsObject;
+    this.setState({
+      newWords: newWords + newWordsNumber,
+    });
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
     this.setState({
@@ -124,9 +134,14 @@ class Game extends Component {
   handleClickWrong = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray,
+      knowArray, mistakesArray, playAllWords, newWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
+    if (!playAllWords.includes(englishWord)) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, englishWord],
+      }));
+    }
     if (idEnglishWord !== idRussianWord) {
       this.setState({
         border: '5px solid green',
@@ -162,8 +177,13 @@ class Game extends Component {
         }));
       }
     }
-    const { userWords, dictionaryWords } = this.props;
-    const preparedWords = prepareWords(userWords, dictionaryWords, 2);
+    const { prepareWords } = this.props;
+    const preparedWordsObject = prepareWords(2);
+    const { preparedWords } = preparedWordsObject;
+    const { newWordsNumber } = preparedWordsObject;
+    this.setState({
+      newWords: newWords + newWordsNumber,
+    });
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
     this.setState({
@@ -192,9 +212,12 @@ class Game extends Component {
     const { englishWord, russianWord } = this.state;
     const { dispatchWordsStatistics } = this.props;
     const { knowArray, mistakesArray } = this.state;
+    const { playAllWords, newWords } = this.state;
+    const { setUserStatistics } = this.props;
 
     if (minutes === 0 && seconds === 0) {
       dispatchWordsStatistics(knowArray, mistakesArray);
+      setUserStatistics(playAllWords.length, newWords);
       return <Statistics />;
     }
     return (
@@ -231,13 +254,13 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = (store) => ({
-  dictionaryWords: getDictionaryWords(store),
-  userWords: getUserWords(store),
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = {
   dispatchWordsStatistics: dispatchWords,
+  prepareWords,
+  setUserStatistics,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
