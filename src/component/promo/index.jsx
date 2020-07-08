@@ -10,7 +10,7 @@ const Promo = () => (
     <section className="game">
       <div className="game-card">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo speakit"></div>
           <div className="details">
           </div>
         </div>
@@ -26,14 +26,14 @@ const Promo = () => (
             </ul>
           </p>
           <p className="read-more">
-            <Nav.Link as={Link} to="/game/speakit" className="game-link">Play</Nav.Link>
+            <Nav.Link as={Link} to="/game/speakit" className="game-link">Играть</Nav.Link>
           </p>
         </div>
       </div>
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo english-puzzle"></div>
           <div className="details">
           </div>
         </div>
@@ -48,14 +48,14 @@ const Promo = () => (
             </ul>
           </p>
           <p className="read-more">
-            <Nav.Link as={Link} to="/english-puzzle" className="game-link">Play</Nav.Link>
+            <Nav.Link as={Link} to="/english-puzzle" className="game-link">Играть</Nav.Link>
           </p>
         </div>
       </div>
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo savanna"></div>
           <div className="details">
           </div>
         </div>
@@ -70,14 +70,14 @@ const Promo = () => (
             </ul>
           </p>
           <p className="read-more">
-            <Nav.Link as={Link} to="/savanna" className="game-link">Play</Nav.Link>
+            <Nav.Link as={Link} to="/savanna" className="game-link">Играть</Nav.Link>
           </p>
         </div>
       </div>
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo audio-challenge"></div>
           <div className="details">
           </div>
         </div>
@@ -92,14 +92,14 @@ const Promo = () => (
             </ul>
           </p>
           <p className="read-more">
-            <Nav.Link as={Link} to="/audioChallenge" className="game-link">Play</Nav.Link>
+            <Nav.Link as={Link} to="/audioChallenge" className="game-link">Играть</Nav.Link>
           </p>
         </div>
       </div>
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo sprint"></div>
           <div className="details">
           </div>
         </div>
@@ -114,14 +114,14 @@ const Promo = () => (
             </ul>
           </p>
           <p className="read-more">
-            <Nav.Link as={Link} to="/english-puzzle" className="photo-link">Play</Nav.Link>
+            <Nav.Link as={Link} to="/sprint" className="game-link">Играть</Nav.Link>
           </p>
         </div>
       </div>
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo"></div>
+          <div className="photo own"></div>
           <div className="details">
           </div>
         </div>

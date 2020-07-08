@@ -43,7 +43,28 @@ $color_grey_dark: #a2a2a2;
     background-size: cover;
     background-position: center;
     transition: transform 0.2s;
-    background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg);
+    background-position: center;
+
+    &.speakit {
+      background-image: url(./images/speak.jpg);
+    }
+    &.english-puzzle {
+      background-image: url(./images/english-puzzle.jpg);
+    }
+    &.savanna {
+      background-image: url(./images/sav1.jpg);
+      background-position: left;
+    }
+    &.audio-challenge {
+      background-image: url(./images/audio.jpg);
+    }
+    &.sprint {
+      background-image: url(./images/sprint.png);
+      background-position: right;
+    }
+    &.own {
+      background-image: url(./images/own.jpg);
+    }
   }
 
   .details {
