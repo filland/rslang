@@ -67,4 +67,23 @@ export const postNewUserWords = (newWords) => async (dispatch) => {
   }
 };
 
+export const updateUserWords = (userWords) => async (dispatch) => {
+  try {
+    dispatch(fetchUserWordsRequest());
+    const userId = getUserId();
+    const data = [];
+    for (let i = 0; i < userWords.length; i += 1) {
+      const userWord = userWords[i];
+      const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${userWord.wordId}`;
+      const body = JSON.stringify(userWords);
+      const dataItem = await authorizedRequest(OLD_USER_WORDS_URL, 'PUT', body);
+      data.push(dataItem);
+    }
+    dispatch(fetchUserWordsSuccess(data));
+    dispatch(fetchUserWords());
+  } catch (error) {
+    dispatch(fetchUserWordsFail(error));
+  }
+};
+
 export default fetchUserWords;
