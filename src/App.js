@@ -5,7 +5,7 @@ import Login from './component/login';
 import Registration from './component/registration';
 import Settings from './component/settings';
 import Dictionary from './component/dictionary';
-import Weather from './component/weather';
+import Promo from './component/promo';
 import EnglishPuzzle from './component/english-puzzle/EnglishPuzzle';
 import AudioChallenge from './component/game/audioChallenge';
 import Sprint from './component/sprint/sprint';
@@ -26,7 +26,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
         <AuthProvider>
-          <Route path="/weather" component={Weather} />
+          <Route path="/promo" component={Promo} />
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/learning" component={LearningWords} />
