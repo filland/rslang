@@ -115,8 +115,7 @@ class Game extends Component {
     }
     const { prepareWords } = this.props;
     const preparedWordsObject = prepareWords(2);
-    const { preparedWords } = preparedWordsObject;
-    const { newWordsNumber } = preparedWordsObject;
+    const { preparedWords, newWordsNumber } = preparedWordsObject;
     this.setState({
       newWords: newWords + newWordsNumber,
     });
@@ -179,8 +178,7 @@ class Game extends Component {
     }
     const { prepareWords } = this.props;
     const preparedWordsObject = prepareWords(2);
-    const { preparedWords } = preparedWordsObject;
-    const { newWordsNumber } = preparedWordsObject;
+    const { preparedWords, newWordsNumber } = preparedWordsObject;
     this.setState({
       newWords: newWords + newWordsNumber,
     });
@@ -214,7 +212,6 @@ class Game extends Component {
     const { knowArray, mistakesArray } = this.state;
     const { playAllWords, newWords } = this.state;
     const { setUserStatistics } = this.props;
-
     if (minutes === 0 && seconds === 0) {
       dispatchWordsStatistics(knowArray, mistakesArray);
       setUserStatistics(playAllWords.length, newWords);
