@@ -4,11 +4,8 @@ export const transformOldWordsArrayToCorrectType = (oldWords) => {
     const userWord = {
       difficulty: word.userWord.difficulty,
       optional: {
+        ...word.userWord.optional,
         counter: word.userWord.optional.counter + 1,
-        createdDate: word.userWord.optional.createdDate,
-        deleted: word.userWord.optional.deleted,
-        group: word.userWord.optional.group,
-        showDate: word.userWord.optional.showDate,
         updatedDate: Date.now(),
       },
     };

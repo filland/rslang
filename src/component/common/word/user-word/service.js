@@ -29,10 +29,6 @@ const fetchUserWords = () => async (dispatch) => {
 export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
   const store = getStore();
   const arrayOfUserWords = store.userWords.words;
-  const arrayOfUserWordFields = [];
-  arrayOfUserWords.forEach((el) => {
-    arrayOfUserWordFields.push(el.userWord);
-  });
   try {
     dispatch(fetchUserWordsRequest());
     const userId = getUserId();
@@ -44,14 +40,14 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
       const dataItem = await authorizedRequest(OLD_USER_WORDS_URL, 'PUT', body);
       data.push(dataItem);
     }
-    for (let i = 0; i < arrayOfUserWordFields.length; i += 1) {
+    for (let i = 0; i < arrayOfUserWords.length; i += 1) {
       for (let k = 0; k < data.length; k += 1) {
-        if (arrayOfUserWordFields[i].wordId === data[k].wordId) {
-          arrayOfUserWordFields[i] = data[k];
+        if (arrayOfUserWords[i].userWord.wordId === data[k].wordId) {
+          arrayOfUserWords[i].userWord = data[k];
         }
       }
     }
-    dispatch(fetchUserWordsSuccess(data));
+    dispatch(fetchUserWordsSuccess(arrayOfUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
   }
@@ -60,10 +56,7 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
 export const postNewUserWords = (newWords) => async (dispatch, getStore) => {
   const store = getStore();
   const arrayOfUserWords = store.userWords.words;
-  const arrayOfUserWordFields = [];
-  arrayOfUserWords.forEach((el) => {
-    arrayOfUserWordFields.push(el.userWord);
-  });
+  const dictionaryWords = store.dictionaryWords.words;
   const transformNewWords = transformNewWordsArrayToCorrectType(newWords);
   try {
     dispatch(fetchUserWordsRequest());
@@ -77,7 +70,16 @@ export const postNewUserWords = (newWords) => async (dispatch, getStore) => {
       const dataItem = await authorizedRequest(NEW_USER_WORDS_URL, 'POST', body);
       data.push(dataItem);
     }
-    const result = data.concat(arrayOfUserWordFields);
+    const renewUserWords = [];
+    for (let i = 0; i < dictionaryWords.length; i += 1) {
+      for (let k = 0; k < data.length; k += 1) {
+        if (dictionaryWords[i].id === data[k].wordId) {
+          dictionaryWords[i].userWord = data[k];
+          renewUserWords.push(dictionaryWords[i]);
+        }
+      }
+    }
+    const result = renewUserWords.concat(arrayOfUserWords);
     dispatch(fetchUserWordsSuccess(result));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
