@@ -22,7 +22,7 @@ class NavBar extends Component {
           <Nav.Link as={Link} to="/">Home</Nav.Link>
           {isAuthorized() ? (
             <>
-              <Nav.Link as={Link} to="/weather">Weather</Nav.Link>
+              <Nav.Link as={Link} to="/promo">Promo</Nav.Link>
               <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
               <Nav.Link as={Link} to="/dictionary">Dictionary</Nav.Link>
               <Nav.Link as={Link} to="/learning">Learning words</Nav.Link>

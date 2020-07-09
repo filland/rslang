@@ -20,6 +20,9 @@ const getUserSettings = () => async (dispatch) => {
       },
     });
     const data = await response.json();
+    if (!data.optional.volumeValue) {
+      data.optional.volumeValue = 7;
+    }
     dispatch(settingSuccess(data));
   } catch (error) {
     dispatch(settingFail(error));

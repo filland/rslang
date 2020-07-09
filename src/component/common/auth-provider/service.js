@@ -12,5 +12,5 @@ export const fetchData = () => async (dispatch) => {
 
   dispatch(fetchUserWords());
 
-  await dispatch(getUserStatistics());
+  dispatch(getUserStatistics());
 };
