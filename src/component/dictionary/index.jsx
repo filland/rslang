@@ -46,16 +46,12 @@ class Dictionary extends Component {
 
   render() {
     const {
-      isLoading, settings,
+      settings,
     } = this.props;
 
     const wordsDeletedList = this.state.userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
     const wordsDifficultList = this.state.userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
     const wordsLearningList = this.state.userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
-
-    if (isLoading) {
-      return (<Loader />);
-    }
 
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >
