@@ -18,12 +18,10 @@ const fetchUserWords = () => async (dispatch) => {
       preparedUserWords.push(dictionaryWord);
     }
     const dictionaryUserWords = await Promise.all(preparedUserWords);
-    const finalUserWords = [];
     for (let i = 0; i < dictionaryUserWords.length; i += 1) {
       dictionaryUserWords[i].userWord = userWords[i];
-      finalUserWords.push(dictionaryUserWords);
     }
-    dispatch(fetchUserWordsSuccess(finalUserWords));
+    dispatch(fetchUserWordsSuccess(dictionaryUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
   }
