@@ -6,7 +6,7 @@ import { getUserSettings } from '../../settings/service';
 import getUserStatistics from '../../long-term-statistics/service';
 
 export const fetchData = () => async (dispatch) => {
-  dispatch(getUserSettings());
+  await dispatch(getUserSettings());
 
   dispatch(fetchDictionaryWords());
 

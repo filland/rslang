@@ -5,9 +5,9 @@ import './styles.scss';
 
 class Loader extends React.Component {
   render() {
-    const { isUserWordsLoading, isDictionaryWordsLoading } = this.props;
+    const { isSettingsLoading, isStatisticsLoading, isUserWordsLoading, isDictionaryWordsLoading } = this.props;
     let styles;
-    if (isDictionaryWordsLoading || isUserWordsLoading) {
+    if (isSettingsLoading || isDictionaryWordsLoading || isUserWordsLoading || isStatisticsLoading) {
       styles = { display: 'block' };
     } else {
       styles = { display: 'none' };
@@ -27,10 +27,14 @@ class Loader extends React.Component {
 
 const isUserWordsLoading = (store) => store.userWords.isLoading;
 const isDictionaryWordsLoading = (store) => store.dictionaryWords.isLoading;
+const isSettingsLoading = (store) => store.settings.isLoading;
+const isStatisticsLoading = (store) => store.statistics.isLoading;
 
 const mapStateToProps = (store) => ({
   isUserWordsLoading: isUserWordsLoading(store),
   isDictionaryWordsLoading: isDictionaryWordsLoading(store),
+  isSettingsLoading: isSettingsLoading(store),
+  isStatisticsLoading: isStatisticsLoading(store),
 });
 
 export default connect(mapStateToProps, null)(Loader);
