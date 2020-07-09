@@ -6,11 +6,11 @@ import { getUserSettings } from '../../settings/service';
 import getUserStatistics from '../../long-term-statistics/service';
 
 export const fetchData = () => async (dispatch) => {
-  await dispatch(getUserSettings());
+  dispatch(getUserSettings());
 
   dispatch(fetchDictionaryWords());
 
   dispatch(fetchUserWords());
 
-  await dispatch(getUserStatistics());
+  dispatch(getUserStatistics());
 };

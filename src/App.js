@@ -14,6 +14,7 @@ import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
 import Statistics from './component/statistics';
 import LineStatistics from './component/long-term-statistics';
+import Loader from './component/common/loader/index';
 
 import './App.scss';
 import Savanna from './component/savanna/index';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" component={NavBar} />
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
+        <Route path="/" component={Loader} />
         <AuthProvider>
           <Route path="/promo" component={Promo} />
           <Route path="/settings" component={Settings} />
