@@ -15,13 +15,14 @@ import {
   showTranslate,
   changeAutoPlayAudio,
 } from '../redux/actions';
+import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
+import { passDictionaryWordsToUserWords, prepareWords } from '../../../common/helper/WordsHelper';
 
 import Dnd from './Dnd/Dnd';
 import Results from './Results/Results';
 import Hints from './Hints/Hints';
 import GameButtons from './Buttons/GameButtons';
 import './GamePage.scss';
-import { prepareWords } from '../../../common/helper/WordsHelper';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class GamePage extends React.Component {
       pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
       showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
       changeCurrentString, level, pageForUser, changeDifficultOfGame,
+      setUserStatistics, passDictionaryWordsToUserWords,
     } = this.props;
 
     if (e.target.name === 'check') {
@@ -85,19 +87,12 @@ class GamePage extends React.Component {
           correctArr,
           arrayOfSolvedSentences,
         );
-        showFullImg(iDontKnowArr, iKnowArr);
+        showFullImg(iDontKnowArr, iKnowArr, setUserStatistics, passDictionaryWordsToUserWords);
       } else if (imgIsShowed) {
-        let words;
-        if (pageForUser === '30') {
-          words = prepareWords(100).preparedWords;
-        } else {
-          words = arrayOfData;
-        }
-
         changeDifficultOfGame(
           level,
           +pageForUser + 1,
-          words,
+          arrayOfData,
         );
       } else {
         pushSentenceInSolvedArr(
@@ -254,5 +249,7 @@ const mapDispathToProps = {
   showTranslate,
   changeAutoPlayAudio,
   prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 export default connect(mapStateToProps, mapDispathToProps)(GamePage);

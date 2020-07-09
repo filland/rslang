@@ -1,7 +1,4 @@
-import {
-  getArrOfRandomWords,
-} from '../fetchGameData';
-import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
+import { getArrOfRandomWords } from '../fetchGameData';
 import paintings1 from '../dataOfPicturesGallery/level1';
 import paintings2 from '../dataOfPicturesGallery/level2';
 import paintings3 from '../dataOfPicturesGallery/level3';
@@ -73,7 +70,9 @@ export const showTranslate = (bool) => (dispatch) => {
   });
 };
 
-export const showFullImg = (konwArr, notKnowArr) => (dispatch) => {
+export const showFullImg = (
+  konwArr, notKnowArr, setUserStatistics, passDictionaryWordsToUserWords,
+) => (dispatch) => {
   const words = konwArr.concat(notKnowArr);
   const allWordsCount = words.length;
   let newWordsCount = 0;
@@ -84,6 +83,7 @@ export const showFullImg = (konwArr, notKnowArr) => (dispatch) => {
     }
   });
   setUserStatistics(allWordsCount, newWordsCount);
+  passDictionaryWordsToUserWords(words);
 
   dispatch({
     type: SHOW_FULL_IMG,
@@ -187,19 +187,19 @@ export const changeArrOfRandomWords = (arr) => ({
 export const changeDifficultOfGame = (lev, p, words) => async (dispatch) => {
   let pageForUser;
   let level;
-
-  if (p === 31) {
+  if (p === 31 && lev === '6') {
     pageForUser = 1;
-    level = lev + 1;
+    level = 1;
+  } else if (p === 31 && lev !== '6') {
+    pageForUser = 1;
+    level = +lev + 1;
   } else {
     pageForUser = p;
     level = lev;
   }
-
   const page = pageForUser;
 
   const arrayOfData = words;
-
   if (arrayOfData.length !== 0) {
     const pictureData = arrOfGalleryData[level][pageForUser - 1];
     const correctArr = arrayOfData[0].textExample.replace(/<[^>]*>/g, '').split(' ');
