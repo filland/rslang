@@ -17,8 +17,7 @@ class NavBar extends Component {
               <Nav.Link as={Link} to="/promo">Promo</Nav.Link>
               <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
               <Nav.Link as={Link} to="/dictionary">Dictionary</Nav.Link>
-              <Nav.Link as={Link} to="/statistics">Statistics</Nav.Link>
-              <Nav.Link as={Link} to="/long-term-statistics">Long-term statistics</Nav.Link>
+              <Nav.Link as={Link} to="/long-term-statistics">Statistics</Nav.Link>
             </>
           )
             : (<>
