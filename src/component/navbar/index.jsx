@@ -10,7 +10,6 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar bg="light" variant="light" >
-        <Navbar.Brand as={Link} to="/">Logo</Navbar.Brand>
         <Nav className="mr-auto">
           {isAuthorized() ? (
             <>
