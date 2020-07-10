@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import weatherReducer from '../component/weather/reducer';
 import loginReducer from '../component/login/reducer';
 import registrationReducer from '../component/registration/reducer';
 import dictionaryReducer from '../component/dictionary/reducer';
@@ -12,7 +11,6 @@ import savannaReducer from '../component/savanna/redux/reducer';
 import sprintReducer from '../component/sprint/reducer';
 
 const rootReducer = combineReducers({
-  weather: weatherReducer,
   login: loginReducer,
   registration: registrationReducer,
   settings: settingsReducer,

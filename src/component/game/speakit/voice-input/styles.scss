@@ -3,7 +3,17 @@
     display: flex;
     justify-content: center;
 
+    input { 
+        text-align: center; 
+    }
+
     .voice-input {
         width: 70%;
+    }
+
+    .micro-icon {
+        height: 36px;
+        width: 36px;
+        background-size: 36px 36px;
     }
 }

@@ -13,6 +13,7 @@ const createTemplateOfStoreSettings = (store) => {
       informationTranslate: store.settings.optional.informationTranslate,
       levelButtons: store.settings.optional.levelButtons,
       newCardsPerDay: store.settings.optional.newCardsPerDay,
+      volumeValue: store.settings.optional.volumeValue,
     },
     wordsPerDay: store.settings.wordsPerDay,
   };

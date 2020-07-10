@@ -1,7 +1,5 @@
-import { prepareWords } from '../../../common/helper/WordsHelper';
-
-const getDataForNextWord = async (numOfCurrentWord, dictionaryWords, userWords) => {
-  const data = prepareWords(userWords, dictionaryWords, 50);
+const getDataForNextWord = async (numOfCurrentWord, words) => {
+  const data = words;
   const numOfWord = numOfCurrentWord;
   const currentWordData = data[numOfWord];
   let arrOfRandomWords;

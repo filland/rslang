@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
+  changeWord, checkAnswer, startGame, animation, changeTimer,
+  endGame, changeVolume, showWordData, changeTimerCount, timerOff, changeWordAfterTimer,
 } from './redux/actions';
-import Loader from '../common/loader/index';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../common/helper/WordsHelper';
+import setUserStatistics from '../long-term-statistics/statisticsService/statisticsService';
 import GamePage from './GamePage/GamePage';
 import StartPage from './StartPage/StartPage';
 import gamePageImg from './assets/backgroundGame.jpg';
@@ -13,13 +15,14 @@ import './style.scss';
 
 const Savanna = (props) => {
   const {
-    data, startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, userWords,
+    startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, prepareWords,
   } = props;
   const errorAudioRef = React.createRef();
   const correctAudioRef = React.createRef();
 
   const getWords = () => {
-    changeWord(numOfCurrentWord, dictionaryWords, userWords);
+    const words = prepareWords(50).preparedWords;
+    changeWord(numOfCurrentWord, words);
   };
 
   return (
@@ -30,13 +33,12 @@ const Savanna = (props) => {
         ? (
           <div className='savannaGame'
             style={{ backgroundImage: `url(${gamePageImg})` }}>
-            {data.length === 0
-              ? <Loader />
-              : <GamePage
+
+               <GamePage
                 {...props}
                 errorAudioRef={errorAudioRef}
                 correctAudioRef={correctAudioRef}
-              />}
+              />
           </div>
         ) : (
           <StartPage
@@ -55,7 +57,20 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispathToProps = {
-  changeWord, checkAnswer, startGame, endGame, changeVolume, showWordData,
+  changeWord,
+  checkAnswer,
+  startGame,
+  endGame,
+  changeVolume,
+  showWordData,
+  changeTimerCount,
+  timerOff,
+  animation,
+  changeTimer,
+  changeWordAfterTimer,
+  prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Savanna);

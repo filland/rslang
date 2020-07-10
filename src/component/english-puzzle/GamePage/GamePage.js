@@ -15,6 +15,8 @@ import {
   showTranslate,
   changeAutoPlayAudio,
 } from '../redux/actions';
+import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
+import { passDictionaryWordsToUserWords, prepareWords } from '../../../common/helper/WordsHelper';
 
 import Dnd from './Dnd/Dnd';
 import Results from './Results/Results';
@@ -28,9 +30,12 @@ class GamePage extends React.Component {
     this.audioRef = React.createRef();
   }
 
-  async componentDidMount() {
-    const { changeDifficultOfGame, page, level } = this.props;
-    await changeDifficultOfGame(page, level);
+  componentDidMount() {
+    const {
+      changeDifficultOfGame, page, level, prepareWords,
+    } = this.props;
+    const words = prepareWords(100).preparedWords;
+    changeDifficultOfGame(level, page, words);
   }
 
   handleWordClick = ({ target }) => {
@@ -65,6 +70,7 @@ class GamePage extends React.Component {
       pushSentenceInSolvedArr, imgIsShowed, arrayOfSolvedSentences,
       showFullImg, showStatistic, showCorrectResult, iDontKnowArr,
       changeCurrentString, level, pageForUser, changeDifficultOfGame,
+      setUserStatistics, passDictionaryWordsToUserWords,
     } = this.props;
 
     if (e.target.name === 'check') {
@@ -81,11 +87,12 @@ class GamePage extends React.Component {
           correctArr,
           arrayOfSolvedSentences,
         );
-        showFullImg();
+        showFullImg(iDontKnowArr, iKnowArr, setUserStatistics, passDictionaryWordsToUserWords);
       } else if (imgIsShowed) {
         changeDifficultOfGame(
           level,
           +pageForUser + 1,
+          arrayOfData,
         );
       } else {
         pushSentenceInSolvedArr(
@@ -223,6 +230,8 @@ class GamePage extends React.Component {
 
 const mapStateToProps = (state) => ({
   ...state.puzzleGame,
+  dictionaryWords: state.dictionaryWords.words,
+  userWords: state.userWords.words,
 });
 
 const mapDispathToProps = {
@@ -239,5 +248,8 @@ const mapDispathToProps = {
   showFullImg,
   showTranslate,
   changeAutoPlayAudio,
+  prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 export default connect(mapStateToProps, mapDispathToProps)(GamePage);
