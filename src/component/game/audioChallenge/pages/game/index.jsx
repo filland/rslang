@@ -18,12 +18,6 @@ function Game({ setCurrentPage, dictionaryWords, difficulty }) {
   const [words, setWords] = useState([]);
   const [isSelectAnswer, setIsSelectAnswer] = useState(false);
   const [numStages, setNumStages] = useState(0);
-  // const [progressStyle] = useState(
-  //   {
-  //     background: `linear-gradient(to right, #08aa6c ${numStages * 10}%, #b12b2b 0%)`,
-  //     height: '100%',
-  //   },
-  // );
 
   const setSelectAnswer = () => {
     setIsSelectAnswer(true);
