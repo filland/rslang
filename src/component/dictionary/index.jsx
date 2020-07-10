@@ -8,7 +8,6 @@ import {
   Tabs, Tab, CardDeck,
 } from 'react-bootstrap';
 
-import Loader from '../common/loader';
 import CardWord from './cardWord/index';
 
 import getUserWords from '../common/word/user-word/selectors';

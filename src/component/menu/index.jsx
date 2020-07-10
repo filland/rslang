@@ -19,59 +19,59 @@ class Menu extends Component {
       <div>
         {
           isAuthorized()
-          && <nav class="main-menu">
+          && <nav className="main-menu">
             <ul>
-              <li class="has-subnav">
+              <li className="has-subnav">
                 <Link to="/game/speakit">
-                  <i class="icon-menu icon-menu_speakit"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_speakit"></i>
+                  <span className="nav-text">
                     SpeakIt
                   </span>
                 </Link>
 
               </li>
-              <li class="has-subnav">
+              <li className="has-subnav">
                 <Link to="/english-puzzle">
-                  <i class="icon-menu icon-menu_english-puzzle"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_english-puzzle"></i>
+                  <span className="nav-text">
                     English puzzle
               </span>
                 </Link>
 
               </li>
-              <li class="has-subnav">
+              <li className="has-subnav">
                 <Link to="/savanna">
-                  <i class="icon-menu icon-menu_savanna"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_savanna"></i>
+                  <span className="nav-text">
                     Саванна
               </span>
                 </Link>
 
               </li>
 
-              <li class="has-subnav">
+              <li className="has-subnav">
                 <Link to="/audioChallenge">
-                  <i class="icon-menu icon-menu_audio-challenge"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_audio-challenge"></i>
+                  <span className="nav-text">
                     Аудиовызов
                 </span>
                 </Link>
               </li>
-              <li class="has-subnav">
+              <li className="has-subnav">
                 <Link to="/sprint">
-                  <i class="icon-menu icon-menu_sprint"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_sprint"></i>
+                  <span className="nav-text">
                     Спринт
               </span>
                 </Link>
               </li>
             </ul>
 
-            <ul class="logout">
+            <ul className="logout">
               <li>
                 <Link onClick={this.logoutUser} to="/logout">
-                  <i class="icon-menu icon-menu_logout"></i>
-                  <span class="nav-text">
+                  <i className="icon-menu icon-menu_logout"></i>
+                  <span className="nav-text">
                     Logout
                   </span>
                 </Link>
