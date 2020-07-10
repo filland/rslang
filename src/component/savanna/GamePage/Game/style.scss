@@ -1,0 +1,60 @@
+.volume{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    opacity: 0.6;
+
+    &:hover{
+        opacity: 1;
+        cursor: pointer;
+
+    }
+}
+
+.lifesCount{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    img{
+        width: 20px;
+        margin: 3px;
+    }
+}
+
+.currentWord{
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+
+}
+.currentWord-anim1{
+    transition: 3s;
+    transform: translate(0px, 100vh);
+}
+
+.wordsForAnswer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+
+    .answer{
+        border-radius: 5px;
+        padding: 3px;
+        margin: 4px;
+        user-select: none;
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+    .true{
+        background-color: rgba(0, 255, 42, 0.5);
+    }
+    .false{
+        background-color: rgba(255, 0, 0, 0.5);
+    }
+}

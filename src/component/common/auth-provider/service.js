@@ -1,32 +1,14 @@
-import { getUserId } from '../../../common/utils/UserUtils';
-import authorizedRequest from '../../../common/utils/ApiUtils';
 import fetchDictionaryWords from '../word/dictionary-word/service';
 import fetchUserWords from '../word/user-word/service';
-
-export const fetchSettings = async () => {
-  const userId = getUserId();
-  const USER_SETTINGS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
-  const settings = await authorizedRequest(USER_SETTINGS_URL);
-  return settings;
-};
-
-export const fetchStatistics = async () => {
-  const userId = getUserId();
-  const USER_STATISTICS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
-
-  const statistics = await authorizedRequest(USER_STATISTICS_URL);
-  return statistics;
-};
+import { getUserSettings } from '../../settings/service';
+import getUserStatistics from '../../long-term-statistics/service';
 
 export const fetchData = () => async (dispatch) => {
-  // await fetchSettings();
+  await dispatch(getUserSettings());
 
-  // difficulty level should be taken form settings
-  const difficultyLevel = 1;
+  dispatch(fetchDictionaryWords());
 
-  await fetchDictionaryWords(dispatch, difficultyLevel);
+  dispatch(fetchUserWords());
 
-  await fetchUserWords(dispatch);
-
-  // await fetchStatistics();
+  dispatch(getUserStatistics());
 };

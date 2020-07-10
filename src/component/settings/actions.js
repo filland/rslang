@@ -16,7 +16,7 @@ export function settingsRequest() {
 export function settingSuccess(data) {
   return {
     type: SETTINGS_SUCCESS,
-    payload: data,
+    payload: { ...data, isLoading: false },
   };
 }
 
