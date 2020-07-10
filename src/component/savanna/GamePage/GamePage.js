@@ -14,6 +14,8 @@ const GamePage = (props) => (
       showWordData={props.showWordData}
       wordDataIsShowing={props.wordDataIsShowing}
       dataOfClickedWord={props.dataOfClickedWord}
+      setUserStatistics={props.setUserStatistics}
+      passDictionaryWordsToUserWords={props.passDictionaryWordsToUserWords}
     />
 );
 

@@ -6,7 +6,8 @@ import audioImg from '../../../english-puzzle/assets/images/play-circle-regular.
 import './style.scss';
 
 const Statistics = ({
-  iKnowArr, iDontKnowArr, endGame, audioOn, showWordData, wordDataIsShowing, dataOfClickedWord,
+  iKnowArr, iDontKnowArr, endGame, audioOn, setUserStatistics,
+  showWordData, wordDataIsShowing, dataOfClickedWord, passDictionaryWordsToUserWords,
 }) => {
   const handleClick = ({ target }) => {
     if (target.alt === 'play') {
@@ -22,6 +23,20 @@ const Statistics = ({
       }
       showWordData(wordDataIsShowing, data);
     }
+  };
+  const handleEndOfGame = () => {
+    const allWords = iDontKnowArr.concat(iKnowArr);
+    const allCountWord = allWords.length;
+    let countOfNewWors = 0;
+
+    allWords.forEach((el) => {
+      if (!el.userWord) {
+        countOfNewWors += 1;
+      }
+    });
+    setUserStatistics(allCountWord, countOfNewWors);
+    passDictionaryWordsToUserWords(allWords);
+    endGame(setUserStatistics, passDictionaryWordsToUserWords);
   };
   return (
     <div className='statistics'>
@@ -57,7 +72,7 @@ const Statistics = ({
                   <span onClick={handleClick} id={i} className='dontKnowArr'>{word}</span> - {wordTranslate} </div>
               ))}
             </div>
-            <button onClick={endGame} className='btn btn-warning'> Continue </button>
+            <button onClick={handleEndOfGame} className='btn btn-warning'> Continue </button>
           </div>)
       }
     </div>

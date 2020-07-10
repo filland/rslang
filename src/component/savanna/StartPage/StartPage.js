@@ -1,9 +1,8 @@
 import React from 'react';
 import startPageImg from '../assets/backgroundStartPage.jpg';
-import Loader from '../../common/loader/index';
 import './style.scss';
 
-const StartPage = ({ startGame, getWords, dictionaryWords }) => {
+const StartPage = ({ startGame, getWords }) => {
   const handleCick = () => {
     startGame();
     getWords();
@@ -13,10 +12,8 @@ const StartPage = ({ startGame, getWords, dictionaryWords }) => {
       <div className='description'>
         The game develops vocabulary. For answer you can use mouse or keyboard.
     </div>
-    {dictionaryWords.length === 0
-      ? <Loader/>
-      : <button onClick={handleCick} className='btn btn-primary'>Start</button>
-    }
+
+       <button onClick={handleCick} className='btn btn-primary'>Start</button>
 
     </div>
   );
