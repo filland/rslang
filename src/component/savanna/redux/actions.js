@@ -1,5 +1,4 @@
 import getDataForNextWord from './helper';
-import setUserStatistics from '../../long-term-statistics/statisticsService/statisticsService';
 
 export const CHANGE_CURRENT_WORD = 'CHANGE_CURRENT_WORD_SAVANNAH';
 export const CHECK_ANSWER = 'CHECK_ANSWER_SAVANNAH';
@@ -100,8 +99,7 @@ export const startGame = () => ({
   },
 });
 
-export const endGame = (allWords, newWords) => (dispatch) => {
-  setUserStatistics(allWords, newWords);
+export const endGame = () => (dispatch) => {
   dispatch({
     type: END_GAME,
     payload: {

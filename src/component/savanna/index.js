@@ -4,8 +4,8 @@ import {
   changeWord, checkAnswer, startGame, animation, changeTimer,
   endGame, changeVolume, showWordData, changeTimerCount, timerOff, changeWordAfterTimer,
 } from './redux/actions';
-import { prepareWords } from '../../common/helper/WordsHelper';
-import Loader from '../common/loader/index';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../common/helper/WordsHelper';
+import setUserStatistics from '../long-term-statistics/statisticsService/statisticsService';
 import GamePage from './GamePage/GamePage';
 import StartPage from './StartPage/StartPage';
 import gamePageImg from './assets/backgroundGame.jpg';
@@ -15,7 +15,7 @@ import './style.scss';
 
 const Savanna = (props) => {
   const {
-    data, startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, prepareWords,
+    startGame, gameWasStarted, dictionaryWords, changeWord, numOfCurrentWord, prepareWords,
   } = props;
   const errorAudioRef = React.createRef();
   const correctAudioRef = React.createRef();
@@ -33,13 +33,12 @@ const Savanna = (props) => {
         ? (
           <div className='savannaGame'
             style={{ backgroundImage: `url(${gamePageImg})` }}>
-            {data.length === 0
-              ? <Loader />
-              : <GamePage
+
+               <GamePage
                 {...props}
                 errorAudioRef={errorAudioRef}
                 correctAudioRef={correctAudioRef}
-              />}
+              />
           </div>
         ) : (
           <StartPage
@@ -70,6 +69,8 @@ const mapDispathToProps = {
   changeTimer,
   changeWordAfterTimer,
   prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Savanna);

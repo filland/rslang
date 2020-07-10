@@ -6,7 +6,8 @@ import audioImg from '../../../english-puzzle/assets/images/play-circle-regular.
 import './style.scss';
 
 const Statistics = ({
-  iKnowArr, iDontKnowArr, endGame, audioOn, showWordData, wordDataIsShowing, dataOfClickedWord,
+  iKnowArr, iDontKnowArr, endGame, audioOn, setUserStatistics,
+  showWordData, wordDataIsShowing, dataOfClickedWord, passDictionaryWordsToUserWords,
 }) => {
   const handleClick = ({ target }) => {
     if (target.alt === 'play') {
@@ -33,8 +34,9 @@ const Statistics = ({
         countOfNewWors += 1;
       }
     });
-
-    endGame(allCountWord, countOfNewWors);
+    setUserStatistics(allCountWord, countOfNewWors);
+    passDictionaryWordsToUserWords(allWords);
+    endGame(setUserStatistics, passDictionaryWordsToUserWords);
   };
   return (
     <div className='statistics'>
