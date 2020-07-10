@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { GAME_PAGE } from '../constants';
 import { setUserDifficulty } from '../../../settings/service';
+import './styles.scss';
 
 class Menu extends Component {
   constructor(props) {
@@ -33,12 +34,15 @@ class Menu extends Component {
     const options = Array
       .from({ length: 6 }, (v, i) => i + 1)
       .map((val, i) => <Dropdown.Item key={val} eventKey={i + 1}>{i + 1}</Dropdown.Item>);
-    return (<div>
-      <Button variant="primary" onClick={this.startGame}>Start</Button>
-      <div>Current difficulty: {difficultyLevel}</div>
-      <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
-        {options}
-      </DropdownButton>
+    return (<div className="speakit-menu-wrapper">
+      <h3>SpeakIt mini-game</h3>
+      <div className="speakit-menu">
+        <Button variant="primary" onClick={this.startGame}>Start</Button>
+        <div>Current difficulty: {difficultyLevel}</div>
+        <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
+          {options}
+        </DropdownButton>
+      </div>
     </div>);
   }
 }

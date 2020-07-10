@@ -146,8 +146,10 @@ class Game extends Component {
           <img className="picture" src={picUrl} alt="SpeakIt game" />
         </div>
         {voiceRecognitionEnabled ? <VoiceInput recognizedWord={recognizedWord}></VoiceInput> : <div className="word-translation">{wordTranslate}</div>}
-        <div className="words">
-          {wordsTemplate}
+        <div className="words-wrapper">
+          <div className="words">
+            {wordsTemplate}
+          </div>
         </div>
         <div className="controls">
           <Button onClick={this.startGame}>Restart</Button>
