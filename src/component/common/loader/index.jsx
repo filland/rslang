@@ -16,8 +16,8 @@ class Loader extends React.Component {
       <div className="loader main" style={styles}>
         <div className="spinner">
           <div class="spinner-cube">
-              <div></div>
-              <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@ class Loader extends React.Component {
   }
 }
 
-const isUserWordsLoading = (store) => store.userWords.isLoading;
+const isUserWordsLoading = (store) => store.userWords.isUserWordsLoading;
 const isDictionaryWordsLoading = (store) => store.dictionaryWords.isLoading;
 const isSettingsLoading = (store) => store.settings.isLoading;
 const isStatisticsLoading = (store) => store.statistics.isLoading;
