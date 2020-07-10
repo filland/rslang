@@ -37,25 +37,16 @@ export const checkAnswer = ({
   iDontKnowArr, currentWordData,
 }) => async (dispatch) => {
   let lifes = lifesCount;
-  const word = {
-    word: currentWordData.word,
-    wordTranslate: currentWordData.wordTranslate,
-    audio: currentWordData.audio,
-    image: currentWordData.image,
-    transcription: currentWordData.transcription,
-  };
-
   if (target.id === answer.id) {
     iKnowArr.push({
-      ...word,
+      ...currentWordData,
     });
   } else {
     lifes -= 1;
     iDontKnowArr.push({
-      ...word,
+      ...currentWordData,
     });
   }
-
   dispatch({
     type: CHECK_ANSWER,
     payload: {
@@ -73,11 +64,7 @@ export const changeWordAfterTimer = ({
   iDontKnowArr, currentWordData,
 }) => async (dispatch) => {
   iDontKnowArr.push({
-    word: currentWordData.word,
-    wordTranslate: currentWordData.wordTranslate,
-    audio: currentWordData.audio,
-    image: currentWordData.image,
-    transcription: currentWordData.transcription,
+    ...currentWordData,
   });
 
   dispatch({
