@@ -7,6 +7,11 @@ import FormControl from "react-bootstrap/FormControl";
 import getUserWords from "../common/word/user-word/selectors";
 import getDictionaryWords from "../common/word/dictionary-word/selectors";
 import { prepareWords } from "../../common/helper/WordsHelper";
+import {
+  convertDictionaryToUserWord,
+  setWordDeleted,
+} from "../../common/helper/WordUtils";
+import { setWordDifficulty } from "../../common/helper/WordUtils";
 
 import "./styles.scss";
 
@@ -18,6 +23,7 @@ const defaultVolume = 0.2;
 class LearningWords extends Component {
   state = {
     words: [],
+    learnedWords: [],
     currentWord: "",
     input: "",
     inputBG: "white",
@@ -29,7 +35,6 @@ class LearningWords extends Component {
 
   componentDidMount() {
     if (!this.state.words.length && this.props.dictionaryWords.length) {
-      
       let wordArr = [];
       for (let i = 0; i < 20; i++) {
         wordArr.push(this.props.dictionaryWords[i]);
@@ -40,10 +45,6 @@ class LearningWords extends Component {
 
   componentDidUpdate() {
     if (!this.state.words.length && this.props.dictionaryWords.length) {
-      console.log(
-        "lol hi",
-        prepareWords(this.props.userWords, this.props.dictionaryWords, 50)
-      );
       let wordArr = [];
       for (let i = 0; i < 20; i++) {
         wordArr.push(this.props.dictionaryWords[i]);
@@ -76,23 +77,49 @@ class LearningWords extends Component {
     this.setState({ difficulty: e.currentTarget.value });
   };
 
-  NextWordBtnClick = () => {
+  NextWordBtnClick = (word) => {
     switch (this.state.difficulty) {
       case "0":
         this.reinstallWordIntoQueue();
         break;
-      case "1":
+      case "1": {
+        this.setState({
+          learnedWords: this.state.learnedWords.concat(
+            setWordDifficulty(word, "hard")
+          ),
+        });
         this.removeWordFromQueue();
         break;
-      case "2":
+      }
+      case "2": {
+        this.setState({
+          learnedWords: this.state.learnedWords.concat(
+            setWordDifficulty(word, "normal")
+          ),
+        });
         this.removeWordFromQueue();
         break;
-      case "3":
+      }
+      case "3": {
+        this.setState({
+          learnedWords: this.state.learnedWords.concat(
+            setWordDifficulty(word, "easy")
+          ),
+        });
         this.removeWordFromQueue();
         break;
-      default:
+      }
+      case "4": {
+        this.setState({
+          learnedWords: this.state.learnedWords.concat(setWordDeleted(word)),
+        });
         this.removeWordFromQueue();
         break;
+      }
+      default: {
+        this.removeWordFromQueue();
+        break;
+      }
     }
     this.setState({
       difficulty: "",
@@ -138,6 +165,8 @@ class LearningWords extends Component {
 
     console.log("Props: ", this.props);
     console.log("State: ", this.state);
+    console.log(localStorage);
+    console.log("LearnedWords: ", this.state.learnedWords);
 
     return (
       <div className="learning-words-wrapper">
@@ -249,10 +278,18 @@ class LearningWords extends Component {
                   type="radio"
                   name="difficulty"
                   value="0"
-                  checked={difficulty === "0"}
                   onChange={(e) => this.radioSelect(e)}
                 />
-                Снова
+                Повтор
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="difficulty"
+                  value="4"
+                  onChange={(e) => this.radioSelect(e)}
+                />
+                Удалить
               </label>
               <label>
                 <input
@@ -294,7 +331,7 @@ class LearningWords extends Component {
                 answer === "" ||
                 answer === "wrong"
               }
-              onClick={() => this.NextWordBtnClick()}
+              onClick={() => this.NextWordBtnClick(currentWord)}
             >
               Следующее слово
             </Button>
