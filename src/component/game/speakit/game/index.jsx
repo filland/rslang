@@ -6,7 +6,9 @@ import VoiceInput from '../voice-input';
 import Progress from '../progress';
 import blankPicture from '../assets/blank.jpg';
 import './styles.scss';
-import { prepareWords } from '../../../../common/helper/WordsHelper';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../../../common/helper/WordsHelper';
+import { MENU_PAGE, STATISTICS_PAGE } from '../constants';
+import setUserStatistics from '../../../long-term-statistics/statisticsService/statisticsService';
 
 class Game extends Component {
   constructor(props) {
@@ -23,41 +25,15 @@ class Game extends Component {
   startGame = () => {
     const { prepareWords } = this.props;
     const { preparedWords, newWordsNumber } = prepareWords(10);
+    const words = preparedWords.slice();
     this.setState({
-      preparedWords,
+      preparedWords: words,
+      newWordsNumber,
       picUrl: blankPicture,
       voiceRecognitionEnabled: false,
       recognizedWord: '',
       stars: 0,
     });
-  }
-
-  componentWillUnmount() {
-    this.recognition.stop();
-  }
-
-  componentDidMount() {
-    this.startGame();
-    // if voice recognition is on then try to check the word with the responce of voice recongnition
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    this.recognition = new SpeechRecognition();
-    this.recognition.maxAlternatives = 1;
-    this.recognition.lang = 'en-US';
-    this.recognition.addEventListener('result', (event) => {
-      const recognizedWord = Array.from(event.results)
-        .map((result) => result[0])
-        .map((result) => result.transcript)
-        .join('');
-      const { voiceRecognitionEnabled } = this.state;
-      if (voiceRecognitionEnabled) {
-        this.setState({ recognizedWord });
-        this.checkRecognizedWord(recognizedWord);
-      }
-    });
-    this.recognition.addEventListener('end', () => {
-      this.recognition.start();
-    });
-    this.recognition.start();
   }
 
   checkRecognizedWord = (recognizedWord) => {
@@ -77,7 +53,7 @@ class Game extends Component {
   }
 
   checkGameFinished = () => {
-    const { preparedWords } = this.state;
+    const { preparedWords, newWordsNumber } = this.state;
 
     let gameFinished = true;
     preparedWords.forEach((word) => {
@@ -85,10 +61,17 @@ class Game extends Component {
         gameFinished = false;
       }
     });
-
+    gameFinished = true;
     if (gameFinished) {
+      const { setUserStatistics, setCurrentPage, passDictionaryWordsToUserWords } = this.props;
+      setUserStatistics(preparedWords.length, newWordsNumber);
+      passDictionaryWordsToUserWords(preparedWords);
+      const statsData = [
+        { label: 'Общее количество изученных слов', value: preparedWords.length },
+        { label: 'Количество новых слов', value: newWordsNumber },
+      ];
       // navigate to Statistics page
-      console.log("SpeakIt game is finished");
+      setCurrentPage(STATISTICS_PAGE, statsData);
     }
   }
 
@@ -106,15 +89,40 @@ class Game extends Component {
     }
   }
 
-  // do I really need this method and the button Finish ?
-  finishGame = () => {
-    // prepare statistics
+  backToMenu = () => {
+    const { setCurrentPage } = this.props;
+    setCurrentPage(MENU_PAGE);
+  }
 
-    // count failed attempts for each word
+  componentDidMount() {
+    this.startGame();
+    // if voice recognition is on then try to check the word with the response of voice recongnition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    this.recognition = new SpeechRecognition();
+    this.recognition.maxAlternatives = 1;
+    this.recognition.lang = 'en-US';
+    this.recognition.addEventListener('result', (event) => {
+      const recognizedWord = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      const { voiceRecognitionEnabled } = this.state;
+      if (voiceRecognitionEnabled) {
+        this.setState({ recognizedWord });
+        this.checkRecognizedWord(recognizedWord);
+      }
+    });
+    this.recognition.addEventListener('end', () => {
+      if (this.recognition) {
+        this.recognition.start();
+      }
+    });
+    this.recognition.start();
+  }
 
-    // navigate to statistics page
-
-    // add statistics to the app's statistics
+  componentWillUnmount() {
+    this.recognition.stop();
+    this.recognition = null;
   }
 
   render() {
@@ -144,18 +152,17 @@ class Game extends Component {
         <div className="controls">
           <Button onClick={this.startGame}>Restart</Button>
           <Button className="big-button" style={speakPleaseClickedStyle} onClick={this.speakPleaseClick}>Speak please</Button>
-          <Button onClick={this.finishGame} disabled>Finish</Button>
+          <Button onClick={this.backToMenu} >Menu</Button>
         </div>
       </div>
     </div>);
   }
 }
 
-const mapStateToProps = (store) => ({
-});
-
 const mapDispatchToProps = {
   prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(null, mapDispatchToProps)(Game);
