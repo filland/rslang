@@ -67,6 +67,61 @@ class Menu extends Component {
               </li>
             </ul>
 
+            <ul>
+              <li class="has-subnav">
+                <Link to="/learning">
+                  <i class="icon-menu icon-menu_speakit"></i>
+                  <span class="nav-text">
+                    Learning words
+                </span>
+                </Link>
+
+              </li>
+              <li class="has-subnav">
+                <Link to="/promo">
+                  <i class="icon-menu icon-menu_english-puzzle"></i>
+                  <span class="nav-text">
+                    Promo
+            </span>
+                </Link>
+
+              </li>
+              <li class="has-subnav">
+                <Link to="/settings">
+                  <i class="icon-menu icon-menu_savanna"></i>
+                  <span class="nav-text">
+                    Settings
+            </span>
+                </Link>
+
+              </li>
+
+              <li class="has-subnav">
+                <Link to="/dictionary">
+                  <i class="icon-menu icon-menu_audio-challenge"></i>
+                  <span class="nav-text">
+                    Dictionary
+              </span>
+                </Link>
+              </li>
+              <li class="has-subnav">
+                <Link to="/statistics">
+                  <i class="icon-menu icon-menu_sprint"></i>
+                  <span class="nav-text">
+                    Statistics
+            </span>
+                </Link>
+              </li>
+              <li class="has-subnav">
+                <Link to="/long-term-statistics">
+                  <i class="icon-menu icon-menu_sprint"></i>
+                  <span class="nav-text">
+                    Long-term statistics
+          </span>
+                </Link>
+              </li>
+            </ul>
+
             <ul class="logout">
               <li>
                 <Link onClick={this.logoutUser} to="/logout">
