@@ -40,7 +40,7 @@ const Results = ({
             <div className="item" key={(el, i)}>
               <img src={playImg} alt="play" onClick={playAudio} />
               <audio
-                src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${el.audioSrc}`}
+                src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${el.audioExample}`}
                 id={el.word}
               />
               {el.str}
@@ -55,7 +55,7 @@ const Results = ({
             <div className="item" key={(el, i)}>
               <img src={playImg} alt="play" onClick={playAudio} />
               <audio
-                src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${el.audioSrc}`}
+                src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${el.audioExample}`}
                 id={el.word}
               />
               {el.str}
