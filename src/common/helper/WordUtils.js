@@ -11,8 +11,7 @@ const userWordDefault = {
   optional: {
     deleted: false,
     createdDate: new Date().getTime(),
-    showDate: new Date().getTime(),
-    updatedDate: new Date().getTime()
+    showDate: new Date().getTime()
   },
 };
 
