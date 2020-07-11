@@ -23,9 +23,13 @@ class Game extends Component {
   }
 
   startGame = () => {
+    if (this.state.preparedWords.length !== 0) {
+      this.resetWords();
+    }
+
     const { prepareWords } = this.props;
     const { preparedWords, newWordsNumber } = prepareWords(10);
-    const words = preparedWords.slice();
+    const words = [...preparedWords];
     this.setState({
       preparedWords: words,
       newWordsNumber,
@@ -61,17 +65,43 @@ class Game extends Component {
         gameFinished = false;
       }
     });
-    gameFinished = true;
+
     if (gameFinished) {
       const { setUserStatistics, setCurrentPage, passDictionaryWordsToUserWords } = this.props;
       setUserStatistics(preparedWords.length, newWordsNumber);
+      this.resetWords();
+      this.updateWordsShowDate();
       passDictionaryWordsToUserWords(preparedWords);
+
       const statsData = [
         { label: 'Общее количество изученных слов', value: preparedWords.length },
         { label: 'Количество новых слов', value: newWordsNumber },
       ];
       // navigate to Statistics page
       setCurrentPage(STATISTICS_PAGE, statsData);
+    }
+  }
+
+  updateWordsShowDate = () => {
+    const { preparedWords } = this.state;
+    for (let i = 0; i < preparedWords.length; i += 1) {
+      const word = preparedWords[i];
+      if (word.userWord) {
+        const showDate = new Date();
+        // show the word in 3 days
+        showDate.setDate(showDate.getDate() + 3);
+        word.userWord.optional.showDate = showDate.getTime();
+      }
+    }
+  }
+
+  resetWords = () => {
+    const { preparedWords } = this.state;
+    for (let i = 0; i < preparedWords.length; i += 1) {
+      const word = preparedWords[i];
+      if (word.answered) {
+        delete word.answered;
+      }
     }
   }
 
@@ -132,7 +162,7 @@ class Game extends Component {
 
     const wordsTemplate = preparedWords.map((word) => (
       <Word
-        key={word.id}
+        key={word.id + ' ' + Date.now()}
         word={word}
         handleClick={this.handleWordClick}></Word>
     ));
@@ -146,8 +176,10 @@ class Game extends Component {
           <img className="picture" src={picUrl} alt="SpeakIt game" />
         </div>
         {voiceRecognitionEnabled ? <VoiceInput recognizedWord={recognizedWord}></VoiceInput> : <div className="word-translation">{wordTranslate}</div>}
-        <div className="words">
-          {wordsTemplate}
+        <div className="words-wrapper">
+          <div className="words">
+            {wordsTemplate}
+          </div>
         </div>
         <div className="controls">
           <Button onClick={this.startGame}>Restart</Button>

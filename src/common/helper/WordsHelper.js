@@ -84,7 +84,7 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
 
   if (tempUserWords.length > numberOfAllWords) {
     const res = tempUserWords.filter((word, index) => index < numberOfAllWords);
-    return { preparedWords: res, newWordsNumber: numberOfAllWords };
+    return { preparedWords: res, newWordsNumber: 0 };
   }
 
   const numberOfUserWords = totalNumberOfNewWordsPerDay - shownNewWordsTodayFromStatistics;
@@ -100,7 +100,7 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
   // prepare array with dictionary words (do not include words which already added as user words)
   const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
 
-  const newWordsNumber = tempUserWords.length;
+  const newWordsNumber = preparedDictionaryWords.length;
   const result = tempUserWords.concat(preparedDictionaryWords);
 
   shuffleArray(result);
