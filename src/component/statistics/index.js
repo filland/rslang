@@ -17,7 +17,7 @@ export default class Statistics extends React.Component {
       <div className="statistics-wrapper">
         <h3>Серия завершена!</h3>
         <ListGroup variant="flush" style={{ width: '60%' }} >
-          {data.map(({ label, value, index }) => (
+          {data.map(({ label, value }, index) => (
             <ListGroup.Item key={`${value}-${index}`}>
               <div className="statistics-content">
                 <div className="statistics-name">{label}</div>
