@@ -37,7 +37,7 @@
 
 .wordsForAnswer{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
 
@@ -50,6 +50,7 @@
         cursor: pointer;
         background-color: rgba(0, 0, 0, 0.5);
         color: white;
+        margin: 5px;
     }
     .true{
         background-color: rgba(0, 255, 42, 0.5);
