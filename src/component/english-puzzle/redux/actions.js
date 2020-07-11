@@ -133,8 +133,7 @@ export const showCorrectResult = (
   const arrOfResult = correctArr.slice();
   iDontKnowArr.push({
     str: arrOfResult.join(' '),
-    audioSrc: arrayOfData[numberOfStr].audioExample,
-    word: arrayOfData[numberOfStr].word,
+    ...arrayOfData[numberOfStr],
   });
 
   dispatch({
@@ -162,8 +161,8 @@ export const checkResultArr = (
     isDone = true;
     iKnowArr.push({
       str: resultArr.join(' '),
-      audioSrc: arrayOfData[numberOfStr].audioExample,
-      word: arrayOfData[numberOfStr].word,
+      ...arrayOfData[numberOfStr],
+
     });
   } else {
     isDone = false;
