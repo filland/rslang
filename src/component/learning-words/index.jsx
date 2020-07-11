@@ -6,7 +6,10 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import FormControl from "react-bootstrap/FormControl";
 import getUserWords from "../common/word/user-word/selectors";
 import getDictionaryWords from "../common/word/dictionary-word/selectors";
-import { prepareWords } from "../../common/helper/WordsHelper";
+import {
+  prepareWords,
+  passDictionaryWordsToUserWords,
+} from "../../common/helper/WordsHelper";
 import {
   setWordDifficulty,
   setWordDeleted,
@@ -21,10 +24,10 @@ const mediaStorage =
 const defaultVolume = 0.2;
 
 const statisticsData = [
-  { label: 'Карточек завершено:', value: 30 },
-  { label: 'Правильные ответы, %:', value: 23 },
-  { label: 'Новые слова:', value: 10 },
-  { label: 'Самая длинная серия правильных ответов:', value: 75 },
+  { label: "Карточек завершено:", value: 30 },
+  { label: "Правильные ответы, %:", value: 23 },
+  { label: "Новые слова:", value: 10 },
+  { label: "Самая длинная серия правильных ответов:", value: 75 },
 ];
 
 class LearningWords extends Component {
@@ -36,10 +39,17 @@ class LearningWords extends Component {
     inputBG: "white",
     difficulty: "",
     answer: "",
-    numberOfWords: 5,
+    numberOfWords: 2020,
     numberOfNewWords: 0,
     wordsPerDay: 0,
     showStat: false,
+    correctAnswers: 0,
+    hardWords: 0,
+    normalWords: 0,
+    easyWords: 0,
+    skippedWords: 0,
+    repeatedWords: 0,
+    deletedWords: 0
   };
 
   componentDidMount() {
@@ -48,9 +58,14 @@ class LearningWords extends Component {
       this.props.dictionaryWords.length &&
       !this.state.showStat
     ) {
-      let {wordArr, numberOfNewWords} = prepareWords(50);
-      console.log(wordArr);
-      // this.setState({ words: wordArr, numberOfWords: wordArr.length, numberOfNewWords });
+      let { prepareWords } = this.props;
+      let preparedWordsObject = prepareWords(5);
+      let { preparedWords, newWordsNumber } = preparedWordsObject;
+      this.setState({
+        words: preparedWords,
+        numberOfWords: preparedWords.length,
+        numberOfNewWords: newWordsNumber,
+      });
     }
   }
 
@@ -60,9 +75,14 @@ class LearningWords extends Component {
       this.props.dictionaryWords.length &&
       !this.state.showStat
     ) {
-      let {wordArr, numberOfNewWords} = prepareWords(50);
-      console.log(wordArr);
-      // this.setState({ words: wordArr, numberOfWords: wordArr.length, numberOfNewWords });
+      let { prepareWords } = this.props;
+      let preparedWordsObject = prepareWords(5);
+      let { preparedWords, newWordsNumber } = preparedWordsObject;
+      this.setState({
+        words: preparedWords,
+        numberOfWords: preparedWords.length,
+        numberOfNewWords: newWordsNumber,
+      });
     }
     if (
       this.state.learnedWords.length === this.state.numberOfWords &&
@@ -95,16 +115,25 @@ class LearningWords extends Component {
     this.setState({ difficulty: e.currentTarget.value });
   };
 
+  radioSelectSkip = (e) => {
+    this.setState({ difficulty: e.currentTarget.value, answer: "true" });
+  };
+
   NextWordBtnClick = (word) => {
     switch (this.state.difficulty) {
-      case "0":
+      case "0": {
+        this.setState({
+          repeatedWords: this.state.repeatedWords + 1,
+        });
         this.reinstallWordIntoQueue();
         break;
+      }
       case "1": {
         this.setState({
           learnedWords: this.state.learnedWords.concat(
             setWordDifficulty(word, "hard")
           ),
+          hardWords: this.state.hardWords + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -114,6 +143,7 @@ class LearningWords extends Component {
           learnedWords: this.state.learnedWords.concat(
             setWordDifficulty(word, "normal")
           ),
+          normalWords: this.state.normalWords + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -123,6 +153,7 @@ class LearningWords extends Component {
           learnedWords: this.state.learnedWords.concat(
             setWordDifficulty(word, "easy")
           ),
+          easyWords: this.state.easyWords + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -130,6 +161,15 @@ class LearningWords extends Component {
       case "4": {
         this.setState({
           learnedWords: this.state.learnedWords.concat(setWordDeleted(word)),
+          deletedWords: this.state.deletedWords + 1,
+        });
+        this.removeWordFromQueue();
+        break;
+      }
+      case "5": {
+        this.setState({
+          learnedWords: this.state.learnedWords.concat(word),
+          skippedWords: this.state.skippedWords + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -161,6 +201,22 @@ class LearningWords extends Component {
     if (e.key === "Enter") this.checkAnswer(e);
   };
 
+  getStatisticsData = () => {
+    console.log("Got stat data!");
+    
+    return [
+      { label: "Карточек завершено:", value: this.state.learnedWords.length },
+      { label: "Правильных ответов:", value: this.state.correctAnswers },
+      { label: "Новых слов:", value: this.state.numberOfNewWords },
+      { label: "Сложных слов:", value: this.state.hardWords },
+      { label: "Нормальных слов:", value: this.state.normalWords },
+      { label: "Легких слов:", value: this.state.easyWords },
+      { label: "Пропущенных слов:", value: this.state.skippedWords },
+      { label: "Удаленных слов:", value: this.state.deletedWords },
+      { label: "Повторенных слов:", value: this.state.repeatedWords },
+    ];
+  };
+
   render() {
     let {
       words,
@@ -181,8 +237,7 @@ class LearningWords extends Component {
     } = this.props.settings.optional;
 
     let currentWord = words.length ? words[0] : null;
-    console.log(prepareWords(50));
-
+    console.log("Props:", this.props);
     console.log("State: ", this.state, "Showstat:", showStat);
     return (
       <div className="learning-words-wrapper">
@@ -282,7 +337,7 @@ class LearningWords extends Component {
               )}
             </div>
           ) : (
-            <Statistics data={statisticsData}/>
+            <Statistics data={this.getStatisticsData()} />
           )
         ) : (
           <div>Loading data... Please wait.</div>
@@ -312,6 +367,16 @@ class LearningWords extends Component {
                   onChange={(e) => this.radioSelect(e)}
                 />
                 Удалить
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="difficulty"
+                  value="5"
+                  checked={difficulty === "5"}
+                  onChange={(e) => this.radioSelectSkip(e)}
+                />
+                Пропустить
               </label>
               <label>
                 <input
@@ -372,6 +437,9 @@ const mapStateToProps = (store) => ({
   settings: getUserSettings(store),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  prepareWords,
+  passDictionaryWordsToUserWords,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LearningWords);
