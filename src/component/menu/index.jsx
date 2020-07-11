@@ -70,7 +70,7 @@ class Menu extends Component {
             <ul>
               <li class="has-subnav">
                 <Link to="/learning">
-                  <i class="icon-menu icon-menu_speakit"></i>
+                  <i class="icon-menu icon-menu_learning"></i>
                   <span class="nav-text">
                     Learning words
                 </span>
@@ -79,7 +79,7 @@ class Menu extends Component {
               </li>
               <li class="has-subnav">
                 <Link to="/promo">
-                  <i class="icon-menu icon-menu_english-puzzle"></i>
+                  <i class="icon-menu icon-menu_promo"></i>
                   <span class="nav-text">
                     Promo
             </span>
@@ -88,7 +88,7 @@ class Menu extends Component {
               </li>
               <li class="has-subnav">
                 <Link to="/settings">
-                  <i class="icon-menu icon-menu_savanna"></i>
+                  <i class="icon-menu icon-menu_settings"></i>
                   <span class="nav-text">
                     Settings
             </span>
@@ -98,7 +98,7 @@ class Menu extends Component {
 
               <li class="has-subnav">
                 <Link to="/dictionary">
-                  <i class="icon-menu icon-menu_audio-challenge"></i>
+                  <i class="icon-menu icon-menu_dictionary"></i>
                   <span class="nav-text">
                     Dictionary
               </span>
@@ -106,7 +106,7 @@ class Menu extends Component {
               </li>
               <li class="has-subnav">
                 <Link to="/statistics">
-                  <i class="icon-menu icon-menu_sprint"></i>
+                  <i class="icon-menu icon-menu_statistics"></i>
                   <span class="nav-text">
                     Statistics
             </span>
@@ -114,7 +114,7 @@ class Menu extends Component {
               </li>
               <li class="has-subnav">
                 <Link to="/long-term-statistics">
-                  <i class="icon-menu icon-menu_sprint"></i>
+                  <i class="icon-menu icon-menu_statistics_full"></i>
                   <span class="nav-text">
                     Long-term statistics
           </span>

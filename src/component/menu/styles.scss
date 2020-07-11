@@ -31,6 +31,25 @@
     &_sprint:before {
         background-image: url(./images/sport.svg);
     }
+    &_learning:before {
+        background-image: url(./images/student.svg);
+    }
+    &_promo:before {
+        background-image: url(./images/info.svg);
+    }
+    &_settings:before {
+        background-image: url(./images/gear.svg);
+    }
+    &_dictionary:before {
+        background-image: url(./images/abc.svg);
+    }
+    &_statistics:before {
+        background-image: url(./images/marketing.svg);
+    }
+    &_statistics_full:before {
+        background-image: url(./images/presentation.svg);
+    }
+
     &_logout:before {
         background-image: url(./images/logout.svg);
     }
