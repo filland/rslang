@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem,
 } from 'react-bootstrap';
 import fetchWordServiceRestore from '../serviceRestore';
-
+import { updateOldUserWords } from '../../common/word/user-word/service';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
 import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
@@ -16,6 +17,7 @@ const propTypes = {
   settings: PropTypes.objectOf(PropTypes.any).isRequired,
   restoreButton: PropTypes.string.isRequired,
   handlerRestore: PropTypes.func,
+  updateOldUserWords: PropTypes.func,
 };
 
 class Cardword extends Component {
@@ -27,8 +29,10 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    this.props.handlerRestore();
-    fetchWordServiceRestore(this.props.word.id, this.props.restoreButton);
+    const { updateOldUserWords, word, restoreButton } = this.props;
+
+    fetchWordServiceRestore(word.id, restoreButton);
+    updateOldUserWords([word.userWord]);
   };
 
   playAudio = () => {
@@ -113,4 +117,12 @@ class Cardword extends Component {
 }
 
 Cardword.propTypes = propTypes;
-export default Cardword;
+
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = {
+  updateOldUserWords,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cardword);
