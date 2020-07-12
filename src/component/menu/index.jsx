@@ -26,7 +26,7 @@ class Menu extends Component {
               <span className="span-2"></span>
               <span className="span-3"></span>
 
-              <div id="menu" className="menu-ul">
+              <div className="menu-ul">
                 <ul>
                   <li class="has-subnav">
                     <Link to="/game/speakit">
