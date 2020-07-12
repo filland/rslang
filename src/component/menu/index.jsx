@@ -19,7 +19,7 @@ class Menu extends Component {
       <div>
         {
           isAuthorized()
-          && <nav class="main-menu">
+          && <nav className="main-menu">
             <div id="menuToggle">
               <input type="checkbox" />
               <span></span>
@@ -28,46 +28,46 @@ class Menu extends Component {
 
               <div className="menu-ul">
                 <ul>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/game/speakit">
-                      <i class="icon-menu icon-menu_speakit"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_speakit"></i>
+                      <span className="nav-text">
                         SpeakIt
                   </span>
                     </Link>
 
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/english-puzzle">
-                      <i class="icon-menu icon-menu_english-puzzle"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_english-puzzle"></i>
+                      <span className="nav-text">
                         English puzzle
               </span>
                     </Link>
 
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/savanna">
-                      <i class="icon-menu icon-menu_savanna"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_savanna"></i>
+                      <span className="nav-text">
                         Саванна
               </span>
                     </Link>
 
                   </li>
 
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/audioChallenge">
-                      <i class="icon-menu icon-menu_audio-challenge"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_audio-challenge"></i>
+                      <span className="nav-text">
                         Аудиовызов
                 </span>
                     </Link>
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/sprint">
-                      <i class="icon-menu icon-menu_sprint"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_sprint"></i>
+                      <span className="nav-text">
                         Спринт
               </span>
                     </Link>
@@ -75,65 +75,65 @@ class Menu extends Component {
                 </ul>
 
                 <ul>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/learning">
-                      <i class="icon-menu icon-menu_learning"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_learning"></i>
+                      <span className="nav-text">
                         Learning words
                 </span>
                     </Link>
 
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/promo">
-                      <i class="icon-menu icon-menu_promo"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_promo"></i>
+                      <span className="nav-text">
                         Promo
             </span>
                     </Link>
 
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/settings">
-                      <i class="icon-menu icon-menu_settings"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_settings"></i>
+                      <span className="nav-text">
                         Settings
             </span>
                     </Link>
 
                   </li>
 
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/dictionary">
-                      <i class="icon-menu icon-menu_dictionary"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_dictionary"></i>
+                      <span className="nav-text">
                         Dictionary
               </span>
                     </Link>
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/statistics">
-                      <i class="icon-menu icon-menu_statistics"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_statistics"></i>
+                      <span className="nav-text">
                         Statistics
             </span>
                     </Link>
                   </li>
-                  <li class="has-subnav">
+                  <li className="has-subnav">
                     <Link to="/long-term-statistics">
-                      <i class="icon-menu icon-menu_statistics_full"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_statistics_full"></i>
+                      <span className="nav-text">
                         Long-term statistics
           </span>
                     </Link>
                   </li>
                 </ul>
 
-                <ul class="logout">
+                <ul className="logout">
                   <li>
                     <Link onClick={this.logoutUser} to="/logout">
-                      <i class="icon-menu icon-menu_logout"></i>
-                      <span class="nav-text">
+                      <i className="icon-menu icon-menu_logout"></i>
+                      <span className="nav-text">
                         Logout
                   </span>
                     </Link>

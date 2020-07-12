@@ -53,8 +53,28 @@ class Cardword extends Component {
     }
   };
 
+  formDifficulty = () => {
+    const difficultyString = this.props.word.userWord.difficulty;
+    let dotCount;
+    switch (difficultyString) {
+      case 'hard':
+        dotCount = 3;
+        break;
+      case 'normal':
+        dotCount = 2;
+        break;
+      case 'easy':
+        dotCount = 1;
+        break;
+      default:
+        dotCount = 0;
+    }
+    return dotCount;
+  };
+
   render() {
     const { word, restoreButton, settings } = this.props;
+    const difficulty = this.formDifficulty();
 
     return (
       <Col xs={12} sm={6} md={4} >
@@ -99,7 +119,7 @@ class Cardword extends Component {
           </ListGroup>
           <Card.Footer>
             <div className={`dot-container-${word.userWord.difficulty}`}>
-              {Array.from({ length: word.userWord.difficulty }, (item, index) => <span className="dot" key={index}></span>)}
+              {Array.from({ length: difficulty }, (item, index) => <span className="dot" key={index}></span>)}
             </div>
             <div>
               <span>Давность: {getDiffUpdatedDateToNowDays(word.userWord)}  дн. назад | </span>
