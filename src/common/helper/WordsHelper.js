@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import getUserWords from '../../component/common/word/user-word/selectors';
 import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
-import { putOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
+import { updateOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
 
 function getRandomIndex(upperBorder) {
   return Math.round(Math.random() * upperBorder);
@@ -122,5 +122,5 @@ export const passDictionaryWordsToUserWords = (dictionaryWord) => async (dispatc
     }
   });
   if (newWords.length !== 0) { dispatch(postNewUserWords(newWords)); }
-  if (oldWords.length !== 0) { dispatch(putOldUserWords(oldWords)); }
+  if (oldWords.length !== 0) { dispatch(updateOldUserWords(oldWords)); }
 };
