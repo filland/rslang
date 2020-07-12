@@ -1,7 +1,7 @@
 import { fetchUserWordsRequest, fetchUserWordsFail, fetchUserWordsSuccess } from './actions';
 import authorizedRequest from '../../../../common/utils/ApiUtils';
 import { getUserId } from '../../../../common/utils/UserUtils';
-import { transformNewWordsArrayToCorrectType } from '../../../../common/helper/helpers';
+import { transformNewWordsArrayToCorrectType, transformOldWordsArrayToCorrectType } from '../../../../common/helper/helpers';
 
 const fetchUserWords = () => async (dispatch) => {
   try {
@@ -28,17 +28,19 @@ const fetchUserWords = () => async (dispatch) => {
   }
 };
 
-export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
+export const putOldUserWords = (oldWords) => async (dispatch, getStore) => {
   const store = getStore();
   const arrayOfUserWords = store.userWords.words;
+  const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
   try {
     dispatch(fetchUserWordsRequest());
     const userId = getUserId();
     const data = [];
-    for (let i = 0; i < oldWords.length; i += 1) {
+    for (let i = 0; i < transformOldWords.length; i += 1) {
       const oldWord = oldWords[i];
-      const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${oldWord.wordId}`;
-      const body = JSON.stringify(oldWords);
+      const transformOldWord = transformOldWords[i];
+      const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${oldWord.id}`;
+      const body = JSON.stringify(transformOldWord);
       const dataItem = await authorizedRequest(OLD_USER_WORDS_URL, 'PUT', body);
       data.push(dataItem);
     }
@@ -87,5 +89,34 @@ export const postNewUserWords = (newWords) => async (dispatch, getStore) => {
     dispatch(fetchUserWordsFail(error));
   }
 };
+
+// export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
+//   const store = getStore();
+//   const arrayOfUserWords = store.userWords.words;
+//   const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
+//   try {
+//     dispatch(fetchUserWordsRequest());
+//     const userId = getUserId();
+//     const data = [];
+//     for (let i = 0; i < transformOldWords.length; i += 1) {
+//       const oldWord = oldWords[i];
+//       const transformOldWord = transformOldWords[i];
+//       const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${oldWord.id}`;
+//       const body = JSON.stringify(transformOldWord);
+//       const dataItem = await authorizedRequest(OLD_USER_WORDS_URL, 'PUT', body);
+//       data.push(dataItem);
+//     }
+//     for (let i = 0; i < arrayOfUserWords.length; i += 1) {
+//       for (let k = 0; k < data.length; k += 1) {
+//         if (arrayOfUserWords[i].userWord.wordId === data[k].wordId) {
+//           arrayOfUserWords[i].userWord = data[k];
+//         }
+//       }
+//     }
+//     dispatch(fetchUserWordsSuccess(arrayOfUserWords));
+//   } catch (error) {
+//     dispatch(fetchUserWordsFail(error));
+//   }
+// };
 
 export default fetchUserWords;
