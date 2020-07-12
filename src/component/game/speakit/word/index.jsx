@@ -5,11 +5,12 @@ import { FILES_BASE } from '../constants';
 export default class Word extends Component {
   constructor(props) {
     super(props);
-    this.audioRef = React.createRef();
+    const { word } = props;
+    this.audio = new Audio(word.audio.length > 200 ? `data:audio/mp3;base64,${word.audio}` : FILES_BASE + word.audio);
   }
 
   playAudio = () => {
-    this.audioRef.current.play();
+    this.audio.play();
   };
 
   handleClick = () => {
@@ -32,7 +33,7 @@ export default class Word extends Component {
           <div>{word.transcription}</div>
         </div>
         <audio
-          src={word.audio.length > 200 ? `data:audio/mp3;base64, ${word.audio} ` : FILES_BASE + word.audio}
+          src={word.audio.length > 200 ? `data:audio/mp3;base64,${word.audio}` : FILES_BASE + word.audio}
           ref={this.audioRef}
         />
       </div>);
