@@ -38,7 +38,7 @@ class Login extends Component {
   render() {
     const { isError } = this.props;
     return (
-      <Form onSubmit={this.handleUserLogin}>
+      <Form className='login-form' onSubmit={this.handleUserLogin}>
         <h3>Login page</h3>
         <Form.Group>
           <Form.Label>Email address</Form.Label>

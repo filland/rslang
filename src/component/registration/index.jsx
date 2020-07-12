@@ -41,7 +41,7 @@ class Registration extends Component {
     const { isError, isLoaded, error } = this.props;
 
     return (
-      <Form onSubmit={this.handleUserLogin}>
+      <Form className='registration-form' onSubmit={this.handleUserLogin}>
         <h3>Registration page</h3>
         <Form.Group>
           <Form.Label>Email address</Form.Label>
