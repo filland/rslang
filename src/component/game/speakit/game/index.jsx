@@ -76,6 +76,7 @@ class Game extends Component {
       const statsData = [
         { label: 'Общее количество изученных слов', value: preparedWords.length },
         { label: 'Количество новых слов', value: newWordsNumber },
+        { label: 'Количество повторенных слов', value: preparedWords.length - newWordsNumber },
       ];
       // navigate to Statistics page
       setCurrentPage(STATISTICS_PAGE, statsData);
@@ -162,7 +163,7 @@ class Game extends Component {
 
     const wordsTemplate = preparedWords.map((word) => (
       <Word
-        key={word.id + ' ' + Date.now()}
+        key={`${word.id}  ${Date.now()}`}
         word={word}
         handleClick={this.handleWordClick}></Word>
     ));

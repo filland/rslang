@@ -3,7 +3,7 @@ import Menu from './menu';
 import Game from './game';
 import { MENU_PAGE, GAME_PAGE } from './constants';
 import { STATISTICS_PAGE } from '../audioChallenge/constants';
-import Statistics from '../../statistics';
+import Statistics from './statistics';
 
 class SpeakIt extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class SpeakIt extends Component {
     } if (page === GAME_PAGE) {
       return (<Game setCurrentPage={this.setCurrentPageAndStatistics}></Game>);
     } if (page === STATISTICS_PAGE) {
-      return (<Statistics data={dataForStatistics}></Statistics>);
+      return (<Statistics data={dataForStatistics} setCurrentPage={this.setCurrentPage}></Statistics>);
     }
 
     return (<Menu setCurrentPage={this.setCurrentPage}></Menu>);
