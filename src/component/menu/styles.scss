@@ -1,7 +1,7 @@
 .icon-menu {
     position: relative;
     display: table-cell;
-    width: 60px;
+    width: 55px;
     height: 36px;
     text-align: center;
     vertical-align: middle;
@@ -55,16 +55,27 @@
 }
 
 .main-menu {
-    background: #536976;
-    background: -webkit-linear-gradient(to right, #292e49, #536976); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #292e49, #536976);
+    background: #005c97; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to right,
+        #00436c 40%,
+        #363795 30%,
+        #00436c 40%
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #00436c 40%,
+        #363795 30%,
+        #00436c 40%
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     border-right: 1px solid #e5e5e5;
     position: fixed;
     top: 0;
     bottom: 0;
     height: 100%;
     left: 0;
-    width: 60px;
+    width: 62px;
     overflow: hidden;
     -webkit-transition: width 0.05s linear;
     transition: width 0.05s linear;
@@ -103,13 +114,13 @@
     transition: all 0.1s linear;
 }
 .has-subnav {
-    border-bottom: 1px solid #5d5b5b;
+    border-bottom: 0.5px solid #ffffff;
 }
 
 .main-menu .nav-icon {
     position: relative;
     display: table-cell;
-    width: 60px;
+    width: 62px;
     height: 36px;
     text-align: center;
     vertical-align: middle;
@@ -120,6 +131,7 @@
     display: table-cell;
     vertical-align: middle;
     width: 190px;
+    left: 8px;
 }
 
 .main-menu > ul.logout {
@@ -172,7 +184,7 @@ nav.main-menu li.active > a,
     display: none;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
     .icon-menu {
         position: relative;
         display: table-cell;
@@ -209,9 +221,20 @@ nav.main-menu li.active > a,
         height: 100%;
         margin: -32px 0 0 -16px;
         padding-top: 35px;
-        background: #536976;
-        background: -webkit-linear-gradient(to right, #292e49, #536976); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #292e49, #536976);
+        background: #005c97; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+            to right,
+            #00436c 40%,
+            #363795 30%,
+            #00436c 40%
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+            to right,
+            #00436c 40%,
+            #363795 30%,
+            #00436c 40%
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         border-right: 1px solid #e5e5e5;
         position: fixed;
         top: 32px;
