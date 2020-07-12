@@ -1,0 +1,81 @@
+@media screen and (max-width: 1200px) {
+    .statisticsWrapper {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .statisticsWrapper {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .statisticsWrapper h2 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .graph {
+        width: 90%;
+        height: auto;
+    }
+
+    .statistics-field {
+        width: 90%;
+    }
+
+    .statistics-field h3:first-child {
+        padding-top: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .statisticsWrapper h2,
+    .statisticsWrapper h3 {
+        font-size: 26px;
+    }
+}
+
+@media screen and (max-width: 630px) {
+
+    .statisticsWrapper h2,
+    .statisticsWrapper h3 {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .statisticsWrapper h2,
+    .statisticsWrapper h3 {
+        font-size: 20px;
+    }
+
+    .statisticsWrapper {
+        width: 95%;
+    }
+
+    .graph {
+        width: 100%;
+        height: auto;
+    }
+
+    .statistics-field {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    .statisticsWrapper h2,
+    .statisticsWrapper h3 {
+        font-size: 18px;
+    }
+}
