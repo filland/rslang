@@ -32,10 +32,6 @@ export default class Word extends Component {
           <div>{word.word}</div>
           <div>{word.transcription}</div>
         </div>
-        <audio
-          src={word.audio.length > 200 ? `data:audio/mp3;base64,${word.audio}` : FILES_BASE + word.audio}
-          ref={this.audioRef}
-        />
       </div>);
   }
 }
