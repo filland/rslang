@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
 
-  Tabs, Tab, CardDeck,
+  Tabs, Tab, CardDeck, Row,
 } from 'react-bootstrap';
 
 import CardWord from './cardWord/index';
@@ -59,7 +59,9 @@ class Dictionary extends Component {
             {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
+            <Row>
+              {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
+            </Row>
           </CardDeck>
         </Tab>
         <Tab eventKey="difficult" title="Сложные слова">
@@ -78,7 +80,7 @@ class Dictionary extends Component {
             {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
-      </Tabs>
+      </Tabs >
     );
   }
 }
