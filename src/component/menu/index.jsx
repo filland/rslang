@@ -20,6 +20,7 @@ class Menu extends Component {
         {
           isAuthorized()
           && <nav className="main-menu">
+
             <div id="menuToggle">
               <input type="checkbox" />
               <span></span>
@@ -73,7 +74,6 @@ class Menu extends Component {
                     </Link>
                   </li>
                 </ul>
-
                 <ul>
                   <li className="has-subnav">
                     <Link to="/learning">

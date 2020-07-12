@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Statistics from './statistics';
 import correct from './correct.png';
 import wrong from './wrong.png';
-import { prepareWords } from '../../common/helper/WordsHelper';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../common/helper/WordsHelper';
 import dispatchWords from './service.js';
 import setUserStatistics from '../long-term-statistics/statisticsService/statisticsService';
 
@@ -37,6 +37,7 @@ class Game extends Component {
       mistakesArray: [],
       playAllWords: [],
       newWords: 0,
+      gameFinished: false,
     };
   }
 
@@ -73,11 +74,6 @@ class Game extends Component {
       knowArray, mistakesArray, playAllWords, newWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
-    if (!playAllWords.includes(englishWord)) {
-      this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, englishWord],
-      }));
-    }
     if (idEnglishWord === idRussianWord) {
       this.setState({
         border: '5px solid green',
@@ -121,6 +117,11 @@ class Game extends Component {
     });
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
+    if (!playAllWords.includes(preparedWords[randomIndex])) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, preparedWords[randomIndex]],
+      }));
+    }
     this.setState({
       englishWord: preparedWords[randomIndex].word,
       englishWordTranslate: preparedWords[randomIndex].wordTranslate,
@@ -136,11 +137,6 @@ class Game extends Component {
       knowArray, mistakesArray, playAllWords, newWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
-    if (!playAllWords.includes(englishWord)) {
-      this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, englishWord],
-      }));
-    }
     if (idEnglishWord !== idRussianWord) {
       this.setState({
         border: '5px solid green',
@@ -184,6 +180,11 @@ class Game extends Component {
     });
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
+    if (!playAllWords.includes(preparedWords[randomIndex])) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, preparedWords[randomIndex]],
+      }));
+    }
     this.setState({
       englishWord: preparedWords[randomIndex].word,
       englishWordTranslate: preparedWords[randomIndex].wordTranslate,
@@ -211,10 +212,11 @@ class Game extends Component {
     const { dispatchWordsStatistics } = this.props;
     const { knowArray, mistakesArray } = this.state;
     const { playAllWords, newWords } = this.state;
-    const { setUserStatistics } = this.props;
+    const { setUserStatistics, passDictionaryWordsToUserWords } = this.props;
     if (minutes === 0 && seconds === 0) {
       dispatchWordsStatistics(knowArray, mistakesArray);
       setUserStatistics(playAllWords.length, newWords);
+      passDictionaryWordsToUserWords(playAllWords);
       return <Statistics />;
     }
     return (
@@ -226,7 +228,7 @@ class Game extends Component {
               <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
             </Col>
           </Row>
-          <Card style={styleCard} className="d-flex flex-column align-items-center p-3" id="card">
+          <Card style={styleCard} className="d-flex flex-column align-items-center p-3 card">
             <Card.Img variant="top" style={styleCorrect} src={correct} alt="Correct sing" id="correct" />
             <Card.Body className="d-flex flex-column align-items-center p-4">
               <Card.Text id="points-info">{pointsInfo}</Card.Text>
@@ -258,6 +260,7 @@ const mapDispatchToProps = {
   dispatchWordsStatistics: dispatchWords,
   prepareWords,
   setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -3,8 +3,6 @@
     justify-content: center;
 
     .speakit {
-        width: 80%;
-
 
         .picture-container {
 
@@ -15,22 +13,35 @@
             .picture {
                 text-align: center;
                 height: 250px;
-                border: 1px solid wheat;
             }
         }
 
+        .word-translation {
+            text-align: center;
+        }
 
-        .words {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+        .words-wrapper {
+            display: flex;
+            justify-content: center;
+
+            .words {
+                display: grid;
+                width: 100%;
+                grid-template-columns: repeat(5, 1fr);
+            }
         }
 
         .controls {
             display: flex;
+            padding: 5px;
 
             button {
                 flex: 1;
                 margin-right: 10px;
+            }
+
+            button:last-child {
+                margin-right: 0;
             }
 
             .big-button {
@@ -39,6 +50,28 @@
 
         }
     }
+}
 
 
+@media(max-width: 1024px) {
+    .speakit-container {
+    
+        .speakit {
+    
+            .picture-container {
+                width: 100%;
+
+                .picture {
+                    height: unset;
+                    width: 100%;
+                }
+            }
+
+            .words-wrapper {
+                .words {
+                    grid-template-columns: repeat(auto-fill, 50%);
+                }
+            }
+        }
+    }
 }

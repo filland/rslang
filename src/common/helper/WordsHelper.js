@@ -2,7 +2,6 @@
 import getUserWords from '../../component/common/word/user-word/selectors';
 import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
 import { updateOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
-import { transformOldWordsArrayToCorrectType } from './helpers';
 
 function getRandomIndex(upperBorder) {
   return Math.round(Math.random() * upperBorder);
@@ -84,7 +83,7 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
 
   if (tempUserWords.length > numberOfAllWords) {
     const res = tempUserWords.filter((word, index) => index < numberOfAllWords);
-    return { preparedWords: res, newWordsNumber: numberOfAllWords };
+    return { preparedWords: res, newWordsNumber: 0 };
   }
 
   const numberOfUserWords = totalNumberOfNewWordsPerDay - shownNewWordsTodayFromStatistics;
@@ -100,7 +99,7 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
   // prepare array with dictionary words (do not include words which already added as user words)
   const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
 
-  const newWordsNumber = tempUserWords.length;
+  const newWordsNumber = preparedDictionaryWords.length;
   const result = tempUserWords.concat(preparedDictionaryWords);
 
   shuffleArray(result);
@@ -122,7 +121,6 @@ export const passDictionaryWordsToUserWords = (dictionaryWord) => async (dispatc
       newWords.push(word);
     }
   });
-  const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
   if (newWords.length !== 0) { dispatch(postNewUserWords(newWords)); }
-  if (oldWords.length !== 0) { dispatch(updateOldUserWords(transformOldWords)); }
+  if (oldWords.length !== 0) { dispatch(updateOldUserWords(oldWords)); }
 };

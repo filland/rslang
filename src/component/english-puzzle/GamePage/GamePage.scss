@@ -30,6 +30,17 @@
 
    .hints{
        display: flex;
+       form{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+         input{
+             margin: 2px;
+         }
+         button{
+             margin: 2px;
+         }
+       }
 
         .gameTools{
             display: flex;

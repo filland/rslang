@@ -14,6 +14,7 @@ import createTemplateOfStoreSettings from './helpers';
 import 'react-input-range/lib/css/index.css';
 
 import './style.scss';
+import './media.scss';
 
 const arrOfInformation = [
   { id: 'informationTranslate', label: 'Перевод слова *' },
@@ -112,6 +113,7 @@ class Settings extends React.Component {
     const { newCardsPerDay, volumeValue } = this.state.settings.optional;
     return (
       <Form onSubmit={this.handleSubmit}>
+        <div className = "settingsWrapper">
         <br />
         <Accordion defaultActiveKey="0">
           <Card>
@@ -244,6 +246,7 @@ class Settings extends React.Component {
             </div>
           </div>
         </Accordion>
+        </div>
       </Form>
     );
   }

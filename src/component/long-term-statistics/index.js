@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import getUserStatistics from './service';
 
 import './style.scss';
+import './media.scss';
 
 class LineStatistics extends React.Component {
   constructor(props) {

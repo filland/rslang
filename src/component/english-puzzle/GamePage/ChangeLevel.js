@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  setInputValue,
-  changeDifficultOfGame,
-} from '../redux/actions';
+import { setInputValue, changeDifficultOfGame } from '../redux/actions';
 import { prepareWords } from '../../../common/helper/WordsHelper';
 
 class GameItems extends React.Component {
@@ -25,6 +22,7 @@ class GameItems extends React.Component {
 
       <form>
         <input
+          className='form-control form-control-sm'
           type="number"
           min="1"
           max="6"
@@ -35,6 +33,7 @@ class GameItems extends React.Component {
           ref="level"
         />
         <input
+          className='form-control form-control-sm'
           type="number"
           min="1"
           max="30"
