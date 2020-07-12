@@ -2,7 +2,6 @@
 import getUserWords from '../../component/common/word/user-word/selectors';
 import getDictionaryWords from '../../component/common/word/dictionary-word/selectors';
 import { updateOldUserWords, postNewUserWords } from '../../component/common/word/user-word/service';
-import { transformOldWordsArrayToCorrectType } from './helpers';
 
 function getRandomIndex(upperBorder) {
   return Math.round(Math.random() * upperBorder);
@@ -122,7 +121,6 @@ export const passDictionaryWordsToUserWords = (dictionaryWord) => async (dispatc
       newWords.push(word);
     }
   });
-  const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
   if (newWords.length !== 0) { dispatch(postNewUserWords(newWords)); }
-  if (oldWords.length !== 0) { dispatch(updateOldUserWords(transformOldWords)); }
+  if (oldWords.length !== 0) { dispatch(updateOldUserWords(oldWords)); }
 };
