@@ -5,7 +5,6 @@
     height: 36px;
     text-align: center;
     vertical-align: middle;
-    font-size: 20px;
     &:before {
         background-size: 25px 25px;
         display: inline-block;
@@ -73,7 +72,7 @@
     -webkit-transform: translateZ(0) scale(1, 1);
     z-index: 1000;
     &:hover {
-        width: 250px;
+        width: 252px;
         overflow: visible;
     }
 }
@@ -96,8 +95,8 @@
     border-collapse: collapse;
     border-spacing: 0;
     color: #fffefe;
-    font-size: 18px;
     text-decoration: none;
+    font-size: 1.2rem;
     transform: translateZ(0) scale(1, 1);
     -webkit-transform: translateZ(0) scale(1, 1);
     -webkit-transition: all 0.1s linear;
@@ -114,7 +113,6 @@
     height: 36px;
     text-align: center;
     vertical-align: middle;
-    font-size: 18px;
 }
 
 .main-menu .nav-text {
@@ -175,23 +173,56 @@ nav.main-menu li.active > a,
 }
 
 @media (max-width: 575.98px) {
+    .icon-menu {
+        position: relative;
+        display: table-cell;
+        width: 50px;
+        height: 26px;
+        text-align: center;
+        vertical-align: middle;
+        &:before {
+            background-size: 20px 20px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 3px;
+            left: 5px;
+            content: "";
+        }
+    }
+
+    .main-menu > ul {
+        margin: 5px 0;
+    }
+    .main-menu li {
+        width: 200px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    .main-menu li > a {
+        font-size: 1rem;
+    }
     .menu-ul {
-        position: absolute;
-        margin: -100px 0 0 -16px;
-        padding-top: 125px;
+        position: fixed;
+        height: 100%;
+        margin: -32px 0 0 -16px;
+        padding-top: 35px;
         background: #536976;
         background: -webkit-linear-gradient(to right, #292e49, #536976); /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #292e49, #536976);
         border-right: 1px solid #e5e5e5;
         position: fixed;
-        top: 10px;
-        width: 250px;
+        top: 32px;
+        width: 200px;
         z-index: 3;
 
         transform-origin: 0% 0%;
         transform: translate(-100%, 0);
         transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
     }
+
     .main-menu {
         background: none;
         border: none;
@@ -205,6 +236,7 @@ nav.main-menu li.active > a,
     #menuToggle {
         display: block;
         position: relative;
+        height: 100vh;
         top: 15px;
         left: 15px;
         z-index: 1;
