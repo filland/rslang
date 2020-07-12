@@ -20,118 +20,128 @@ class Menu extends Component {
         {
           isAuthorized()
           && <nav class="main-menu">
-            <ul>
-              <li class="has-subnav">
-                <Link to="/game/speakit">
-                  <i class="icon-menu icon-menu_speakit"></i>
-                  <span class="nav-text">
-                    SpeakIt
+            <div id="menuToggle">
+              <input type="checkbox" />
+              <span></span>
+              <span className="span-2"></span>
+              <span className="span-3"></span>
+
+              <div id="menu" className="menu-ul">
+                <ul>
+                  <li class="has-subnav">
+                    <Link to="/game/speakit">
+                      <i class="icon-menu icon-menu_speakit"></i>
+                      <span class="nav-text">
+                        SpeakIt
                   </span>
-                </Link>
+                    </Link>
 
-              </li>
-              <li class="has-subnav">
-                <Link to="/english-puzzle">
-                  <i class="icon-menu icon-menu_english-puzzle"></i>
-                  <span class="nav-text">
-                    English puzzle
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/english-puzzle">
+                      <i class="icon-menu icon-menu_english-puzzle"></i>
+                      <span class="nav-text">
+                        English puzzle
               </span>
-                </Link>
+                    </Link>
 
-              </li>
-              <li class="has-subnav">
-                <Link to="/savanna">
-                  <i class="icon-menu icon-menu_savanna"></i>
-                  <span class="nav-text">
-                    Саванна
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/savanna">
+                      <i class="icon-menu icon-menu_savanna"></i>
+                      <span class="nav-text">
+                        Саванна
               </span>
-                </Link>
+                    </Link>
 
-              </li>
+                  </li>
 
-              <li class="has-subnav">
-                <Link to="/audioChallenge">
-                  <i class="icon-menu icon-menu_audio-challenge"></i>
-                  <span class="nav-text">
-                    Аудиовызов
+                  <li class="has-subnav">
+                    <Link to="/audioChallenge">
+                      <i class="icon-menu icon-menu_audio-challenge"></i>
+                      <span class="nav-text">
+                        Аудиовызов
                 </span>
-                </Link>
-              </li>
-              <li class="has-subnav">
-                <Link to="/sprint">
-                  <i class="icon-menu icon-menu_sprint"></i>
-                  <span class="nav-text">
-                    Спринт
+                    </Link>
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/sprint">
+                      <i class="icon-menu icon-menu_sprint"></i>
+                      <span class="nav-text">
+                        Спринт
               </span>
-                </Link>
-              </li>
-            </ul>
+                    </Link>
+                  </li>
+                </ul>
 
-            <ul>
-              <li class="has-subnav">
-                <Link to="/learning">
-                  <i class="icon-menu icon-menu_learning"></i>
-                  <span class="nav-text">
-                    Learning words
+                <ul>
+                  <li class="has-subnav">
+                    <Link to="/learning">
+                      <i class="icon-menu icon-menu_learning"></i>
+                      <span class="nav-text">
+                        Learning words
                 </span>
-                </Link>
+                    </Link>
 
-              </li>
-              <li class="has-subnav">
-                <Link to="/promo">
-                  <i class="icon-menu icon-menu_promo"></i>
-                  <span class="nav-text">
-                    Promo
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/promo">
+                      <i class="icon-menu icon-menu_promo"></i>
+                      <span class="nav-text">
+                        Promo
             </span>
-                </Link>
+                    </Link>
 
-              </li>
-              <li class="has-subnav">
-                <Link to="/settings">
-                  <i class="icon-menu icon-menu_settings"></i>
-                  <span class="nav-text">
-                    Settings
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/settings">
+                      <i class="icon-menu icon-menu_settings"></i>
+                      <span class="nav-text">
+                        Settings
             </span>
-                </Link>
+                    </Link>
 
-              </li>
+                  </li>
 
-              <li class="has-subnav">
-                <Link to="/dictionary">
-                  <i class="icon-menu icon-menu_dictionary"></i>
-                  <span class="nav-text">
-                    Dictionary
+                  <li class="has-subnav">
+                    <Link to="/dictionary">
+                      <i class="icon-menu icon-menu_dictionary"></i>
+                      <span class="nav-text">
+                        Dictionary
               </span>
-                </Link>
-              </li>
-              <li class="has-subnav">
-                <Link to="/statistics">
-                  <i class="icon-menu icon-menu_statistics"></i>
-                  <span class="nav-text">
-                    Statistics
+                    </Link>
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/statistics">
+                      <i class="icon-menu icon-menu_statistics"></i>
+                      <span class="nav-text">
+                        Statistics
             </span>
-                </Link>
-              </li>
-              <li class="has-subnav">
-                <Link to="/long-term-statistics">
-                  <i class="icon-menu icon-menu_statistics_full"></i>
-                  <span class="nav-text">
-                    Long-term statistics
+                    </Link>
+                  </li>
+                  <li class="has-subnav">
+                    <Link to="/long-term-statistics">
+                      <i class="icon-menu icon-menu_statistics_full"></i>
+                      <span class="nav-text">
+                        Long-term statistics
           </span>
-                </Link>
-              </li>
-            </ul>
+                    </Link>
+                  </li>
+                </ul>
 
-            <ul class="logout">
-              <li>
-                <Link onClick={this.logoutUser} to="/logout">
-                  <i class="icon-menu icon-menu_logout"></i>
-                  <span class="nav-text">
-                    Logout
+                <ul class="logout">
+                  <li>
+                    <Link onClick={this.logoutUser} to="/logout">
+                      <i class="icon-menu icon-menu_logout"></i>
+                      <span class="nav-text">
+                        Logout
                   </span>
-                </Link>
-              </li>
-            </ul>
+                    </Link>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
           </nav>
         }
       </div>
