@@ -8,7 +8,7 @@ const fetchDictionaryWords = () => async (dispatch, getState) => {
 
     const { difficultyLevel } = store.settings.optional;
     const group = difficultyLevel - 1;
-    const PAGE_NUMBER = 5;
+    const PAGE_NUMBER = 30;
 
     // refactor ?
     // https://stackoverflow.com/questions/46241827/fetch-api-requesting-multiple-get-requests
