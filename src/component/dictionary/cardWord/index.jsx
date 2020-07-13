@@ -10,7 +10,7 @@ import fetchWordServiceRestore from '../serviceRestore';
 import { updateOldUserWords } from '../../common/word/user-word/service';
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
-import { formatDateInWord, getDiffUpdatedDateToNowDays } from '../utils';
+import { formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty } from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -54,22 +54,7 @@ class Cardword extends Component {
   };
 
   formDifficulty = () => {
-    const difficultyString = this.props.word.userWord.difficulty;
-    let dotCount;
-    switch (difficultyString) {
-      case 'hard':
-        dotCount = 3;
-        break;
-      case 'normal':
-        dotCount = 2;
-        break;
-      case 'easy':
-        dotCount = 1;
-        break;
-      default:
-        dotCount = 0;
-    }
-    return dotCount;
+    return nameDifficulty(this.props.word.userWord.difficulty);
   };
 
   render() {

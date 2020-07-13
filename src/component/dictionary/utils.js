@@ -17,3 +17,20 @@ export function formatDateInWord(word) {
     const d = word.optional && word.optional.showDate ? new Date(parseInt(word.optional.showDate, 10)) : new Date();
     return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
 }
+export function nameDifficulty(difficultyString) {
+    let dotCount;
+    switch (difficultyString) {
+        case 'hard':
+            dotCount = 3;
+            break;
+        case 'normal':
+            dotCount = 2;
+            break;
+        case 'easy':
+            dotCount = 1;
+            break;
+        default:
+            dotCount = 0;
+    }
+    return dotCount;
+}
