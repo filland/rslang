@@ -14,7 +14,7 @@ const fetchUserWords = () => async (dispatch) => {
     const preparedUserWords = [];
     for (let i = 0; i < userWords.length; i += 1) {
       const userWord = userWords[i];
-      const FETCH_DICTIONARY_WORD_URL = `https://afternoon-falls-25894.herokuapp.com/words/${userWord.wordId}?noAssets=true`;
+      const FETCH_DICTIONARY_WORD_URL = `https://afternoon-falls-25894.herokuapp.com/words/${userWord.wordId}`;
       const dictionaryWord = authorizedRequest(FETCH_DICTIONARY_WORD_URL);
       preparedUserWords.push(dictionaryWord);
     }
