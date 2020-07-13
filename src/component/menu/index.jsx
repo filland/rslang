@@ -29,6 +29,19 @@ class Menu extends Component {
 
               <div className="menu-ul">
                 <ul>
+
+
+                <li className="has-subnav">
+                    <Link to="/main-page">
+                      <i className="icon-menu icon-menu_speakit"></i>
+                      <span className="nav-text">
+                         MainPage
+                  </span>
+                    </Link>
+
+                  </li>
+
+                
                   <li className="has-subnav">
                     <Link to="/game/speakit">
                       <i className="icon-menu icon-menu_speakit"></i>
