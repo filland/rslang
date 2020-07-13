@@ -6,8 +6,9 @@ import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem, Col,
 } from 'react-bootstrap';
-import fetchWordServiceRestore from '../serviceRestore';
-import { updateOldUserWords } from '../../common/word/user-word/service';
+// import fetchWordServiceRestore from '../serviceRestore';
+import fetchUserWords, { updateOldUserWords } from '../../common/word/user-word/service';
+
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
 import { formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty } from '../utils';
@@ -18,6 +19,7 @@ const propTypes = {
   restoreButton: PropTypes.string.isRequired,
   handlerRestore: PropTypes.func,
   updateOldUserWords: PropTypes.func,
+  fetchUserWords: PropTypes.func,
 };
 
 class Cardword extends Component {
@@ -29,10 +31,14 @@ class Cardword extends Component {
   }
 
   restoreWord = () => {
-    const { updateOldUserWords, word, restoreButton } = this.props;
+    const {
+      updateOldUserWords, fetchUserWords, word, restoreButton,
+    } = this.props;
     console.log(word);
-    fetchWordServiceRestore(word.id, restoreButton);
+    // fetchWordServiceRestore(word.id, restoreButton);
+    word.userWord.difficulty = 'normal';
     updateOldUserWords([word]);
+    fetchUserWords();
   };
 
   playAudio = () => {
@@ -71,7 +77,6 @@ class Cardword extends Component {
               settings.optional.informationTranslate
               && <Card.Text>{word.wordTranslate}</Card.Text>
             }
-
             {
               settings.optional.informationTranscription
               && <Card.Text>
@@ -127,7 +132,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = {
-  updateOldUserWords,
+  updateOldUserWords, fetchUserWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cardword);

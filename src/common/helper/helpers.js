@@ -13,6 +13,7 @@ export const transformOldWordsArrayToCorrectType = (oldWords) => {
     };
     arrayOfNewUserWords.push(userWord);
   });
+  console.log(arrayOfNewUserWords);
   return arrayOfNewUserWords;
 };
 

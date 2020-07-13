@@ -28,15 +28,29 @@ class Dictionary extends Component {
     super(props);
     this.state = {
       userWords: props.userWords,
+      settings: props.settings,
+
     };
     this.handlerRestore = this.handlerRestore.bind(this);
   }
 
   // will use next two method afrer redux set method
-  componentDidUpdate(nextProps) {
-    if (JSON.stringify(nextProps.userWords) !== JSON.stringify(this.props.userWords)) {
-      this.setState({ userWords: this.props.userWords });
+  // componentDidUpdate(nextProps) {
+  //   if (JSON.stringify(nextProps.userWords) !== JSON.stringify(this.props.userWords)) {
+  //     this.setState({ userWords: this.props.userWords });
+  //   }
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevProps) {
+    const { userWords, settings } = nextProps;
+    const actualProps = { userWords, settings };
+    if (JSON.stringify(prevProps) !== JSON.stringify(actualProps)) {
+      return {
+        userWords: actualProps.userWords,
+        settings: actualProps.settings,
+      };
     }
+    return null;
   }
 
   handlerRestore = async () => {
@@ -45,12 +59,15 @@ class Dictionary extends Component {
 
   render() {
     const {
-      settings,
-    } = this.props;
+      settings, userWords,
+    } = this.state;
 
-    const wordsDeletedList = this.state.userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
-    const wordsDifficultList = this.state.userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
-    const wordsLearningList = this.state.userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
+    console.log("render");
+    console.log(userWords);
+
+    const wordsDeletedList = userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
+    const wordsDifficultList = userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
+    const wordsLearningList = userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     return (
       <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >

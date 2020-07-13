@@ -52,6 +52,9 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
         }
       }
     }
+    console.log("end");
+    console.log(arrayOfUserWords);
+
     dispatch(fetchUserWordsSuccess(arrayOfUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
