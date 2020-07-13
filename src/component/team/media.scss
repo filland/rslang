@@ -1,0 +1,135 @@
+@media screen and (max-width: 1024px) {
+    .person-photo {
+        width: 160px;
+        height: 160px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 155px auto 0 auto;
+        height: 88px;
+    }
+}
+
+@media screen and (max-width: 910px) {
+    .person-photo {
+        width: 145px;
+        height: 145px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 140px auto 0 auto;
+        height: 103px;
+    }
+}
+
+@media screen and (max-width: 810px) {
+   .empty {
+       display: none;
+   }
+
+   .person:nth-child(odd) .photo {
+       order: -1;
+   }
+   .person-photo {
+    width: 160px;
+    height: 160px;
+}
+
+.person:not(:last-child) .person-photo::after {
+    margin: 155px auto 0 auto;
+    height: 88px;
+}
+
+.photo {
+    width: 30%;
+}
+
+.text {
+    width: 65%;
+}
+
+.text:nth-child(1) {
+    text-align: left;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+}
+
+@media screen and (max-width: 610px) {
+    .person-photo {
+        width: 145px;
+        height: 145px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 140px auto 0 auto;
+        height: 103px;
+    }
+
+    .person h4 {
+        font-size: 20px;
+    }
+
+    .person li {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .person-photo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 125px auto 0 auto;
+        height: 120px;
+    }
+
+}
+
+@media screen and (max-width: 490px) {
+    .person-photo {
+        width: 110px;
+        height: 110px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 107px auto 0 auto;
+        height: 130px;
+    }
+
+    .person {
+        height: 240px;
+    }
+
+    .person h4 {
+        font-size: 18px;
+    }
+
+    .text {
+        width: 68%;
+    }
+
+}
+
+@media screen and (max-width: 410px) {
+    .person-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .person:not(:last-child) .person-photo::after {
+        margin: 85px auto 0 auto;
+        height: 155px;
+    }
+
+    .person li {
+        font-size: 15px;
+    }
+}

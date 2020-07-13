@@ -15,6 +15,7 @@ import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
 import LineStatistics from './component/long-term-statistics';
 import Loader from './component/common/loader/index';
+import AboutTeamPage from './component/team/index';
 
 import './App.scss';
 import Savanna from './component/savanna/index';
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" component={Loader} />
         <AuthProvider>
           <Route path="/promo" component={Promo} />
+          <Route path="/team" component={AboutTeamPage} />
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/learning" component={LearningWords} />

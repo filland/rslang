@@ -235,7 +235,7 @@ class Settings extends React.Component {
             <div className="btn">
               <Button
                 disabled={this.validation()}
-                variant="success"
+                variant="primary"
                 type="submit"
               >Save</Button>
             </div>

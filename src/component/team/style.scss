@@ -1,0 +1,102 @@
+.teamWrapper {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.person {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 60px;
+    height: 245px;
+}
+
+.person ul {
+    padding:0;
+    margin:0;
+}
+
+.person li {
+    list-style-type: none;
+}
+
+.text,
+.empty {
+    width: 38%;  
+}
+
+.text:nth-child(1) {
+    text-align: right;
+}
+
+.photo {
+    width: 20%;
+}
+
+.photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.person-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 3px solid #6d8490;
+    transition: ease-in-out .3s;
+}
+
+.person:not(:last-child) .person-photo::after {
+    content: '';
+    display: block;
+    margin: 175px auto 0 auto;
+    width: 3px;
+    height: 70px;
+    background-color: #6d8490;
+}
+
+.person-photo:hover {
+    border: 3px solid #4e626e;
+    transition: ease-in-out .3s;
+}
+
+.first-photo {
+    background: url('image/kirsanov.jpg') center no-repeat;
+    background-size: cover;
+}
+
+.second-photo {
+    background: url('image/kurbatov.png') center no-repeat;
+    background-size: cover;
+}
+
+.third-photo {
+    background: url('image/groot.jpg') center no-repeat;
+    background-size: cover;
+}
+
+.fourth-photo {
+    background: url('image/kamorina.jpg') center no-repeat;
+    background-size: cover;
+}
+
+.fifth-photo {
+    background: url('image/liplyanin.jpeg') center no-repeat;
+    background-size: cover;
+}
+
+.sixth-photo {
+    background: url('image/poprotskaya.png') center no-repeat;
+    background-size: contain;
+}
+
+.seventh-photo {
+    background: url('image/novikov.jpg') center no-repeat;
+    background-size: cover;
+}
+
+.eighth-photo {
+    background: url('image/starovoitova.jpg') center no-repeat;
+    background-size: contain;
+}
+
