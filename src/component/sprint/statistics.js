@@ -26,9 +26,9 @@ class Statistics extends Component {
   </ListGroup.Item>);
     return (
     <Container>
-      <h2 className="text-center mb-2">Статистика Игры:</h2>
-      <Row className="d-flex justify-content-center">
-        <Card className="d-flex flex-column align-items-center mr-2 stat-card">
+      <h2 className="text-center mt-2 mb-5">Статистика Игры:</h2>
+      <Row className="d-flex justify-content-around">
+        <Card className="d-flex flex-column align-items-center mb-4 stat-card">
           <Card.Body>
             <Card.Subtitle className="my-3">
               Ошибок

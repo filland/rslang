@@ -37,11 +37,27 @@ class Game extends Component {
       mistakesArray: [],
       playAllWords: [],
       newWords: 0,
-      gameFinished: false,
+      preparedWords: [],
+      newPreparedWords: [],
     };
   }
 
   componentDidMount() {
+    const { newWords } = this.state;
+    const { prepareWords } = this.props;
+    const preparedWordsObject = prepareWords(100);
+    const { preparedWords, newWordsNumber } = preparedWordsObject;
+    const words = preparedWords;
+    this.setState({
+      preparedWords: words,
+      newWords: newWords + newWordsNumber,
+    });
+    const firstWord = preparedWords[Math.round(Math.random() * 99)];
+    const secondWord = preparedWords[Math.round(Math.random() * 99)];
+    this.setState({
+      newPreparedWords: [firstWord, secondWord],
+    });
+
     this.myInterval = setInterval(() => {
       const { seconds, minutes } = this.state;
 
@@ -68,12 +84,22 @@ class Game extends Component {
     clearInterval(this.myInterval);
   }
 
-  handleClickCorrect = async () => {
+  takeTwoWords = () => {
+    const { preparedWords } = this.state;
+    const firstWord = preparedWords[Math.round(Math.random() * 99)];
+    const secondWord = preparedWords[Math.round(Math.random() * 99)];
+    this.setState({
+      newPreparedWords: [firstWord, secondWord],
+    });
+  }
+
+  handleClickCorrect = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray, playAllWords, newWords,
+      knowArray, mistakesArray, playAllWords, newPreparedWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
+
     if (idEnglishWord === idRussianWord) {
       this.setState({
         border: '5px solid green',
@@ -109,32 +135,28 @@ class Game extends Component {
         }));
       }
     }
-    const { prepareWords } = this.props;
-    const preparedWordsObject = prepareWords(2);
-    const { preparedWords, newWordsNumber } = preparedWordsObject;
-    this.setState({
-      newWords: newWords + newWordsNumber,
-    });
+
+    this.takeTwoWords();
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
-    if (!playAllWords.includes(preparedWords[randomIndex])) {
+    if (!playAllWords.includes(newPreparedWords[randomIndex])) {
       this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, preparedWords[randomIndex]],
+        playAllWords: [...prevState.playAllWords, newPreparedWords[randomIndex]],
       }));
     }
     this.setState({
-      englishWord: preparedWords[randomIndex].word,
-      englishWordTranslate: preparedWords[randomIndex].wordTranslate,
-      russianWord: preparedWords[randomIndex2].wordTranslate,
-      idEnglishWord: preparedWords[randomIndex].id,
-      idRussianWord: preparedWords[randomIndex2].id,
+      englishWord: newPreparedWords[randomIndex].word,
+      englishWordTranslate: newPreparedWords[randomIndex].wordTranslate,
+      russianWord: newPreparedWords[randomIndex2].wordTranslate,
+      idEnglishWord: newPreparedWords[randomIndex].id,
+      idRussianWord: newPreparedWords[randomIndex2].id,
     });
   };
 
   handleClickWrong = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray, playAllWords, newWords,
+      knowArray, mistakesArray, playAllWords, newPreparedWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
     if (idEnglishWord !== idRussianWord) {
@@ -172,25 +194,21 @@ class Game extends Component {
         }));
       }
     }
-    const { prepareWords } = this.props;
-    const preparedWordsObject = prepareWords(2);
-    const { preparedWords, newWordsNumber } = preparedWordsObject;
-    this.setState({
-      newWords: newWords + newWordsNumber,
-    });
+
+    this.takeTwoWords();
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
-    if (!playAllWords.includes(preparedWords[randomIndex])) {
+    if (!playAllWords.includes(newPreparedWords[randomIndex])) {
       this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, preparedWords[randomIndex]],
+        playAllWords: [...prevState.playAllWords, newPreparedWords[randomIndex]],
       }));
     }
     this.setState({
-      englishWord: preparedWords[randomIndex].word,
-      englishWordTranslate: preparedWords[randomIndex].wordTranslate,
-      russianWord: preparedWords[randomIndex2].wordTranslate,
-      idEnglishWord: preparedWords[randomIndex].id,
-      idRussianWord: preparedWords[randomIndex2].id,
+      englishWord: newPreparedWords[randomIndex].word,
+      englishWordTranslate: newPreparedWords[randomIndex].wordTranslate,
+      russianWord: newPreparedWords[randomIndex2].wordTranslate,
+      idEnglishWord: newPreparedWords[randomIndex].id,
+      idRussianWord: newPreparedWords[randomIndex2].id,
     });
   };
 
@@ -223,7 +241,7 @@ class Game extends Component {
       <Container fluid>
         <Row className="d-flex flex-column align-items-center">
           <Col className="points my-5 text-center">{points} очков</Col>
-          <Row className="time justify-content-center">
+          <Row className="time justify-content-center mb-5">
             <Col className="align-self-center text-center time-span">
               <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
             </Col>
