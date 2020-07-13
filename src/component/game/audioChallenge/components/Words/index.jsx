@@ -6,33 +6,29 @@ import './styles.scss';
 const Words = ({
   words,
   rightWord,
-  // setIsSelectAnswer,
-  // isSelectAnswer,
+  setAnswerSelected,
+  isSelectAnswer,
 }) => {
-  // const [isRightAnswer, setIsRightAnswer] = useState('');
-  // const [isSelectWord, setIsSelectWord] = useState({});
+  const [selectWord, setSelectWord] = useState('');
 
   const templateWords = words.map(({ wordTranslate, id }) => (
     <Word
       key={id}
-      rightWord={rightWord.id === id}
+      isRightAnswer={rightWord.id === id}
       wordTranslate={wordTranslate}
-    // answer={(isSelectAnswer) ? isRightAnswer : ''}
-    // select={isSelectWord.innerText === wordTranslate}
+      isSelectWord={wordTranslate === selectWord.innerText}
+      isSelectAnswer={isSelectAnswer}
     />
   ));
 
-  // const handleSelectAnswer = (e) => {
-  //   setIsSelectAnswer(true);
-  //   const selectWord = e.target;
-  //   setIsSelectWord(selectWord);
-  //   const answer = (rightWord.wordTranslate === selectWord.innerText);
-  //   return (answer) ? setIsRightAnswer(true) : setIsRightAnswer(false);
-  // };
+  const handleSelectAnswer = (e) => {
+    const selectWord = e.target;
+    setAnswerSelected(true);
+    setSelectWord(selectWord);
+  };
 
   return (
-    <ButtonGroup aria-label="List words">{templateWords}</ButtonGroup>
-    // <ButtonGroup aria-label="List words" onClick={handleSelectAnswer}>{templateWords}</ButtonGroup>
+    <ButtonGroup aria-label="List words" onClick={handleSelectAnswer}>{templateWords}</ButtonGroup>
   );
 };
 

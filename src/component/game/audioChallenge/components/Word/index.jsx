@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import './styles.scss';
 
 const Word = ({
+  isRightAnswer,
   wordTranslate,
-  rightWord,
-  // answer,
-  // select,
+  isSelectWord,
+  isSelectAnswer,
 }) => {
-  const expression = () => {
-    //   let res = 'info';
-    //   if (answer === true) {
-    //     res = (rightWord) ? 'success' : 'light';
-    //   } else if (answer === false) {
-    //     if (select) {
-    //       res = 'danger';
-    //     } else {
-    //       res = (rightWord) ? 'info' : 'light';
-    //     }
-    //   }
-    //   return res;
-  };
+  const [variant, setVariant] = useState('info');
+  useEffect(() => {
+    if (isSelectAnswer) {
+      if (isSelectWord) {
+        if (isRightAnswer) {
+          setVariant('success');
+        } else {
+          setVariant('danger');
+        }
+      } else if (isRightAnswer) {
+        setVariant('info');
+      } else {
+        setVariant('light');
+      }
+    } else {
+      setVariant('info');
+    }
+  });
+
   return (
-    <Button className="btn-word" variant={expression()}>
+    <Button className="btn-word" variant={variant}>
       {wordTranslate}
     </Button>
   );
