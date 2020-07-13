@@ -16,6 +16,7 @@ class Game extends Component {
     this.state = {
       preparedWords: [],
       picUrl: blankPicture,
+      wordTranslate: null,
       voiceRecognitionEnabled: false,
       recognizedWord: '',
       stars: 0,
@@ -34,6 +35,7 @@ class Game extends Component {
       preparedWords: words,
       newWordsNumber,
       picUrl: blankPicture,
+      wordTranslate: null,
       voiceRecognitionEnabled: false,
       recognizedWord: '',
       stars: 0,
