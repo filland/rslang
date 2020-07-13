@@ -112,19 +112,19 @@ class Menu extends Component {
                     </Link>
                   </li>
                   <li className="has-subnav">
-                    <Link to="/statistics">
-                      <i className="icon-menu icon-menu_statistics"></i>
-                      <span className="nav-text">
-                        Statistics
-            </span>
-                    </Link>
-                  </li>
-                  <li className="has-subnav">
                     <Link to="/long-term-statistics">
                       <i className="icon-menu icon-menu_statistics_full"></i>
                       <span className="nav-text">
-                        Long-term statistics
+                        Statistics
           </span>
+                    </Link>
+                  </li>
+                  <li className="has-subnav">
+                    <Link to="/team">
+                      <i className="icon-menu icon-menu_statistics"></i>
+                      <span className="nav-text">
+                        Our team
+            </span>
                     </Link>
                   </li>
                 </ul>
