@@ -53,9 +53,7 @@ class Cardword extends Component {
     }
   };
 
-  formDifficulty = () => {
-    return nameDifficulty(this.props.word.userWord.difficulty);
-  };
+  formDifficulty = () => nameDifficulty(this.props.word.userWord.difficulty);
 
   render() {
     const { word, restoreButton, settings } = this.props;
