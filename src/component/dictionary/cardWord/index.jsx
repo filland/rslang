@@ -94,7 +94,7 @@ class Cardword extends Component {
               && <Card.Text>
                 {word.transcription}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-                <audio src={`data:audio/mpeg;base64,${word.audio}`} ref={this.audioRef} />
+                <audio src={`data:audio/mpeg;base64,${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </Card.Text>
             }
           </Card.Body>
@@ -103,7 +103,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-                <audio src={`data:audio/mpeg;base64,${word.audioMeaning}`} ref={this.audioMeaningRef} />
+                <audio src={`data:audio/mpeg;base64,${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </ListGroupItem>
               && <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
             }
@@ -112,7 +112,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textExample}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-                <audio src={`data:audio/mpeg;base64,${word.audioExample}`} ref={this.audioExampleRef} />
+                <audio src={`data:audio/mpeg;base64,${word.audioExample}`} ref={this.audioExampleRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </ListGroupItem>
             }
             <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
