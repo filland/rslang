@@ -14,6 +14,6 @@ export function getWordTodayCount(wordArray) {
 }
 
 export function formatDateInWord(word) {
-    const d = word.optional && word.optional.updatedDate ? new Date(parseInt(word.optional.updatedDate, 10)) : new Date();
+    const d = word.optional && word.optional.showDate ? new Date(parseInt(word.optional.showDate, 10)) : new Date();
     return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
 }

@@ -30,9 +30,9 @@ class Cardword extends Component {
 
   restoreWord = () => {
     const { updateOldUserWords, word, restoreButton } = this.props;
-
+    console.log(word);
     fetchWordServiceRestore(word.id, restoreButton);
-    updateOldUserWords([word.userWord]);
+    updateOldUserWords([word]);
   };
 
   playAudio = () => {
