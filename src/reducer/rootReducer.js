@@ -9,6 +9,7 @@ import dictionaryWordsReducer from '../component/common/word/dictionary-word/red
 import userWordsReducer from '../component/common/word/user-word/reducer';
 import savannaReducer from '../component/savanna/redux/reducer';
 import sprintReducer from '../component/sprint/reducer';
+import audioChallengeReducer from '../component/game/audioChallenge/pages/statistics/reducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   statistics: statisticsReducer,
   savannaGame: savannaReducer,
   sprint: sprintReducer,
+  audioChallenge: audioChallengeReducer,
 });
 
 export default rootReducer;
