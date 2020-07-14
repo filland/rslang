@@ -50,34 +50,36 @@ class Dictionary extends Component {
     const wordsLearningList = userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
     return (
-      <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >
-        <Tab eventKey="learn" title="Изучаемые слова">
-          <div className="my-4">
-            {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
-          </div>
-          <CardDeck className="my-4 justify-content-between">
-            <Row>
-              {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
-            </Row>
-          </CardDeck>
-        </Tab>
-        <Tab eventKey="difficult" title="Сложные слова">
-          <div className="my-4">
-            {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
-          </div>
-          <CardDeck className="my-4 justify-content-between">
-            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" />)}
-          </CardDeck>
-        </Tab>
-        <Tab eventKey="deleted" title="Удалённые слова">
-          <div className="my-4">
-            {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
-          </div>
-          <CardDeck className="my-4 justify-content-between">
-            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" />)}
-          </CardDeck>
-        </Tab>
-      </Tabs >
+      <div className='container'>
+        <Tabs defaultActiveKey="learn" id="dictionary-tab-mode" >
+          <Tab eventKey="learn" title="Изучаемые слова">
+            <div className="my-4">
+              {`Число слов: ${wordsLearningList.length} (${getWordTodayCount(wordsLearningList)} сегодня)`}
+            </div>
+            <CardDeck className="my-4 justify-content-between">
+              <Row>
+                {wordsLearningList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="false" />)}
+              </Row>
+            </CardDeck>
+          </Tab>
+          <Tab eventKey="difficult" title="Сложные слова">
+            <div className="my-4">
+              {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
+            </div>
+            <CardDeck className="my-4 justify-content-between">
+              {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" />)}
+            </CardDeck>
+          </Tab>
+          <Tab eventKey="deleted" title="Удалённые слова">
+            <div className="my-4">
+              {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
+            </div>
+            <CardDeck className="my-4 justify-content-between">
+              {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" />)}
+            </CardDeck>
+          </Tab>
+        </Tabs >
+      </div>
     );
   }
 }
