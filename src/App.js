@@ -18,7 +18,6 @@ import Loader from './component/common/loader/index';
 import MainPage from './component/main-page/index';
 import AboutTeamPage from './component/team/index';
 
-
 import './App.scss';
 import Savanna from './component/savanna/index';
 
