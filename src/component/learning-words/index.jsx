@@ -21,8 +21,6 @@ import "./styles.scss";
 const mediaStorage =
   "https://raw.githubusercontent.com/liplyanin/rslang-data/master/";
 
-const defaultVolume = 0.2;
-
 const statisticsData = [
   { label: "Карточек завершено:", value: 30 },
   { label: "Правильные ответы, %:", value: 23 },
@@ -49,7 +47,8 @@ class LearningWords extends Component {
     easyWords: 0,
     skippedWords: 0,
     repeatedWords: 0,
-    deletedWords: 0
+    deletedWords: 0,
+    volume: 0.2,
   };
 
   componentDidMount() {
@@ -67,6 +66,7 @@ class LearningWords extends Component {
         numberOfNewWords: newWordsNumber,
       });
     }
+    this.setState({ volume: this.props.settings.optional.volumeValue / 20 });
   }
 
   componentDidUpdate() {
@@ -87,8 +87,9 @@ class LearningWords extends Component {
     if (
       this.state.learnedWords.length === this.state.numberOfWords &&
       !this.state.showStat
-    )
+    ) {
       this.setState({ showStat: true });
+    }
   }
 
   checkAnswer = ({ target }) => {
@@ -202,18 +203,32 @@ class LearningWords extends Component {
   };
 
   getStatisticsData = () => {
-    console.log("Got stat data!");
-    
+    const { passDictionaryWordsToUserWords } = this.props;
+    const {
+      learnedWords,
+      correctAnswers,
+      numberOfNewWords,
+      easyWords,
+      normalWords,
+      skippedWords,
+      hardWords,
+      deletedWords,
+      repeatedWords,
+    } = this.state;
+
+    console.log("start passDictionaryWordsToUserWords: ");
+    passDictionaryWordsToUserWords(learnedWords);
+
     return [
-      { label: "Карточек завершено:", value: this.state.learnedWords.length },
-      { label: "Правильных ответов:", value: this.state.correctAnswers },
-      { label: "Новых слов:", value: this.state.numberOfNewWords },
-      { label: "Сложных слов:", value: this.state.hardWords },
-      { label: "Нормальных слов:", value: this.state.normalWords },
-      { label: "Легких слов:", value: this.state.easyWords },
-      { label: "Пропущенных слов:", value: this.state.skippedWords },
-      { label: "Удаленных слов:", value: this.state.deletedWords },
-      { label: "Повторенных слов:", value: this.state.repeatedWords },
+      { label: "Карточек завершено:", value: learnedWords.length },
+      { label: "Правильных ответов:", value: correctAnswers },
+      { label: "Новых слов:", value: numberOfNewWords },
+      { label: "Сложных слов:", value: hardWords },
+      { label: "Нормальных слов:", value: normalWords },
+      { label: "Легких слов:", value: easyWords },
+      { label: "Пропущенных слов:", value: skippedWords },
+      { label: "Удаленных слов:", value: deletedWords },
+      { label: "Повторенных слов:", value: repeatedWords },
     ];
   };
 
@@ -236,6 +251,9 @@ class LearningWords extends Component {
       informationExample,
     } = this.props.settings.optional;
 
+    let { history } = this.props;
+    console.log(localStorage);
+
     let currentWord = words.length ? words[0] : null;
     console.log("Props:", this.props);
     console.log("State: ", this.state, "Showstat:", showStat);
@@ -249,26 +267,28 @@ class LearningWords extends Component {
           !showStat ? (
             <div className="learning-words-wrapper__card">
               <div className="sentence d-flex align-items-center">
-                {currentWord.textExample.substring(
-                  0,
-                  currentWord.textExample.indexOf("<b>")
-                )}
-                <FormControl
-                  autoFocus
-                  className="d-inline w-auto word-input"
-                  style={{ backgroundColor: inputBG }}
-                  aria-describedby="basic-addon1"
-                  value={input}
-                  onChange={(e) => this.handleInput(e)}
-                  onKeyPress={(e) => {
-                    this.handleInputEnter(e);
-                  }}
-                  onBlur={(e) => this.checkAnswer(e)}
-                />
-                {currentWord.textExample.substring(
-                  currentWord.textExample.indexOf("</b>") + 4,
-                  currentWord.textExample.length
-                )}
+                <p>
+                  {currentWord.textExample.substring(
+                    0,
+                    currentWord.textExample.indexOf("<b>")
+                  )}
+                  <FormControl
+                    autoFocus
+                    className="d-inline w-auto word-input"
+                    style={{ backgroundColor: inputBG }}
+                    aria-describedby="basic-addon1"
+                    value={input}
+                    onChange={(e) => this.handleInput(e)}
+                    onKeyPress={(e) => {
+                      this.handleInputEnter(e);
+                    }}
+                    onBlur={(e) => this.checkAnswer(e)}
+                  />
+                  {currentWord.textExample.substring(
+                    currentWord.textExample.indexOf("</b>") + 4,
+                    currentWord.textExample.length
+                  )}
+                </p>
               </div>
               <div className="translate">
                 <div>Слово: {currentWord.wordTranslate}</div>
@@ -289,7 +309,7 @@ class LearningWords extends Component {
                           onClick={() =>
                             this.playSound(
                               currentWord.audioMeaning,
-                              defaultVolume
+                              this.state.volume
                             )
                           }
                         >
@@ -307,7 +327,7 @@ class LearningWords extends Component {
                           onClick={() =>
                             this.playSound(
                               currentWord.audioExample,
-                              defaultVolume
+                              this.state.volume
                             )
                           }
                         >
@@ -325,7 +345,7 @@ class LearningWords extends Component {
                         <Button
                           className="sound"
                           onClick={() =>
-                            this.playSound(currentWord.audio, defaultVolume)
+                            this.playSound(currentWord.audio, this.state.volume)
                           }
                         >
                           Sound
@@ -343,7 +363,10 @@ class LearningWords extends Component {
           <div>Loading data... Please wait.</div>
         )}
         <div className="learning-words-wrapper__panel">
-          <Button className="learning-words-wrapper__settings-btn">
+          <Button
+            className="memo-btn w-100"
+            onClick={() => history.push("/settings")}
+          >
             Settings
           </Button>
           {levelButtons && (
@@ -412,7 +435,7 @@ class LearningWords extends Component {
           )}
           <div className="learning-words-wrapper__controls">
             <Button
-              className="learning-words-wrapper__controls-btn"
+              className="memo-btn answer-btn"
               disabled={
                 (levelButtons && difficulty === "") ||
                 answer === "" ||

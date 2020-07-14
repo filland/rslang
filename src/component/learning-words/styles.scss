@@ -1,5 +1,8 @@
 .learning-words-wrapper {
-    background-color: lightblue;
+    // background-color: #005c97;
+    background-color: #1b7fbd;
+    color: wheat;
+    font-weight: 600;
     padding: 10%;
     display: grid;
     grid-template-columns: 5fr 50px 1fr;
@@ -18,6 +21,10 @@
     /* justify-content: space-between; */
     margin-top: 30px;
     grid-area: info;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    color: black;
 
     .sound {
         margin-left: 40px;
@@ -26,6 +33,7 @@
 
     .sentence {
         padding: 20px 0;
+        flex-wrap: wrap;
     }
 
     .translate,
@@ -55,7 +63,7 @@
                 }
             }
 
-         
+
         }
     }
 }
@@ -67,10 +75,6 @@
     grid-area: panel;
 }
 
-.learning-words-wrapper__settings {
-    width: 100%;
-}
-
 .learning-words-wrapper__difficulty {
     display: flex;
     flex-direction: column;
@@ -78,7 +82,7 @@
 
     label input {
         margin-right: 20px;
-    } 
+    }
 }
 
 .learning-words-wrapper__controls {
@@ -86,8 +90,27 @@
     flex-direction: column;
 }
 
-.learning-words-wrapper__controls-btn {
-    margin-top: 20px;
+.memo-btn {
+    margin: 10px 0;
+    border: 2px solid lightgray !important;
+    background-color: wheat !important;
+    opacity: 1 !important;
+    color: #1b7fbd !important;
+    font-weight: 600 !important;
+}
+
+.memo-btn:hover {
+    cursor: pointer;
+    color: #005c97!important;
+    border: 2px solid #005c97!important;
+}
+
+.answer-btn:hover {
+    background-color: lightgreen!important;
+}
+
+.answer-btn:disabled:hover {
+    background-color: salmon!important;
 }
 
 .word-input {
