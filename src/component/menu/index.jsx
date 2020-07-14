@@ -61,7 +61,7 @@ class Menu extends Component {
                     <Link to="/audioChallenge">
                       <i className="icon-menu icon-menu_audio-challenge"></i>
                       <span className="nav-text">
-                        Аудиовызов
+                      Audio challenge
                 </span>
                     </Link>
                   </li>
@@ -69,7 +69,7 @@ class Menu extends Component {
                     <Link to="/sprint">
                       <i className="icon-menu icon-menu_sprint"></i>
                       <span className="nav-text">
-                        Спринт
+                        Sprint
               </span>
                     </Link>
                   </li>
@@ -79,7 +79,7 @@ class Menu extends Component {
                     <Link to="/learning">
                       <i className="icon-menu icon-menu_learning"></i>
                       <span className="nav-text">
-                        Learning words
+                        Memorizer
                 </span>
                     </Link>
 
