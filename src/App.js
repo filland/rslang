@@ -15,6 +15,7 @@ import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
 import LineStatistics from './component/long-term-statistics';
 import Loader from './component/common/loader/index';
+import MainPage from './component/main-page/index';
 import AboutTeamPage from './component/team/index';
 
 import './App.scss';
@@ -30,6 +31,7 @@ function App() {
         <Route path="/registration" component={Registration} />
         <Route path="/" component={Loader} />
         <AuthProvider>
+          <Route path="/main-page" component={MainPage} />
           <Route path="/promo" component={Promo} />
           <Route path="/team" component={AboutTeamPage} />
           <Route path="/settings" component={Settings} />
