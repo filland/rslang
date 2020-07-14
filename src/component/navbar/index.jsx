@@ -10,10 +10,10 @@ class NavBar extends Component {
   render() {
     return (
       !isAuthorized()
-      && <Navbar bg="light" variant="light" >
+      && <Navbar variant="light">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/login">Login</Nav.Link>
-          <Nav.Link as={Link} to="/registration">Registration</Nav.Link>
+          <Nav.Link as={Link} to="/login" className="text-white">Login</Nav.Link>
+          <Nav.Link as={Link} to="/registration" className="text-white">Registration</Nav.Link>
         </Nav>
       </Navbar>
     );
