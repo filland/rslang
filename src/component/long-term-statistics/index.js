@@ -102,6 +102,7 @@ class LineStatistics extends React.Component {
 
   render() {
     return (
+      <div className='container'>
       <div className='statisticsWrapper'>
         <div className='graph'>
           <h2>График эффективности обучения</h2>
@@ -123,6 +124,7 @@ class LineStatistics extends React.Component {
             <Pie data={this.chartPieData} />
           </div>
         </div>
+      </div>
       </div>
     );
   }

@@ -113,7 +113,7 @@ class Settings extends React.Component {
     const { newCardsPerDay, volumeValue } = this.state.settings.optional;
     return (
       <Form onSubmit={this.handleSubmit}>
-        <div className = "settingsWrapper">
+        <div className = "container">
         <br />
         <Accordion defaultActiveKey="0">
           <Card>
