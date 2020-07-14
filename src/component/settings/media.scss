@@ -5,3 +5,9 @@
         margin-right: auto;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .settingsWrapper {
+        margin-top: 40px;
+    }
+}
