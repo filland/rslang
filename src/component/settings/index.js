@@ -232,7 +232,7 @@ class Settings extends React.Component {
             </div>
           <br /> <br />
           <div className="btnWrapper">
-            <div className="btn">
+            <div className="btn-settings">
               <Button
                 disabled={this.validation()}
                 variant="primary"
