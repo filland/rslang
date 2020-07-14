@@ -31,7 +31,6 @@ const fetchUserWords = () => async (dispatch) => {
 export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
   const store = getStore();
   const arrayOfUserWords = store.userWords.words;
-  console.log(arrayOfUserWords);
   const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
   try {
     dispatch(fetchUserWordsRequest());
@@ -52,7 +51,7 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
         }
       }
     }
-    console.log("end");
+    console.log('end');
     console.log(arrayOfUserWords);
 
     dispatch(fetchUserWordsSuccess(arrayOfUserWords));

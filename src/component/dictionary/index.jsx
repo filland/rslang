@@ -34,13 +34,6 @@ class Dictionary extends Component {
     this.handlerRestore = this.handlerRestore.bind(this);
   }
 
-  // will use next two method afrer redux set method
-  // componentDidUpdate(nextProps) {
-  //   if (JSON.stringify(nextProps.userWords) !== JSON.stringify(this.props.userWords)) {
-  //     this.setState({ userWords: this.props.userWords });
-  //   }
-  // }
-
   static getDerivedStateFromProps(nextProps, prevProps) {
     const { userWords, settings } = nextProps;
     const actualProps = { userWords, settings };
@@ -62,7 +55,7 @@ class Dictionary extends Component {
       settings, userWords,
     } = this.state;
 
-    console.log("render");
+    console.log('render');
     console.log(userWords);
 
     const wordsDeletedList = userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);

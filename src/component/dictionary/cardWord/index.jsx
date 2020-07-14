@@ -34,9 +34,14 @@ class Cardword extends Component {
     const {
       updateOldUserWords, fetchUserWords, word, restoreButton,
     } = this.props;
+
+    if (restoreButton === 'delete') {
+      word.userWord.optional.deleted = false;
+    } else if (restoreButton === 'difficult') {
+      word.userWord.difficulty = 'normal';
+    }
     console.log(word);
-    // fetchWordServiceRestore(word.id, restoreButton);
-    word.userWord.difficulty = 'normal';
+
     updateOldUserWords([word]);
     fetchUserWords();
   };
