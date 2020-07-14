@@ -30,7 +30,7 @@ class Login extends Component {
     const { loginUser, history } = this.props;
     loginUser(email, password, () => {
       if (isAuthorized()) {
-        history.push('/main-page');
+        history.push('/');
       }
     });
   }

@@ -25,11 +25,11 @@ function App() {
     <Router>
       <div className="main">
         <Route path="/" component={Menu} />
+        <Route path="/" component={Loader} />
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
-        <Route path="/" component={Loader} />
         <AuthProvider>
-          <Route path="/main-page" component={MainPage} />
+          <Route exact path="/" component={MainPage} />
           <Route path="/promo" component={Promo} />
           <Route path="/team" component={AboutTeamPage} />
           <Route path="/settings" component={Settings} />
