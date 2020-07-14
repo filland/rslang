@@ -1,105 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Button, ProgressBar } from 'react-bootstrap';
-import RightWord from '../../components/RightWord';
 import Words from '../../components/Words';
+import RightWord from '../../components/RightWord';
 import Loader from '../../../../common/loader';
-import { MENU_PAGE } from '../../constants';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../../../../common/helper/WordsHelper';
+import { MENU_PAGE, STATISTICS_PAGE } from '../../constants';
+import setUserStatistics from '../../../../long-term-statistics/statisticsService/statisticsService';
 import './styles.scss';
-import getUserWords from '../../../../common/word/user-word/selectors';
-import getDictionaryWords from '../../../../common/word/dictionary-word/selectors';
 
-const randomWord = (words) => words[Math.round(Math.random() * words.length)];
+const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
 
-function Game({ setCurrentPage, dictionaryWords, difficulty }) {
-  const [isSetupGame, setIsSetupGame] = useState(false);
-  const [rightWord, setRightWord] = useState({ word: null });
-  const [words, setWords] = useState([]);
+function Game({ setCurrentPage, prepareWords }) {
+  const numTranslatedWord = 5;
+  const numberOfStages = 10;
+
+  const [wordsGame, setWordsGame] = useState([]);
+  useEffect(() => {
+    const needWords = numTranslatedWord * numberOfStages;
+    const { preparedWords } = prepareWords(needWords);
+    const words = preparedWords.slice();
+    setWordsGame(words);
+  }, [prepareWords]);
+
   const [isSelectAnswer, setIsSelectAnswer] = useState(false);
-  const [numStages, setNumStages] = useState(0);
-  // const [progressStyle] = useState(
-  //   {
-  //     background: `linear-gradient(to right, #08aa6c ${numStages * 10}%, #b12b2b 0%)`,
-  //     height: '100%',
-  //   },
-  // );
-
-  const setSelectAnswer = () => {
+  const setAnswerSelected = () => {
     setIsSelectAnswer(true);
   };
 
-  const getRightWord = (difficulty = 1, words) => {
-    const word = randomWord(words);
-    return word;
-  };
+  const [gameProgress, setGameProgress] = useState(0);
+  useEffect(() => {
+    if (isSelectAnswer) setGameProgress(gameProgress + 1);
+  }, [isSelectAnswer]);
 
-  const setStageWords = (words, rightWord) => {
-    const arrayWords = [];
-    arrayWords.push(rightWord);
-    while (arrayWords.length <= 4) {
-      arrayWords.push(randomWord(words));
+  const [stage, setStage] = useState({ stageNum: numberOfStages, words: [], rightWord: null });
+  useEffect(() => {
+    if (wordsGame.length && stage.stageNum) {
+      const stageWords = [];
+      let count = stage.stageNum * numTranslatedWord - 1;
+      while (stageWords.length < numTranslatedWord) {
+        stageWords.push(wordsGame[count]);
+        count -= 1;
+      }
+      const rightWord = randomWord(stageWords);
+      setStage((state) => ({ ...state, words: stageWords, rightWord }));
     }
-    return arrayWords;
-  };
-
+    if (!stage.stageNum) {
+      console.log('Game END. Show statistics');
+      // dispatchWordsStatistics(knowArray, mistakesArray);
+      // setUserStatistics(playAllWords.length, newWords);
+      setCurrentPage(STATISTICS_PAGE);
+    }
+  }, [wordsGame, stage.stageNum]);
   const nextStage = () => {
-    setNumStages(numStages + 1);
+    console.log(gameProgress);
     setIsSelectAnswer(false);
-    setRightWord(getRightWord(1, dictionaryWords));
-    setWords(setStageWords(dictionaryWords, rightWord));
+    setStage((state) => ({ ...state, stageNum: state.stageNum - 1 }));
   };
 
-  const handleBtnNext = () => {
-    if (isSelectAnswer) {
-      nextStage();
-    } else {
+  const handleIsSelectAnswer = () => {
+    if (!isSelectAnswer) {
       setIsSelectAnswer(true);
+    } else {
+      nextStage();
     }
   };
 
-  useEffect(() => {
-    if (dictionaryWords.length) {
-      setRightWord(getRightWord(1, dictionaryWords));
-    }
-  }, [dictionaryWords]);
-
-  useEffect(() => {
-    if (dictionaryWords.length && rightWord.word) {
-      setWords(setStageWords(dictionaryWords, rightWord));
-      setIsSetupGame(true);
-    }
-  }, [dictionaryWords, rightWord]);
-
-  const progressStyles = {
-    background: `linear-gradient(to right, rgba(8, 170, 108, .6) ${numStages * 10}%, rgba(177, 43, 43, .6) 0%)`,
-    height: '100%',
-  };
-
-  if (isSetupGame) {
+  if (stage.rightWord) {
     return (
-      <div className="audioChallenge" style={progressStyles}>
-        <ProgressBar className="progressBar" variant="info" now={numStages * 10} label={`${numStages * 10}%`} srOnly />
-        <RightWord word={rightWord.word} imgURL={rightWord.image} audioURL={rightWord.audio} isSelectAnswer={isSelectAnswer} />
+      <div className="audioChallenge">
+        <ProgressBar className="progressBar" variant="info" now={gameProgress * 10} label={`${gameProgress * 10}%`} srOnly />
+        <RightWord word={stage.rightWord} isSelectAnswer={isSelectAnswer} />
         <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
-        <Words words={words} rightWord={rightWord} setIsSelectAnswer={setSelectAnswer} isSelectAnswer={isSelectAnswer} />
-        <Button variant="outline-primary" onClick={handleBtnNext}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</Button>
+        <Words words={stage.words} rightWord={stage.rightWord} setAnswerSelected={setAnswerSelected} isSelectAnswer={isSelectAnswer} />
+        <Button variant="outline-primary" onClick={handleIsSelectAnswer}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</Button>
       </div>
     );
   }
   return <Loader />;
 }
 
-Game.propTypes = {
-  setCurrentPage: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (store) => ({
-  dictionaryWords: getDictionaryWords(store),
-  userWords: getUserWords(store),
-});
-
 const mapDispatchToProps = {
+  prepareWords,
+  setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(null, mapDispatchToProps)(Game);

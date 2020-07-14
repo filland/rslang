@@ -144,7 +144,7 @@ class Menu extends Component {
 
                 <ul className="logout">
                   <li>
-                    <Link onClick={this.logoutUser} to="/logout">
+                    <Link onClick={this.logoutUser} to="#">
                       <i className="icon-menu icon-menu_logout"></i>
                       <span className="nav-text">
                         Logout

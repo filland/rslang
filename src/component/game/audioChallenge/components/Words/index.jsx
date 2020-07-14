@@ -6,27 +6,25 @@ import './styles.scss';
 const Words = ({
   words,
   rightWord,
-  setIsSelectAnswer,
+  setAnswerSelected,
   isSelectAnswer,
 }) => {
-  const [isRightAnswer, setIsRightAnswer] = useState('');
-  const [isSelectWord, setIsSelectWord] = useState({});
+  const [selectWord, setSelectWord] = useState('');
 
   const templateWords = words.map(({ wordTranslate, id }) => (
     <Word
       key={id}
-      rightWord={rightWord.id === id}
+      isRightAnswer={rightWord.id === id}
       wordTranslate={wordTranslate}
-      answer={(isSelectAnswer) ? isRightAnswer : ''}
-      select={isSelectWord.innerText === wordTranslate} />
+      isSelectWord={wordTranslate === selectWord.innerText}
+      isSelectAnswer={isSelectAnswer}
+    />
   ));
 
   const handleSelectAnswer = (e) => {
-    setIsSelectAnswer(true);
     const selectWord = e.target;
-    setIsSelectWord(selectWord);
-    const answer = (rightWord.wordTranslate === selectWord.innerText);
-    return (answer) ? setIsRightAnswer(true) : setIsRightAnswer(false);
+    setAnswerSelected(true);
+    setSelectWord(selectWord);
   };
 
   return (
