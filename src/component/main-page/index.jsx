@@ -58,9 +58,9 @@ class MainPage extends React.Component {
         </div>
         <div className="content">
           <div className="groupButtons">
-            <button onClick={this.handleSwitchToTutorial} className="btn-group">Как играть?</button>
-            <button onClick={this.handleSwitchToPromo} className="btn-group">Промо</button>
-            <button onClick={this.handleSwitchToTeamPage} className="btn-group">Команда</button>
+            <button onClick={this.handleSwitchToTutorial} className="btn-group-common">Как играть?</button>
+            <button onClick={this.handleSwitchToPromo} className="btn-group-common">Промо</button>
+            <button onClick={this.handleSwitchToTeamPage} className="btn-group-common">Команда</button>
           </div>
           <div className="quotе">
             <span className="first-row">Сommunicate,</span><br />
