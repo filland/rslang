@@ -4,9 +4,11 @@
     background-color: $menu;
     color: $buttons;
     font-weight: 600;
-    padding: 10%;
+    padding: 5%;
+    width: 100%;
     display: grid;
-    margin-top: 20px;
+    max-width: 1280px;
+    margin: 20px auto;
     grid-template-columns: 5fr 50px 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -24,8 +26,6 @@
 }
 
 .learning-words-wrapper__card {
-    /* display: flex; */
-    /* justify-content: space-between; */
     margin-top: 30px;
     grid-area: info;
     background-color: #fff;
@@ -33,7 +33,7 @@
     border-radius: 8px;
     color: black;
 
-   
+
 
     .sound,
     .sound:focus {
@@ -77,22 +77,15 @@
             padding: 20px 0;
 
             .picture {
-                width: auto;
-
-                img {
-                    border: 6px solid darkcyan;
-                    border-radius: 8px;
-                }
+                border: 6px solid darkcyan;
+                border-radius: 8px;
+                width: 100%;
             }
-
-
         }
     }
 }
 
 .learning-words-wrapper__panel {
-    /* display: flex;
-    flex-direction: column; */
     margin-top: 30px;
     grid-area: panel;
 }
@@ -135,16 +128,18 @@
     background-color: salmon !important;
 }
 
-.word-input {
-    margin: 0 20px;
-}
-
 .input-wrong {
     background-color: salmon;
 }
 
 .input-right {
     background-color: lightgreen;
+}
+
+@media screen and (min-width: 425px) {
+    .word-input {
+        width: auto;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -156,5 +151,11 @@
             "progress"
             "info"
             "panel";
+    }
+}
+
+@media (max-width: 375px) {
+    .word-input {
+        display: block !important;
     }
 }

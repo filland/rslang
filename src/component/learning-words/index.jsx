@@ -250,196 +250,195 @@ class LearningWords extends Component {
     } = this.props.settings.optional;
 
     let { history } = this.props;
-    console.log(this.props);
     let currentWord = words.length ? words[0] : null;
     return (
-      <div className="learning-words-wrapper">
-        <label className="learning-words-wrapper__progress">
-          Lesson progress: <br />
-          <ProgressBar
-            now={numberOfWords - words.length}
-            max={numberOfWords}
-            className="progressbar"
-            variant="warning"
-          />
-        </label>
-        {currentWord ? (
-          !showStat ? (
-            <div className="learning-words-wrapper__card">
-              <div className="sentence d-flex align-items-center">
-                <p>
-                  {currentWord.textExample.substring(
-                    0,
-                    currentWord.textExample.indexOf("<b>")
-                  )}
-                  <FormControl
-                    autoFocus
-                    className="d-inline w-auto word-input"
-                    style={{ backgroundColor: inputBG }}
-                    aria-describedby="basic-addon1"
-                    value={input}
-                    onChange={(e) => this.handleInput(e)}
-                    onKeyPress={(e) => {
-                      this.handleInputEnter(e);
-                    }}
-                    onBlur={(e) => this.checkAnswer(e)}
-                  />
-                  {currentWord.textExample.substring(
-                    currentWord.textExample.indexOf("</b>") + 4,
-                    currentWord.textExample.length
-                  )}
-                </p>
-              </div>
-              <div className="translate">
-                <div>Слово: {currentWord.wordTranslate}</div>
-              </div>
-              {answer === "correct" && (
-                <div>
-                  <div className="transcrption d-flex justify-content-between w-100 flex-nowrap">
-                    {informationTranscription && (
-                      <div>Транскрипция: {currentWord.transcription}</div>
+        <div className="learning-words-wrapper">
+          <label className="learning-words-wrapper__progress">
+            Lesson progress: <br />
+            <ProgressBar
+              now={numberOfWords - words.length}
+              max={numberOfWords}
+              className="progressbar"
+              variant="warning"
+            />
+          </label>
+          {currentWord ? (
+            !showStat ? (
+              <div className="learning-words-wrapper__card">
+                <div className="sentence d-flex align-items-center">
+                  <p>
+                    {currentWord.textExample.substring(
+                      0,
+                      currentWord.textExample.indexOf("<b>")
                     )}
-                  </div>
-                  {informationDescription && (
-                    <div className="meaning d-flex justify-content-between w-100 flex-nowrap">
-                      <div>Значение: {currentWord.textMeaningTranslate}</div>
-                      <Button
-                        className="sound"
-                        onClick={() =>
-                          this.playSound(
-                            currentWord.audioMeaning,
-                            this.state.volume
-                          )
-                        }
-                      ></Button>
-                    </div>
-                  )}
-                  {informationExample && (
-                    <div className="example d-flex justify-content-between w-100 flex-nowrap">
-                      <div>Пример: {currentWord.textExampleTranslate}</div>
-                      <Button
-                        className="sound"
-                        onClick={() =>
-                          this.playSound(
-                            currentWord.audioExample,
-                            this.state.volume
-                          )
-                        }
-                      ></Button>
-                    </div>
-                  )}
-                  {informationPicture && (
-                    <div className="learning-words-wrapper__card__media">
-                      <div className="media-wrapper d-flex justify-content-between w-100 flex-nowrap">
-                        <div className="picture">
-                          <img src={mediaStorage + currentWord.image} alt="" />
-                        </div>
+                    <FormControl
+                      autoFocus
+                      className="d-inline word-input"
+                      style={{ backgroundColor: inputBG }}
+                      aria-describedby="basic-addon1"
+                      value={input}
+                      onChange={(e) => this.handleInput(e)}
+                      onKeyPress={(e) => {
+                        this.handleInputEnter(e);
+                      }}
+                      onBlur={(e) => this.checkAnswer(e)}
+                    />
+                    {currentWord.textExample.substring(
+                      currentWord.textExample.indexOf("</b>") + 4,
+                      currentWord.textExample.length
+                    )}
+                  </p>
+                </div>
+                <div className="translate">
+                  <div>Слово: {currentWord.wordTranslate}</div>
+                </div>
+                {answer === "correct" && (
+                  <div>
+                    {informationTranscription && (
+                      <div className="transcrption d-flex justify-content-between  flex-nowrap">
+                        <div>Транскрипция: {currentWord.transcription}</div>
                         <Button
                           className="sound"
                           onClick={() =>
                             this.playSound(currentWord.audio, this.state.volume)
                           }
-                        >
-                          {/* <img src={soundIcon} alt="sound button"/> */}
-                        </Button>
+                        ></Button>
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+                    )}
+                    {informationDescription && (
+                      <div className="meaning d-flex justify-content-between  flex-nowrap">
+                        <div>Значение: {currentWord.textMeaningTranslate}</div>
+                        <Button
+                          className="sound"
+                          onClick={() =>
+                            this.playSound(
+                              currentWord.audioMeaning,
+                              this.state.volume
+                            )
+                          }
+                        ></Button>
+                      </div>
+                    )}
+                    {informationExample && (
+                      <div className="example d-flex justify-content-between flex-nowrap">
+                        <div>Пример: {currentWord.textExampleTranslate}</div>
+                        <Button
+                          className="sound"
+                          onClick={() =>
+                            this.playSound(
+                              currentWord.audioExample,
+                              this.state.volume
+                            )
+                          }
+                        ></Button>
+                      </div>
+                    )}
+                    {informationPicture && (
+                      <div className="learning-words-wrapper__card__media">
+                        <div className="media-wrapper d-flex justify-content-between flex-nowrap">
+                          <img
+                            src={mediaStorage + currentWord.image}
+                            alt=""
+                            className="picture"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Statistics data={this.getStatisticsData()} />
+            )
           ) : (
-            <Statistics data={this.getStatisticsData()} />
-          )
-        ) : (
-          <div>Loading data... Please wait.</div>
-        )}
-        <div className="learning-words-wrapper__panel">
-          <Button
-            className="memo-btn w-100"
-            onClick={() => history.push("/settings")}
-          >
-            Settings
-          </Button>
-          {levelButtons && (
-            <div className="learning-words-wrapper__difficulty">
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="0"
-                  checked={difficulty === "0"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Повтор
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="4"
-                  checked={difficulty === "4"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Удалить
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="5"
-                  checked={difficulty === "5"}
-                  onChange={(e) => this.radioSelectSkip(e)}
-                />
-                Пропустить
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="1"
-                  checked={difficulty === "1"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Сложно
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="2"
-                  checked={difficulty === "2"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Нормально
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="3"
-                  checked={difficulty === "3"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Легко
-              </label>
-            </div>
+            <div>Loading data... Please wait.</div>
           )}
-          <div className="learning-words-wrapper__controls">
+          <div className="learning-words-wrapper__panel">
             <Button
-              className="memo-btn answer-btn"
-              disabled={
-                (levelButtons && difficulty === "") ||
-                answer === "" ||
-                answer === "wrong"
-              }
-              onClick={() => this.NextWordBtnClick(currentWord)}
+              className="memo-btn w-100"
+              onClick={() => history.push("/settings")}
             >
-              Следующее слово
+              Настройки
             </Button>
+            {levelButtons && (
+              <div className="learning-words-wrapper__difficulty">
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="0"
+                    checked={difficulty === "0"}
+                    onChange={(e) => this.radioSelect(e)}
+                  />
+                  Повтор
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="4"
+                    checked={difficulty === "4"}
+                    onChange={(e) => this.radioSelect(e)}
+                  />
+                  Удалить
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="5"
+                    checked={difficulty === "5"}
+                    onChange={(e) => this.radioSelectSkip(e)}
+                  />
+                  Пропустить
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="1"
+                    checked={difficulty === "1"}
+                    onChange={(e) => this.radioSelect(e)}
+                  />
+                  Сложно
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="2"
+                    checked={difficulty === "2"}
+                    onChange={(e) => this.radioSelect(e)}
+                  />
+                  Нормально
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value="3"
+                    checked={difficulty === "3"}
+                    onChange={(e) => this.radioSelect(e)}
+                  />
+                  Легко
+                </label>
+              </div>
+            )}
+            <div className="learning-words-wrapper__controls">
+              <Button
+                className="memo-btn answer-btn"
+                disabled={
+                  (levelButtons && difficulty === "") ||
+                  answer === "" ||
+                  answer === "wrong"
+                }
+                onClick={() => this.NextWordBtnClick(currentWord)}
+              >
+                Следующее слово
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 }
