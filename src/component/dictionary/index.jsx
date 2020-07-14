@@ -29,7 +29,6 @@ class Dictionary extends Component {
     this.state = {
       userWords: props.userWords,
       settings: props.settings,
-
     };
     this.handlerRestore = this.handlerRestore.bind(this);
   }
@@ -46,13 +45,9 @@ class Dictionary extends Component {
     return null;
   }
 
-  handlerRestore = async () => {
-    console.log('handlerRestore');
-  }
-
   render() {
     const {
-      settings, userWords,
+      userWords, settings,
     } = this.state;
 
     console.log('render');
@@ -79,7 +74,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" handlerRestore={this.handlerRestore} />)}
+            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
@@ -87,7 +82,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
+            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" />)}
           </CardDeck>
         </Tab>
       </Tabs >
