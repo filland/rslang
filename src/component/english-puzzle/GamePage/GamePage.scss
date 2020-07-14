@@ -30,6 +30,17 @@
 
    .hints{
        display: flex;
+       form{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+         input{
+             margin: 2px;
+         }
+         button{
+             margin: 2px;
+         }
+       }
 
         .gameTools{
             display: flex;
@@ -64,7 +75,6 @@
 
 
         .item{
-            // flex: 0 calc(100vw/4/10);
             background-color: rgba(0, 0, 0, 0.8);
             color: whitesmoke;
             display: flex;
@@ -98,6 +108,17 @@
 
             button{
                 width: 150px;
+            }
+            .dontKnow{
+                background-color: #ac1111a8;
+                border-color:  #ac1111a8;
+                margin-left: 10px;
+            }      
+            
+            .results{
+                background-color: #11ac2ba8;
+                border-color:  #11ac2ba8;
+                margin-left: 10px;
             }
         }
         

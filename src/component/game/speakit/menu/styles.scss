@@ -1,0 +1,35 @@
+.speakit-menu-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.speakit-menu {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid rgb(223, 223, 223);
+}
+
+.speakit-menu > * {
+  margin-bottom: 25px;
+}
+
+.speakit-menu button { 
+  width: 100% !important;
+}
+
+@media(max-width: 1024px) {
+  .speakit-menu {
+    width: 70%;
+    margin: 20px;
+  }
+}
+
+@media(max-width: 768px) {
+  .speakit-menu {
+    width: 100%;
+  }
+}
+

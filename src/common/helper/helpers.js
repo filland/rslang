@@ -1,22 +1,27 @@
 export const transformOldWordsArrayToCorrectType = (oldWords) => {
-  const arrayOfOldUserWords = [];
-  oldWords.forEach((word) => {
+  const oldWordsString = JSON.stringify(oldWords);
+  const copyOldWords = JSON.parse(oldWordsString);
+  const arrayOfNewUserWords = [];
+  copyOldWords.forEach((word) => {
     const userWord = {
       difficulty: word.userWord.difficulty,
       optional: {
         ...word.userWord.optional,
         counter: word.userWord.optional.counter + 1,
         updatedDate: Date.now(),
+        deleted: word.userWord.deleted ? word.userWord.deleted : false,
       },
     };
-    arrayOfOldUserWords.push(userWord);
+    arrayOfNewUserWords.push(userWord);
   });
-  return arrayOfOldUserWords;
+  return arrayOfNewUserWords;
 };
 
 export const transformNewWordsArrayToCorrectType = (newWords) => {
+  const newWordsString = JSON.stringify(newWords);
+  const copyNewWords = JSON.parse(newWordsString);
   const arrayOfNewUserWords = [];
-  newWords.forEach((word) => {
+  copyNewWords.forEach((word) => {
     const userWord = {
       difficulty: word.userWord ? word.userWord.difficulty : 'normal',
       optional: {

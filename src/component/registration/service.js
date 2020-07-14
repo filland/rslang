@@ -1,4 +1,5 @@
 import { registrationRequest, registrationSuccess, registrationFail } from './actions';
+import { defaultUserLoginForSendingData } from '../login/service';
 
 const registerUser = (email, password) => async (dispatch) => {
   try {
@@ -20,6 +21,7 @@ const registerUser = (email, password) => async (dispatch) => {
 
     if (response.ok) {
       dispatch(registrationSuccess());
+      dispatch(defaultUserLoginForSendingData(email, password));
     } else {
       dispatch(registrationFail('Status code in response is not 200'));
     }

@@ -13,9 +13,10 @@ import Sprint from './component/sprint/sprint';
 import LearningWords from './component/learning-words';
 import SpeakIt from './component/game/speakit';
 import AuthProvider from './component/common/auth-provider';
-import Statistics from './component/statistics';
 import LineStatistics from './component/long-term-statistics';
 import Loader from './component/common/loader/index';
+import MainPage from './component/main-page/index';
+import AboutTeamPage from './component/team/index';
 
 import './App.scss';
 import Savanna from './component/savanna/index';
@@ -30,14 +31,15 @@ function App() {
         <Route path="/registration" component={Registration} />
         <Route path="/" component={Loader} />
         <AuthProvider>
+          <Route path="/main-page" component={MainPage} />
           <Route path="/promo" component={Promo} />
+          <Route path="/team" component={AboutTeamPage} />
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/learning" component={LearningWords} />
           <Route path="/english-puzzle" component={EnglishPuzzle} />
           <Route path="/savanna" component={Savanna} />
           <Route path="/game/speakit" component={SpeakIt} />
-          <Route path="/statistics" component={Statistics} />
           <Route path="/long-term-statistics" component={LineStatistics} />
           <Route path="/audioChallenge" component={AudioChallenge} />
           <Route path="/sprint" component={Sprint} />

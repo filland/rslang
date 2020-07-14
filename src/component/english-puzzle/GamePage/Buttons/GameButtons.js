@@ -19,7 +19,7 @@ const GameButtons = ({
         <button
           onClick={handleButtonClick}
           name="check"
-          className="btn btn-info"
+          className="btn btn-info check"
         >
           Check
         </button>
@@ -28,7 +28,7 @@ const GameButtons = ({
         <button
           onClick={handleButtonClick}
           name="show result"
-          className="btn btn-warning"
+          className="btn btn-warning dontKnow"
         >
           I don't know
         </button>
@@ -39,7 +39,7 @@ const GameButtons = ({
         <button
           name="results"
           onClick={handleButtonClick}
-          className="btn btn-primary"
+          className="btn btn-primary results"
         >
           Results
         </button>

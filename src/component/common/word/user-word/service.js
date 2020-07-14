@@ -1,7 +1,7 @@
 import { fetchUserWordsRequest, fetchUserWordsFail, fetchUserWordsSuccess } from './actions';
 import authorizedRequest from '../../../../common/utils/ApiUtils';
 import { getUserId } from '../../../../common/utils/UserUtils';
-import { transformNewWordsArrayToCorrectType } from '../../../../common/helper/helpers';
+import { transformNewWordsArrayToCorrectType, transformOldWordsArrayToCorrectType } from '../../../../common/helper/helpers';
 
 const fetchUserWords = () => async (dispatch) => {
   try {
@@ -14,7 +14,7 @@ const fetchUserWords = () => async (dispatch) => {
     const preparedUserWords = [];
     for (let i = 0; i < userWords.length; i += 1) {
       const userWord = userWords[i];
-      const FETCH_DICTIONARY_WORD_URL = `https://afternoon-falls-25894.herokuapp.com/words/${userWord.wordId}`;
+      const FETCH_DICTIONARY_WORD_URL = `https://afternoon-falls-25894.herokuapp.com/words/${userWord.wordId}?noAssets=true`;
       const dictionaryWord = authorizedRequest(FETCH_DICTIONARY_WORD_URL);
       preparedUserWords.push(dictionaryWord);
     }
@@ -22,6 +22,7 @@ const fetchUserWords = () => async (dispatch) => {
     for (let i = 0; i < dictionaryUserWords.length; i += 1) {
       dictionaryUserWords[i].userWord = userWords[i];
     }
+
     dispatch(fetchUserWordsSuccess(dictionaryUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));
@@ -31,14 +32,16 @@ const fetchUserWords = () => async (dispatch) => {
 export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
   const store = getStore();
   const arrayOfUserWords = store.userWords.words;
+  const transformOldWords = transformOldWordsArrayToCorrectType(oldWords);
   try {
     dispatch(fetchUserWordsRequest());
     const userId = getUserId();
     const data = [];
-    for (let i = 0; i < oldWords.length; i += 1) {
+    for (let i = 0; i < transformOldWords.length; i += 1) {
       const oldWord = oldWords[i];
-      const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${oldWord.wordId}`;
-      const body = JSON.stringify(oldWords);
+      const transformOldWord = transformOldWords[i];
+      const OLD_USER_WORDS_URL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${oldWord.id}`;
+      const body = JSON.stringify(transformOldWord);
       const dataItem = await authorizedRequest(OLD_USER_WORDS_URL, 'PUT', body);
       data.push(dataItem);
     }
@@ -49,6 +52,7 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
         }
       }
     }
+
     dispatch(fetchUserWordsSuccess(arrayOfUserWords));
   } catch (error) {
     dispatch(fetchUserWordsFail(error));

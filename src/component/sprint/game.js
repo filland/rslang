@@ -8,9 +8,9 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Statistics from './statistics';
-import correct from './correct.png';
+import correct from './correct2.png';
 import wrong from './wrong.png';
-import { prepareWords } from '../../common/helper/WordsHelper';
+import { prepareWords, passDictionaryWordsToUserWords } from '../../common/helper/WordsHelper';
 import dispatchWords from './service.js';
 import setUserStatistics from '../long-term-statistics/statisticsService/statisticsService';
 
@@ -37,10 +37,27 @@ class Game extends Component {
       mistakesArray: [],
       playAllWords: [],
       newWords: 0,
+      preparedWords: [],
+      newPreparedWords: [],
     };
   }
 
   componentDidMount() {
+    const { newWords } = this.state;
+    const { prepareWords } = this.props;
+    const preparedWordsObject = prepareWords(100);
+    const { preparedWords, newWordsNumber } = preparedWordsObject;
+    const words = preparedWords;
+    this.setState({
+      preparedWords: words,
+      newWords: newWords + newWordsNumber,
+    });
+    const firstWord = preparedWords[Math.round(Math.random() * 99)];
+    const secondWord = preparedWords[Math.round(Math.random() * 99)];
+    this.setState({
+      newPreparedWords: [firstWord, secondWord],
+    });
+
     this.myInterval = setInterval(() => {
       const { seconds, minutes } = this.state;
 
@@ -67,20 +84,25 @@ class Game extends Component {
     clearInterval(this.myInterval);
   }
 
-  handleClickCorrect = async () => {
+  takeTwoWords = () => {
+    const { preparedWords } = this.state;
+    const firstWord = preparedWords[Math.round(Math.random() * 99)];
+    const secondWord = preparedWords[Math.round(Math.random() * 99)];
+    this.setState({
+      newPreparedWords: [firstWord, secondWord],
+    });
+  }
+
+  handleClickCorrect = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray, playAllWords, newWords,
+      knowArray, mistakesArray, playAllWords, newPreparedWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
-    if (!playAllWords.includes(englishWord)) {
-      this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, englishWord],
-      }));
-    }
+
     if (idEnglishWord === idRussianWord) {
       this.setState({
-        border: '5px solid green',
+        border: '5px solid #5C9EAD',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
@@ -100,7 +122,7 @@ class Game extends Component {
       }
     } else {
       this.setState({
-        border: '5px solid red',
+        border: '5px solid #CC2936',
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
@@ -113,37 +135,33 @@ class Game extends Component {
         }));
       }
     }
-    const { prepareWords } = this.props;
-    const preparedWordsObject = prepareWords(2);
-    const { preparedWords, newWordsNumber } = preparedWordsObject;
-    this.setState({
-      newWords: newWords + newWordsNumber,
-    });
+
+    this.takeTwoWords();
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
+    if (!playAllWords.includes(newPreparedWords[randomIndex])) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, newPreparedWords[randomIndex]],
+      }));
+    }
     this.setState({
-      englishWord: preparedWords[randomIndex].word,
-      englishWordTranslate: preparedWords[randomIndex].wordTranslate,
-      russianWord: preparedWords[randomIndex2].wordTranslate,
-      idEnglishWord: preparedWords[randomIndex].id,
-      idRussianWord: preparedWords[randomIndex2].id,
+      englishWord: newPreparedWords[randomIndex].word,
+      englishWordTranslate: newPreparedWords[randomIndex].wordTranslate,
+      russianWord: newPreparedWords[randomIndex2].wordTranslate,
+      idEnglishWord: newPreparedWords[randomIndex].id,
+      idRussianWord: newPreparedWords[randomIndex2].id,
     });
   };
 
   handleClickWrong = () => {
     const {
       englishWord, englishWordTranslate, idEnglishWord, idRussianWord,
-      knowArray, mistakesArray, playAllWords, newWords,
+      knowArray, mistakesArray, playAllWords, newPreparedWords,
     } = this.state;
     const { addPoints, points, correctAnswers } = this.state;
-    if (!playAllWords.includes(englishWord)) {
-      this.setState((prevState) => ({
-        playAllWords: [...prevState.playAllWords, englishWord],
-      }));
-    }
     if (idEnglishWord !== idRussianWord) {
       this.setState({
-        border: '5px solid green',
+        border: '5px solid #5C9EAD',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
@@ -163,7 +181,7 @@ class Game extends Component {
       }
     } else {
       this.setState({
-        border: '5px solid red',
+        border: '5px solid #CC2936',
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
@@ -176,20 +194,21 @@ class Game extends Component {
         }));
       }
     }
-    const { prepareWords } = this.props;
-    const preparedWordsObject = prepareWords(2);
-    const { preparedWords, newWordsNumber } = preparedWordsObject;
-    this.setState({
-      newWords: newWords + newWordsNumber,
-    });
+
+    this.takeTwoWords();
     const randomIndex = Math.round(Math.random() * 1);
     const randomIndex2 = Math.round(Math.random() * 1);
+    if (!playAllWords.includes(newPreparedWords[randomIndex])) {
+      this.setState((prevState) => ({
+        playAllWords: [...prevState.playAllWords, newPreparedWords[randomIndex]],
+      }));
+    }
     this.setState({
-      englishWord: preparedWords[randomIndex].word,
-      englishWordTranslate: preparedWords[randomIndex].wordTranslate,
-      russianWord: preparedWords[randomIndex2].wordTranslate,
-      idEnglishWord: preparedWords[randomIndex].id,
-      idRussianWord: preparedWords[randomIndex2].id,
+      englishWord: newPreparedWords[randomIndex].word,
+      englishWordTranslate: newPreparedWords[randomIndex].wordTranslate,
+      russianWord: newPreparedWords[randomIndex2].wordTranslate,
+      idEnglishWord: newPreparedWords[randomIndex].id,
+      idRussianWord: newPreparedWords[randomIndex2].id,
     });
   };
 
@@ -211,22 +230,23 @@ class Game extends Component {
     const { dispatchWordsStatistics } = this.props;
     const { knowArray, mistakesArray } = this.state;
     const { playAllWords, newWords } = this.state;
-    const { setUserStatistics } = this.props;
+    const { setUserStatistics, passDictionaryWordsToUserWords } = this.props;
     if (minutes === 0 && seconds === 0) {
       dispatchWordsStatistics(knowArray, mistakesArray);
       setUserStatistics(playAllWords.length, newWords);
+      passDictionaryWordsToUserWords(playAllWords);
       return <Statistics />;
     }
     return (
       <Container fluid>
         <Row className="d-flex flex-column align-items-center">
           <Col className="points my-5 text-center">{points} очков</Col>
-          <Row className="time justify-content-center">
+          <Row className="time justify-content-center mb-5">
             <Col className="align-self-center text-center time-span">
               <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
             </Col>
           </Row>
-          <Card style={styleCard} className="d-flex flex-column align-items-center p-3" id="card">
+          <Card style={styleCard} className="d-flex flex-column align-items-center p-3 card">
             <Card.Img variant="top" style={styleCorrect} src={correct} alt="Correct sing" id="correct" />
             <Card.Body className="d-flex flex-column align-items-center p-4">
               <Card.Text id="points-info">{pointsInfo}</Card.Text>
@@ -234,9 +254,9 @@ class Game extends Component {
               <Card.Subtitle className="mb-3 text-muted">{russianWord}</Card.Subtitle>
               <Card.Img variant="top" className="mb-3" style={styleWrong} src={wrong} alt="Wrong sing" id="wrong" />
               <Row>
-                <Button onClick={() => this.handleClickCorrect()} variant="primary" className="mr-2">
+                <Button onClick={() => this.handleClickCorrect()} className="mr-2" id="correct-button">
                   Правильно!</Button>
-                <Button onClick={() => this.handleClickWrong()} variant="danger">
+                <Button onClick={() => this.handleClickWrong()} id="wrong-button">
                   Неверно</Button>
               </Row>
             </Card.Body>
@@ -258,6 +278,7 @@ const mapDispatchToProps = {
   dispatchWordsStatistics: dispatchWords,
   prepareWords,
   setUserStatistics,
+  passDictionaryWordsToUserWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
