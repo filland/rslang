@@ -35,17 +35,17 @@ div, button, .card {
     border-radius: 7px;
 }
 
-.btn {
-    background-color: $menu;
-    border: 2px solid $menu;
-    color: $white;
-}
+// .btn {
+//     background-color: $menu;
+//     border: 2px solid $menu;
+//     color: $white;
+// }
 
-.btn:hover, .btn:active, .btn:focus, .btn:visited {
-    background-color: $buttons;
-    border: 2px solid $buttons;
-    color: $text;
-}
+// .btn:hover, .btn:active, .btn:focus, .btn:visited {
+//     background-color: $buttons;
+//     border: 2px solid $buttons;
+//     color: $text;
+// }
 
 @media(max-width: 1024px) {
     .main {

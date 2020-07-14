@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Btn from '../common/Btn';
 
 import {
   isLoading, isError,
@@ -49,9 +49,9 @@ class Login extends Component {
           <Form.Control type="password" ref={this.passwordInput} placeholder="Password" />
         </Form.Group>
         {isError && (<div><Form.Label className="error-label">Email or password is wrong</Form.Label></div>)}
-        <Button variant="primary" type="submit">
+        <Btn variant="primary" type="submit">
           Login
-        </Button>
+        </Btn>
       </Form>
     );
   }

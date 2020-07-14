@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
+import Btn from '../../../../common/Btn';
 import { MENU_PAGE } from '../../constants';
 import {
   getKnowArray,
@@ -30,7 +30,7 @@ class Statistics extends Component {
     </ListGroup.Item>);
     return (
       <Container className="audioChallenge__statistics">
-        <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
+        <Btn className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Btn>
         <h2 className="text-center mb-2">Статистика Игры:</h2>
         <Row className="d-flex justify-content-center">
           <Card className="d-flex flex-column align-items-center mr-2">

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Btn from '../../../../common/Btn';
 import { GAME_PAGE } from '../../constants';
 import './styles.scss';
 
 export default function Menu({ setCurrentPage }) {
   return (
     <div className="menu">
-      <Button onClick={() => setCurrentPage(GAME_PAGE)}>Start</Button>
+      <Btn onClick={() => setCurrentPage(GAME_PAGE)}>Start</Btn>
     </div>
   );
 }

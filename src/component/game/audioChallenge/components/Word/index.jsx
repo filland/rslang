@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import Btn from '../../../../common/Btn';
 import './styles.scss';
 
 const Word = ({
@@ -28,9 +28,9 @@ const Word = ({
   });
 
   return (
-    <Button className="btn-word" variant={variant}>
+    <Btn className="btn-word" variant={variant}>
       {wordTranslate}
-    </Button>
+    </Btn>
   );
 };
 

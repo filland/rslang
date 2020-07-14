@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
+import Btn from '../../../../common/Btn';
 import Words from '../../components/Words';
 import RightWord from '../../components/RightWord';
 import Loader from '../../../../common/loader';
@@ -69,9 +70,9 @@ function Game({ setCurrentPage, prepareWords }) {
       <div className="audioChallenge">
         <ProgressBar className="progressBar" variant="info" now={gameProgress * 10} label={`${gameProgress * 10}%`} srOnly />
         <RightWord word={stage.rightWord} isSelectAnswer={isSelectAnswer} />
-        <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
+        <Btn className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Btn>
         <Words words={stage.words} rightWord={stage.rightWord} setAnswerSelected={setAnswerSelected} isSelectAnswer={isSelectAnswer} />
-        <Button variant="outline-primary" onClick={handleIsSelectAnswer}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</Button>
+        <Btn variant="outline-primary" onClick={handleIsSelectAnswer}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</Btn>
       </div>
     );
   }
