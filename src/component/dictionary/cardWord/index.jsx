@@ -29,18 +29,18 @@ class Cardword extends Component {
     this.audioExampleRef = React.createRef();
   }
 
-  restoreWord = () => {
+  restoreWord = async () => {
     const {
       updateOldUserWords, fetchUserWords, word, restoreButton,
     } = this.props;
+    word.userWord.optional.deleted = false;
 
     if (!word.userWord.optional.counter) word.userWord.optional.counter = '0';
-    word.userWord.optional.deleted = 'false';
     if (restoreButton === 'difficult') {
       word.userWord.difficulty = 'normal';
     }
-    updateOldUserWords([word]);
-    fetchUserWords();
+    await updateOldUserWords([word]);
+    await fetchUserWords();
   };
 
   playAudio = () => {
