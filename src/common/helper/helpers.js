@@ -9,6 +9,7 @@ export const transformOldWordsArrayToCorrectType = (oldWords) => {
         ...word.userWord.optional,
         counter: word.userWord.optional.counter + 1,
         updatedDate: Date.now(),
+        deleted: word.userWord.deleted ? word.userWord.deleted : false,
       },
     };
     arrayOfNewUserWords.push(userWord);
