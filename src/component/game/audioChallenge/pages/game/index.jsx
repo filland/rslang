@@ -65,16 +65,17 @@ function Game({ setCurrentPage, prepareWords }) {
   };
 
   const handleKeyEnter = (event) => {
-    if (event.charCode === 13) {
+    if (event.code === 'Enter') {
       handleIsSelectAnswer();
     }
   };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyEnter);
     return () => {
       window.removeEventListener('keydown', handleKeyEnter);
     };
-  }, []);
+  });
 
   if (stage.rightWord) {
     return (
