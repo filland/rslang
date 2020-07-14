@@ -37,9 +37,8 @@ class LearningWords extends Component {
     inputBG: "white",
     difficulty: "",
     answer: "",
-    numberOfWords: 2020,
+    numberOfWords: this.props.settings.wordsPerDay,
     numberOfNewWords: 0,
-    wordsPerDay: 0,
     showStat: false,
     correctAnswers: 0,
     hardWords: 0,
@@ -58,11 +57,10 @@ class LearningWords extends Component {
       !this.state.showStat
     ) {
       let { prepareWords } = this.props;
-      let preparedWordsObject = prepareWords(5);
+      let preparedWordsObject = prepareWords(this.state.numberOfWords);
       let { preparedWords, newWordsNumber } = preparedWordsObject;
       this.setState({
         words: preparedWords,
-        numberOfWords: preparedWords.length,
         numberOfNewWords: newWordsNumber,
       });
     }
@@ -76,11 +74,10 @@ class LearningWords extends Component {
       !this.state.showStat
     ) {
       let { prepareWords } = this.props;
-      let preparedWordsObject = prepareWords(5);
+      let preparedWordsObject = prepareWords(this.state.numberOfWords);
       let { preparedWords, newWordsNumber } = preparedWordsObject;
       this.setState({
         words: preparedWords,
-        numberOfWords: preparedWords.length,
         numberOfNewWords: newWordsNumber,
       });
     }
@@ -216,7 +213,6 @@ class LearningWords extends Component {
       repeatedWords,
     } = this.state;
 
-    console.log("start passDictionaryWordsToUserWords: ");
     passDictionaryWordsToUserWords(learnedWords);
 
     return [
@@ -252,11 +248,8 @@ class LearningWords extends Component {
     } = this.props.settings.optional;
 
     let { history } = this.props;
-    console.log(localStorage);
 
     let currentWord = words.length ? words[0] : null;
-    console.log("Props:", this.props);
-    console.log("State: ", this.state, "Showstat:", showStat);
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
