@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem, Col,
 } from 'react-bootstrap';
-// import fetchWordServiceRestore from '../serviceRestore';
 import fetchUserWords, { updateOldUserWords } from '../../common/word/user-word/service';
 
 import playImg from '../assets/images/audioPlayWord.png';
@@ -35,13 +34,12 @@ class Cardword extends Component {
       updateOldUserWords, fetchUserWords, word, restoreButton,
     } = this.props;
 
-    if (restoreButton === 'delete') {
-      word.userWord.optional.deleted = false;
-    } else if (restoreButton === 'difficult') {
+    if (!word.userWord.optional.counter) word.userWord.optional.counter = '0';
+
+    word.userWord.optional.deleted = 'false';
+    if (restoreButton === 'difficult') {
       word.userWord.difficulty = 'normal';
     }
-    console.log(word);
-
     updateOldUserWords([word]);
     fetchUserWords();
   };

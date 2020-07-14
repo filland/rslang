@@ -41,6 +41,10 @@ class Dictionary extends Component {
     return null;
   }
 
+  handlerRestore = async () => {
+    console.log('handlerRestore');
+  }
+
   render() {
     const {
       userWords, settings,
@@ -70,7 +74,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDifficultList.length} (${getWordTodayCount(wordsDifficultList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" />)}
+            {wordsDifficultList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="difficult" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
         <Tab eventKey="deleted" title="Удалённые слова">
@@ -78,7 +82,7 @@ class Dictionary extends Component {
             {`Число слов: ${wordsDeletedList.length} (${getWordTodayCount(wordsDeletedList)} сегодня)`}
           </div>
           <CardDeck className="my-4 justify-content-between">
-            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" />)}
+            {wordsDeletedList.map((item, i) => <CardWord key={i} word={item} settings={settings} restoreButton="delete" handlerRestore={this.handlerRestore} />)}
           </CardDeck>
         </Tab>
       </Tabs >
