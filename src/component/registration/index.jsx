@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Btn from '../common/Btn';
 
 import {
   isLoading, isError, isLoaded, getError,
@@ -53,9 +53,9 @@ class Registration extends Component {
         </Form.Group>
         {isError && (<div><Form.Label className="error-label">{error}</Form.Label></div>)}
         {isLoaded && (<div><Form.Label className="success-label">You were successfully registered! Now you can <Link to="/login">log in</Link></Form.Label></div>)}
-        <Button variant="primary" type="submit">
+        <Btn variant="primary" type="submit">
           Register
-        </Button>
+        </Btn>
       </Form>
     );
   }

@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Btn from '../common/Btn';
 import Statistics from './statistics';
 import correct from './correct2.png';
 import wrong from './wrong.png';
@@ -254,10 +254,10 @@ class Game extends Component {
               <Card.Subtitle className="mb-3 text-muted">{russianWord}</Card.Subtitle>
               <Card.Img variant="top" className="mb-3" style={styleWrong} src={wrong} alt="Wrong sing" id="wrong" />
               <Row>
-                <Button onClick={() => this.handleClickCorrect()} className="mr-2" id="correct-button">
-                  Правильно!</Button>
-                <Button onClick={() => this.handleClickWrong()} id="wrong-button">
-                  Неверно</Button>
+                <Btn onClick={() => this.handleClickCorrect()} className="mr-2" id="correct-button">
+                  Правильно!</Btn>
+                <Btn onClick={() => this.handleClickWrong()} id="wrong-button">
+                  Неверно</Btn>
               </Row>
             </Card.Body>
           </Card>

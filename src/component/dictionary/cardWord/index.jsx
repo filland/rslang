@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import {
   Card, ListGroup, ListGroupItem, Col,
 } from 'react-bootstrap';
+import Btn from '../../common/Btn';
 import fetchWordServiceRestore from '../serviceRestore';
 import { updateOldUserWords } from '../../common/word/user-word/service';
 import playImg from '../assets/images/audioPlayWord.png';
@@ -128,7 +128,7 @@ class Cardword extends Component {
             </div>
             < div className="mt-3">
               {(restoreButton === 'difficult' || restoreButton === 'delete')
-                && <Button variant="primary" onClick={this.restoreWord}>Восстановить</Button>
+                && <Btn variant="primary" onClick={this.restoreWord}>Восстановить</Btn>
               }
             </div>
           </Card.Footer>

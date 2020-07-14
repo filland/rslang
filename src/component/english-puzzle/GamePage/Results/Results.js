@@ -1,5 +1,6 @@
 import React from 'react';
 import playImg from '../../assets/images/play-circle-regular.svg';
+import Btn from '../../../common/Btn';
 
 import './Results.scss';
 
@@ -62,13 +63,13 @@ const Results = ({
             </div>
           ))}
         </div>
-        <button
+        <Btn
           name="continue"
           onClick={handleButtonClick}
           className="btn btn-warning"
         >
           Continue
-        </button>
+        </Btn>
       </div>
     </div>
   );

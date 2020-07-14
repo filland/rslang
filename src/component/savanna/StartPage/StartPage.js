@@ -1,5 +1,6 @@
 import React from 'react';
 import startPageImg from '../assets/backgroundStartPage.jpg';
+import Btn from '../../common/Btn';
 import './style.scss';
 
 const StartPage = ({ startGame, getWords }) => {
@@ -13,7 +14,7 @@ const StartPage = ({ startGame, getWords }) => {
         The game develops vocabulary. For answer you can use mouse or keyboard.
     </div>
 
-       <button onClick={handleCick} className='btn btn-primary'>Start</button>
+      <Btn onClick={handleCick} className='btn btn-primary'>Start</Btn>
 
     </div>
   );

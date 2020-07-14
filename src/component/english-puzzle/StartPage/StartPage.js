@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startGame } from '../redux/actions';
 import Loader from '../../common/loader/index';
+import Btn from '../../common/Btn';
 import './StartPage.scss';
 
 const StartPage = ({ startGame, dictionaryWords }) => (
@@ -12,9 +13,9 @@ const StartPage = ({ startGame, dictionaryWords }) => (
     </div>
     {
       dictionaryWords.length !== 0
-        ? <button className="btn btn-warning" onClick={startGame}>
-            Start
-          </button>
+        ? <Btn className="btn btn-warning" onClick={startGame}>
+          Start
+          </Btn>
         : <Loader />
 
     }

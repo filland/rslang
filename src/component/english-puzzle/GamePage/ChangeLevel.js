@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setInputValue, changeDifficultOfGame } from '../redux/actions';
 import { prepareWords } from '../../../common/helper/WordsHelper';
+import Btn from '../../common/Btn';
 
 class GameItems extends React.Component {
   onChangeInputHandler = (event) => {
@@ -43,9 +44,9 @@ class GameItems extends React.Component {
           onChange={this.onChangeInputHandler}
           ref="page"
         />
-        <button className="btn btn-light" onClick={this.onSubmitHandler}>
+        <Btn className="btn btn-light" onClick={this.onSubmitHandler}>
           change
-        </button>
+        </Btn>
       </form>
 
     );

@@ -5,7 +5,7 @@ import './sprint.scss';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+import Btn from '../common/Btn';
 import { setUserDifficulty } from '../settings/service';
 import Game from './game';
 
@@ -26,9 +26,9 @@ class Sprint extends Component {
   render() {
     const difficulties = ['Очень Легкая', 'Легкая', 'Интересная', 'Очень Интересная', 'Сложная', 'Let me speak from my hard advanced'];
     const colors = ['btn mb-2', 'btn mb-2', 'btn mb-2', 'btn mb-2', 'btn mb-2', 'btn mb-2'];
-    const listDifficulties = difficulties.map((difficulty, index) => <Button key={index} className={colors[index]} onClick={() => this.handleClick(index)}>
-    {difficulty}
-    </Button>);
+    const listDifficulties = difficulties.map((difficulty, index) => <Btn key={index} className={colors[index]} onClick={() => this.handleClick(index)}>
+      {difficulty}
+    </Btn>);
     const { gameRender } = this.state;
     if (gameRender) {
       return <Game />;

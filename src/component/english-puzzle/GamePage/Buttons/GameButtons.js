@@ -1,4 +1,5 @@
 import React from 'react';
+import Btn from '../../../common/Btn';
 
 const GameButtons = ({
   isChecked, isDone, imgIsShowed, handleButtonClick, arrOfRandomWords,
@@ -8,44 +9,44 @@ const GameButtons = ({
   return (
     <div className="gameButtons">
       {isDone || imgIsShowed ? (
-        <button
+        <Btn
           onClick={handleButtonClick}
           name="continue"
           className="btn btn-success"
         >
           Continue
-        </button>
+        </Btn>
       ) : (
-        <button
-          onClick={handleButtonClick}
-          name="check"
-          className="btn btn-info"
-        >
-          Check
-        </button>
-      )}
-      { isShowButton ? (
-        <button
+          <Btn
+            onClick={handleButtonClick}
+            name="check"
+            className="btn btn-info"
+          >
+            Check
+          </Btn>
+        )}
+      {isShowButton ? (
+        <Btn
           onClick={handleButtonClick}
           name="show result"
           className="btn btn-warning"
         >
           I don't know
-        </button>
+        </Btn>
       ) : (
-        ''
-      )}
+          ''
+        )}
       {imgIsShowed ? (
-        <button
+        <Btn
           name="results"
           onClick={handleButtonClick}
           className="btn btn-primary"
         >
           Results
-        </button>
+        </Btn>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </div>
   );
 };

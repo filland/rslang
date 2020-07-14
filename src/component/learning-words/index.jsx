@@ -1,11 +1,11 @@
 import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
-import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import FormControl from "react-bootstrap/FormControl";
 import getUserWords from "../common/word/user-word/selectors";
 import getDictionaryWords from "../common/word/dictionary-word/selectors";
+import Btn from "../common/Btn";
 import {
   prepareWords,
   passDictionaryWordsToUserWords,
@@ -203,7 +203,7 @@ class LearningWords extends Component {
 
   getStatisticsData = () => {
     console.log("Got stat data!");
-    
+
     return [
       { label: "Карточек завершено:", value: this.state.learnedWords.length },
       { label: "Правильных ответов:", value: this.state.correctAnswers },
@@ -284,7 +284,7 @@ class LearningWords extends Component {
                     <div className="meaning">
                       <div>
                         Значение: {currentWord.textMeaningTranslate}
-                        <Button
+                        <Btn
                           className="sound"
                           onClick={() =>
                             this.playSound(
@@ -294,7 +294,7 @@ class LearningWords extends Component {
                           }
                         >
                           Sound
-                        </Button>
+                        </Btn>
                       </div>
                     </div>
                   )}
@@ -302,7 +302,7 @@ class LearningWords extends Component {
                     <div className="example">
                       <div>
                         Пример: {currentWord.textExampleTranslate}
-                        <Button
+                        <Btn
                           className="sound"
                           onClick={() =>
                             this.playSound(
@@ -312,7 +312,7 @@ class LearningWords extends Component {
                           }
                         >
                           Sound
-                        </Button>
+                        </Btn>
                       </div>
                     </div>
                   )}
@@ -322,14 +322,14 @@ class LearningWords extends Component {
                         <div className="picture">
                           <img src={mediaStorage + currentWord.image} alt="" />
                         </div>
-                        <Button
+                        <Btn
                           className="sound"
                           onClick={() =>
                             this.playSound(currentWord.audio, defaultVolume)
                           }
                         >
                           Sound
-                        </Button>
+                        </Btn>
                       </div>
                     </div>
                   )}
@@ -337,15 +337,15 @@ class LearningWords extends Component {
               )}
             </div>
           ) : (
-            <Statistics data={this.getStatisticsData()} />
-          )
+              <Statistics data={this.getStatisticsData()} />
+            )
         ) : (
-          <div>Loading data... Please wait.</div>
-        )}
+            <div>Loading data... Please wait.</div>
+          )}
         <div className="learning-words-wrapper__panel">
-          <Button className="learning-words-wrapper__settings-btn">
+          <Btn className="learning-words-wrapper__settings-btn">
             Settings
-          </Button>
+          </Btn>
           {levelButtons && (
             <div className="learning-words-wrapper__difficulty">
               <label>
@@ -411,7 +411,7 @@ class LearningWords extends Component {
             </div>
           )}
           <div className="learning-words-wrapper__controls">
-            <Button
+            <Btn
               className="learning-words-wrapper__controls-btn"
               disabled={
                 (levelButtons && difficulty === "") ||
@@ -421,7 +421,7 @@ class LearningWords extends Component {
               onClick={() => this.NextWordBtnClick(currentWord)}
             >
               Следующее слово
-            </Button>
+            </Btn>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import resultsAudio from '../../assets/show_results.mp3';
 import closeImg from '../../assets/close.svg';
 import audioImg from '../../../english-puzzle/assets/images/play-circle-regular.svg';
+import Btn from '../../../common/Btn';
 
 import './style.scss';
 
@@ -44,15 +45,15 @@ const Statistics = ({
       {
         wordDataIsShowing
           ? (<div className='popup wordData'>
-           <div className='close'> <img src={closeImg} alt='close' onClick={handleClick}/></div>
-              <div className='image'><img src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${dataOfClickedWord.image}`} alt='img' /></div>
-              <div className='currentWord'>{dataOfClickedWord.word}</div>
-              <div className='transcription'>
-                <img src={audioImg} alt='play' onClick={handleClick} />
-                <audio src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${dataOfClickedWord.audio}`}></audio>
-                {dataOfClickedWord.transcription}
-              </div>
-              <div className='translate'>{dataOfClickedWord.wordTranslate}</div>
+            <div className='close'> <img src={closeImg} alt='close' onClick={handleClick} /></div>
+            <div className='image'><img src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${dataOfClickedWord.image}`} alt='img' /></div>
+            <div className='currentWord'>{dataOfClickedWord.word}</div>
+            <div className='transcription'>
+              <img src={audioImg} alt='play' onClick={handleClick} />
+              <audio src={`https://raw.githubusercontent.com/liplyanin/rslang-data/master/${dataOfClickedWord.audio}`}></audio>
+              {dataOfClickedWord.transcription}
+            </div>
+            <div className='translate'>{dataOfClickedWord.wordTranslate}</div>
           </div>)
           : (<div className='popup'>
             <div className='iKnow'>
@@ -72,7 +73,7 @@ const Statistics = ({
                   <span onClick={handleClick} id={i} className='dontKnowArr'>{word}</span> - {wordTranslate} </div>
               ))}
             </div>
-            <button onClick={handleEndOfGame} className='btn btn-warning'> Continue </button>
+            <Btn onClick={handleEndOfGame} className='btn btn-warning'> Continue </Btn>
           </div>)
       }
     </div>

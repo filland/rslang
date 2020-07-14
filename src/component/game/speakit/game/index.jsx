@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import Word from '../word';
 import VoiceInput from '../voice-input';
 import Progress from '../progress';
 import blankPicture from '../assets/blank.jpg';
+import Btn from '../../../common/Btn';
 import './styles.scss';
 import { prepareWords, passDictionaryWordsToUserWords } from '../../../../common/helper/WordsHelper';
 import { MENU_PAGE, STATISTICS_PAGE } from '../constants';
@@ -185,9 +185,9 @@ class Game extends Component {
           </div>
         </div>
         <div className="controls">
-          <Button onClick={this.startGame}>Restart</Button>
-          <Button className="big-button" style={speakPleaseClickedStyle} onClick={this.speakPleaseClick}>Speak please</Button>
-          <Button onClick={this.backToMenu} >Menu</Button>
+          <Btn onClick={this.startGame}>Restart</Btn>
+          <Btn className="big-button" style={speakPleaseClickedStyle} onClick={this.speakPleaseClick}>Speak please</Btn>
+          <Btn onClick={this.backToMenu} >Menu</Btn>
         </div>
       </div>
     </div>);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { GAME_PAGE } from '../constants';
 import { setUserDifficulty } from '../../../settings/service';
+import Btn from '../../../common/Btn';
 import './styles.scss';
 
 class Menu extends Component {
@@ -37,7 +37,7 @@ class Menu extends Component {
     return (<div className="speakit-menu-wrapper">
       <h3>SpeakIt mini-game</h3>
       <div className="speakit-menu">
-        <Button variant="primary" onClick={this.startGame}>Start</Button>
+        <Btn variant="primary" onClick={this.startGame}>Start</Btn>
         <div>Current difficulty: {difficultyLevel}</div>
         <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
           {options}

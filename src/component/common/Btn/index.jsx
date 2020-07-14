@@ -21,7 +21,7 @@ export default function Btn(props) {
 
       <Button variant="default" {...props}>
         {props.children}
-      </Button >
+      </Button>
     </>
   );
 }
