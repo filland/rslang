@@ -46,14 +46,12 @@ function Game({ setCurrentPage, prepareWords }) {
       setStage((state) => ({ ...state, words: stageWords, rightWord }));
     }
     if (!stage.stageNum) {
-      console.log('Game END. Show statistics');
       // dispatchWordsStatistics(knowArray, mistakesArray);
       // setUserStatistics(playAllWords.length, newWords);
       setCurrentPage(STATISTICS_PAGE);
     }
   }, [wordsGame, stage.stageNum]);
   const nextStage = () => {
-    console.log(gameProgress);
     setIsSelectAnswer(false);
     setStage((state) => ({ ...state, stageNum: state.stageNum - 1 }));
   };
