@@ -4,14 +4,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-
   Tabs, Tab, CardDeck, Row,
 } from 'react-bootstrap';
-
 import CardWord from './cardWord/index';
-
 import getUserWords from '../common/word/user-word/selectors';
-
 import { getWordTodayCount } from './utils';
 import {
   getLosingFlagSelector,
@@ -53,7 +49,7 @@ class Dictionary extends Component {
     console.log('render');
     console.log(userWords);
 
-    const wordsDeletedList = userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted);
+    const wordsDeletedList = userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted && x.userWord.optional.deleted.toString() === 'true');
     const wordsDifficultList = userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
     const wordsLearningList = userWords.filter((x) => !wordsDifficultList.includes(x) && !wordsDeletedList.includes(x));
 
