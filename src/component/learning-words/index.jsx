@@ -16,6 +16,8 @@ import {
 } from "../../common/helper/WordUtils";
 import Statistics from "../statistics/index";
 
+import soundIcon from "./assets/img/sound.svg";
+
 import "./styles.scss";
 
 const mediaStorage =
@@ -248,13 +250,18 @@ class LearningWords extends Component {
     } = this.props.settings.optional;
 
     let { history } = this.props;
-
+    console.log(this.props);
     let currentWord = words.length ? words[0] : null;
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
           Lesson progress: <br />
-          <ProgressBar now={numberOfWords - words.length} max={numberOfWords} />
+          <ProgressBar
+            now={numberOfWords - words.length}
+            max={numberOfWords}
+            className="progressbar"
+            variant="warning"
+          />
         </label>
         {currentWord ? (
           !showStat ? (
@@ -288,50 +295,42 @@ class LearningWords extends Component {
               </div>
               {answer === "correct" && (
                 <div>
-                  <div className="transcrption">
+                  <div className="transcrption d-flex justify-content-between w-100 flex-nowrap">
                     {informationTranscription && (
                       <div>Транскрипция: {currentWord.transcription}</div>
                     )}
                   </div>
                   {informationDescription && (
-                    <div className="meaning">
-                      <div>
-                        Значение: {currentWord.textMeaningTranslate}
-                        <Button
-                          className="sound"
-                          onClick={() =>
-                            this.playSound(
-                              currentWord.audioMeaning,
-                              this.state.volume
-                            )
-                          }
-                        >
-                          Sound
-                        </Button>
-                      </div>
+                    <div className="meaning d-flex justify-content-between w-100 flex-nowrap">
+                      <div>Значение: {currentWord.textMeaningTranslate}</div>
+                      <Button
+                        className="sound"
+                        onClick={() =>
+                          this.playSound(
+                            currentWord.audioMeaning,
+                            this.state.volume
+                          )
+                        }
+                      ></Button>
                     </div>
                   )}
                   {informationExample && (
-                    <div className="example">
-                      <div>
-                        Пример: {currentWord.textExampleTranslate}
-                        <Button
-                          className="sound"
-                          onClick={() =>
-                            this.playSound(
-                              currentWord.audioExample,
-                              this.state.volume
-                            )
-                          }
-                        >
-                          Sound
-                        </Button>
-                      </div>
+                    <div className="example d-flex justify-content-between w-100 flex-nowrap">
+                      <div>Пример: {currentWord.textExampleTranslate}</div>
+                      <Button
+                        className="sound"
+                        onClick={() =>
+                          this.playSound(
+                            currentWord.audioExample,
+                            this.state.volume
+                          )
+                        }
+                      ></Button>
                     </div>
                   )}
                   {informationPicture && (
                     <div className="learning-words-wrapper__card__media">
-                      <div className="media-wrapper">
+                      <div className="media-wrapper d-flex justify-content-between w-100 flex-nowrap">
                         <div className="picture">
                           <img src={mediaStorage + currentWord.image} alt="" />
                         </div>
@@ -341,7 +340,7 @@ class LearningWords extends Component {
                             this.playSound(currentWord.audio, this.state.volume)
                           }
                         >
-                          Sound
+                          {/* <img src={soundIcon} alt="sound button"/> */}
                         </Button>
                       </div>
                     </div>
