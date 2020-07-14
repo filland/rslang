@@ -35,7 +35,6 @@ class Cardword extends Component {
     } = this.props;
 
     if (!word.userWord.optional.counter) word.userWord.optional.counter = '0';
-
     word.userWord.optional.deleted = 'false';
     if (restoreButton === 'difficult') {
       word.userWord.difficulty = 'normal';

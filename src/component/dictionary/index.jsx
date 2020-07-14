@@ -42,16 +42,12 @@ class Dictionary extends Component {
   }
 
   handlerRestore = async () => {
-    console.log('handlerRestore');
   }
 
   render() {
     const {
       userWords, settings,
     } = this.state;
-
-    console.log('render');
-    console.log(userWords);
 
     const wordsDeletedList = userWords.filter((x) => x.userWord.optional && x.userWord.optional.deleted && x.userWord.optional.deleted.toString() === 'true');
     const wordsDifficultList = userWords.filter((x) => x.userWord.difficulty && x.userWord.difficulty === 'hard' && !wordsDeletedList.includes(x));
