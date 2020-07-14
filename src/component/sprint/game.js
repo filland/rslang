@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Statistics from './statistics';
-import correct from './correct.png';
+import correct from './correct2.png';
 import wrong from './wrong.png';
 import { prepareWords, passDictionaryWordsToUserWords } from '../../common/helper/WordsHelper';
 import dispatchWords from './service.js';
@@ -102,7 +102,7 @@ class Game extends Component {
 
     if (idEnglishWord === idRussianWord) {
       this.setState({
-        border: '5px solid green',
+        border: '5px solid #5C9EAD',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
@@ -122,7 +122,7 @@ class Game extends Component {
       }
     } else {
       this.setState({
-        border: '5px solid red',
+        border: '5px solid #CC2936',
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
@@ -161,7 +161,7 @@ class Game extends Component {
     const { addPoints, points, correctAnswers } = this.state;
     if (idEnglishWord !== idRussianWord) {
       this.setState({
-        border: '5px solid green',
+        border: '5px solid #5C9EAD',
         visibilityWrong: 'hidden',
         visibilityCorrect: 'visible',
         pointsInfo: `+${addPoints} очков за слово`,
@@ -181,7 +181,7 @@ class Game extends Component {
       }
     } else {
       this.setState({
-        border: '5px solid red',
+        border: '5px solid #CC2936',
         visibilityCorrect: 'hidden',
         visibilityWrong: 'visible',
         pointsInfo: '',
@@ -254,9 +254,9 @@ class Game extends Component {
               <Card.Subtitle className="mb-3 text-muted">{russianWord}</Card.Subtitle>
               <Card.Img variant="top" className="mb-3" style={styleWrong} src={wrong} alt="Wrong sing" id="wrong" />
               <Row>
-                <Button onClick={() => this.handleClickCorrect()} variant="primary" className="mr-2">
+                <Button onClick={() => this.handleClickCorrect()} className="mr-2" id="correct-button">
                   Правильно!</Button>
-                <Button onClick={() => this.handleClickWrong()} variant="danger">
+                <Button onClick={() => this.handleClickWrong()} id="wrong-button">
                   Неверно</Button>
               </Row>
             </Card.Body>
