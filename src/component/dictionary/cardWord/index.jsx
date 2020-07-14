@@ -16,7 +16,6 @@ const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
   settings: PropTypes.objectOf(PropTypes.any).isRequired,
   restoreButton: PropTypes.string.isRequired,
-  handlerRestore: PropTypes.func,
   updateOldUserWords: PropTypes.func,
   fetchUserWords: PropTypes.func,
 };
