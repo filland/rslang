@@ -22,11 +22,9 @@ const fetchUserWords = () => async (dispatch) => {
     for (let i = 0; i < dictionaryUserWords.length; i += 1) {
       dictionaryUserWords[i].userWord = userWords[i];
     }
-    console.log(dictionaryUserWords);
 
     dispatch(fetchUserWordsSuccess(dictionaryUserWords));
   } catch (error) {
-    console.log(error);
     dispatch(fetchUserWordsFail(error));
   }
 };
@@ -55,10 +53,8 @@ export const updateOldUserWords = (oldWords) => async (dispatch, getStore) => {
       }
     }
 
-    console.log(arrayOfUserWords);
     dispatch(fetchUserWordsSuccess(arrayOfUserWords));
   } catch (error) {
-    console.log(error);
     dispatch(fetchUserWordsFail(error));
   }
 };
