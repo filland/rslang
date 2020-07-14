@@ -23,7 +23,7 @@ const registerUser = (email, password) => async (dispatch) => {
       dispatch(registrationSuccess());
       dispatch(defaultUserLoginForSendingData(email, password));
     } else {
-      dispatch(registrationFail('Status code in response is not 200'));
+      dispatch(registrationFail('Email or password is invalid'));
     }
   } catch (error) {
     dispatch(registrationFail(error));

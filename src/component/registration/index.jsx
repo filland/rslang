@@ -41,22 +41,23 @@ class Registration extends Component {
     const { isError, isLoaded, error } = this.props;
 
     return (
-      <Form className='registration-form' onSubmit={this.handleUserLogin}>
-        <h3>Registration page</h3>
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" ref={this.emailInput} placeholder="Enter email" required />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" ref={this.passwordInput} placeholder="Password" required />
-        </Form.Group>
-        {isError && (<div><Form.Label className="error-label">{error}</Form.Label></div>)}
-        {isLoaded && (<div><Form.Label className="success-label">You were successfully registered! Now you can <Link to="/login">log in</Link></Form.Label></div>)}
-        <Button variant="primary" type="submit">
-          Register
+      <div className="registration-container">
+        <Form className='registration-form' onSubmit={this.handleUserLogin}>
+          <h3>Register</h3>
+          <p>or <Link to="/login">log in to your account</Link></p>
+          <Form.Group>
+            <Form.Control type="email" ref={this.emailInput} placeholder="Email" required />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control type="password" ref={this.passwordInput} placeholder="Password" required />
+          </Form.Group>
+          {isError && (<div><Form.Label className="error-label">{error}</Form.Label></div>)}
+          {isLoaded && (<div><Form.Label className="success-label">You were successfully registered! Now you can <Link to="/login">log in</Link></Form.Label></div>)}
+          <Button variant="primary" style={{ width: '100%' }} type="submit">
+            Create account
         </Button>
-      </Form>
+        </Form>
+      </div>
     );
   }
 }

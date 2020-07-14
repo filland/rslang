@@ -1,11 +1,11 @@
-.registration-container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 60px;
 }
 
-.registration-form {
+.login-form {
     width: 500px;
 }
 
@@ -13,12 +13,8 @@
     color: red;
 }
 
-.success-label {
-    color: forestgreen;
-}
-
 @media(max-width: 1024px) {
-    .registration-form {
-        margin: 20px;
+    .login-form {
+        margin: 20px;   
     }
 }
