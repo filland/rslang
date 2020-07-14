@@ -1,78 +1,8 @@
-//  @import url(https://fonts.googleapis.com/css?family=Montserrat);
-// //@import url(https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap');
 
-
-// .wrapper { 
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     font-family: Arial;
-//     height: 100vh;
+// .main {
+//   max-width: 100vw !important;
 // }
-
-// .circle {
-//    // background: #030321;
-//     background: radial-gradient(circle, darken(dodgerblue, 10%), #1f4f96, #1b2949, #030321);
-//     border-radius: 50%;
-//     width: 20%;
-// }
-
-// svg {
-//     display: block; 
-//     font: 10.5em 'Montserrat';
-//     width: 90%;
-//     height: 200px;
-//     margin: 0 auto;
-// }
-
-// .text-copy {
-//     fill: none;
-//     stroke: white;
-//     stroke-dasharray: 6% 29%;
-//     stroke-width: 5px;
-//     stroke-dashoffset: 0%;
-//     animation: stroke-offset 5.5s infinite linear;
-// }
-
-// .text-copy:nth-child(1){
-//     stroke: #FFE373;
-//     animation-delay: -1;
-// }
-
-// .text-copy:nth-child(2){
-//     stroke: #FFD840;
-//     animation-delay: -2s;
-// }
-
-// .text-copy:nth-child(3){
-//     stroke: #A68400;
-//     animation-delay: -3s;
-// }
-
-// .text-copy:nth-child(4){
-//     stroke: #BFA230;
-//     animation-delay: -4s;
-// }
-
-// .text-copy:nth-child(5){
-//     stroke: #FFCB00;
-//     animation-delay: -5s;
-// }
-
-// @keyframes stroke-offset{
-//     100% {stroke-dashoffset: -35%;}
-// }
-
-
-// .wrapper {
-//     position: relative;
-//     width: 100%;
-//     height: 100vh;
-// }
-
-.main {
-    max-width: 100vw !important;
-}
 
 .wrapper {
     position: relative;
@@ -86,7 +16,6 @@
 
 .stone {
     position: absolute;
-    z-index: 1;
 }
 
 .yellow {
@@ -106,7 +35,7 @@
     width: 300px;
     height: 50px;
     background: radial-gradient(circle, darken(dodgerblue, 10%), #1f4f96, #1b2949, #030321);
-    border-radius: 10px;
+    border-radius: 7px;
     border: none;
     color: #fff;
     font-size: 20px;
@@ -147,8 +76,8 @@
     justify-content: center;
     width: 120px;
     height: 30px;
-    background: #faeade;
-    border-radius: 10px;
+    background: #fff;
+    border-radius: 7px;
     border: none;
     color: #103481;
     font-size: 16px;
@@ -181,4 +110,29 @@
     width: 90%;
     display: flex;
     justify-content: flex-end;
+}
+
+.quotе {
+    width: 80%;
+    height: 300px;
+    z-index: 1;
+    font-family: 'Cedarville Cursive', cursive;
+    font-size: 36px;
+    color: #114B5F;
+}
+
+.second-row {
+    margin-left: 15%;
+}
+
+.third-row {
+    margin-left: 20%;
+}
+
+.fourth-row {
+    margin-left: 35%;
+}
+
+.fifth-row {
+    margin-left: 50%;
 }
