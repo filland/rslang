@@ -1,5 +1,4 @@
 const selectNextShowDateByDifficulty = (diff) => {
-  console.log('diff: ', diff);
   const millisecondsInDay = 86400000;
    let nextShowDate;
   if (diff === 'easy') {
@@ -11,7 +10,6 @@ const selectNextShowDateByDifficulty = (diff) => {
   if (diff === 'hard')  {
     nextShowDate = Date.now() + millisecondsInDay;
   }
-  console.log('nextShowDate: ', nextShowDate);
   return nextShowDate;
 } 
 
@@ -34,12 +32,10 @@ export const transformOldWordsArrayToCorrectType = (oldWords) => {
     };
     arrayOfNewUserWords.push(userWord);
   });
-  console.log('arrayOfNewUserWords old: ', arrayOfNewUserWords);
   return arrayOfNewUserWords;
 };
 
 export const transformNewWordsArrayToCorrectType = (newWords) => {
-  console.log('newWords: ', newWords);
   const newWordsString = JSON.stringify(newWords);
   const copyNewWords = JSON.parse(newWordsString);
   const arrayOfNewUserWords = [];
@@ -60,6 +56,5 @@ export const transformNewWordsArrayToCorrectType = (newWords) => {
     };
     arrayOfNewUserWords.push(userWord);
   });
-  console.log('arrayOfNewUserWords new: ', arrayOfNewUserWords);
   return arrayOfNewUserWords;
 };
