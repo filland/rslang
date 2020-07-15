@@ -11,7 +11,7 @@ import './styles.scss';
 
 const randomNum = (lim) => Math.floor(Math.random() * lim);
 
-function Game({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) {
+const Game = ({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) => {
   const numTranslatedWord = 5;
   const numberOfStages = 10;
   const [newWordsNumber, setNewWordsNumber] = useState(0);
@@ -34,29 +34,6 @@ function Game({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) 
     if (isSelectAnswer) setGameProgress(gameProgress + 1);
   }, [isSelectAnswer]);
 
-  const updateWordsShowDate = () => {
-    for (let i = 0; i < wordsGame.length; i += 1) {
-      const word = wordsGame[i];
-      if (!word.userWord) {
-        word.userWord = {
-          difficulty: 'normal',
-          optional: {
-            counter: 1,
-            group: word.group,
-            createdDate: Date.now(),
-            updatedDate: Date.now(),
-            showDate: Date.now(),
-            deleted: false,
-          },
-        };
-      }
-      const showDate = new Date();
-      // show the word in 3 days
-      showDate.setDate(showDate.getDate() + 3);
-      word.userWord.optional.showDate = showDate.getTime();
-    }
-  };
-
   const [stage, setStage] = useState({ stageNum: numberOfStages, words: [], rightWord: null });
   useEffect(() => {
     if (wordsGame.length && stage.stageNum) {
@@ -75,9 +52,8 @@ function Game({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) 
     }
     if (!stage.stageNum) {
       setUserStatistics(wordsGame.length, newWordsNumber);
-      updateWordsShowDate();
       passDictionaryWordsToUserWords(wordsGame);
-      // setCurrentPage(STATISTICS_PAGE);
+      setCurrentPage(STATISTICS_PAGE);
     }
   }, [wordsGame, stage.stageNum, prepareWords]);
   const nextStage = () => {
@@ -118,7 +94,7 @@ function Game({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) 
     );
   }
   return <Loader />;
-}
+};
 
 const mapDispatchToProps = {
   prepareWords,
