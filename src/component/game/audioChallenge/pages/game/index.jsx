@@ -9,18 +9,19 @@ import { MENU_PAGE, STATISTICS_PAGE } from '../../constants';
 import setUserStatistics from '../../../../long-term-statistics/statisticsService/statisticsService';
 import './styles.scss';
 
-const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
+const randomNum = (lim) => Math.floor(Math.random() * lim);
 
-function Game({ setCurrentPage, prepareWords }) {
+const Game = ({ setCurrentPage, prepareWords, passDictionaryWordsToUserWords }) => {
   const numTranslatedWord = 5;
   const numberOfStages = 10;
+  const [newWordsNumber, setNewWordsNumber] = useState(0);
 
   const [wordsGame, setWordsGame] = useState([]);
   useEffect(() => {
-    const needWords = numTranslatedWord * numberOfStages;
-    const { preparedWords } = prepareWords(needWords);
-    const words = preparedWords.slice();
+    const { preparedWords, newWordsNumber } = prepareWords(numberOfStages);
+    const words = preparedWords;
     setWordsGame(words);
+    setNewWordsNumber(newWordsNumber);
   }, [prepareWords]);
 
   const [isSelectAnswer, setIsSelectAnswer] = useState(false);
@@ -36,21 +37,25 @@ function Game({ setCurrentPage, prepareWords }) {
   const [stage, setStage] = useState({ stageNum: numberOfStages, words: [], rightWord: null });
   useEffect(() => {
     if (wordsGame.length && stage.stageNum) {
-      const stageWords = [];
-      let count = stage.stageNum * numTranslatedWord - 1;
-      while (stageWords.length < numTranslatedWord) {
-        stageWords.push(wordsGame[count]);
-        count -= 1;
-      }
-      const rightWord = randomWord(stageWords);
+      const { preparedWords } = prepareWords(numTranslatedWord);
+      const words = preparedWords;
+      const rightWord = wordsGame[stage.stageNum - 1];
+      const arr = Array(numTranslatedWord).fill(0);
+      const randomIndex = randomNum(numTranslatedWord - 1);
+      const stageWords = arr.map((el, index) => {
+        if (index === randomIndex) {
+          return rightWord;
+        }
+        return words[index];
+      });
       setStage((state) => ({ ...state, words: stageWords, rightWord }));
     }
     if (!stage.stageNum) {
-      // dispatchWordsStatistics(knowArray, mistakesArray);
-      // setUserStatistics(playAllWords.length, newWords);
+      setUserStatistics(wordsGame.length, newWordsNumber);
+      passDictionaryWordsToUserWords(wordsGame);
       setCurrentPage(STATISTICS_PAGE);
     }
-  }, [wordsGame, stage.stageNum]);
+  }, [wordsGame, stage.stageNum, prepareWords]);
   const nextStage = () => {
     setIsSelectAnswer(false);
     setStage((state) => ({ ...state, stageNum: state.stageNum - 1 }));
@@ -89,7 +94,7 @@ function Game({ setCurrentPage, prepareWords }) {
     );
   }
   return <Loader />;
-}
+};
 
 const mapDispatchToProps = {
   prepareWords,
