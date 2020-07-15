@@ -83,7 +83,7 @@ class Cardword extends Component {
               settings.optional.informationTranscription
               && <Card.Text>
                 {word.transcription}&nbsp;
-              <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
+                <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
                 <audio src={`${GIT_URL_WORD}${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </Card.Text>
             }
@@ -95,6 +95,9 @@ class Cardword extends Component {
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
                 <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </ListGroupItem>
+            }
+
+            {settings.optional.informationDescription
               && <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
             }
 
