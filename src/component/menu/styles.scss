@@ -1,3 +1,5 @@
+$text: #114b5f;
+
 .icon-menu {
     position: relative;
     display: table-cell;
@@ -220,6 +222,7 @@ nav li {
         background: none !important;
         border: none !important;
         overflow: visible;
+        z-index: 2;
     }
 
     #menuToggle {
@@ -251,7 +254,7 @@ nav li {
         height: 4px;
         margin-bottom: 5px;
         position: relative;
-        background: #1b036c;
+        background: $text;
         border-radius: 3px;
         z-index: 5;
         transform-origin: 8px 6px;
@@ -283,5 +286,16 @@ nav li {
 
     #menuToggle input:checked ~ .menu-ul {
         transform: translate(0, 0);
+    }
+
+    .menu-strip {
+        width: 100%;
+        height: 50px;
+        position: fixed;
+        background-color: #3e7e8c;
+        border-top: 1px solid #166273;
+        border-bottom: 1px solid #166273;
+        top: 0;
+        left: 0;
     }
 }

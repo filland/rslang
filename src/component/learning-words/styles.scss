@@ -1,4 +1,4 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .learning-words-wrapper {
     background-color: $menu;
@@ -8,7 +8,8 @@
     width: 100%;
     display: grid;
     max-width: 1280px;
-    margin: 20px auto;
+    margin: 0px auto;
+    margin-left: 31px;
     grid-template-columns: 5fr 50px 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -56,10 +57,6 @@
     .sentence {
         padding: 20px 0;
         flex-wrap: wrap;
-    }
-
-    .word-input {
-        margin: 0 5px;
     }
 
     .translate,
@@ -158,5 +155,11 @@
 @media (max-width: 375px) {
     .word-input {
         display: block !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .learning-words-wrapper {
+        margin: 50px auto;
     }
 }
