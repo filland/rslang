@@ -1,15 +1,33 @@
+const selectNextShowDateByDifficulty = (diff) => {
+  const millisecondsInDay = 86400000;
+  let nextShowDate;
+  if (diff = 'easy') {
+    nextShowDate = Date.now() + millisecondsInDay;
+  }
+  else if (diff = 'normal') {
+    nextShowDate = Date.now() + millisecondsInDay*3;
+  }
+  else if (diff = 'hard') {
+    nextShowDate = Date.now() + millisecondsInDay*7;
+  }
+  return nextShowDate;
+} 
+
 export const transformOldWordsArrayToCorrectType = (oldWords) => {
   const oldWordsString = JSON.stringify(oldWords);
   const copyOldWords = JSON.parse(oldWordsString);
   const arrayOfNewUserWords = [];
   copyOldWords.forEach((word) => {
+    const diff = word.userWord.difficulty;
+    const nextShowDate = selectNextShowDateByDifficulty(diff);
     const userWord = {
-      difficulty: word.userWord.difficulty,
+      difficulty: diff,
       optional: {
         ...word.userWord.optional,
         counter: word.userWord.optional.counter + 1,
-        updatedDate: Date.now(),
         deleted: word.userWord.deleted ? word.userWord.deleted : false,
+        showDate: nextShowDate,
+        updatedDate: Date.now(),
       },
     };
     arrayOfNewUserWords.push(userWord);
@@ -22,6 +40,8 @@ export const transformNewWordsArrayToCorrectType = (newWords) => {
   const copyNewWords = JSON.parse(newWordsString);
   const arrayOfNewUserWords = [];
   copyNewWords.forEach((word) => {
+    const diff = word.userWord.difficulty;
+    const nextShowDate = selectNextShowDateByDifficulty(diff);
     const userWord = {
       difficulty: word.userWord ? word.userWord.difficulty : 'normal',
       optional: {
@@ -29,7 +49,7 @@ export const transformNewWordsArrayToCorrectType = (newWords) => {
         createdDate: Date.now(),
         deleted: word.userWord ? word.userWord.optional.deleted : false,
         group: word.group,
-        showDate: word.userWord.optional.showDate ? word.userWord.optional.showDate : Date.now(),
+        showDate: nextShowDate,
         updatedDate: Date.now(),
       },
     };
