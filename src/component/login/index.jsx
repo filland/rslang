@@ -52,6 +52,9 @@ class Login extends Component {
           <Button variant="primary" type="submit" style={{ width: '100%' }}>
             Login
         </Button>
+          <div className="github-link">
+            You can find the code of this application and credentials for a demo user <a href="https://github.com/filland/rslang">in the repository on Github</a>
+          </div>
         </Form>
       </div>
     );
