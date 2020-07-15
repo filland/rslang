@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Card, Row, Button } from 'react-bootstrap';
 import { GAME_PAGE } from '../../constants';
 import { setUserDifficulty } from '../../../../settings/service';
 import './styles.scss';
 
-export default function Menu({ setCurrentPage }) {
+function Menu({ setCurrentPage, setUserDifficulty }) {
+  const [level, setLevel] = useState(null);
+
   const handleClick = (e, levelValue) => {
-    setUserDifficulty(levelValue + 1);
+    setLevel(levelValue + 1);
     const btn = e.target;
     const group = [...btn.parentElement.children];
     const checkActive = group.findIndex((button) => button.classList.contains('btn-dif__active'));
@@ -25,19 +28,22 @@ export default function Menu({ setCurrentPage }) {
     </Button>
   ));
 
+  const startGame = () => {
+    setUserDifficulty(level);
+    setCurrentPage(GAME_PAGE);
+  };
+
   return (
     <div className="audioChallenge__menu">
       <div className="game-card">
         <div className="description">
           <h1>Аудиовызов</h1>
           <h2>Цель - выбрать перевод слова по звучащему произношению.</h2>
-          <p>
-            <ul>
-              <li>В процессе игры звучит произношение слова на английском языке, нужно выбрать перевод слова из пяти предложенных вариантов ответа.</li>
-              <li>Слова можно угадывать, выбирая их как кликами мышкой, так и нажатием кнопок клавиатуры от 1 до 5.</li>
-              <li>Переход к следующему вопросу происходит как при клике по стрелке, так и нажатием клавиши Enter </li>
-            </ul>
-          </p>
+          <ul>
+            <li>В процессе игры звучит произношение слова на английском языке, нужно выбрать перевод слова из пяти предложенных вариантов ответа.</li>
+            <li>Слова можно угадывать, выбирая их как кликами мышкой, так и нажатием кнопок клавиатуры от 1 до 5.</li>
+            <li>Переход к следующему вопросу происходит как при клике по стрелке, так и нажатием клавиши Enter </li>
+          </ul>
         </div>
         <div className="game-setup">
           <Card className="d-flex flex-column align-items-center inner">
@@ -46,7 +52,7 @@ export default function Menu({ setCurrentPage }) {
               <Row className="d-flex flex-column justify-content-center">
                 {listDifficulties}
               </Row>
-              <Button className="mt-5" onClick={() => setCurrentPage(GAME_PAGE)}>Start</Button>
+              <Button className="mt-5" onClick={startGame}>Start</Button>
             </Card.Body>
           </Card>
         </div>
@@ -54,3 +60,12 @@ export default function Menu({ setCurrentPage }) {
     </div>
   );
 }
+
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = {
+  setUserDifficulty,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -10,7 +10,7 @@ const Promo = () => (
     <section className="game">
       <div className="game-card">
         <div className="meta">
-          <div className="photo speakit"></div>
+          <div className="game-card_photo speakit"></div>
           <div className="details">
           </div>
         </div>
@@ -32,7 +32,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo english-puzzle"></div>
+          <div className="game-card_photo english-puzzle"></div>
           <div className="details">
           </div>
         </div>
@@ -54,7 +54,7 @@ const Promo = () => (
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo savanna"></div>
+          <div className="game-card_photo savanna"></div>
           <div className="details">
           </div>
         </div>
@@ -76,7 +76,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo audio-challenge"></div>
+          <div className="game-card_photo audio-challenge"></div>
           <div className="details">
           </div>
         </div>
@@ -98,7 +98,7 @@ const Promo = () => (
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo sprint"></div>
+          <div className="game-card_photo sprint"></div>
           <div className="details">
           </div>
         </div>
@@ -120,7 +120,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo own"></div>
+          <div className="game-card_photo own"></div>
           <div className="details">
           </div>
         </div>
@@ -141,7 +141,7 @@ const Promo = () => (
     <section className="info">
       <arlicle>
         <h2>Особенности приложения</h2>
-        <ul>
+        <ul className="green-list">
           <li>большое количество настроек, благодаря которым пользователь может изменять внешний вид и некоторые детали работы приложения в соответствии с собственными предпочтениями</li>
           <li>для заучивания иностранных слов используется методика интервального повторения</li>
           <li>собирается и предоставляется пользователю статистика изучения слов, как краткосрочная – по результатам каждой тренировки, так и долгосрочная – за весь период обучения</li>
@@ -150,7 +150,7 @@ const Promo = () => (
       </arlicle>
       <arlicle>
         <h2>Преимущества приложения</h2>
-        <ul>
+        <ul className="green-list">
           <li>
             отлично подойдет для самостоятельных занятий по индивидуальным рекомендациям,
             упражняться в чтении и аудировании, учить фразы и слова, практиковаться в грамматике
@@ -169,7 +169,7 @@ const Promo = () => (
       </arlicle>
       <arlicle>
         <h2>Правила для определения интервала</h2>
-        <ul>
+        <ul className="green-list">
           <li>Интервальные повторения — это простой, но очень действенный способ,
           который заставляет нас делать попытки выучить информацию снова и снова, тренируя ум как мышцы. </li>
           <li>Формула Интервального повторения Y=2X+1,

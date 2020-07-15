@@ -29,6 +29,16 @@ class Menu extends Component {
 
               <div className="menu-ul">
                 <ul>
+                  <li>
+                    <Link to="/learning">
+                      <i className="icon-menu icon-menu_learning"></i>
+                      <span className="nav-text">
+                        Memorizer
+                 </span>
+                    </Link>
+                  </li>
+                  <li className="has-subnav divider">
+                  </li>
                   <li className="has-subnav">
                     <Link to="/game/speakit">
                       <i className="icon-menu icon-menu_speakit"></i>
@@ -61,11 +71,11 @@ class Menu extends Component {
                     <Link to="/audioChallenge">
                       <i className="icon-menu icon-menu_audio-challenge"></i>
                       <span className="nav-text">
-                      Audio challenge
+                        Audio challenge
                 </span>
                     </Link>
                   </li>
-                  <li className="has-subnav">
+                  <li >
                     <Link to="/sprint">
                       <i className="icon-menu icon-menu_sprint"></i>
                       <span className="nav-text">
@@ -73,17 +83,10 @@ class Menu extends Component {
               </span>
                     </Link>
                   </li>
+                  <li className="has-subnav divider"> </li>
                 </ul>
                 <ul>
-                  <li className="has-subnav">
-                    <Link to="/learning">
-                      <i className="icon-menu icon-menu_learning"></i>
-                      <span className="nav-text">
-                        Memorizer
-                </span>
-                    </Link>
 
-                  </li>
                   <li className="has-subnav">
                     <Link to="/promo">
                       <i className="icon-menu icon-menu_promo"></i>
@@ -121,7 +124,7 @@ class Menu extends Component {
                   </li>
                   <li className="has-subnav">
                     <Link to="/team">
-                      <i className="icon-menu icon-menu_statistics"></i>
+                      <i className="icon-menu icon-menu_team"></i>
                       <span className="nav-text">
                         Our team
             </span>
@@ -138,6 +141,7 @@ class Menu extends Component {
                   </span>
                     </Link>
                   </li>
+                  <li className="has-subnav divider"> </li>
                 </ul>
 
               </div>
