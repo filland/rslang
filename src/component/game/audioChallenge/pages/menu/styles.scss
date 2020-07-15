@@ -17,6 +17,29 @@
 		background-color: rgba(255, 196, 0, 0.699);
 	}
 
+	@for $i from 1 through 6 {
+		& .btn-dif-#{$i} {
+			font-size: 1.2rem;
+			color: white;
+			background-color: #5C9EAD;
+			position: relative;
+			padding: .3em 2em;
+			margin-bottom: .5em;
+		}
+	}
+
+	& .btn-dif__active::after {
+		content: "";
+		position: absolute;
+		display: inline-block;
+		width: 1.2em;
+		height: 1.2em;
+		right: 1em;
+		top: .5em;
+		background: url(./tick.svg);
+		background-size: cover;
+	}
+
 	.game-card {
 		display: flex;
 		flex-direction: column;
@@ -28,6 +51,7 @@
 		border-radius: 5px;
 		overflow: hidden;
 		z-index: 0;
+		padding: .5 0 0 .5rem;
 		@media (min-width: 640px) {
 			flex-direction: row;
 			max-width: 800px;
@@ -42,6 +66,7 @@
 			z-index: 1;
 	
 			h1 {
+				padding-bottom: 1rem;
 				line-height: 1;
 				margin: 0;
 				font-size: 1.7rem;
