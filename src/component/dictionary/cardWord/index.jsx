@@ -11,7 +11,9 @@ import { GIT_URL_WORD } from '../constants';
 
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
-import { formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty } from '../utils';
+import {
+  formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty, getVolume,
+} from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -45,28 +47,34 @@ class Cardword extends Component {
 
   playAudio = () => {
     if (this.audioRef.current) {
+      this.audioRef.current.volume = this.formVolume();
       this.audioRef.current.play();
     }
   };
 
   playAudioMeaning = () => {
     if (this.audioMeaningRef.current) {
+      this.audioMeaningRef.current.volume = this.formVolume();
       this.audioMeaningRef.current.play();
     }
   };
 
   playAudioExample = () => {
     if (this.audioExampleRef.current) {
+      this.audioExampleRef.current.volume = this.formVolume();
       this.audioExampleRef.current.play();
     }
   };
 
   formDifficulty = () => nameDifficulty(this.props.word.userWord.difficulty);
 
+  formVolume = () => getVolume(this.props.settings.optional.volumeValue);
+
   render() {
     const { word, restoreButton, settings } = this.props;
     const difficulty = this.formDifficulty();
 
+    console.log(settings);
     return (
       <Col xs={12} sm={6} md={4} >
         <Card bg="Light" className="wordCard my-4 text-center">
@@ -84,7 +92,7 @@ class Cardword extends Component {
               && <Card.Text>
                 {word.transcription}&nbsp;
                 <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-                <audio src={`${GIT_URL_WORD}${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audio}`} ref={this.audioRef} />
               </Card.Text>
             }
           </Card.Body>
@@ -93,7 +101,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-                <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} />
               </ListGroupItem>
             }
 
@@ -105,7 +113,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textExample}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-                <audio src={`${GIT_URL_WORD}${word.audioExample}`} ref={this.audioExampleRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioExample}`} ref={this.audioExampleRef} />
               </ListGroupItem>
             }
             <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
