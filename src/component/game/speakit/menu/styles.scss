@@ -5,36 +5,41 @@
   justify-content: center;
   align-items: center;
   min-height: 70vh;
-}
 
-.speakit-menu-wrapper {
-  box-sizing: content-box;
-  width: 300px;
-  background-color: white;
-  padding: 50px;
-}
+  .speakit-menu-wrapper {
+    box-sizing: content-box;
+    width: 300px;
+    background-color: white;
+    padding: 50px;
+  }
 
-.speakit-menu {
-  width: 300px;
-  padding: 20px;
-  border: 1px solid rgb(223, 223, 223);
-}
+  .speakit-menu {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid rgb(223, 223, 223);
+  }
 
-.speakit-menu > * {
-  margin-bottom: 25px;
-}
+  .speakit-menu > * {
+    margin-bottom: 25px;
+  }
 
-.speakit-menu button { 
-  width: 100% !important;
-}
+  .speakit-menu button { 
+    width: 100% !important;
+  }
 
-.show > .btn-primary.dropdown-toggle {
-  background-color: $menu;
-  border-color: $menu;
-}
+  .show > .btn-primary.dropdown-toggle {
+    background-color: $menu;
+    border-color: $menu;
+  }
 
-.dropdown-basic-button {
-  width: 100% !important;
+  .show {
+    width: 100%;
+  }
+
+  .dropdown-basic-button {
+    width: 100% !important;
+  }
+
 }
 
 @media(max-width: 1024px) {
