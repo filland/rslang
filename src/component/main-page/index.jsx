@@ -29,7 +29,8 @@ class MainPage extends React.Component {
   }
 
   handleSwitchToTutorial = () => {
-    console.log('Tutorial');
+    const { history } = this.props;
+    history.push('/tutorial');
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import Words from '../../components/Words';
 import RightWord from '../../components/RightWord';
 import Loader from '../../../../common/loader';
@@ -64,14 +64,27 @@ function Game({ setCurrentPage, prepareWords }) {
     }
   };
 
+  const handleKeyEnter = (event) => {
+    if (event.code === 'Enter') {
+      handleIsSelectAnswer();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyEnter);
+    return () => {
+      window.removeEventListener('keydown', handleKeyEnter);
+    };
+  });
+
   if (stage.rightWord) {
     return (
-      <div className="audioChallenge">
+      <div className="audioChallenge__game">
         <ProgressBar className="progressBar" variant="info" now={gameProgress * 10} label={`${gameProgress * 10}%`} srOnly />
         <RightWord word={stage.rightWord} isSelectAnswer={isSelectAnswer} />
-        <Button className="btn-close" variant="outline-danger" onClick={() => setCurrentPage(MENU_PAGE)}>Close</Button>
+        <button className="btn-close" onClick={() => setCurrentPage(MENU_PAGE)}>Close</button>
         <Words words={stage.words} rightWord={stage.rightWord} setAnswerSelected={setAnswerSelected} isSelectAnswer={isSelectAnswer} />
-        <Button variant="outline-primary" onClick={handleIsSelectAnswer}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</Button>
+        <button className="btn" onClick={handleIsSelectAnswer}>{(isSelectAnswer) ? 'Next' : 'Не знаю'}</button>
       </div>
     );
   }

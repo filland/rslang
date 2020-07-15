@@ -1,0 +1,10 @@
+@import '../../App.scss';
+
+.tutorial-wrapper {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: $menu;
+    border-radius: 8px;
+    color: $buttons;
+    padding: 20px;
+}

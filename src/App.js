@@ -16,6 +16,7 @@ import LineStatistics from './component/long-term-statistics';
 import Loader from './component/common/loader/index';
 import MainPage from './component/main-page/index';
 import AboutTeamPage from './component/team/index';
+import Tutorial from './component/tutorial';
 
 import './App.scss';
 import Savanna from './component/savanna/index';
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/" component={MainPage} />
           <Route path="/promo" component={Promo} />
           <Route path="/team" component={AboutTeamPage} />
+          <Route path="/tutorial" component={Tutorial} />
           <Route path="/settings" component={Settings} />
           <Route path="/dictionary" component={Dictionary} />
           <Route path="/learning" component={LearningWords} />

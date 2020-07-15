@@ -67,7 +67,7 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
     // filter words that do not match current words difficulty
     .filter((word) => word.group === wordsDifficultyInApp);
 
-  let numberOfDictionaryWords = numberOfAllWords / 2;
+  let numberOfDictionaryWords = Math.round(numberOfAllWords / 2);
   let numberOfUserWords = numberOfAllWords - numberOfDictionaryWords;
 
   if (numberOfUserWords > tempUserWords.length) {

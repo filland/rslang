@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import './styles.scss';
 
 const Word = ({
@@ -7,8 +6,9 @@ const Word = ({
   wordTranslate,
   isSelectWord,
   isSelectAnswer,
+  number,
 }) => {
-  const [variant, setVariant] = useState('info');
+  const [variant, setVariant] = useState('');
   useEffect(() => {
     if (isSelectAnswer) {
       if (isSelectWord) {
@@ -18,19 +18,23 @@ const Word = ({
           setVariant('danger');
         }
       } else if (isRightAnswer) {
-        setVariant('info');
+        setVariant('answer');
       } else {
-        setVariant('light');
+        setVariant('hide');
       }
-    } else {
-      setVariant('info');
     }
   });
 
   return (
-    <Button className="btn-word" variant={variant}>
-      {wordTranslate}
-    </Button>
+    <>
+      <button
+        type="button"
+        className={variant && `audioChallenge__btn-${variant}`}
+        data-btn-num={number}
+        data-btn-success={(variant === 'success') ? 'true' : 'false'}>
+        {wordTranslate}
+      </button>
+    </>
   );
 };
 

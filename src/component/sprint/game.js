@@ -81,6 +81,10 @@ class Game extends Component {
   }
 
   componentWillUnmount() {
+    const { playAllWords, newWords } = this.state;
+    const { setUserStatistics, passDictionaryWordsToUserWords } = this.props;
+    setUserStatistics(playAllWords.length, newWords);
+    passDictionaryWordsToUserWords(playAllWords);
     clearInterval(this.myInterval);
   }
 
@@ -229,12 +233,8 @@ class Game extends Component {
     const { englishWord, russianWord } = this.state;
     const { dispatchWordsStatistics } = this.props;
     const { knowArray, mistakesArray } = this.state;
-    const { playAllWords, newWords } = this.state;
-    const { setUserStatistics, passDictionaryWordsToUserWords } = this.props;
     if (minutes === 0 && seconds === 0) {
       dispatchWordsStatistics(knowArray, mistakesArray);
-      setUserStatistics(playAllWords.length, newWords);
-      passDictionaryWordsToUserWords(playAllWords);
       return <Statistics />;
     }
     return (

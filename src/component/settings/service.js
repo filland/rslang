@@ -95,6 +95,8 @@ export const setDefaultUserSettings = () => async (dispatch) => {
 
 export const setUserDifficulty = (difficulty) => async (dispatch, getStore) => {
   const store = getStore();
+  const storeDifficulty = store.settings.optional.difficultyLevel;
+  if (difficulty === storeDifficulty) { return; }
   const inputSettings = createTemplateOfStoreSettings(store);
   const templateSettings = JSON.stringify(inputSettings);
   const template = JSON.parse(templateSettings);
@@ -105,7 +107,7 @@ export const setUserDifficulty = (difficulty) => async (dispatch, getStore) => {
     const setSettingsURL = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
     const body = JSON.stringify(template);
     const data = await authorizedRequest(setSettingsURL, 'PUT', body);
-    dispatch(settingSuccess(data));
+    await dispatch(settingSuccess(data));
     dispatch(fetchDictionaryWords(difficulty));
   } catch (error) {
     dispatch(settingFail(error));

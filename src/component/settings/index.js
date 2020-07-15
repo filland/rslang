@@ -24,9 +24,9 @@ const arrOfInformation = [
   { id: 'informationPicture', label: 'Картинка-ассоциация' },
 ];
 const arrOfButtons = [
-  { id: 'btnShow', label: "Кнопка 'Показать ответ'" },
-  { id: 'btnDelete', label: "Кнопка 'Удалить слово' (исключить слово из изучения)" },
-  { id: 'btnComplicated', label: "Кнопка 'Сложные' (поместить слово в группу 'Сложные')" },
+  { id: 'btnShow', label: "Опция 'Пропустить' (исключить слово из урока)" },
+  { id: 'btnDelete', label: "Опция 'Удалить' (исключить слово из изучения)" },
+  { id: 'btnComplicated', label: "Опция 'Повторить' (повторить слово в текущем уроке)" },
 ];
 class Settings extends React.Component {
   constructor(props) {
@@ -140,7 +140,7 @@ class Settings extends React.Component {
           <br />
           <Card>
             <Accordion.Toggle as={Card.Header} eventKey="1">
-              Кнопки, отображаемые на карточках:
+              Опции, доступные в уроке:
           </Accordion.Toggle>
             <Accordion.Collapse eventKey="1">
               <Card.Body>

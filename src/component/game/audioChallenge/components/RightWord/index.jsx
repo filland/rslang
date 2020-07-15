@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import './styles.scss';
 
 const RightWord = ({
@@ -14,12 +14,10 @@ const RightWord = ({
   }, [word]);
 
   return (
-    <div className="rightWord">
-      {(isSelectAnswer) && (<Image src={dataUrl + word.image} height="130" roundedCircle />)}
-      <Button className="btn-playAudio" variant="outline-primary" onClick={() => playAudio(dataUrl + word.audio)}>
-        <Image src="https://image.flaticon.com/icons/svg/727/727269.svg" height="70" roundedCircle />
-      </Button>
-      {(isSelectAnswer) && (<span>{word.word}</span>)}
+    <div className={(isSelectAnswer) ? 'rightWord--selectedAnswer' : 'rightWord'}>
+      {(isSelectAnswer) && (<Image alt="rightWord" className="rightWord__img" src={dataUrl + word.image} />)}
+      <button className="btn rightWord__btn-playAudio" onClick={() => playAudio(dataUrl + word.audio)} />
+      {(isSelectAnswer) && (<span className="rightWord__text">{word.word}</span>)}
     </div>
   );
 };
