@@ -77,9 +77,9 @@ class LineStatistics extends React.Component {
     const NewWordsInDay = optional.dayNewWords;
     const NewWordsOfLastDay = NewWordsInDay[NewWordsInDay.length - 1];
     const wordsOfLastDay = AllWordsInDay[AllWordsInDay.length - 1];
-    const percentOfNewWords = Math.round((NewWordsOfLastDay / wordsOfLastDay) * 100);
+    const percentOfNewWords = Math.ceil((NewWordsOfLastDay / wordsOfLastDay) * 100);
     const dayOldWords = wordsOfLastDay - NewWordsOfLastDay;
-    const percentOfOldWords = Math.round((dayOldWords / wordsOfLastDay) * 100);
+    const percentOfOldWords = Math.floor((dayOldWords / wordsOfLastDay) * 100);
     const data = {
       labels: [
         'Новые слова, %',
