@@ -1,0 +1,128 @@
+
+.randomWords{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    user-select: none; 
+
+    .item{
+        border: 1px solid gray;
+        margin: 3px;
+        padding: 2px;
+        opacity: 0.8;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+}
+
+.gameField{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-items: center;
+    height: 80vh;
+    margin-top: 10px;
+    user-select: none; 
+
+   .hints{
+       display: flex;
+       form{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+         input{
+             margin: 2px;
+         }
+         button{
+             margin: 2px;
+         }
+       }
+
+        .gameTools{
+            display: flex;
+            img{
+            margin: 8px;
+            width: 20px;
+            opacity: 0.6;
+        
+            &:hover{
+                cursor: pointer;
+                opacity: 1;
+            }
+            }
+        }
+   }
+  
+
+    .translateText{
+        height: 25px;
+        text-align: center;
+    }
+
+    .solvedSentences{
+        width: 60vw;
+        max-width: 1200px;
+        background-position-x: center;
+        display: flex;
+        flex-direction: column;
+        background-repeat: no-repeat;
+        margin-top: 20px;
+        margin: 0 auto;
+
+
+        .item{
+            background-color: rgba(0, 0, 0, 0.8);
+            color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: azure solid 0.2px;
+        }
+
+    }
+    @media screen and (max-width: 950px){
+        .solvedSentences{
+            width: 95vw;
+            font-size: calc(100vw/40);
+            
+        }
+    }
+
+
+
+    .game{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 90%;
+        position: relative;        
+        
+        .gameButtons{
+            margin-top: 10px;
+
+            button{
+                width: 150px;
+            }
+            .dontKnow{
+                background-color: #ac1111a8;
+                border-color:  #ac1111a8;
+                margin-left: 10px;
+            }      
+            
+            .results{
+                background-color: #11ac2ba8;
+                border-color:  #11ac2ba8;
+                margin-left: 10px;
+            }
+        }
+        
+    }
+    
+    
+}

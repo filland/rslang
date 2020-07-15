@@ -1,0 +1,11 @@
+.stars-container {
+  display: flex;
+  flex-direction: row;
+
+  .star {
+    width: 40px;
+    height: 40px;
+    background-size: 40px 40px;
+  }
+
+}

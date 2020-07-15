@@ -1,0 +1,24 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.login-form {
+    width: 500px;
+}
+
+.error-label {
+    color: red;
+}
+
+.github-link {
+    padding-top: 30px;
+}
+
+@media(max-width: 1024px) {
+    .login-form {
+        margin: 20px;   
+    }
+}

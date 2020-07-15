@@ -1,0 +1,64 @@
+@media screen and (max-width: 768px) {
+    .quotе {
+        font-size: 30px;
+    }
+
+    .groupButtons {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .btn-group-common {
+        margin-bottom: 10px;
+    }
+
+    .yellow {
+        width: 70%;
+    }
+
+    .blue {
+        width: 57%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .yellow {
+        top: -35%;
+        left: -15%;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .quotе {
+        font-size: 24px;
+    }
+
+    .buttonStart {
+        width: 260px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .buttonStart {
+        width: 230px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .quotе {
+        font-size: 20px;
+    }
+
+    .yellow {
+        top: -31%;
+        left: -31%;
+        width: 88%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .wrapper {
+        margin-top: 50px;
+    }
+}

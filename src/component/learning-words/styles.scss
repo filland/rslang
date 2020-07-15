@@ -1,0 +1,165 @@
+@import "../../App.scss";
+
+.learning-words-wrapper {
+    background-color: $menu;
+    color: $buttons;
+    font-weight: 600;
+    padding: 5%;
+    width: 100%;
+    display: grid;
+    max-width: 1280px;
+    margin: 0px auto;
+    margin-left: 31px;
+    grid-template-columns: 5fr 50px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "progress progress progress"
+        "info  .  panel";
+}
+
+.learning-words-wrapper__progress {
+    grid-area: progress;
+
+    .progressbar {
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+}
+
+.learning-words-wrapper__card {
+    margin-top: 30px;
+    grid-area: info;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    color: black;
+
+    .sound,
+    .sound:focus {
+        margin-left: 40px;
+        border-radius: 50%;
+        border: 10px solid $menu;
+        width: 50px;
+        height: 50px;
+        background-image: url(assets/img/sound.svg);
+        background-color: $menu;
+        background-position: center center;
+        background-size: contain;
+        padding: 10px;
+    }
+
+    .sound:hover {
+        cursor: pointer;
+        border: 7px solid $menu;
+        background-color: $menu !important;
+    }
+
+    .sentence {
+        padding: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .translate,
+    .transcrption,
+    .example,
+    .meaning {
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    &__media {
+        .media-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+
+            .picture {
+                border: 6px solid darkcyan;
+                border-radius: 8px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.learning-words-wrapper__panel {
+    margin-top: 30px;
+    grid-area: panel;
+}
+
+.learning-words-wrapper__difficulty {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    label input {
+        margin-right: 20px;
+    }
+}
+
+.learning-words-wrapper__controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.memo-btn {
+    margin: 10px 0;
+    border: 2px solid lightgray !important;
+    background-color: $buttons !important;
+    opacity: 1 !important;
+    color: #1b7fbd !important;
+    font-weight: 600 !important;
+}
+
+.memo-btn:hover {
+    cursor: pointer;
+    color: #005c97 !important;
+    border: 2px solid #005c97 !important;
+}
+
+.answer-btn:hover {
+    background-color: lightgreen !important;
+}
+
+.answer-btn:disabled:hover {
+    background-color: salmon !important;
+}
+
+.input-wrong {
+    background-color: salmon;
+}
+
+.input-right {
+    background-color: lightgreen;
+}
+
+@media screen and (min-width: 425px) {
+    .word-input {
+        width: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    .learning-words-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "progress"
+            "info"
+            "panel";
+    }
+}
+
+@media (max-width: 375px) {
+    .word-input {
+        display: block !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .learning-words-wrapper {
+        margin: 50px auto;
+    }
+}

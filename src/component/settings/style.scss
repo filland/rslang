@@ -1,0 +1,32 @@
+.btnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.alert {
+    display: none;
+}
+
+.show {
+    width: 80%;
+    display: block;
+}
+.accordion > .card {
+    width: 100%;
+    max-width: 1280px;
+    box-shadow: 0 0 5px rgba(0,0,0,.125);
+    cursor: pointer;
+}
+
+.custom-select,
+.custom-control-label {
+    cursor: pointer;
+}
+
+.volumeWrapper {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    padding-top: 10px;
+}

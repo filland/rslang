@@ -1,0 +1,19 @@
+
+  .homePage{
+    background-image: url('../assets/images/mainBackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+        
+    button{
+      margin: 20px;
+    }
+
+  } 

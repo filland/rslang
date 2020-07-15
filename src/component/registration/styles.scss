@@ -1,0 +1,24 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.registration-form {
+    width: 500px;
+}
+
+.error-label {
+    color: red;
+}
+
+.success-label {
+    color: forestgreen;
+}
+
+@media(max-width: 1024px) {
+    .registration-form {
+        margin: 20px;
+    }
+}

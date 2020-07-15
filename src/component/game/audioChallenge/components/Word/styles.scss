@@ -1,0 +1,57 @@
+.audioChallenge {
+	&__btn-group {
+		& button {
+			padding: 0;
+			border: none;
+			font-size: 1.5rem;
+			color: white;
+			background-color: transparent;
+			margin-left: 1.5rem;
+			font-weight: normal;
+			&:hover {
+				color: rgba(255,168,62,1);
+				border-color: currentColor;
+			} 
+			&:focus {
+				outline: none;
+				border-bottom: 2px solid rgba(255,168,62,1);
+			}
+		}
+		& .audioChallenge__btn-danger {
+			text-decoration: line-through;
+			color: rgba(204, 204, 204, 0.61);
+			border-bottom: 2px solid #dc3545;
+			&:visited, &:focus {
+				border-bottom: 2px solid #dc3545;
+			}
+		}
+		& .audioChallenge__btn-success {
+			color: rgb(6, 153, 6);
+			font-size: 1.6rem;
+		}
+		& .audioChallenge__btn-hide {
+			color: rgba(204, 204, 204, 0.61);
+		}
+		@for $i from 1 through 5 {
+			& button[data-btn-num="#{$i}"]::before {
+				content: '#{$i}';
+				padding-right: 5px;
+				font-size: 1rem;
+				color: rgba(204, 204, 204, 0.61);
+			}
+		}
+		& button[data-btn-success="true"]::before {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			width: 1em;
+			height: 1em;
+			background: url(./tick.svg);
+			background-size: cover;
+			padding-right: 5px;
+			&:visited, &:focus {
+				border-bottom: 2px solid rgb(6, 153, 6);;
+			}
+		}
+	}
+}

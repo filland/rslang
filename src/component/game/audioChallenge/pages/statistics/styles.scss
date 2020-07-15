@@ -1,0 +1,35 @@
+.audioChallenge__statistics {
+	min-height: 100vh;
+	position: relative;
+	padding-top: 50px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.btn-close {
+	font-size: 1.2rem;
+	position: absolute;
+	top: 2rem;
+	right: 1rem;
+	color: #dc3545;
+	border-color: currentColor;
+	cursor: pointer;
+	background-color: transparent;
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px #dc3545,
+			0 0 0 1.5px #dc3545;
+	}
+	&:hover, &:active {
+		cursor: pointer;
+		color: #fff;
+		background-color: #dc3545;
+		border-color: #dc3545;
+	}
+}
+
+.progressBar {
+	width: 100%;
+}
