@@ -46,19 +46,7 @@ const shuffleArray = (array) => {
   array.sort(() => Math.random() - 0.5);
 };
 
-function getNumberOfShownWordsToday(dayNewWords, daysDates) {
-  if (dayNewWords && daysDates) {
-    const latestDateMills = daysDates[6];
-    const latestDate = new Date(latestDateMills);
-    const currentDate = new Date();
-    if (latestDate.toLocaleDateString() === currentDate.toLocaleDateString()) {
-      const number = dayNewWords[6];
-      return number;
-    }
-  }
-
-  return 0;
-}
+const prepareUserWords = (userWords, numberOfUserWords) => userWords.filter((word, index) => index < numberOfUserWords);
 
 /**
  * This function prepares an array of words for mini games
@@ -70,8 +58,6 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
   const userWords = getUserWords(store);
   const dictionaryWords = getDictionaryWords(store);
   const wordsDifficultyInApp = store.settings.optional.difficultyLevel - 1;
-  const totalNumberOfNewWordsPerDay = store.settings.optional.newCardsPerDay;
-  const shownNewWordsTodayFromStatistics = getNumberOfShownWordsToday(store.statistics.optional.dayNewWords, store.statistics.optional.dayDate);
 
   const tempUserWords = userWords
     // we need only words with the deleted field set to false
@@ -81,26 +67,21 @@ export const prepareWords = (numberOfAllWords) => (_dispatch, getState) => {
     // filter words that do not match current words difficulty
     .filter((word) => word.group === wordsDifficultyInApp);
 
-  if (tempUserWords.length > numberOfAllWords) {
-    const res = tempUserWords.filter((word, index) => index < numberOfAllWords);
-    return { preparedWords: res, newWordsNumber: 0 };
-  }
+  let numberOfDictionaryWords = numberOfAllWords / 2;
+  let numberOfUserWords = numberOfAllWords - numberOfDictionaryWords;
 
-  const numberOfUserWords = totalNumberOfNewWordsPerDay - shownNewWordsTodayFromStatistics;
-
-  // if we do not have enough user words then use dictionary words instead
-  let numberOfDictWords;
-  if (tempUserWords.length > numberOfUserWords) {
-    numberOfDictWords = numberOfAllWords - numberOfUserWords;
-  } else {
-    numberOfDictWords = numberOfAllWords - tempUserWords.length;
+  if (numberOfUserWords > tempUserWords.length) {
+    numberOfDictionaryWords = (numberOfDictionaryWords + numberOfUserWords - tempUserWords.length);
+    numberOfUserWords = tempUserWords.length;
   }
 
   // prepare array with dictionary words (do not include words which already added as user words)
-  const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictWords);
+  const preparedDictionaryWords = prepareDictionaryWords(userWords, dictionaryWords, numberOfDictionaryWords);
+
+  const preparedUserWords = prepareUserWords(tempUserWords, numberOfUserWords);
 
   const newWordsNumber = preparedDictionaryWords.length;
-  const result = tempUserWords.concat(preparedDictionaryWords);
+  const result = preparedUserWords.concat(preparedDictionaryWords);
 
   shuffleArray(result);
 

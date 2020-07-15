@@ -1,9 +1,17 @@
-.speakit-menu-wrapper {
+@import '../../../../App.scss';
+
+.speakit-menu-container {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
   min-height: 70vh;
+}
+
+.speakit-menu-wrapper {
+  box-sizing: content-box;
+  width: 300px;
+  background-color: white;
+  padding: 50px;
 }
 
 .speakit-menu {
@@ -20,10 +28,18 @@
   width: 100% !important;
 }
 
+.show > .btn-primary.dropdown-toggle {
+  background-color: $menu;
+  border-color: $menu;
+}
+
+.dropdown-basic-button {
+  width: 100% !important;
+}
+
 @media(max-width: 1024px) {
   .speakit-menu {
     width: 70%;
-    margin: 20px;
   }
 }
 
