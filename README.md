@@ -12,7 +12,7 @@ $ npm start
 https://rslang-30-filland.netlify.app/
 
 
-### Credential for a demo user
+### Credentials for a demo user
 
 {
   "email": "demo@rslang.example",
