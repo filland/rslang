@@ -67,7 +67,7 @@
     transition: width 0.05s linear;
     transform: translateZ(0) scale(1, 1);
     -webkit-transform: translateZ(0) scale(1, 1);
-    z-index: 1000;
+    z-index: 1;
     &:hover {
         width: 252px;
         overflow: visible;
@@ -75,15 +75,15 @@
 }
 
 .main-menu > ul {
-    margin: 7px 0;
+    margin: 5px 0;
 }
 
 .main-menu li {
     position: relative;
     display: block;
     width: 250px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 7px;
+    padding-top: 7px;
 }
 
 .main-menu li > a {
@@ -154,22 +154,19 @@ nav li {
     margin: 0;
     padding: 0;
 }
-.main-menu li:hover > a,
-nav.main-menu li.active > a,
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus,
-.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
-.dashboard-page nav.dashboard-menu ul li.active a {
+.main-menu li:hover > a {
     color: #fff;
     background-color: #48818e;
 }
 #menuToggle input {
     display: none;
 }
-
+.divider {
+    height: 16px;
+    background-color: #3e7e8c;
+    border-top: 1px solid #166273;
+    border-bottom: 1px solid #166273;
+}
 @media (max-width: 767.98px) {
     .icon-menu {
         position: relative;
@@ -191,7 +188,7 @@ nav.main-menu li.active > a,
     }
 
     .main-menu > ul {
-        margin: 5px 0;
+        margin: 3px 0;
     }
     .main-menu li {
         width: 200px;
@@ -223,16 +220,11 @@ nav.main-menu li.active > a,
         background: none !important;
         border: none !important;
         overflow: visible;
-
-        &:hover {
-            overflow: visible;
-        }
     }
 
     #menuToggle {
         display: block;
         position: relative;
-        height: 100vh;
         top: 15px;
         left: 15px;
         z-index: 1;

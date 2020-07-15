@@ -29,6 +29,16 @@ class Menu extends Component {
 
               <div className="menu-ul">
                 <ul>
+                  <li>
+                    <Link to="/learning">
+                      <i className="icon-menu icon-menu_learning"></i>
+                      <span className="nav-text">
+                        Memorizer
+                 </span>
+                    </Link>
+                  </li>
+                  <li className="has-subnav divider">
+                  </li>
                   <li className="has-subnav">
                     <Link to="/game/speakit">
                       <i className="icon-menu icon-menu_speakit"></i>
@@ -65,7 +75,7 @@ class Menu extends Component {
                 </span>
                     </Link>
                   </li>
-                  <li className="has-subnav">
+                  <li >
                     <Link to="/sprint">
                       <i className="icon-menu icon-menu_sprint"></i>
                       <span className="nav-text">
@@ -73,17 +83,10 @@ class Menu extends Component {
               </span>
                     </Link>
                   </li>
+                  <li className="has-subnav divider"> </li>
                 </ul>
                 <ul>
-                  <li className="has-subnav">
-                    <Link to="/learning">
-                      <i className="icon-menu icon-menu_learning"></i>
-                      <span className="nav-text">
-                        Memorizer
-                </span>
-                    </Link>
 
-                  </li>
                   <li className="has-subnav">
                     <Link to="/promo">
                       <i className="icon-menu icon-menu_promo"></i>
@@ -138,6 +141,7 @@ class Menu extends Component {
                   </span>
                     </Link>
                   </li>
+                  <li className="has-subnav divider"> </li>
                 </ul>
 
               </div>

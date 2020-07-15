@@ -74,7 +74,6 @@ class Cardword extends Component {
     const { word, restoreButton, settings } = this.props;
     const difficulty = this.formDifficulty();
 
-    console.log(word);
     return (
       <Col xs={12} sm={6} md={4} >
         <Card bg="Light" className="wordCard my-4 text-center">
