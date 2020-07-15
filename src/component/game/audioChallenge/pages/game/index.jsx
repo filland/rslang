@@ -21,6 +21,7 @@ function Game({ setCurrentPage, prepareWords }) {
     const { preparedWords } = prepareWords(needWords);
     const words = preparedWords.slice();
     setWordsGame(words);
+    console.log(words);
   }, [prepareWords]);
 
   const [isSelectAnswer, setIsSelectAnswer] = useState(false);
