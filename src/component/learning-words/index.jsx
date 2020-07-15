@@ -16,8 +16,6 @@ import {
 } from "../../common/helper/WordUtils";
 import Statistics from "../statistics/index";
 
-import soundIcon from "./assets/img/sound.svg";
-
 import "./styles.scss";
 
 const mediaStorage =
@@ -94,10 +92,12 @@ class LearningWords extends Component {
 
   checkAnswer = ({ target }) => {
     if (target.value) {
-      const isSuccess = (target.value).trim() === this.state.words[0].word;
+      const isSuccess = target.value.trim() === this.state.words[0].word;
 
       this.setState({
-        wrongAnswers: isSuccess ? this.state.wrongAnswers : this.state.wrongAnswers + 1,
+        wrongAnswers: isSuccess
+          ? this.state.wrongAnswers
+          : this.state.wrongAnswers + 1,
         inputBG: isSuccess ? "lightgreen" : "salmon",
         answer: isSuccess ? "correct" : "wrong",
       });
@@ -138,7 +138,7 @@ class LearningWords extends Component {
             setWordDifficulty(word, "hard")
           ),
           hardWords: this.state.hardWords + 1,
-          correctAnswers: this.state.correctAnswers + 1
+          correctAnswers: this.state.correctAnswers + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -149,7 +149,7 @@ class LearningWords extends Component {
             setWordDifficulty(word, "normal")
           ),
           normalWords: this.state.normalWords + 1,
-          correctAnswers: this.state.correctAnswers + 1
+          correctAnswers: this.state.correctAnswers + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -160,7 +160,7 @@ class LearningWords extends Component {
             setWordDifficulty(word, "easy")
           ),
           easyWords: this.state.easyWords + 1,
-          correctAnswers: this.state.correctAnswers + 1
+          correctAnswers: this.state.correctAnswers + 1,
         });
         this.removeWordFromQueue();
         break;
@@ -256,11 +256,15 @@ class LearningWords extends Component {
       informationPicture,
       informationTranscription,
       informationExample,
+      btnComplicated,
+      btnDelete,
+      btnShow
     } = this.props.settings.optional;
 
     let { history } = this.props;
     let currentWord = words.length ? words[0] : null;
     console.log(this.state);
+    console.log(this.props);
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
@@ -370,38 +374,38 @@ class LearningWords extends Component {
           >
             Настройки
           </Button>
-          {levelButtons && (
-            <div className="learning-words-wrapper__difficulty">
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="0"
-                  checked={difficulty === "0"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Повтор
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="4"
-                  checked={difficulty === "4"}
-                  onChange={(e) => this.radioSelect(e)}
-                />
-                Удалить
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="5"
-                  checked={difficulty === "5"}
-                  onChange={(e) => this.radioSelectSkip(e)}
-                />
-                Пропустить
-              </label>
+          <div className="learning-words-wrapper__difficulty">
+          {btnComplicated &&<label>
+              <input
+                type="radio"
+                name="difficulty"
+                value="0"
+                checked={difficulty === "0"}
+                onChange={(e) => this.radioSelect(e)}
+              />
+              Повтор
+            </label>}
+            {btnDelete && <label>
+              <input
+                type="radio"
+                name="difficulty"
+                value="4"
+                checked={difficulty === "4"}
+                onChange={(e) => this.radioSelect(e)}
+              />
+              Удалить
+            </label>}
+            {btnShow && <label>
+              <input
+                type="radio"
+                name="difficulty"
+                value="5"
+                checked={difficulty === "5"}
+                onChange={(e) => this.radioSelectSkip(e)}
+              />
+              Пропустить
+            </label>}
+            {levelButtons && (
               <label>
                 <input
                   type="radio"
@@ -412,6 +416,8 @@ class LearningWords extends Component {
                 />
                 Сложно
               </label>
+            )}
+            {levelButtons && (
               <label>
                 <input
                   type="radio"
@@ -422,6 +428,8 @@ class LearningWords extends Component {
                 />
                 Нормально
               </label>
+            )}
+            {levelButtons && (
               <label>
                 <input
                   type="radio"
@@ -432,8 +440,8 @@ class LearningWords extends Component {
                 />
                 Легко
               </label>
-            </div>
-          )}
+            )}
+          </div>
           <div className="learning-words-wrapper__controls">
             <Button
               className="memo-btn answer-btn"

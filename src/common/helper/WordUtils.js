@@ -23,56 +23,13 @@ export function convertDictionaryToUserWord(word, wordProps = userWordDefault) {
 export const setWordDifficulty = (word, difficulty) => {
   console.log("Получено слово:", word);
   let convertedWord = word.userWord ? word : convertDictionaryToUserWord(word);
-  switch (difficulty) {
-    case "hard": {
       return {
         ...convertedWord,
         userWord: {
           ...convertedWord.userWord,
           difficulty,
-          optional: {
-            ...convertedWord.userWord.optional,
-            showDate:
-              convertedWord.userWord.optional.showDate +
-              hardWordTimeMultiplier * timeBase,
-          },
         },
       };
-    }
-    case "normal": {
-      return {
-        ...convertedWord,
-        userWord: {
-          ...convertedWord.userWord,
-          difficulty,
-          optional: {
-            ...convertedWord.userWord.optional,
-            showDate:
-              convertedWord.userWord.optional.showDate +
-              normalWordTimeMultiplier * timeBase,
-          },
-        },
-      };
-    }
-    case "easy": {
-      return {
-        ...convertedWord,
-        userWord: {
-          ...convertedWord.userWord,
-          difficulty,
-          optional: {
-            ...convertedWord.userWord.optional,
-            showDate:
-              convertedWord.userWord.optional.showDate +
-              easyWordTimeMultiplier * timeBase,
-          },
-        },
-      };
-    }
-    default: {
-      return convertedWord;
-    }
-  }
 };
 
 export const setWordDeleted = (word) => {
