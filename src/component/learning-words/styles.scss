@@ -33,8 +33,6 @@
     border-radius: 8px;
     color: black;
 
-
-
     .sound,
     .sound:focus {
         margin-left: 40px;
@@ -60,6 +58,9 @@
         flex-wrap: wrap;
     }
 
+    .word-input {
+        margin: 0 5px;
+    }
 
     .translate,
     .transcrption,

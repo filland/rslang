@@ -51,7 +51,7 @@ class Menu extends Component {
                     <Link to="/savanna">
                       <i className="icon-menu icon-menu_savanna"></i>
                       <span className="nav-text">
-                        Саванна
+                        Savannah
               </span>
                     </Link>
 
