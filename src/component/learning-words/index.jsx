@@ -49,6 +49,7 @@ class LearningWords extends Component {
     repeatedWords: 0,
     deletedWords: 0,
     volume: 0.2,
+    statInfo: ''
   };
 
   componentDidMount() {
@@ -86,7 +87,7 @@ class LearningWords extends Component {
       this.state.learnedWords.length === this.state.numberOfWords &&
       !this.state.showStat
     ) {
-      this.setState({ showStat: true });
+      this.setState({ showStat: true, statInfo: this.getStatisticsData() });
     }
   }
 
@@ -248,6 +249,7 @@ class LearningWords extends Component {
       input,
       inputBG,
       showStat,
+      statInfo
     } = this.state;
 
     let {
@@ -263,8 +265,6 @@ class LearningWords extends Component {
 
     let { history } = this.props;
     let currentWord = words.length ? words[0] : null;
-    console.log(this.state);
-    console.log(this.props);
     return (
       <div className="learning-words-wrapper">
         <label className="learning-words-wrapper__progress">
@@ -362,7 +362,7 @@ class LearningWords extends Component {
               )}
             </div>
           ) : (
-            <Statistics data={this.getStatisticsData()} />
+            <Statistics data={statInfo} />
           )
         ) : (
           <div>Loading data... Please wait.</div>
