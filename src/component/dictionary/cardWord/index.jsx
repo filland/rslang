@@ -7,10 +7,13 @@ import {
   Card, ListGroup, ListGroupItem, Col,
 } from 'react-bootstrap';
 import fetchUserWords, { updateOldUserWords } from '../../common/word/user-word/service';
+import { GIT_URL_WORD } from '../constants';
 
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
-import { formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty } from '../utils';
+import {
+  formatDateInWord, getDiffUpdatedDateToNowDays, nameDifficulty, getVolume,
+} from '../utils';
 
 const propTypes = {
   word: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -44,23 +47,28 @@ class Cardword extends Component {
 
   playAudio = () => {
     if (this.audioRef.current) {
+      this.audioRef.current.volume = this.formVolume();
       this.audioRef.current.play();
     }
   };
 
   playAudioMeaning = () => {
     if (this.audioMeaningRef.current) {
+      this.audioMeaningRef.current.volume = this.formVolume();
       this.audioMeaningRef.current.play();
     }
   };
 
   playAudioExample = () => {
     if (this.audioExampleRef.current) {
+      this.audioExampleRef.current.volume = this.formVolume();
       this.audioExampleRef.current.play();
     }
   };
 
   formDifficulty = () => nameDifficulty(this.props.word.userWord.difficulty);
+
+  formVolume = () => getVolume(this.props.settings.optional.volumeValue);
 
   render() {
     const { word, restoreButton, settings } = this.props;
@@ -70,7 +78,7 @@ class Cardword extends Component {
       <Col xs={12} sm={6} md={4} >
         <Card bg="Light" className="wordCard my-4 text-center">
           {settings.optional.informationPicture
-            && <Card.Img variant="top" src={`data:image/jpg;base64,${word.image}`} className="mx-auto" />
+            && <Card.Img variant="top" src={`${GIT_URL_WORD}${word.image}`} className="mx-auto" />
           }
           <Card.Body>
             <Card.Title>{word.word}</Card.Title>
@@ -82,26 +90,29 @@ class Cardword extends Component {
               settings.optional.informationTranscription
               && <Card.Text>
                 {word.transcription}&nbsp;
-              <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-                <audio src={`data:audio/mpeg;base64,${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
+                <audio src={`${GIT_URL_WORD}${word.audio}`} ref={this.audioRef} />
               </Card.Text>
             }
           </Card.Body>
           <ListGroup className="list-group-flush">
             {settings.optional.informationDescription
               && <ListGroupItem>
-                {word.textMeaning}&nbsp;
+                {word.textMeaning.replace(/<\/?[^>]+(>|$)/g, '')}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-                <audio src={`data:audio/mpeg;base64,${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} />
               </ListGroupItem>
+            }
+
+            {settings.optional.informationDescription
               && <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
             }
 
             {settings.optional.informationExample
               && <ListGroupItem>
-                {word.textExample}&nbsp;
+                {word.textExample.replace(/<\/?[^>]+(>|$)/g, '')}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-                <audio src={`data:audio/mpeg;base64,${word.audioExample}`} ref={this.audioExampleRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioExample}`} ref={this.audioExampleRef} />
               </ListGroupItem>
             }
             <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
@@ -122,7 +133,7 @@ class Cardword extends Component {
             </div>
           </Card.Footer>
         </Card >
-      </Col>
+      </Col >
     );
   }
 }
