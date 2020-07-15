@@ -3,13 +3,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 import './style.scss';
 
-// const data = [
-//   { label: 'Карточек завершено:', value: 30 },
-//   { label: 'Правильные ответы, %:', value: 23 },
-//   { label: 'Новые слова:', value: 10 },
-//   { label: 'Самая длинная серия правильных ответов:', value: 75 },
-// ];
-
 export default class Statistics extends React.Component {
   render() {
     const { data } = this.props;
