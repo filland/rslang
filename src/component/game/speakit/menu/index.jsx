@@ -34,14 +34,16 @@ class Menu extends Component {
     const options = Array
       .from({ length: 6 }, (v, i) => i + 1)
       .map((val, i) => <Dropdown.Item key={val} eventKey={i + 1}>{i + 1}</Dropdown.Item>);
-    return (<div className="speakit-menu-wrapper">
-      <h3>SpeakIt mini-game</h3>
-      <div className="speakit-menu">
-        <Button variant="primary" onClick={this.startGame}>Start</Button>
-        <div>Current difficulty: {difficultyLevel}</div>
-        <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
-          {options}
-        </DropdownButton>
+    return (<div className="speakit-menu-container">
+      <div className="speakit-menu-wrapper">
+        <h3>SpeakIt mini-game</h3>
+        <div className="speakit-menu">
+          <Button variant="primary" onClick={this.startGame}>Start</Button>
+          <div>Current difficulty: {difficultyLevel}</div>
+          <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
+            {options}
+          </DropdownButton>
+        </div>
       </div>
     </div>);
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -11,7 +11,7 @@ import {
 import { isAuthorized } from '../../common/utils/TokenUtils';
 import loginUser from './service';
 
-import './styles.css';
+import './styles.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Login extends Component {
     const { loginUser, history } = this.props;
     loginUser(email, password, () => {
       if (isAuthorized()) {
-        history.push('/main-page');
+        history.push('/');
       }
     });
   }
@@ -38,21 +38,22 @@ class Login extends Component {
   render() {
     const { isError } = this.props;
     return (
-      <Form className='login-form' onSubmit={this.handleUserLogin}>
-        <h3>Login page</h3>
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" ref={this.emailInput} placeholder="Enter email" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" ref={this.passwordInput} placeholder="Password" />
-        </Form.Group>
-        {isError && (<div><Form.Label className="error-label">Email or password is wrong</Form.Label></div>)}
-        <Button variant="primary" type="submit">
-          Login
+      <div className="login-container">
+        <Form className='login-form' onSubmit={this.handleUserLogin}>
+          <h3>Login</h3>
+          <p>or <Link to="/registration">create a new account</Link></p>
+          <Form.Group>
+            <Form.Control type="email" ref={this.emailInput} placeholder="Email" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control type="password" ref={this.passwordInput} placeholder="Password" />
+          </Form.Group>
+          {isError && (<div><Form.Label className="error-label">Email or password is wrong</Form.Label></div>)}
+          <Button variant="primary" type="submit" style={{ width: '100%' }}>
+            Login
         </Button>
-      </Form>
+        </Form>
+      </div>
     );
   }
 }

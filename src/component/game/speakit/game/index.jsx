@@ -68,6 +68,8 @@ class Game extends Component {
       }
     });
 
+    // gameFinished = true;
+
     if (gameFinished) {
       const { setUserStatistics, setCurrentPage, passDictionaryWordsToUserWords } = this.props;
       setUserStatistics(preparedWords.length, newWordsNumber);
@@ -89,12 +91,23 @@ class Game extends Component {
     const { preparedWords } = this.state;
     for (let i = 0; i < preparedWords.length; i += 1) {
       const word = preparedWords[i];
-      if (word.userWord) {
-        const showDate = new Date();
-        // show the word in 3 days
-        showDate.setDate(showDate.getDate() + 3);
-        word.userWord.optional.showDate = showDate.getTime();
+      if (!word.userWord) {
+        word.userWord = {
+          difficulty: 'normal',
+          optional: {
+            counter: 1,
+            group: word.group,
+            createdDate: Date.now(),
+            updatedDate: Date.now(),
+            showDate: Date.now(),
+            deleted: false,
+          },
+        };
       }
+      const showDate = new Date();
+      // show the word in 3 days
+      showDate.setDate(showDate.getDate() + 3);
+      word.userWord.optional.showDate = showDate.getTime();
     }
   }
 

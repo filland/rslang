@@ -39,7 +39,7 @@
 .buttonStart {
     width: 300px;
     height: 50px;
-    background: radial-gradient(circle, darken(#9bceda, 10%), #5C9EAD, #2a4c53, #132225);
+    background: #5C9EAD;
     border-radius: 7px;
     border: none;
     color: #fff;
@@ -78,7 +78,7 @@
     height: 100%;
 }
 
-.btn-group {
+.btn-group-common {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,24 +92,23 @@
     box-shadow: 5px 5px 2px #ccc;
     transition: ease-in-out .3s;
     margin-right: 10px;
-    z-index: 2;
 }
 
-.btn-group:hover {
+.btn-group-common:hover {
     cursor: pointer;
     box-shadow: 6px 6px 2px rgb(180, 179, 179);
     transition: ease-in-out .3s;
 }
 
-.btn-group:active {
+.btn-group-common:active {
     width: 120px;
     box-shadow: none;
     transition: ease-in-out .3s;
 }
 
-.btn-group:active,
-.btn-group:focus,
-.btn-group {
+.btn-group-common:active,
+.btn-group-common:focus,
+.btn-group-common {
     outline: none;
 }
 
