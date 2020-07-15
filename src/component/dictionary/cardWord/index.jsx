@@ -74,7 +74,7 @@ class Cardword extends Component {
     const { word, restoreButton, settings } = this.props;
     const difficulty = this.formDifficulty();
 
-    console.log(settings);
+    console.log(word);
     return (
       <Col xs={12} sm={6} md={4} >
         <Card bg="Light" className="wordCard my-4 text-center">
@@ -99,7 +99,7 @@ class Cardword extends Component {
           <ListGroup className="list-group-flush">
             {settings.optional.informationDescription
               && <ListGroupItem>
-                {word.textMeaning}&nbsp;
+                {word.textMeaning.replace(/<\/?[^>]+(>|$)/g, '')}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
                 <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} />
               </ListGroupItem>
@@ -111,7 +111,7 @@ class Cardword extends Component {
 
             {settings.optional.informationExample
               && <ListGroupItem>
-                {word.textExample}&nbsp;
+                {word.textExample.replace(/<\/?[^>]+(>|$)/g, '')}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
                 <audio src={`${GIT_URL_WORD}${word.audioExample}`} ref={this.audioExampleRef} />
               </ListGroupItem>
@@ -134,7 +134,7 @@ class Cardword extends Component {
             </div>
           </Card.Footer>
         </Card >
-      </Col>
+      </Col >
     );
   }
 }

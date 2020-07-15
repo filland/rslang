@@ -36,8 +36,6 @@ export function nameDifficulty(difficultyString) {
 }
 
 export function getVolume(volume) {
-    console.log(volume);
-
     if (volume) {
         const result = (volume / 20).toFixed(2);
         return result;
