@@ -61,7 +61,7 @@ class Menu extends Component {
                     <Link to="/audioChallenge">
                       <i className="icon-menu icon-menu_audio-challenge"></i>
                       <span className="nav-text">
-                      Audio challenge
+                        Audio challenge
                 </span>
                     </Link>
                   </li>
@@ -121,7 +121,7 @@ class Menu extends Component {
                   </li>
                   <li className="has-subnav">
                     <Link to="/team">
-                      <i className="icon-menu icon-menu_statistics"></i>
+                      <i className="icon-menu icon-menu_team"></i>
                       <span className="nav-text">
                         Our team
             </span>
