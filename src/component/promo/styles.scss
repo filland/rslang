@@ -192,3 +192,34 @@ $color_grey_dark: #a2a2a2;
     max-width: 900px;
   }
 }
+
+.info {
+  width: 80%;
+  margin: 1rem auto;
+}
+.green-list {
+  padding-left: 0;
+}
+
+.green-list li {
+  list-style: none;
+  position: relative;
+  padding-left: 25px;
+  padding-bottom: 5px;
+
+  &:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url("./images/tick.svg");
+    background-size: cover;
+    background-position: center;
+    left: 0;
+    top: 10%;
+  }
+}
+
+@media (min-width: 640px) {
+  width: 90%;
+}
