@@ -10,7 +10,7 @@ const Promo = () => (
     <section className="game">
       <div className="game-card">
         <div className="meta">
-          <div className="photo speakit"></div>
+          <div className="game-card_photo speakit"></div>
           <div className="details">
           </div>
         </div>
@@ -32,7 +32,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo english-puzzle"></div>
+          <div className="game-card_photo english-puzzle"></div>
           <div className="details">
           </div>
         </div>
@@ -54,7 +54,7 @@ const Promo = () => (
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo savanna"></div>
+          <div className="game-card_photo savanna"></div>
           <div className="details">
           </div>
         </div>
@@ -76,7 +76,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo audio-challenge"></div>
+          <div className="game-card_photo audio-challenge"></div>
           <div className="details">
           </div>
         </div>
@@ -98,7 +98,7 @@ const Promo = () => (
 
       <div className="game-card">
         <div className="meta">
-          <div className="photo sprint"></div>
+          <div className="game-card_photo sprint"></div>
           <div className="details">
           </div>
         </div>
@@ -120,7 +120,7 @@ const Promo = () => (
 
       <div className="game-card alt">
         <div className="meta">
-          <div className="photo own"></div>
+          <div className="game-card_photo own"></div>
           <div className="details">
           </div>
         </div>
