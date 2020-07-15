@@ -7,6 +7,7 @@ import {
   Card, ListGroup, ListGroupItem, Col,
 } from 'react-bootstrap';
 import fetchUserWords, { updateOldUserWords } from '../../common/word/user-word/service';
+import { GIT_URL_WORD } from '../constants';
 
 import playImg from '../assets/images/audioPlayWord.png';
 import './styles.scss';
@@ -70,7 +71,7 @@ class Cardword extends Component {
       <Col xs={12} sm={6} md={4} >
         <Card bg="Light" className="wordCard my-4 text-center">
           {settings.optional.informationPicture
-            && <Card.Img variant="top" src={`data:image/jpg;base64,${word.image}`} className="mx-auto" />
+            && <Card.Img variant="top" src={`${GIT_URL_WORD}${word.image}`} className="mx-auto" />
           }
           <Card.Body>
             <Card.Title>{word.word}</Card.Title>
@@ -83,7 +84,7 @@ class Cardword extends Component {
               && <Card.Text>
                 {word.transcription}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudio} />
-                <audio src={`data:audio/mpeg;base64,${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audio}`} ref={this.audioRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </Card.Text>
             }
           </Card.Body>
@@ -92,7 +93,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textMeaning}&nbsp;
             <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioMeaning} />
-                <audio src={`data:audio/mpeg;base64,${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioMeaning}`} ref={this.audioMeaningRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </ListGroupItem>
               && <ListGroupItem>{word.textMeaningTranslate}</ListGroupItem>
             }
@@ -101,7 +102,7 @@ class Cardword extends Component {
               && <ListGroupItem>
                 {word.textExample}&nbsp;
               <img src={playImg} width="25" height="25" alt="play" onClick={this.playAudioExample} />
-                <audio src={`data:audio/mpeg;base64,${word.audioExample}`} ref={this.audioExampleRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
+                <audio src={`${GIT_URL_WORD}${word.audioExample}`} ref={this.audioExampleRef} volume={settings.optional.volumeValue ? settings.optional.volumeValue : 1} />
               </ListGroupItem>
             }
             <ListGroupItem>{word.textExampleTranslate}</ListGroupItem>
