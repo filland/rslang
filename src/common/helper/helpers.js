@@ -39,6 +39,7 @@ export const transformNewWordsArrayToCorrectType = (newWords) => {
   const newWordsString = JSON.stringify(newWords);
   const copyNewWords = JSON.parse(newWordsString);
   const arrayOfNewUserWords = [];
+  const millisecondsInDay = 86400000;
   copyNewWords.forEach((word) => {
     const diff = word.userWord.difficulty;
     const nextShowDate = selectNextShowDateByDifficulty(diff);
@@ -49,7 +50,7 @@ export const transformNewWordsArrayToCorrectType = (newWords) => {
         createdDate: Date.now(),
         deleted: word.userWord ? word.userWord.optional.deleted : false,
         group: word.group,
-        showDate: nextShowDate,
+        showDate: word.userWord ? nextShowDate : Date.now() + millisecondsInDay*3,
         updatedDate: Date.now(),
       },
     };
