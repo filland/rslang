@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +10,7 @@ import {
   isLoading, isError, isLoaded, getError,
 } from './selectors';
 import registerUser from './service';
+import { isAuthorized } from '../../common/utils/TokenUtils';
 
 import './styles.scss';
 
@@ -33,8 +35,12 @@ class Registration extends Component {
     const email = this.emailInput.current.value;
     const password = this.passwordInput.current.value;
 
-    const { registerUser } = this.props;
-    registerUser(email, password);
+    const { registerUser, history } = this.props;
+    registerUser(email, password, () => {
+      if (isAuthorized()) {
+        history.push('/');
+      }
+    });
   }
 
   render() {
@@ -75,4 +81,7 @@ const mapDispatchToProps = {
 
 Registration.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(Registration);

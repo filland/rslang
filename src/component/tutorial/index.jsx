@@ -1,9 +1,16 @@
 import React from "react";
 import { Component } from "react";
+import Button from 'react-bootstrap/Button';
+import { withRouter } from 'react-router-dom';
 
 import "./styles.scss";
 
 class Tutorial extends Component {
+  navigateToMemorizer = () => {
+    const { history } = this.props;
+    history.push('/learning');
+  }
+
   render() {
     return (
       <div className="tutorial-wrapper">
@@ -40,9 +47,10 @@ class Tutorial extends Component {
         </p>
         <hr />
         <p>Удачи в обучении!</p>
+        <Button style={{ backgroundColor: '#ffd86f', color: 'black' }} onClick={this.navigateToMemorizer}>Перейти к игре</Button>
       </div>
     );
   }
 }
 
-export default Tutorial;
+export default withRouter(Tutorial);

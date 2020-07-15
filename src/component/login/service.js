@@ -35,7 +35,7 @@ const loginUser = (email, password, callback) => async (dispatch) => {
   }
 };
 
-export const defaultUserLoginForSendingData = (email, password) => async (dispatch) => {
+export const defaultUserLoginForSendingData = (email, password, callback) => async (dispatch) => {
   try {
     dispatch(loginRequest());
     const userData = {
@@ -54,6 +54,7 @@ export const defaultUserLoginForSendingData = (email, password) => async (dispat
     setJwtToken(parsedResponse.token);
     setUserId(parsedResponse.userId);
     dispatch(loginSuccess());
+    callback();
     await dispatch(setDefaultUserSettings());
     await dispatch(setDefaultUserStatistics());
     dispatch(fetchData());

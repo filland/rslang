@@ -1,7 +1,7 @@
 import { registrationRequest, registrationSuccess, registrationFail } from './actions';
 import { defaultUserLoginForSendingData } from '../login/service';
 
-const registerUser = (email, password) => async (dispatch) => {
+const registerUser = (email, password, callback) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
 
@@ -21,7 +21,7 @@ const registerUser = (email, password) => async (dispatch) => {
 
     if (response.ok) {
       dispatch(registrationSuccess());
-      dispatch(defaultUserLoginForSendingData(email, password));
+      dispatch(defaultUserLoginForSendingData(email, password, callback));
     } else {
       dispatch(registrationFail('Email or password is invalid'));
     }
