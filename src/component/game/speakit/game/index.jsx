@@ -68,7 +68,7 @@ class Game extends Component {
       }
     });
 
-    gameFinished = true;
+    // gameFinished = true;
 
     if (gameFinished) {
       const { setUserStatistics, setCurrentPage, passDictionaryWordsToUserWords } = this.props;
