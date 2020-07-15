@@ -35,14 +35,28 @@ class Menu extends Component {
       .from({ length: 6 }, (v, i) => i + 1)
       .map((val, i) => <Dropdown.Item key={val} eventKey={i + 1}>{i + 1}</Dropdown.Item>);
     return (<div className="speakit-menu-container">
-      <div className="speakit-menu-wrapper">
-        <h3>SpeakIt mini-game</h3>
-        <div className="speakit-menu">
-          <Button variant="primary" onClick={this.startGame}>Start</Button>
-          <div>Current difficulty: {difficultyLevel}</div>
-          <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
-            {options}
-          </DropdownButton>
+      <div className="speakit-menu-inner-container">
+        <div className="speakit-rules">
+          <div className="description">
+            <h1>SpeakIt</h1>
+            <h2>Приложение для проверки произношения</h2>
+            <p>
+              <ul>
+                <li>Слова выводятся на страницу группами по 10 слов. Возле каждого слова отображается транскрипция и иконка аудио.</li>
+                <li>При клике по слову звучит его произношение, выводятся картинка и перевод.</li>
+                <li>Произнесённые пользователем слова распознаются и отображаются в текстовом виде. Проверка правильности произношения происходит путём сравнения распознанного текста с написанием слова.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <div className="speakit-menu-wrapper">
+          <div className="speakit-menu">
+            <Button variant="primary" onClick={this.startGame}>Start</Button>
+            <div>Current difficulty: {difficultyLevel}</div>
+            <DropdownButton id="dropdown-basic-button" title="Change difficulty" onSelect={this.setDifficulty}>
+              {options}
+            </DropdownButton>
+          </div>
         </div>
       </div>
     </div>);
