@@ -2,13 +2,13 @@ const selectNextShowDateByDifficulty = (diff) => {
   const millisecondsInDay = 86400000;
   let nextShowDate;
   if (diff = 'easy') {
-    nextShowDate = Date.now() + millisecondsInDay;
+    nextShowDate = Date.now() + millisecondsInDay*7;
   }
-  else if (diff = 'normal') {
+  if (diff = 'normal') {
     nextShowDate = Date.now() + millisecondsInDay*3;
   }
-  else if (diff = 'hard') {
-    nextShowDate = Date.now() + millisecondsInDay*7;
+  if (diff = 'hard') {
+    nextShowDate = Date.now() + millisecondsInDay;
   }
   return nextShowDate;
 } 
